@@ -3,16 +3,25 @@ import App from "./App";
 import { Route } from "react-router-dom";
 import "./index.css";
 import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import { Root } from "./reducers/RootReducer";
+import { Root } from "./reducers/root";
 import thunk from "redux-thunk";
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import { Provider } from "react-redux";
+import { getDataList, updateData } from "./actions/dataOperations";
 
 export default class AppRouter extends Component {
   constructor(props) {
     super(props);
-    this.store = createStore(Root, composeEnhancers(applyMiddleware(thunk)));
+    this.store = createStore(Root, applyMiddleware(thunk));
+    this.store.dispatch(getDataList("Interest"));
+    // const part = "Interest";
+    // const data = {
+    //   id: 33,
+    //   student: "shreyansh(s)",
+    //   topics: "sdfsa"
+    // };
+    // const del = true;
+
+    // this.store.dispatch(updateData(part, data, del));
   }
 
   render() {
