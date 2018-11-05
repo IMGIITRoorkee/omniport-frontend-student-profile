@@ -46,11 +46,17 @@ export default class InterestList extends React.Component {
     });
     return (
       <div>
-        <h2>Interest</h2>
+        <div styleName="heading">
+          Interest
+          <Button.Group>
+            <Button icon="plus" onClick={this.handleShow} />
+          </Button.Group>
+        </div>
+
         <Dimmer.Dimmable as={Segment} dimmed={active}>
           {children}
 
-          <Dimmer active={active} onClickOutside={this.handleHide}>
+          <Dimmer active={active} inverted onClickOutside={this.handleHide}>
             <InterestForm
               postData={this.props.postData}
               handleHide={this.handleHide}
@@ -60,9 +66,6 @@ export default class InterestList extends React.Component {
             <Button icon="minus" onClick={this.handleHide} />
           </Dimmer>
         </Dimmer.Dimmable>
-        <Button.Group>
-          <Button icon="plus" onClick={this.handleShow} />
-        </Button.Group>
       </div>
     );
   }

@@ -7,8 +7,11 @@ export default function Interest(props) {
     <div>
       <p>
         {props.data.topics}
-        <Icon name="paw" onClick={() => props.manageData(props.data.id)} />
-        <Icon name="delete" />
+        <Icon
+          name="paw"
+          size="large"
+          onClick={() => props.manageData(props.data.id)}
+        />
       </p>
     </div>
   );

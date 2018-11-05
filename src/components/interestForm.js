@@ -45,7 +45,7 @@ class InterestForm extends React.Component {
       <div>
         <Form>
           <Form.Field>
-            <label style={{ color: "white" }}>Topics</label>
+            <label>Topics</label>
             <Input onChange={this.handleChange} value={this.state.topics} />
           </Form.Field>
           <Button onClick={this.handleSubmit}>Submit</Button>
