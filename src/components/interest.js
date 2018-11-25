@@ -1,17 +1,14 @@
 import React from "react";
 import "./../index.css";
-import { Icon } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 
-export default function Interest(props) {
+export function Interest(props) {
   return (
-    <div>
+    <div style={{ border: "2px solid red" }}>
       <p>
-        {props.data.topics}
-        <Icon
-          name="paw"
-          size="large"
-          onClick={() => props.manageData(props.data.id)}
-        />
+        Topic : {props.data.topic}
+        <br />
+        <Button onClick={() => props.manageData(props.data.id)}>Update</Button>
       </p>
     </div>
   );

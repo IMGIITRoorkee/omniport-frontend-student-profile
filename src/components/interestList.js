@@ -1,6 +1,6 @@
 import React from "react";
-import Interest from "./interest";
-import InterestForm from "./interestForm";
+import { Interest } from "./interest";
+import { InterestForm } from "./interestForm";
 import {
   Button,
   Dimmer,
@@ -9,63 +9,86 @@ import {
   Image,
   Segment
 } from "semantic-ui-react";
+import axios from "axios";
 
-export default class InterestList extends React.Component {
+export class InterestList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null };
+    this.state = { update: false, active: false, formData: null, data: null };
     this.handleHide = this.handleHide.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.manageData = this.manageData.bind(this);
   }
   handleShow() {
-    this.setState({ active: true });
+    this.setState({
+      active: true,
+      formData: { name: "", id: -1 },
+      update: false
+    });
   }
   handleHide() {
     this.setState({ active: false, update: false });
   }
   manageData(id) {
     this.setState({
-      formData: this.props.data.find(x => x.id == id),
+      formData: this.state.data.find(x => x.id == id),
       update: true,
       active: true
     });
   }
+  addData = data => {
+    const oldData = this.state.data;
+    this.setState({ data: [...oldData, data] });
+  };
+  fetchData = e => {
+    const self = this;
+    axios
+      .get("/api/student_profile/interest/")
+      .then(function(response) {
+        self.setState({ data: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
   componentDidMount() {
-    this.props.getDataList();
+    this.fetchData();
   }
 
   render() {
     const { active } = this.state;
-    const data_array = this.props.data;
-    let that = this;
-    const children = data_array.map(function(data) {
-      return (
-        <Interest data={data} key={data.id} manageData={that.manageData} />
-      );
-    });
+
+    console.log(this.state.active);
+    let data_array = null;
+    let children = null;
+    if (this.state.data) {
+      let that = this;
+      console.log(this.state.data);
+      children = this.state.data.map(function(data) {
+        return (
+          <Interest data={data} key={data.id} manageData={that.manageData} />
+        );
+      });
+    }
+    console.log(this.state.active);
     return (
-      <div>
-        <div styleName="heading">
+      <div style={{ border: "solid 2px black" }}>
+        <div>
           Interest
           <Button.Group>
             <Button icon="plus" onClick={this.handleShow} />
           </Button.Group>
         </div>
-
-        <Dimmer.Dimmable as={Segment} dimmed={active}>
-          {children}
-
-          <Dimmer active={active} inverted onClickOutside={this.handleHide}>
-            <InterestForm
-              postData={this.props.postData}
-              handleHide={this.handleHide}
-              update={this.state.update}
-              formData={this.state.formData}
-            />
-            <Button icon="minus" onClick={this.handleHide} />
-          </Dimmer>
-        </Dimmer.Dimmable>
+        <Dimmer active={active}>
+          <InterestForm
+            handleHide={this.handleHide}
+            update={this.state.update}
+            formData={this.state.formData}
+            addData={this.addData}
+            fetchData={this.fetchData}
+          />
+        </Dimmer>
+        {children}
       </div>
     );
   }

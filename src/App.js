@@ -1,21 +1,32 @@
 import React, { Component } from "react";
 
-import { AppHeader, AppFooter } from "formula_one";
-
-import "./App.css";
-import { InterestListC } from "./containers/interestListC";
+import { AppHeader, AppFooter, AppMain } from "formula_one";
+import app from "./stylesheets/app.css";
+import { InterestList } from "./components/interestList";
 const creators = [
   {
-    name: "Dhruv Bhanushali",
+    name: "Mahip Jain",
     role: "Mentor"
   },
   {
-    name: "Gaurav Kumar",
-    role: "Frontend Developer"
+    name: "Dhruv Bhanushali",
+    role: "Backend Mentor"
   },
   {
     name: "Praduman Goyal",
-    role: "Frontend Developer"
+    role: "Frontend Mentor"
+  },
+  {
+    name: "Gaurav Kumar",
+    role: "Frontend Mentor"
+  },
+  {
+    name: "Ajay Neethi",
+    role: "Developer"
+  },
+  {
+    name: "Shreyansh Jain",
+    role: "Developer"
   }
 ];
 class App extends Component {
@@ -24,22 +35,19 @@ class App extends Component {
   }
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100%"
-        }}
-      >
+      <div styleName="app.wrapper">
         <AppHeader
           appName="SHP"
           appLogo={false}
           appLink={`http://${window.location.host}`}
           userDropdown
         />
-
-        <InterestListC />
-        <AppFooter creators={creators} />
+        <AppMain>
+          <div styleName="app.app-content">
+            <InterestList />
+          </div>
+        </AppMain>
+        <AppFooter creators={creators} styleName="app.footer" />
       </div>
     );
   }
