@@ -8,16 +8,14 @@ export class InterestForm extends React.Component {
     this.state = {
       data: { topic: "", id: -1 }
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(e) {
+  handleChange = e => {
     const target = e.target;
     const value = target.value;
     const name = target.name;
     this.setState({ data: { ...this.state.data, [name]: value } });
-  }
-  handleSubmit(event) {
+  };
+  handleSubmit = e => {
     console.log(this.state.data);
     let self = this;
     let headers = {
@@ -38,8 +36,8 @@ export class InterestForm extends React.Component {
       });
     });
 
-    event.preventDefault();
-  }
+    e.preventDefault();
+  };
   handleUpdateDelete = (e, option) => {
     console.log(this.state.data);
     let self = this;

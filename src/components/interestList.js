@@ -10,25 +10,22 @@ import {
   Segment
 } from "semantic-ui-react";
 import axios from "axios";
-
 export class InterestList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { update: false, active: false, formData: null, data: null };
-    this.handleHide = this.handleHide.bind(this);
-    this.handleShow = this.handleShow.bind(this);
     this.manageData = this.manageData.bind(this);
   }
-  handleShow() {
+  handleShow = e => {
     this.setState({
       active: true,
       formData: { name: "", id: -1 },
       update: false
     });
-  }
-  handleHide() {
+  };
+  handleHide = e => {
     this.setState({ active: false, update: false });
-  }
+  };
   manageData(id) {
     this.setState({
       formData: this.state.data.find(x => x.id == id),
@@ -36,10 +33,6 @@ export class InterestList extends React.Component {
       active: true
     });
   }
-  addData = data => {
-    const oldData = this.state.data;
-    this.setState({ data: [...oldData, data] });
-  };
   fetchData = e => {
     const self = this;
     axios
@@ -75,16 +68,13 @@ export class InterestList extends React.Component {
       <div style={{ border: "solid 2px black" }}>
         <div>
           Interest
-          <Button.Group>
-            <Button icon="plus" onClick={this.handleShow} />
-          </Button.Group>
+          <Button icon="plus" onClick={this.handleShow} />
         </div>
         <Dimmer active={active}>
           <InterestForm
             handleHide={this.handleHide}
             update={this.state.update}
             formData={this.state.formData}
-            addData={this.addData}
             fetchData={this.fetchData}
           />
         </Dimmer>
