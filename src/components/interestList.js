@@ -2,14 +2,13 @@ import React from "react";
 import { Interest } from "./interest";
 import { InterestForm } from "./interestForm";
 import {
-  Button,
   Dimmer,
-  Header,
   Icon,
-  Image,
-  Segment
+  Container
 } from "semantic-ui-react";
 import axios from "axios";
+import style from "../stylesheets/interestList.css";
+
 export class InterestList extends React.Component {
   constructor(props) {
     super(props);
@@ -65,10 +64,10 @@ export class InterestList extends React.Component {
     }
     console.log(this.state.active);
     return (
-      <div style={{ border: "solid 2px black" }}>
-        <div>
-          Interest
-          <Button icon="plus" onClick={this.handleShow} />
+      <Container styleName="style.listBox" >
+        <div styleName="style.headingBox">
+          <h3 styleName="style.heading">INTERESTS</h3>
+          <Icon circular color="grey" name="add" onClick={this.handleShow} />
         </div>
         <Dimmer active={active}>
           <InterestForm
@@ -79,7 +78,7 @@ export class InterestList extends React.Component {
           />
         </Dimmer>
         {children}
-      </div>
+      </Container>
     );
   }
 }

@@ -3,6 +3,7 @@ import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
+
 export class InterestForm extends React.Component {
   constructor(props) {
     super(props);

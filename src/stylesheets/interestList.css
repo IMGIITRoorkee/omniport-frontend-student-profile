@@ -1,0 +1,14 @@
+.headingBox{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:1%;
+}
+.heading{
+    margin:0;
+}
+
+.listBox{
+    width:70%;
+    padding:2.5%;
+}
