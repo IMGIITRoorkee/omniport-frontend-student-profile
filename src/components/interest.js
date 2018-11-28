@@ -4,7 +4,7 @@ import { Button } from "semantic-ui-react";
 
 export function Interest(props) {
   return (
-    <div style={{ border: "2px solid red" }}>
+    <div >
       <p>
         Topic : {props.data.topic}
         <br />

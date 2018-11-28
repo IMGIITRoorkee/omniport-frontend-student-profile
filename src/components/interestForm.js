@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Input, Button } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
+import style from "../stylesheets/interestForm.css";
 export class InterestForm extends React.Component {
   constructor(props) {
     super(props);
@@ -79,9 +80,19 @@ export class InterestForm extends React.Component {
   }
   render() {
     return (
-      <div>
-        <Form>
-          <Form.Field>
+      <div styleName="style.formStyle" >
+      <div styleName="style.headingBox">
+      <span>
+      <Icon color="blue" name="stop"/>
+      <h4 styleName="style.heading">INTERESTS</h4>
+      </span>
+   
+      <Icon  bordered name="cancel" color="black" onClick={this.props.handleHide}/>
+      </div>
+       
+        <Form styleName="style.form" >
+          <Form.Field >
+            
             <label>Topic</label>
             <Input
               onChange={this.handleChange}
@@ -90,20 +101,22 @@ export class InterestForm extends React.Component {
               placeholder="Add interest ..."
             />
           </Form.Field>
+          </Form>
           {this.props.update ? (
-            <span>
-              <Button onClick={e => this.handleUpdateDelete(e, "put")}>
-                Save Changes
-              </Button>
+            <div styleName="style.bottomBar">
+              
               <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
                 Delete
               </Button>
-            </span>
+              <Button  primary onClick={e => this.handleUpdateDelete(e, "put")}>
+                Save Changes
+              </Button>
+            </div>
           ) : (
-            <Button onClick={this.handleSubmit}>Submit</Button>
+            <div styleName="style.bottomBar"><Button primary onClick={this.handleSubmit}>Submit</Button></div>
           )}
-          <Button onClick={this.props.handleHide}>Cancel (close dimmer)</Button>
-        </Form>
+         
+        
       </div>
     );
   }

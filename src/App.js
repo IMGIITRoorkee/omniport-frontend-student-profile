@@ -21,7 +21,7 @@ const creators = [
     role: "Frontend Mentor"
   },
   {
-    name: "Ajay Neethi",
+    name: "Ajay Neethi Kannan",
     role: "Developer"
   },
   {
@@ -45,6 +45,7 @@ class App extends Component {
         <AppMain>
           <div styleName="app.app-content">
             <InterestList />
+
           </div>
         </AppMain>
         <AppFooter creators={creators} styleName="app.footer" />
