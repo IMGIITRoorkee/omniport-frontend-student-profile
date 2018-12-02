@@ -1,11 +1,7 @@
 import React from "react";
 import { Interest } from "./interest";
 import { InterestForm } from "./interestForm";
-import {
-  Dimmer,
-  Icon,
-  Container
-} from "semantic-ui-react";
+import { Dimmer, Icon, Container } from "semantic-ui-react";
 import axios from "axios";
 import style from "../stylesheets/interestList.css";
 
@@ -64,7 +60,7 @@ export class InterestList extends React.Component {
     }
     console.log(this.state.active);
     return (
-      <Container styleName="style.listBox" >
+      <Container styleName="style.listBox">
         <div styleName="style.headingBox">
           <h3 styleName="style.heading">INTERESTS</h3>
           <Icon circular color="grey" name="add" onClick={this.handleShow} />
@@ -77,6 +73,7 @@ export class InterestList extends React.Component {
             fetchData={this.fetchData}
           />
         </Dimmer>
+
         {children}
       </Container>
     );
