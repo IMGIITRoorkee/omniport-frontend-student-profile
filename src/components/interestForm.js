@@ -81,43 +81,50 @@ export class InterestForm extends React.Component {
   }
   render() {
     return (
-      <div styleName="style.formStyle" >
-      <div styleName="style.headingBox">
-      <span>
-      <Icon color="blue" name="stop"/>
-      <h4 styleName="style.heading">INTERESTS</h4>
-      </span>
-   
-      <Icon  bordered name="cancel" color="black" onClick={this.props.handleHide}/>
-      </div>
-       
-        <Form styleName="style.form" >
-          <Form.Field >
-            
-            <label>Topic</label>
-            <Input
+      <div styleName="style.formStyle">
+        <div styleName="style.headingBox">
+          <span>
+            <Icon color="blue" name="stop" />
+            <h4 styleName="style.heading">INTERESTS</h4>
+          </span>
+
+          <Icon
+            bordered
+            name="cancel"
+            color="black"
+            onClick={this.props.handleHide}
+          />
+        </div>
+
+        <Form styleName="style.form">
+          <Form.Field>
+            <Form.Input
+              fluid
+              label="Topic"
               onChange={this.handleChange}
               value={this.state.data.topic}
               name="topic"
               placeholder="Add interest ..."
             />
           </Form.Field>
-          </Form>
-          {this.props.update ? (
-            <div styleName="style.bottomBar">
-              
-              <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                Delete
-              </Button>
-              <Button  primary onClick={e => this.handleUpdateDelete(e, "put")}>
-                Save Changes
-              </Button>
-            </div>
-          ) : (
-            <div styleName="style.bottomBar"><Button primary onClick={this.handleSubmit}>Submit</Button></div>
-          )}
-         
-        
+        </Form>
+
+        {this.props.update ? (
+          <div styleName="style.bottomBar">
+            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+              Delete
+            </Button>
+            <Button primary onClick={e => this.handleUpdateDelete(e, "put")}>
+              Save Changes
+            </Button>
+          </div>
+        ) : (
+          <div styleName="style.bottomBar">
+            <Button primary onClick={this.handleSubmit}>
+              Submit
+            </Button>
+          </div>
+        )}
       </div>
     );
   }
