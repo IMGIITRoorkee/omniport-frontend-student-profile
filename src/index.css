@@ -1,3 +1,8 @@
 body{
     background-color: rgba(255, 255, 255, 0.87);
 }
+
+/* <div styleName="style.headingBox">
+<h3 styleName="style.heading">INTERESTS</h3>
+<Icon circular color="grey" name="add" onClick={this.handleShow} />
+</div>*/

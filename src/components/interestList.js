@@ -65,10 +65,7 @@ export class InterestList extends React.Component {
     console.log(this.state.active);
     return (
       <Container styleName="style.listBox" >
-        <div styleName="style.headingBox">
-          <h3 styleName="style.heading">INTERESTS</h3>
-          <Icon circular color="grey" name="add" onClick={this.handleShow} />
-        </div>
+       
         <Dimmer active={active}>
           <InterestForm
             handleHide={this.handleHide}
