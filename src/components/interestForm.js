@@ -4,70 +4,19 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
 
+const initial = {
+  update:false,
+  data: { topic: "", id: -1 }
+}
 export class InterestForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: { topic: "", id: -1 }
+      data: initial.data
     };
   }
-  handleChange = e => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({ data: { ...this.state.data, [name]: value } });
-  };
-  handleSubmit = e => {
-    console.log(this.state.data);
-    let self = this;
-    let headers = {
-      "X-CSRFToken": getCookie("csrftoken")
-    };
-    console.log(this.state.data);
-    axios({
-      method: "post",
-      url: "/api/student_profile/interest/",
-      data: this.state.data,
-      headers: headers
-    }).then(function(response) {
-      self.props.fetchData();
-      self.props.handleHide();
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
-    });
-
-    e.preventDefault();
-  };
-  handleUpdateDelete = (e, option) => {
-    console.log(this.state.data);
-    let self = this;
-    let headers = {
-      "X-CSRFToken": getCookie("csrftoken")
-    };
-    console.log(this.state.data);
-    axios({
-      method: option,
-      url: "/api/student_profile/interest/" + this.state.data.id + "/",
-      data: this.state.data,
-      headers: headers
-    }).then(function(response) {
-      console.log(response);
-      self.props.fetchData();
-      self.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
-      self.props.handleHide();
-    });
-
-    e.preventDefault();
-  };
-
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
-      console.log(nextProps);
       this.setState({
         data: nextProps.formData,
         update: nextProps.update
@@ -79,6 +28,56 @@ export class InterestForm extends React.Component {
       });
     }
   }
+  handleChange = e => {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({ data: { ...this.state.data, [name]: value } });
+  };
+  handleSubmit = e => {
+    let headers = {
+      "X-CSRFToken": getCookie("csrftoken")
+    };
+    axios({
+      method: "post",
+      url: "/api/student_profile/interest/",
+      data: this.state.data,
+      headers: headers
+    }).then((response)=> {
+      this.props.fetchData();
+      // console.log(this.props.appendData)
+      this.props.appendDate(response.data);
+      this.props.handleHide();
+      this.setState({
+        data: { topic: "", id: -1 },
+        update: false
+      });
+    });
+
+    e.preventDefault();
+  };
+  handleUpdateDelete = (e, option) => {
+    let headers = {
+      "X-CSRFToken": getCookie("csrftoken")
+    };
+    axios({
+      method: option,
+      url: "/api/student_profile/interest/" + this.state.data.id + "/",
+      data: this.state.data,
+      headers: headers
+    }).then((response)=> {
+      this.props.fetchData();
+      this.setState({
+        data: { topic: "", id: -1 },
+        update: false
+      });
+      this.props.handleHide();
+    });
+
+    e.preventDefault();
+  };
+
+
   render() {
     return (
       <div styleName="style.formStyle">
