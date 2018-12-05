@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Segment, Header } from "semantic-ui-react";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
+import { InternshipList } from "./components/internshipList";
 const creators = [
   {
     name: "Mahip Jain",
@@ -12,12 +14,13 @@ const creators = [
     name: "Dhruv Bhanushali",
     role: "Backend Mentor"
   },
+
   {
-    name: "Praduman Goyal",
+    name: "Gaurav Kumar",
     role: "Frontend Mentor"
   },
   {
-    name: "Gaurav Kumar",
+    name: "Praduman Goyal",
     role: "Frontend Mentor"
   },
   {
@@ -37,15 +40,22 @@ class App extends Component {
     return (
       <div styleName="app.wrapper">
         <AppHeader
-          appName="SHP"
+          appName="student_profile"
           appLogo={false}
           appLink={`http://${window.location.host}`}
           userDropdown
         />
         <AppMain>
           <div styleName="app.app-content">
+            <Segment attached="top">
+              <Segment basic>
+                <Header as="h2">About me</Header>
+                Electrical Engineering undergraduate, exploring Web Development
+                and having an interest in Mathematics.
+              </Segment>
+            </Segment>
             <InterestList />
-
+            <InternshipList />
           </div>
         </AppMain>
         <AppFooter creators={creators} styleName="app.footer" />

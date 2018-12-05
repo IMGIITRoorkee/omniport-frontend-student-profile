@@ -1,13 +1,14 @@
 import React from "react";
 import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
+import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
 
-const initial = {
-  update:false,
+export const initial = {
+  update: false,
   data: { topic: "", id: -1 }
-}
+};
 export class InterestForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,7 @@ export class InterestForm extends React.Component {
         update: nextProps.update
       });
     } else if (this.props != nextProps && nextProps.update == false) {
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
+      this.setState(initial);
     }
   }
   handleChange = e => {
@@ -34,6 +32,7 @@ export class InterestForm extends React.Component {
     const name = target.name;
     this.setState({ data: { ...this.state.data, [name]: value } });
   };
+
   handleSubmit = e => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
@@ -43,15 +42,10 @@ export class InterestForm extends React.Component {
       url: "/api/student_profile/interest/",
       data: this.state.data,
       headers: headers
-    }).then((response)=> {
-      this.props.fetchData();
-      // console.log(this.props.appendData)
-      this.props.appendDate(response.data);
+    }).then(response => {
+      this.props.appendData(response.data);
       this.props.handleHide();
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
+      this.setState(initial);
     });
 
     e.preventDefault();
@@ -65,8 +59,8 @@ export class InterestForm extends React.Component {
       url: "/api/student_profile/interest/" + this.state.data.id + "/",
       data: this.state.data,
       headers: headers
-    }).then((response)=> {
-      this.props.fetchData();
+    }).then(response => {
+      this.props.updateDeleteData(this.state.data, option);
       this.setState({
         data: { topic: "", id: -1 },
         update: false
@@ -76,7 +70,6 @@ export class InterestForm extends React.Component {
 
     e.preventDefault();
   };
-
 
   render() {
     return (
