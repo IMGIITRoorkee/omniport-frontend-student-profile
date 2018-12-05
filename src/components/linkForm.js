@@ -1,20 +1,27 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Dropdown, Container } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
 
 const initial = {
   update:false,
-  data: { topic: "", id: -1 }
+  data: { site:'Github', url:'', id: -1 }
 }
-export class InterestForm extends React.Component {
+const options = [
+  {key:'Github', text:'Github', value:'Github'},
+  {key:'Facebook', text:'Facebook', value:'Facebook'},
+  {key:'LinkedIn', text:'LinkedIn', value:'LinkedIn'},
+  {key:'Other Website', text:'Other Website', value:'Other Website'}
+]
+export class LinkForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: initial.data
     };
   }
+  
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -28,11 +35,20 @@ export class InterestForm extends React.Component {
       });
     }
   }
+  onChange = (event, data) =>
+  {
+    const {value} = data;
+    this.setState({data:{...this.state.data, site:value}});
+    
+
+  }
   handleChange = e => {
     const target = e.target;
     const value = target.value;
     const name = target.name;
+    console.log(e.target);
     this.setState({ data: { ...this.state.data, [name]: value } });
+    console.log(this.state.data);
   };
   handleSubmit = e => {
     let headers = {
@@ -40,7 +56,7 @@ export class InterestForm extends React.Component {
     };
     axios({
       method: "post",
-      url: "/api/student_profile/interest/",
+      url: "/api/student_profile/social_link/",
       data: this.state.data,
       headers: headers
     }).then((response)=> {
@@ -52,9 +68,9 @@ export class InterestForm extends React.Component {
         update: false
       });
     });
+    e.preventF-Default();
+  }
 
-    e.preventDefault();
-  };
   handleUpdateDelete = (e, option) => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
@@ -74,16 +90,17 @@ export class InterestForm extends React.Component {
     });
 
     e.preventDefault();
-  };
+  }
 
 
   render() {
+    console.log(this.state.data);
     return (
       <div styleName="style.formStyle">
         <div styleName="style.headingBox">
           <span>
             <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">INTERESTS</h4>
+            <h4 styleName="style.heading">SOCIAL MEDIA LINKS</h4>
           </span>
 
           <Icon
@@ -95,34 +112,27 @@ export class InterestForm extends React.Component {
         </div>
 
         <Form styleName="style.form">
+        <Form.Group inline>
+         <Form.Field>
+           <label>Site</label>
+          <Dropdown  selection defaultValue='Github'  name="site" onChange={this.onChange} options={options}/>
+          </Form.Field>
           <Form.Field>
             <Form.Input
-              fluid
-              label="Topic"
+              label="URL"
               onChange={this.handleChange}
               value={this.state.data.topic}
-              name="topic"
+              name="url"
               placeholder="Add interest ..."
             />
           </Form.Field>
+          
+          </Form.Group>
+          
         </Form>
 
-        {this.props.update ? (
-          <div styleName="style.bottomBar">
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-              Delete
-            </Button>
-            <Button primary onClick={e => this.handleUpdateDelete(e, "put")}>
-              Save Changes
-            </Button>
-          </div>
-        ) : (
-          <div styleName="style.bottomBar">
-            <Button primary onClick={this.handleSubmit}>
-              Submit
-            </Button>
-          </div>
-        )}
+        
+    
       </div>
     );
   }

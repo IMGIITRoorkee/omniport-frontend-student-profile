@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
+import { ProfileForm } from "./components/profileForm";
+import { LinkForm } from "./components/linkForm";
 const creators = [
   {
     name: "Mahip Jain",
@@ -44,7 +46,8 @@ class App extends Component {
         />
         <AppMain>
           <div styleName="app.app-content">
-            <InterestList />
+           
+            <LinkForm/>
 
           </div>
         </AppMain>

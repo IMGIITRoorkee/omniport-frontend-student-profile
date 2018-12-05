@@ -14,7 +14,7 @@ export function Interest(props) {
         <List.Icon name='stop circle outline' color='blue'/>
         <List.Content>
           <b>{props.data.topic}</b><br/>
-        </List.Content>
+                  </List.Content>
       </List.Item>
       </List> 
       

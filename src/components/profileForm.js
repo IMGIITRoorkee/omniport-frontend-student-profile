@@ -6,9 +6,14 @@ import style from "../stylesheets/interestForm.css";
 
 const initial = {
   update:false,
-  data: { topic: "", id: -1 }
-}
-export class InterestForm extends React.Component {
+  data: { handle:'',
+          description:'',
+          customWebsite:false,
+          resume:null
+        }
+};
+
+export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,13 +40,18 @@ export class InterestForm extends React.Component {
     this.setState({ data: { ...this.state.data, [name]: value } });
   };
   handleSubmit = e => {
+    let data = new FormData();
+    data.append('handle', this.state.data.handle);
+    data.append('description', this.state.data.description);
+    data.append('resume', this.state.data.resume);
+
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
     axios({
       method: "post",
-      url: "/api/student_profile/interest/",
-      data: this.state.data,
+      url: "/api/student_profile/profile/",
+      data: data,
       headers: headers
     }).then((response)=> {
       this.props.fetchData();
@@ -61,7 +71,7 @@ export class InterestForm extends React.Component {
     };
     axios({
       method: option,
-      url: "/api/student_profile/interest/" + this.state.data.id + "/",
+      url: "/api/student_profile/profile/",
       data: this.state.data,
       headers: headers
     }).then((response)=> {
@@ -76,6 +86,13 @@ export class InterestForm extends React.Component {
     e.preventDefault();
   };
 
+  handleFile = (event) =>
+  {
+      this.setState({
+        data:{...this.state.data, resume:event.target.files[0]}
+      });
+
+  }
 
   render() {
     return (
@@ -98,10 +115,31 @@ export class InterestForm extends React.Component {
           <Form.Field>
             <Form.Input
               fluid
-              label="Topic"
+              label="Handle"
               onChange={this.handleChange}
               value={this.state.data.topic}
-              name="topic"
+              name="handle"
+              placeholder="Change your handle"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Form.TextArea
+              fluid
+              label="Description"
+              onChange={this.handleChange}
+              value={this.state.data.topic}
+              name="description"
+              placeholder="Describe yourself"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Form.Input
+              fluid
+              type="file"
+              label="Upload your Resume"
+              onChange={this.handleFile}
+              value={this.state.data.topic}
+              name="resume"
               placeholder="Add interest ..."
             />
           </Form.Field>
