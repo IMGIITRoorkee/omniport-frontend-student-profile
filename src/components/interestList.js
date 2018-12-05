@@ -73,9 +73,8 @@ export class InterestList extends React.Component {
       handleHide,
       handleShow
     } = this;
-
-    let data_array = null;
-    let children = null;
+    let data_array;
+    let children;
     if (data) {
       // console.log(data);
       children = data.map(data => {
@@ -85,7 +84,7 @@ export class InterestList extends React.Component {
       });
     }
     return (
-      <Segment attached="bottom" padded styleName="style.listBox">
+      <Segment padded attached="bottom">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Interests</Header>
           <Icon color="grey" name="add" onClick={handleShow} />

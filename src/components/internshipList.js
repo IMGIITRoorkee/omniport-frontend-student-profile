@@ -36,19 +36,17 @@ export class InternshipList extends React.Component {
   };
   manageData = id => {
     console.log("manage data is called");
-    this.setState(
-      {
-        formData: this.state.data.find(x => x.id == id),
-        update: true,
-        active: true
-      },
-      () => console.log(this.state.formData)
-    );
+    this.setState({
+      formData: this.state.data.find(x => x.id == id),
+      update: true,
+      active: true
+    });
   };
   appendData = item => {
     this.setState({ data: [item, ...this.state.data] });
   };
   updateDeleteData = (item, option) => {
+    console.log("update data called");
     const data_array = this.state.data;
     if (option == "delete") {
       const newData = data_array.filter(obj =>
@@ -81,8 +79,8 @@ export class InternshipList extends React.Component {
       handleShow
     } = this;
 
-    let data_array = null;
-    let children = null;
+    let data_array;
+    let children;
     if (data) {
       let that = this;
       children = data.map(function(data) {
@@ -91,10 +89,9 @@ export class InternshipList extends React.Component {
         );
       });
     }
-    console.log(formData);
     return (
       // why use container
-      <Segment padded styleName="style.listBox">
+      <Segment padded>
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Internships</Header>
           <Icon color="grey" name="add" onClick={handleShow} />

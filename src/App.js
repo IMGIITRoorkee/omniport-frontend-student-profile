@@ -24,6 +24,10 @@ const creators = [
     role: "Frontend Mentor"
   },
   {
+    name: "Darshan Kumawat",
+    role: "Designer"
+  },
+  {
     name: "Ajay Neethi Kannan",
     role: "Developer"
   },

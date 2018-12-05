@@ -1,17 +1,5 @@
-/* .info-heading{
-    display:flex;
-    justify-content: space-between;
-
-} */
 .flex-box {
-  /* border: 2px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between
-}
-.list-icon {
-}
-.content {
-}
-.edit-icon {
 }

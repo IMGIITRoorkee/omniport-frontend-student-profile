@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -72,52 +72,53 @@ export class InterestForm extends React.Component {
   };
 
   render() {
+    const { update } = this.state;
     return (
-      <div styleName="style.formStyle">
-        <div styleName="style.headingBox">
-          <span>
-            <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">INTERESTS</h4>
-          </span>
-
-          <Icon
+      <Segment basic styleName="style.formStyle">
+        <Segment attached="top">
+          {/* <Icon color="blue" name="stop" /> */}
+          <h4>INTEREST</h4>
+        </Segment>
+        {/* <Icon
             bordered
             name="cancel"
             color="black"
             onClick={this.props.handleHide}
-          />
-        </div>
+          /> */}
 
-        <Form styleName="style.form">
-          <Form.Field>
-            <Form.Input
-              fluid
-              label="Topic"
-              onChange={this.handleChange}
-              value={this.state.data.topic}
-              name="topic"
-              placeholder="Add interest ..."
-            />
-          </Form.Field>
-        </Form>
+        <Segment attached>
+          <Form autoComplete="off">
+            <Form.Field>
+              <Form.Input
+                label="Topic"
+                onChange={this.handleChange}
+                value={this.state.data.topic}
+                name="topic"
+                placeholder="Topic"
+              />
+            </Form.Field>
 
-        {this.props.update ? (
-          <div styleName="style.bottomBar">
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-              Delete
-            </Button>
-            <Button primary onClick={e => this.handleUpdateDelete(e, "put")}>
-              Save Changes
-            </Button>
-          </div>
-        ) : (
-          <div styleName="style.bottomBar">
-            <Button primary onClick={this.handleSubmit}>
-              Submit
-            </Button>
-          </div>
-        )}
-      </div>
+            {update ? (
+              <span>
+                <Button
+                  onClick={e => this.handleUpdateDelete(e, "put")}
+                  color="blue"
+                >
+                  Save Changes
+                </Button>
+                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+                  Delete
+                </Button>
+              </span>
+            ) : (
+              <Button onClick={this.handleSubmit} color="blue" type="submit">
+                Submit
+              </Button>
+            )}
+            <Button onClick={this.props.handleHide}>Cancel</Button>
+          </Form>
+        </Segment>
+      </Segment>
     );
   }
 }

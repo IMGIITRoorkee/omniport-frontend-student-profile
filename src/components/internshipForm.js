@@ -4,9 +4,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/internshipForm.css";
 import { DateInput } from "semantic-ui-calendar-react";
-function camelToUnderscore(key) {
-  return key.replace(/([A-Z])/g, "_$1").toLowerCase();
-}
+
 export const initial = {
   update: false,
   data: {
@@ -50,23 +48,16 @@ export class InternshipForm extends React.Component {
       "X-CSRFToken": getCookie("csrftoken")
     };
     //converting to snake case for sending
-    const newObject = {};
-    const original = this.state.data;
-    for (var camel in original) {
-      newObject[camelToUnderscore(camel)] = original[camel];
-    }
-
     axios({
       method: "post",
       url: "/api/student_profile/experience/",
-      data: newObject,
+      data: this.state.data,
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
       this.props.handleHide();
       this.setState(initial);
     });
-
     e.preventDefault();
   };
   handleUpdateDelete = (e, option) => {
@@ -74,19 +65,13 @@ export class InternshipForm extends React.Component {
       "X-CSRFToken": getCookie("csrftoken")
     };
     //converting to snake case for sending
-    const newObject = {};
-    const original = this.state.data;
-    for (var camel in original) {
-      newObject[camelToUnderscore(camel)] = original[camel];
-    }
-
     axios({
       method: option,
       url: "/api/student_profile/experience/" + this.state.data.id + "/",
-      data: newObject,
+      data: this.state.data,
       headers: headers
     }).then(response => {
-      this.props.updateDeleteData(original, option);
+      this.props.updateDeleteData(this.state.data, option);
       this.setState(initial);
       this.props.handleHide();
     });
@@ -99,9 +84,9 @@ export class InternshipForm extends React.Component {
     const { update } = this.state;
     return (
       <Segment basic styleName="style.formStyle">
-        <Segment attached="top" styleName="style.headingBox">
+        <Segment attached="top">
           {/* <Icon color="blue" name="stop" /> */}
-          <h4 styleName="style.heading">EXPERIENCE</h4>
+          <h4>INTERNSHIP</h4>
         </Segment>
         {/* <Icon
             bordered
@@ -110,13 +95,10 @@ export class InternshipForm extends React.Component {
             onClick={this.props.handleHide}
           /> */}
 
-        {/* <Form styleName="style.form"> */}
-
         <Segment attached>
           <Form autoComplete="off">
             <Form.Field>
               <Form.Input
-                // fluid
                 label="Position"
                 onChange={this.handleChange}
                 value={this.state.data.position}
@@ -126,7 +108,6 @@ export class InternshipForm extends React.Component {
             </Form.Field>
             <Form.Field>
               <Form.Input
-                // fluid
                 label="Organisation"
                 onChange={this.handleChange}
                 value={this.state.data.organisation}

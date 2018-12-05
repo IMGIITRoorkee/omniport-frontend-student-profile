@@ -7,14 +7,14 @@ export function Internship(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <Segment basic styleName="style.content">
+        <Segment basic>
           {props.data.position} - <b>{props.data.organisation}</b>
           <p>
             {props.data.startDate} - {props.data.endDate}
           </p>
           <p>{props.data.description}</p>
         </Segment>
-        <div styleName="style.edit-icon">
+        <div>
           <Icon
             name="edit"
             color="grey"
@@ -22,21 +22,6 @@ export function Internship(props) {
           />
         </div>
       </div>
-      {/* <div styleName="style.flex-box">
-        <div styleName="style.list-icon">
-          <Icon name="stop circle outline" color="blue" />
-        </div>
-
-        <div styleName="style.content">{props.data.position}</div>
-
-        <div styleName="style.edit-icon">
-          <Icon
-            name="compose"
-            color="grey"
-            onClick={() => props.manageData(props.data.id)}
-          />
-        </div>
-      </div> */}
     </Segment>
   );
 }
