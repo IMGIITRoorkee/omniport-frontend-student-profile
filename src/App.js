@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Segment, Header } from "semantic-ui-react";
+import {
+  Segment,
+  Header,
+  Container,
+  Grid,
+  GridColumn,
+  Icon,
+  Image,
+  Card
+} from "semantic-ui-react";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
@@ -50,7 +59,26 @@ class App extends Component {
           userDropdown
         />
         <AppMain>
-          <div styleName="app.app-content">
+          <Container as={Segment} basic>
+            <Grid stackable>
+              <Grid.Row>
+                <Grid.Column width={4}>{CardExampleCard}</Grid.Column>
+                <Grid.Column width={12}>
+                  <Segment attached="top">
+                    <Segment basic>
+                      <Header as="h2">About me</Header>
+                      Electrical Engineering undergraduate, exploring Web
+                      Development and having an interest in Mathematics.
+                    </Segment>
+                  </Segment>
+                  <InterestList />
+                  <InternshipList />
+                  <InternshipList />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+          {/* <div styleName="app.app-content">
             <Segment attached="top">
               <Segment basic>
                 <Header as="h2">About me</Header>
@@ -60,7 +88,7 @@ class App extends Component {
             </Segment>
             <InterestList />
             <InternshipList />
-          </div>
+          </div> */}
         </AppMain>
         <AppFooter creators={creators} styleName="app.footer" />
       </div>
@@ -69,3 +97,25 @@ class App extends Component {
 }
 
 export default App;
+
+const CardExampleCard = (
+  <Card>
+    {/* <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" /> */}
+    <Image src="http://localhost:3000/media/kernel/display_pictures/10be0ac9-5dc3-4698-a113-c87e0ab2a088.png" />
+    <Card.Content>
+      <Card.Header>Matthew</Card.Header>
+      <Card.Meta>
+        <span className="date">Joined in 2015</span>
+      </Card.Meta>
+      <Card.Description>
+        Matthew is a musician living in Nashville.
+      </Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+        <Icon name="user" />
+        22 Friends
+      </a>
+    </Card.Content>
+  </Card>
+);
