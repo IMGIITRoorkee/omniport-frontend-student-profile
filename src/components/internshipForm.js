@@ -24,7 +24,8 @@ export class InternshipForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: initial.data
+      data: this.props.formData,
+      update: this.props.update
     };
   }
   componentWillUpdate(nextProps, nextState) {

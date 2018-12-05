@@ -13,11 +13,12 @@ export class InterestForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: initial.data
+      data: this.props.formData,
+      update: this.props.update
     };
   }
   componentWillUpdate(nextProps, nextState) {
-    if (this.props != nextProps && nextProps.update == true) {
+    if (this.props != nextProps && nextProps.update != false) {
       this.setState({
         data: nextProps.formData,
         update: nextProps.update
@@ -73,6 +74,8 @@ export class InterestForm extends React.Component {
 
   render() {
     const { update } = this.state;
+    console.log("form-data", this.state.data);
+    console.log("form-update", update);
     return (
       <Segment basic styleName="style.formStyle">
         <Segment attached="top">

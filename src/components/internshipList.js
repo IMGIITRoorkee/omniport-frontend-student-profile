@@ -97,7 +97,7 @@ export class InternshipList extends React.Component {
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 
-        <Dimmer active={active}>
+        <Dimmer active={active} page>
           <InternshipForm
             update={update}
             formData={formData}
