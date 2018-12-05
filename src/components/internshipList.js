@@ -46,7 +46,7 @@ export class InternshipList extends React.Component {
     );
   };
   appendData = item => {
-    this.setState({ data: [...this.state.data, item] });
+    this.setState({ data: [item, ...this.state.data] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
