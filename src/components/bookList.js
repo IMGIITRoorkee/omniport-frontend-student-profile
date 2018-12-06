@@ -1,21 +1,14 @@
 import React from "react";
-import { Internship } from "./internship";
-import { InternshipForm } from "./internshipForm";
-import {
-  Dimmer,
-  Icon,
-  Segment,
-  Container,
-  Header,
-  Divider
-} from "semantic-ui-react";
+import { Book } from "./book";
+import { BookForm } from "./bookForm";
+import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import style from "../stylesheets/internshipList.css";
+import style from "../stylesheets/bookList.css";
 import inline from "formula_one/src/css/inline.css";
-import { initial } from "./internshipForm";
+import { initial } from "./bookForm";
 
-export class InternshipList extends React.Component {
+export class BookList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { update: false, active: false, formData: null, data: null };
@@ -25,7 +18,7 @@ export class InternshipList extends React.Component {
   }
   fetchData = e => {
     axios
-      .get("/api/student_profile/experience/")
+      .get("/api/student_profile/book/")
       .then(response => {
         this.setState({ data: response.data });
       })
@@ -80,20 +73,18 @@ export class InternshipList extends React.Component {
     let children;
     if (data) {
       children = data.map(data => {
-        return (
-          <Internship data={data} key={data.id} manageData={this.manageData} />
-        );
+        return <Book data={data} key={data.id} manageData={this.manageData} />;
       });
     }
     return (
       <Segment padded>
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Internships</Header>
+          <Header styleName="inline.margin-bottom-0">Books</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 
         <Dimmer active={active} page>
-          <InternshipForm
+          <BookForm
             update={update}
             formData={formData}
             fetchData={fetchData}

@@ -4,6 +4,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/internshipForm.css";
 import { DateInput } from "semantic-ui-calendar-react";
+import { Scrollbars } from "react-custom-scrollbars";
 
 export const initial = {
   update: false,
@@ -48,7 +49,6 @@ export class InternshipForm extends React.Component {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
-    //converting to snake case for sending
     axios({
       method: "post",
       url: "/api/student_profile/experience/",
@@ -65,7 +65,6 @@ export class InternshipForm extends React.Component {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
-    //converting to snake case for sending
     axios({
       method: option,
       url: "/api/student_profile/experience/" + this.state.data.id + "/",
@@ -81,92 +80,93 @@ export class InternshipForm extends React.Component {
   };
 
   render() {
-    console.log(this.state.data);
     const { update } = this.state;
+    const {
+      position,
+      organisation,
+      startDate,
+      endDate,
+      description
+    } = this.state.data;
     return (
       <Segment basic styleName="style.formStyle">
         <Segment attached="top">
           {/* <Icon color="blue" name="stop" /> */}
           <h4>INTERNSHIP</h4>
         </Segment>
-        {/* <Icon
-            bordered
-            name="cancel"
-            color="black"
-            onClick={this.props.handleHide}
-          /> */}
+        <Scrollbars>
+          <Segment attached>
+            <Form autoComplete="off">
+              <Form.Field required>
+                <label>Position</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={position}
+                  name="position"
+                  placeholder="Position"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label>Organisation</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={organisation}
+                  name="organisation"
+                  placeholder="Organisation"
+                />
+              </Form.Field>
 
-        <Segment attached>
-          <Form autoComplete="off">
-            <Form.Field>
-              <Form.Input
-                label="Position"
-                onChange={this.handleChange}
-                value={this.state.data.position}
-                name="position"
-                placeholder="Position"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Form.Input
-                label="Organisation"
-                onChange={this.handleChange}
-                value={this.state.data.organisation}
-                name="organisation"
-                placeholder="Organisation"
-              />
-            </Form.Field>
+              <Form.Group widths="equal" required>
+                <DateInput
+                  dateFormat="YYYY-MM-DD"
+                  label="Start Date"
+                  name="startDate"
+                  placeholder="Start Date [YYYY-MM-DD]"
+                  value={startDate}
+                  iconPosition="left"
+                  onChange={this.handleChange}
+                />
+                <DateInput
+                  dateFormat="YYYY-MM-DD"
+                  label="End Date"
+                  name="endDate"
+                  placeholder="End Date [YYYY-MM-DD]"
+                  value={endDate}
+                  iconPosition="left"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Field required>
+                <label>Description</label>
+                <Form.TextArea
+                  onChange={this.handleChange}
+                  value={description}
+                  name="description"
+                  placeholder="Description"
+                />
+              </Form.Field>
 
-            <Form.Group widths="equal">
-              <DateInput
-                dateFormat="YYYY-MM-DD"
-                label="Start Date"
-                name="startDate"
-                placeholder="Start Date [YYYY-MM-DD]"
-                value={this.state.data.startDate}
-                iconPosition="left"
-                onChange={this.handleChange}
-              />
-              <DateInput
-                dateFormat="YYYY-MM-DD"
-                label="End Date"
-                name="endDate"
-                placeholder="End Date [YYYY-MM-DD]"
-                value={this.state.data.endDate}
-                iconPosition="left"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Field>
-              <Form.TextArea
-                label="Description"
-                onChange={this.handleChange}
-                value={this.state.data.description}
-                name="description"
-                placeholder="Description"
-              />
-            </Form.Field>
-
-            {update ? (
-              <span>
-                <Button
-                  onClick={e => this.handleUpdateDelete(e, "put")}
-                  color="blue"
-                >
-                  Save Changes
+              {update ? (
+                <span>
+                  <Button
+                    onClick={e => this.handleUpdateDelete(e, "put")}
+                    color="blue"
+                  >
+                    Save Changes
+                  </Button>
+                  <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+                    Delete
+                  </Button>
+                </span>
+              ) : (
+                <Button onClick={this.handleSubmit} color="blue" type="submit">
+                  Submit
                 </Button>
-                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                  Delete
-                </Button>
-              </span>
-            ) : (
-              <Button onClick={this.handleSubmit} color="blue" type="submit">
-                Submit
-              </Button>
-            )}
-            <Button onClick={this.props.handleHide}>Cancel</Button>
-          </Form>
-        </Segment>
+              )}
+              <Button onClick={this.props.handleHide}>Cancel</Button>
+            </Form>
+          </Segment>
+        </Scrollbars>
       </Segment>
     );
   }

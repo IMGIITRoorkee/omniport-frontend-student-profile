@@ -14,6 +14,8 @@ import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
+import { BookList } from "./components/bookList";
+import { PreviousEducationList } from "./components/previousEducationList";
 const creators = [
   {
     name: "Mahip Jain",
@@ -73,22 +75,12 @@ class App extends Component {
                   </Segment>
                   <InterestList />
                   <InternshipList />
-                  <InternshipList />
+                  <BookList />
+                  <PreviousEducationList />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </Container>
-          {/* <div styleName="app.app-content">
-            <Segment attached="top">
-              <Segment basic>
-                <Header as="h2">About me</Header>
-                Electrical Engineering undergraduate, exploring Web Development
-                and having an interest in Mathematics.
-              </Segment>
-            </Segment>
-            <InterestList />
-            <InternshipList />
-          </div> */}
         </AppMain>
         <AppFooter creators={creators} styleName="app.footer" />
       </div>
@@ -99,9 +91,12 @@ class App extends Component {
 export default App;
 
 const CardExampleCard = (
-  <Card>
+  <Card fluid>
     {/* <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" /> */}
-    <Image src="http://localhost:3000/media/kernel/display_pictures/10be0ac9-5dc3-4698-a113-c87e0ab2a088.png" />
+    <Image
+      src="http://localhost:3000/media/kernel/display_pictures/10be0ac9-5dc3-4698-a113-c87e0ab2a088.png"
+      fluid
+    />
     <Card.Content>
       <Card.Header>Matthew</Card.Header>
       <Card.Meta>

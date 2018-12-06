@@ -81,15 +81,12 @@ export class InterestList extends React.Component {
     let data_array;
     let children;
     if (data) {
-      // console.log(data);
       children = data.map(data => {
         return (
           <Interest data={data} key={data.id} manageData={this.manageData} />
         );
       });
     }
-    console.log("formdata", formData);
-    console.log("update", update);
     return (
       <Segment padded attached="bottom">
         <div styleName="style.headingBox">

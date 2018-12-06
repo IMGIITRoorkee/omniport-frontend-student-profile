@@ -89,11 +89,11 @@ export class InterestForm extends React.Component {
             onClick={this.props.handleHide}
           /> */}
 
-        <Segment attached>
+        <Segment attached="bottom">
           <Form autoComplete="off">
-            <Form.Field>
-              <Form.Input
-                label="Topic"
+            <Form.Field required>
+              <label>Topic</label>
+              <Input
                 onChange={this.handleChange}
                 value={this.state.data.topic}
                 name="topic"
