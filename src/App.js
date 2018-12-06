@@ -5,6 +5,9 @@ import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
+import { LinkDisplay } from "./components/linkDisplay";
+import { LinkForm } from "./components/linkForm";
+import { Profile } from "./components/profile";
 const creators = [
   {
     name: "Mahip Jain",
@@ -56,9 +59,10 @@ class App extends Component {
             </Segment>
             <InterestList />
             <InternshipList />
+            <Profile/>
           </div>
         </AppMain>
-        <AppFooter creators={creators} styleName="app.footer" />
+        
       </div>
     );
   }

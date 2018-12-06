@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'semantic-ui-react';
+import {Segment} from 'semantic-ui-react';
 
 import {Link} from '../components/link';
 
@@ -13,15 +13,16 @@ export class LinkList extends React.Component{
 
     render()
     {
-            const {handleDelete ,data} = this.props;
+            const data = this.props.data;
+            const handleUpdateDelete = this.props.handleUpdateDelete;
             const children = Array.from(data).map(function(child, index)
             {
                 return (
-                    <Link key={index} data={child} handleDelete={handleDelete}/>
+                    <Link key={index} data={child} handleUpdateDelete={handleUpdateDelete}/>
                 );
             });
             return (
-                <Segment>{children}</Segment>
+                <div>{children}</div>
             )
     }
 }

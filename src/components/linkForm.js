@@ -1,40 +1,29 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Dropdown, Container } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Dropdown, Segment} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
+import { LinkList } from "./linkList";
 
 const initial = {
-  update:false,
-  data: { site:'Github', url:'', id: -1 }
+  data: { site:'git', url:'' }
 }
 const options = [
-  {key:'Github', text:'Github', value:'Github'},
-  {key:'Facebook', text:'Facebook', value:'Facebook'},
-  {key:'LinkedIn', text:'LinkedIn', value:'LinkedIn'},
-  {key:'Other Website', text:'Other Website', value:'Other Website'}
+  {key:'Github', text:'Github', value:'git'},
+  {key:'Facebook', text:'Facebook', value:'fac'},
+  {key:'LinkedIn', text:'LinkedIn', value:'lin'},
+  {key:'Other Website', text:'Other Website', value:'oth'}
 ]
 export class LinkForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: initial.data
+      data: initial.data,
+      links:Array.from(props.data),
     };
   }
   
-  componentWillUpdate(nextProps, nextState) {
-    if (this.props != nextProps && nextProps.update == true) {
-      this.setState({
-        data: nextProps.formData,
-        update: nextProps.update
-      });
-    } else if (this.props != nextProps && nextProps.update == false) {
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
-    }
-  }
+  
   onChange = (event, data) =>
   {
     const {value} = data;
@@ -46,9 +35,8 @@ export class LinkForm extends React.Component {
     const target = e.target;
     const value = target.value;
     const name = target.name;
-    console.log(e.target);
     this.setState({ data: { ...this.state.data, [name]: value } });
-    console.log(this.state.data);
+    
   };
   handleSubmit = e => {
     let headers = {
@@ -60,44 +48,48 @@ export class LinkForm extends React.Component {
       data: this.state.data,
       headers: headers
     }).then((response)=> {
-      this.props.fetchData();
-      this.props.appendDate(response.data);
-      this.props.handleHide();
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
+      var arr = this.state.links;
+      arr.push(response.data);
+      this.setState({links: arr, data:initial.data});
+  
+      
     });
-    e.preventF-Default();
+  
   }
 
-  handleUpdateDelete = (e, option) => {
+  handleHide = () =>
+  {
+    this.props.handleUpdate(this.state.links);
+  }
+  handleUpdateDelete = ( id) => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
+   
     axios({
-      method: option,
-      url: "/api/student_profile/interest/" + this.state.data.id + "/",
-      data: this.state.data,
+      method: 'delete',
+      url: "/api/student_profile/social_link/" + id + "/",
       headers: headers
     }).then((response)=> {
-      this.props.fetchData();
+      console.log(this.state.links);
       this.setState({
-        data: { topic: "", id: -1 },
-        update: false
+        data: initial.data,
+        links: this.state.links.filter(obj =>
+          obj.id != id ? true : false
+        ),
       });
-      this.props.handleHide();
+     
     });
 
-    e.preventDefault();
+    
   }
 
 
   render() {
-    console.log(this.state.data);
+  
     return (
-      <div styleName="style.formStyle">
-        <div styleName="style.headingBox">
+      <div>
+        <Segment attached styleName="style.headingBox">
           <span>
             <Icon color="blue" name="stop" />
             <h4 styleName="style.heading">SOCIAL MEDIA LINKS</h4>
@@ -107,33 +99,39 @@ export class LinkForm extends React.Component {
             bordered
             name="cancel"
             color="black"
-            onClick={this.props.handleHide}
+            onClick={this.handleHide}
           />
-        </div>
-
-        <Form styleName="style.form">
+        </Segment>
+      <Segment attached>
+        <Form>
         <Form.Group inline>
          <Form.Field>
            <label>Site</label>
-          <Dropdown  selection defaultValue='Github'  name="site" onChange={this.onChange} options={options}/>
+          <Dropdown  selection value={this.state.data.site} name="site" onChange={this.onChange} options={options}/>
           </Form.Field>
           <Form.Field>
             <Form.Input
               label="URL"
               onChange={this.handleChange}
-              value={this.state.data.topic}
+              value={this.state.data.url}
               name="url"
               placeholder="Add interest ..."
             />
+             
           </Form.Field>
+          <Form.Field>
           
+          </Form.Field>
+          <Icon name='add' onClick={this.handleSubmit} style={{color:'black'}}/>
           </Form.Group>
-          
+         
         </Form>
-
+        <LinkList data={this.state.links} handleUpdateDelete={this.handleUpdateDelete}/>
+        </Segment>
         
     
       </div>
     );
   }
 }
+//ad-hoc
