@@ -16,6 +16,8 @@ import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
 import { BookList } from "./components/bookList";
 import { PreviousEducationList } from "./components/previousEducationList";
+import { CurrentEducationList } from "./components/currentEducationList";
+import { AchievementList } from "./components/achievementList";
 const creators = [
   {
     name: "Mahip Jain",
@@ -74,8 +76,10 @@ class App extends Component {
                     </Segment>
                   </Segment>
                   <InterestList />
+                  <AchievementList />
                   <InternshipList />
                   <BookList />
+                  <CurrentEducationList />
                   <PreviousEducationList />
                 </Grid.Column>
               </Grid.Row>

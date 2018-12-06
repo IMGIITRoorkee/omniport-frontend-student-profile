@@ -12,7 +12,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
 
-import style from "../stylesheets/previousEducationForm.css";
+import style from "../stylesheets/currentEducationForm.css";
 import { YearInput } from "semantic-ui-calendar-react";
 
 const graduationOptions = [
@@ -27,19 +27,14 @@ const graduationOptions = [
 export const initial = {
   update: false,
   data: {
-    year: "",
-    institute: "",
-    subject: "",
-    degree: "",
-    graduation: "",
-    priority: 1,
-    visibility: true,
+    semesterNumber: "",
     cgpa: "",
-    percentage: "98",
-    is_percentage: false
+    sgpa: "",
+    priority: 1,
+    visibility: true
   }
 };
-export class PreviousEducationForm extends React.Component {
+export class CurrentEducationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +65,7 @@ export class PreviousEducationForm extends React.Component {
     };
     axios({
       method: "post",
-      url: "/api/student_profile/previous_education/",
+      url: "/api/student_profile/current_education/",
       data: this.state.data,
       headers: headers
     }).then(response => {
@@ -86,8 +81,7 @@ export class PreviousEducationForm extends React.Component {
     };
     axios({
       method: option,
-      url:
-        "/api/student_profile/previous_education/" + this.state.data.id + "/",
+      url: "/api/student_profile/current_education/" + this.state.data.id + "/",
       data: this.state.data,
       headers: headers
     }).then(response => {
@@ -101,66 +95,26 @@ export class PreviousEducationForm extends React.Component {
 
   render() {
     const { update } = this.state;
-    const {
-      year,
-      institute,
-      subject,
-      degree,
-      graduation,
-      cgpa,
-      percentage
-    } = this.state.data;
+    const { semesterNumber, sgpa, cgpa } = this.state.data;
     return (
       <Segment basic styleName="style.formStyle">
         <Segment attached="top">
-          <h4>Previous Education</h4>
+          <h4>Current Education</h4>
         </Segment>
         <Scrollbars>
           <Segment attached="bottom">
             <Form autoComplete="off">
               <Form.Group widths="equal">
                 <Form.Field required>
-                  <label>Institute</label>
-                  <Form.Input
+                  <label>Semester Number</label>
+                  <Input
+                    type="number"
                     onChange={this.handleChange}
-                    value={institute}
-                    name="institute"
-                    placeholder="Institute"
+                    value={semesterNumber}
+                    name="semesterNumber"
+                    placeholder="Semester Number"
                   />
                 </Form.Field>
-                <Form.Field required>
-                  <label>Degree</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={degree}
-                    name="degree"
-                    placeholder="Degree"
-                  />
-                </Form.Field>
-              </Form.Group>
-              <Form.Group widths="equal">
-                <Form.Field required>
-                  <label>Graduation</label>
-                  <Dropdown
-                    onChange={this.handleChange}
-                    name="graduation"
-                    options={graduationOptions}
-                    placeholder="Choose Graduation options"
-                    selection
-                    value={graduation}
-                  />
-                </Form.Field>
-                <Form.Field required>
-                  <label>Subject</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={subject}
-                    name="subject"
-                    placeholder="Subject (Ex- Science or Commerce)"
-                  />
-                </Form.Field>
-              </Form.Group>
-              <Form.Group widths="equal">
                 <Form.Field required>
                   <label>CGPA</label>
                   <Form.Input
@@ -170,28 +124,16 @@ export class PreviousEducationForm extends React.Component {
                     placeholder="CGPA"
                   />
                 </Form.Field>
-                <YearInput
-                  closable={true}
-                  popupPosition="bottom left"
-                  label="Year"
-                  name="year"
-                  placeholder="Year"
-                  value={year}
-                  iconPosition="left"
-                  onChange={this.handleChange}
-                />
+                <Form.Field required>
+                  <label>SGPA</label>
+                  <Form.Input
+                    onChange={this.handleChange}
+                    value={sgpa}
+                    name="sgpa"
+                    placeholder="SGPA"
+                  />
+                </Form.Field>
               </Form.Group>
-
-              {/* <Form.Field required>
-                <label>Graduation</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={graduation}
-                  name="graduation"
-                  placeholder="Graduation"
-                />
-              </Form.Field> */}
-
               {update ? (
                 <span>
                   <Button
