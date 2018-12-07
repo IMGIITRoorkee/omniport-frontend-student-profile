@@ -54,7 +54,7 @@ export class LinkDisplay extends React.Component{
         console.log(data);
         const children = Array.from(data).map(function(child, index)
         {
-            return (<a href={child.url}><Icon size="big" key={index} name="js" /></a>);
+            return (<a href={child.url}><Icon size="big" key={index} name={SOCIAL_SITE_ICONS[child.site]} /></a>);
         })
         return(
           <Container>
@@ -69,4 +69,24 @@ export class LinkDisplay extends React.Component{
         </Container>
         );
     }
+}
+
+const SOCIAL_SITE_ICONS = {
+    beh: 'behance',
+    blo: 'blogger',
+    dri: 'dribble',
+    fac: 'facebook',
+    fli: 'flickr',
+    git: 'github',
+    goo: 'google',
+    lin: 'linkedin',
+    med: 'medium',
+    pin: 'pinterest',
+    red: 'reddit',
+    sky: 'skype',
+    sna: 'snapchat',
+    tum: 'tumblr',
+    twi: 'twitter',
+    you: 'youtube',
+    oth: 'globe',
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/interestForm.css";
 
 const initial = {
-  update:false,
   data: { handle:'',
           description:'',
           customWebsite:false,
@@ -17,22 +16,12 @@ export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: initial.data
+      data: props.data,
+      createNew: props.createNew,
+      resumeLink: props.data.resume
     };
   }
-  componentWillUpdate(nextProps, nextState) {
-    if (this.props != nextProps && nextProps.update == true) {
-      this.setState({
-        data: nextProps.formData,
-        update: nextProps.update
-      });
-    } else if (this.props != nextProps && nextProps.update == false) {
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
-    }
-  }
+
   handleChange = e => {
     const target = e.target;
     const value = target.value;
@@ -46,61 +35,76 @@ export class ProfileForm extends React.Component {
     data.append('resume', this.state.data.resume);
 
     let headers = {
-      "X-CSRFToken": getCookie("csrftoken")
+      "X-CSRFToken": getCookie("csrftoken"),
+      "Content-type": "multipart/form-data"
     };
+    if(this.state.createNew)
+    {
     axios({
       method: "post",
       url: "/api/student_profile/profile/",
       data: data,
       headers: headers
     }).then((response)=> {
-      this.props.fetchData();
-      this.props.appendDate(response.data);
-      this.props.handleHide();
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
+      this.props.handleHide(response.data, false);
+    });
+  }
+  else{
+
+    axios({
+      method: "put",
+      url: "/api/student_profile/profile/" + this.state.data.id + "/",
+      data: data,
+      headers: headers
+    }).then((response)=> {
+
+      this.props.handleUpdate(response.data, false);
+      
     });
 
+  }
     e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = () => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
-    axios({
-      method: option,
-      url: "/api/student_profile/profile/",
-      data: this.state.data,
+    if(!this.state.createNew)
+    {axios({
+      method: 'delete',
+      url: "/api/student_profile/profile/" + this.state.data.id + "/",
       headers: headers
     }).then((response)=> {
-      this.props.fetchData();
       this.setState({
-        data: { topic: "", id: -1 },
-        update: false
+        data: response.data,
+        resumeLink: response.data.resume
       });
-      this.props.handleHide();
+      
     });
 
-    e.preventDefault();
-  };
+    
+  }
 
+  }
   handleFile = (event) =>
   {
+    console.log(event.target.value);
       this.setState({
-        data:{...this.state.data, resume:event.target.files[0]}
+        data:{...this.state.data, resume:event.target.files[0]},
+        resumeLink:event.target.value
       });
+      event.target.value = null;
 
   }
 
   render() {
     return (
-      <div styleName="style.formStyle">
-        <div styleName="style.headingBox">
+      
+<div styleName="style.profileForm">
+        <Segment attached styleName="style.headingBox">
           <span>
             <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">INTERESTS</h4>
+            <h4 styleName="style.heading">SOCIAL MEDIA LINKS</h4>
           </span>
 
           <Icon
@@ -109,59 +113,62 @@ export class ProfileForm extends React.Component {
             color="black"
             onClick={this.props.handleHide}
           />
-        </div>
-
-        <Form styleName="style.form">
+        </Segment>
+      <Segment attached textAlign="left">
+      <Form styleName="style.form">
           <Form.Field>
             <Form.Input
-              fluid
+              
               label="Handle"
               onChange={this.handleChange}
-              value={this.state.data.topic}
+              value={this.state.data.handle}
               name="handle"
               placeholder="Change your handle"
             />
           </Form.Field>
           <Form.Field>
             <Form.TextArea
-              fluid
+              
               label="Description"
               onChange={this.handleChange}
-              value={this.state.data.topic}
+              value={this.state.data.description}
               name="description"
               placeholder="Describe yourself"
             />
           </Form.Field>
-          <Form.Field>
-            <Form.Input
-              fluid
-              type="file"
-              label="Upload your Resume"
-              onChange={this.handleFile}
-              value={this.state.data.topic}
-              name="resume"
-              placeholder="Add interest ..."
-            />
-          </Form.Field>
+        
+         <Form.Field>
+         <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput" />
+          <div styleName="style.inputLabel">
+            <label htmlFor="embedpollfileinput" className="ui blue button">
+            <i className="ui upload icon"></i> 
+              Upload Resume
+            </label>
+          </div>
+
+         
+            
+         </Form.Field>
+         
+         <Form.Field>
+          <a href=  {this.state.resumeLink}>{this.state.resumeLink}</a>
+         </Form.Field>
+           
+          
+ 
         </Form>
 
-        {this.props.update ? (
-          <div styleName="style.bottomBar">
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-              Delete
-            </Button>
-            <Button primary onClick={e => this.handleUpdateDelete(e, "put")}>
-              Save Changes
-            </Button>
-          </div>
-        ) : (
-          <div styleName="style.bottomBar">
+          
+        </Segment>
+        <Segment attached="bottom" styleName="style.headingBox">
+        <Icon name="delete" circular color="red" inverted onClick={this.handleUpdateDelete}/>
             <Button primary onClick={this.handleSubmit}>
               Submit
             </Button>
-          </div>
-        )}
+          </Segment>
+    
       </div>
     );
   }
 }
+

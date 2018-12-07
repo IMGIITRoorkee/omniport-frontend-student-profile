@@ -19,9 +19,29 @@ export class Link extends React.Component
     {  //ad-hoc solution
         return (
             <Segment attached styleName="style.headingBox" >  
-                {this.props.data.url}
+                <div styleName="style.headingBox"><Icon name={SOCIAL_SITE_ICONS[this.props.data.site]}/>{this.props.data.url}</div>
             <Icon name="delete" onClick={this.handleDelete}/>
             </Segment>
         )
     }
+}
+
+const SOCIAL_SITE_ICONS = {
+    beh: 'behance',
+    blo: 'blogger',
+    dri: 'dribble',
+    fac: 'facebook',
+    fli: 'flickr',
+    git: 'github',
+    goo: 'google',
+    lin: 'linkedin',
+    med: 'medium',
+    pin: 'pinterest',
+    red: 'reddit',
+    sky: 'skype',
+    sna: 'snapchat',
+    tum: 'tumblr',
+    twi: 'twitter',
+    you: 'youtube',
+    oth: 'globe',
 }
