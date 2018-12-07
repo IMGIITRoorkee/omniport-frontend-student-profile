@@ -1,11 +1,6 @@
-.info-heading{
-    display:flex;
-    justify-content: space-between;
-
-}
-
-.field{
-    padding:20px;
-    border:1px grey solid;
-}
-
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+  }
+  

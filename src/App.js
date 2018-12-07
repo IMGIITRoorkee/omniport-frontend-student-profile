@@ -59,6 +59,7 @@ class App extends Component {
             </Segment>
             <InterestList />
             <InternshipList />
+           
             <Profile/>
           </div>
         </AppMain>

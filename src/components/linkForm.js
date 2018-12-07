@@ -134,4 +134,3 @@ export class LinkForm extends React.Component {
     );
   }
 }
-//ad-hoc

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Icon, Image} from "semantic-ui-react";
 import axios from "axios";
-
+import {getCookie} from "formula_one";
 import {LinkDisplay} from "./linkDisplay";
 
 
@@ -17,8 +17,16 @@ export class Profile extends React.Component {
   }
   fetchData = e => {
     const self = this;
+    let headers = {
+      "X-CSRFToken": getCookie("csrftoken")
+    };
     axios
-      .get("/api/student_profile/profile/")
+      .patch("/api/student_profile/profile/",
+      {
+        handle:'hello',
+        description:'hello'
+        
+      },headers)
       .then(function(response) {
         console.log(response.data);
         self.setState({ data: response.data[0] });

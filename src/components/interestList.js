@@ -17,7 +17,12 @@ import { initial } from "./interestForm";
 export class InterestList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: null };
+    this.state = {
+      update: false,
+      active: false,
+      formData: null,
+      data: null
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -40,7 +45,7 @@ export class InterestList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [...this.state.data, item] });
+    this.setState({ data: [item, ...this.state.data] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
@@ -73,9 +78,8 @@ export class InterestList extends React.Component {
       handleHide,
       handleShow
     } = this;
-
-    let data_array = null;
-    let children = null;
+    let data_array;
+    let children;
     if (data) {
       // console.log(data);
       children = data.map(data => {
@@ -84,13 +88,15 @@ export class InterestList extends React.Component {
         );
       });
     }
+    console.log("formdata", formData);
+    console.log("update", update);
     return (
-      <Segment attached="bottom" padded styleName="style.listBox">
+      <Segment padded attached="bottom">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Interests</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
-        <Dimmer active={active}>
+        <Dimmer active={active} page>
           <InterestForm
             update={update}
             formData={formData}
