@@ -4,7 +4,7 @@ import style from "../stylesheets/interest.css";
 
 export function Interest(props) {
   return (
-    <Segment basic>
+    <Segment attached>
       <div styleName="style.flex-box">
         <div>
           <Icon name="stop" size="small" color="blue" />

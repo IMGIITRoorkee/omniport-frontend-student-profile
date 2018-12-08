@@ -77,7 +77,7 @@ export class Profile extends React.Component {
     const desc = this.state.data.description;
     console.log(desc);
     return(
-      <Card>
+      <Card fluid>
          <Card.Header textAlign="right"><Icon name="write" onClick={this.handleShow}/></Card.Header>
     <Image src={this.state.person_data.displayPicture} size="medium" circular/>
     <Card.Content>

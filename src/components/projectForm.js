@@ -317,6 +317,7 @@ export class ProjectForm extends React.Component {
               <Form autoComplete="off">
                 <Form.Field>
                   <Form.Input
+                    autoFocus
                     label="Topic"
                     onChange={this.onChange}
                     value={this.state.data.topic}
