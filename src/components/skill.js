@@ -103,6 +103,7 @@ export class Skill extends React.Component {
     return(
         <Segment>
         <div styleName="style.flex-box">
+        <h3>Skills</h3>
           <Segment  basic>
             
             {additionalCourses}

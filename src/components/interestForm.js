@@ -17,6 +17,17 @@ export class InterestForm extends React.Component {
       update: this.props.update
     };
   }
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleEscape, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscape, false);
+  }
+  handleEscape = e => {
+    if (e.keyCode === 27) {
+      this.props.handleHide();
+    }
+  };
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update != false) {
       this.setState({
@@ -94,6 +105,7 @@ export class InterestForm extends React.Component {
             <Form.Field required>
               <label>Topic</label>
               <Input
+                autoFocus
                 onChange={this.handleChange}
                 value={this.state.data.topic}
                 name="topic"
@@ -114,7 +126,12 @@ export class InterestForm extends React.Component {
                 </Button>
               </span>
             ) : (
-              <Button onClick={this.handleSubmit} color="blue" type="submit">
+              <Button
+                onClick={this.handleSubmit}
+                color="blue"
+                type="submit"
+                disabled={!this.state.data.topic}
+              >
                 Submit
               </Button>
             )}

@@ -16,13 +16,13 @@ import style from "../stylesheets/previousEducationForm.css";
 import { YearInput } from "semantic-ui-calendar-react";
 
 const graduationOptions = [
-  { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
-  { text: "INTERMEDIATE", key: "INTERMEDIATE", value: "int" },
-  { text: "ASSOCIATE", key: "ASSOCIATE", value: "ass" },
-  { text: "GRADUATE", key: "GRADUATE", value: "gra" },
-  { text: "POSTGRADUATE", key: "POSTGRADUATE", value: "pos" },
-  { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
-  { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
+  { text: "Matriculate", key: "MATRICULATE", value: "mat" },
+  { text: "Intermediate", key: "INTERMEDIATE", value: "int" },
+  { text: "Associate", key: "ASSOCIATE", value: "ass" },
+  { text: "Graduate", key: "GRADUATE", value: "gra" },
+  { text: "Postgraduate", key: "POSTGRADUATE", value: "pos" },
+  { text: "Doctorate", key: "DOCTORATE", value: "doc" },
+  { text: "Postdoctorate", key: "POSTDOCTORATE", value: "pdo" }
 ];
 export const initial = {
   update: false,
@@ -46,6 +46,17 @@ export class PreviousEducationForm extends React.Component {
       data: this.props.formData,
       update: this.props.update
     };
+  }
+  componentDidMount(){
+    document.addEventListener("keydown", this.handleEscape, false);
+  }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.handleEscape, false);
+  }
+  handleEscape = e =>{
+    if (e.keyCode===27){
+      this.props.handleHide();
+    }
   }
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {

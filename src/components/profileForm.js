@@ -20,7 +20,17 @@ export class ProfileForm extends React.Component {
       resume:null
     };
   }
-
+  componentDidMount(){
+    document.addEventListener("keydown", this.handleEscape, false);
+  }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.handleEscape, false);
+  }
+  handleEscape = e =>{
+    if (e.keyCode===27){
+      this.props.handleHide();
+    }
+  }
   handleChange = e => {
     const target = e.target;
     const value = target.value;

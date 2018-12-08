@@ -29,6 +29,17 @@ export class InternshipForm extends React.Component {
       update: this.props.update
     };
   }
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleEscape, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscape, false);
+  }
+  handleEscape = e => {
+    if (e.keyCode === 27) {
+      this.props.handleHide();
+    }
+  };
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -104,6 +115,7 @@ export class InternshipForm extends React.Component {
                   value={position}
                   name="position"
                   placeholder="Position"
+                  autoFocus
                 />
               </Form.Field>
               <Form.Field required>

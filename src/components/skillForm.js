@@ -3,15 +3,16 @@ import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
-import {Resume} from "./resume";
+import { Resume } from "./resume";
 import style from "../stylesheets/interestForm.css";
 
 const initial = {
-    data:{ computerLanguages:'',
-    softwarePackages:'',
-    additionalCourses:'',
-    minorCourses:'',
-    languages:''
+  data: {
+    computerLanguages: "",
+    softwarePackages: "",
+    additionalCourses: "",
+    minorCourses: "",
+    languages: ""
   }
 };
 
@@ -20,11 +21,20 @@ export class SkillForm extends React.Component {
     super(props);
     this.state = {
       data: props.data,
-      createNew: props.createNew,
-
+      createNew: props.createNew
     };
   }
-
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleEscape, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleEscape, false);
+  }
+  handleEscape = e => {
+    if (e.keyCode === 27) {
+      this.props.handleHide();
+    }
+  };
   handleChange = e => {
     const target = e.target;
     const value = target.value;
@@ -69,18 +79,13 @@ export class SkillForm extends React.Component {
         headers: headers
       }).then(response => {
         this.setState({
-          data: response.data,
+          data: response.data
         });
       });
     }
   };
- 
-  
 
   render() {
-
-
-    
     return (
       <div styleName="style.profileForm">
         <Segment attached styleName="style.headingBox">
@@ -98,14 +103,13 @@ export class SkillForm extends React.Component {
         </Segment>
         <Segment attached textAlign="left">
           <Form styleName="style.form">
-          <Form.Field>
+            <Form.Field>
               <Form.TextArea
                 label="Additional Courses"
                 onChange={this.handleChange}
                 value={this.state.data.additionalCourses}
                 name="additionalCourses"
                 placeholder="Leave blank if none"
-              
               />
             </Form.Field>
             <Form.Field>
@@ -115,7 +119,6 @@ export class SkillForm extends React.Component {
                 value={this.state.data.computerLanguages}
                 name="computerLanguages"
                 placeholder="Leave blank if none"
-              
               />
             </Form.Field>
             <Form.Field>
@@ -125,7 +128,6 @@ export class SkillForm extends React.Component {
                 value={this.state.data.softwarePackages}
                 name="softwarePackages"
                 placeholder="Leave blank if none"
-              
               />
             </Form.Field>
             <Form.Field>
@@ -135,7 +137,6 @@ export class SkillForm extends React.Component {
                 value={this.state.data.minorCourses}
                 name="minorCourses"
                 placeholder="Leave blank if none"
-              
               />
             </Form.Field>
             <Form.Field>
@@ -145,14 +146,11 @@ export class SkillForm extends React.Component {
                 value={this.state.data.languages}
                 name="languages"
                 placeholder="Leave blank if none"
-              
               />
             </Form.Field>
-            
           </Form>
         </Segment>
         <Segment attached="bottom" styleName="style.headingBox">
-          
           <Button primary onClick={this.handleSubmit}>
             Submit
           </Button>
