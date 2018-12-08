@@ -19,7 +19,7 @@ import {DragAndDropBox} from "./dragAndDropBox";
 export class InternshipList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: null };
+    this.state = { update: false, active: false, formData: null, data: [] };
   }
   componentDidMount() {
     this.fetchData();
