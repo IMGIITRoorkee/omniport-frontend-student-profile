@@ -7,17 +7,21 @@ import {Resume} from "./resume";
 import style from "../stylesheets/interestForm.css";
 
 const initial = {
-  data: { handle: "", description: "", customWebsite: false, resume: null }
+    data:{ computerLanguages:'',
+    softwarePackages:'',
+    additionalCourses:'',
+    minorCourses:'',
+    languages:''
+  }
 };
 
-export class ProfileForm extends React.Component {
+export class SkillForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: props.data,
       createNew: props.createNew,
-      resumeLink: props.data.resume,
-      resume:null
+
     };
   }
 
@@ -28,30 +32,15 @@ export class ProfileForm extends React.Component {
     this.setState({ data: { ...this.state.data, [name]: value } });
   };
   handleSubmit = e => {
-    let data = new FormData();
-    data.append("handle", this.state.data.handle);
-    data.append("description", this.state.data.description);
-    console.log(this.state.data.resume);
-    if (this.state.resumeLink !=null && this.state.resume!= null) {
-      data.append("resume", this.state.resume);
-    }
-    else if(this.state.resume == null && this.state.resumeLink != null)
-    {
-
-    }
-    else if(this.state.resume == null && this.state.resumeLink == null)
-    {
-        data.append("resume", '');
-    }
+    let data = this.state.data;
 
     let headers = {
-      "X-CSRFToken": getCookie("csrftoken"),
-      "Content-type": "multipart/form-data"
+      "X-CSRFToken": getCookie("csrftoken")
     };
     if (this.state.createNew) {
       axios({
         method: "post",
-        url: "/api/student_profile/profile/",
+        url: "/api/student_profile/skill/",
         data: data,
         headers: headers
       }).then(response => {
@@ -60,7 +49,7 @@ export class ProfileForm extends React.Component {
     } else {
       axios({
         method: "patch",
-        url: "/api/student_profile/profile/" + this.state.data.id + "/",
+        url: "/api/student_profile/skill/" + this.state.data.id + "/",
         data: data,
         headers: headers
       }).then(response => {
@@ -76,51 +65,22 @@ export class ProfileForm extends React.Component {
     if (!this.state.createNew) {
       axios({
         method: "delete",
-        url: "/api/student_profile/profile/" + this.state.data.id + "/",
+        url: "/api/student_profile/skill/" + this.state.data.id + "/",
         headers: headers
       }).then(response => {
         this.setState({
           data: response.data,
-          resumeLink: response.data.resume
         });
       });
     }
   };
-  handleFile = event => {
-    console.log(event.target.value);
-    this.setState({
-      resume: event.target.files[0] ,
-      resumeLink: event.target.value
-    });
-    event.target.value = null;
-  };
-  handleDelete = () =>
-  {
-    this.setState({
-      resume:null,
-      resumeLink:null
-    });
-  }
+ 
+  
 
   render() {
-    var res = (<Form.Field>
-      <input
-        type="file"
-        onChange={this.handleFile}
-        styleName="style.inputfile"
-        id="embedpollfileinput"
-      />
-      <div styleName="style.inputLabel">
-        <label htmlFor="embedpollfileinput" className="ui blue button">
-          <i className="ui upload icon" />
-          Upload Resume
-        </label>
-      </div>
-    </Form.Field>);
 
-    if(this.state.resumeLink){
-      res = <Form.Field><Resume resume={this.state.resumeLink} handleDelete={this.handleDelete}/></Form.Field>
-    }
+
+    
     return (
       <div styleName="style.profileForm">
         <Segment attached styleName="style.headingBox">
@@ -138,27 +98,57 @@ export class ProfileForm extends React.Component {
         </Segment>
         <Segment attached textAlign="left">
           <Form styleName="style.form">
-            <Form.Field>
-              <Form.Input
-                label="Handle"
+          <Form.Field>
+              <Form.TextArea
+                label="Additional Courses"
                 onChange={this.handleChange}
-                value={this.state.data.handle}
-                name="handle"
-                placeholder="Change your handle"
+                value={this.state.data.additionalCourses}
+                name="additionalCourses"
+                placeholder="Leave blank if none"
+              
               />
             </Form.Field>
             <Form.Field>
               <Form.TextArea
-                label="Description"
+                label="Computer Languages"
                 onChange={this.handleChange}
-                value={this.state.data.description}
-                name="description"
-                placeholder="Describe yourself"
+                value={this.state.data.computerLanguages}
+                name="computerLanguages"
+                placeholder="Leave blank if none"
               
               />
             </Form.Field>
-
-            {res}
+            <Form.Field>
+              <Form.TextArea
+                label="Software Packages"
+                onChange={this.handleChange}
+                value={this.state.data.softwarePackages}
+                name="softwarePackages"
+                placeholder="Leave blank if none"
+              
+              />
+            </Form.Field>
+            <Form.Field>
+              <Form.TextArea
+                label="Minor Courses"
+                onChange={this.handleChange}
+                value={this.state.data.minorCourses}
+                name="minorCourses"
+                placeholder="Leave blank if none"
+              
+              />
+            </Form.Field>
+            <Form.Field>
+              <Form.TextArea
+                label="Languages"
+                onChange={this.handleChange}
+                value={this.state.data.languages}
+                name="languages"
+                placeholder="Leave blank if none"
+              
+              />
+            </Form.Field>
+            
           </Form>
         </Segment>
         <Segment attached="bottom" styleName="style.headingBox">

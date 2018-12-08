@@ -35,7 +35,7 @@ export class Profile extends React.Component {
        
         if(response.data.length != 0)
        { 
-        console.log('hello');
+        console.log('already created');
          self.setState({ data: response.data[0],
                         createNew: false });
         
@@ -82,6 +82,7 @@ export class Profile extends React.Component {
     <Image src={this.state.person_data.displayPicture} size="medium" circular/>
     <Card.Content>
       <Card.Header textAlign="center">{this.state.person_data.fullName}</Card.Header>
+      <Card.Meta textAlign="center">@{this.state.data.handle}</Card.Meta>
       <Card.Description textAlign="center"> {desc}</Card.Description>
     </Card.Content>
     <Card.Content extra>

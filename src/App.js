@@ -12,6 +12,8 @@ import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
 import { LinkForm } from "./components/linkForm";
 import { Profile } from "./components/profile";
+import {ProjectForm} from "./components/projectForm";
+import {skill, Skill} from "./components/skill";
 const creators = [
   {
     name: "Mahip Jain",
@@ -73,6 +75,8 @@ class App extends Component {
                   <BookList />
                   <CurrentEducationList />
                   <PreviousEducationList />
+                  <ProjectForm/>
+                  <Skill/>
                 </Grid.Column>
               </Grid.Row>
             </Grid>

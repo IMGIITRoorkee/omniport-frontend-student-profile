@@ -54,7 +54,7 @@ export class LinkDisplay extends React.Component{
         console.log(data);
         const children = Array.from(data).map(function(child, index)
         {
-            return (<a href={child.url}><Icon size="big" key={index} name={SOCIAL_SITE_ICONS[child.site]} /></a>);
+            return (<a href={child.url} key={index}><Icon size="big" key={index} name={SOCIAL_SITE_ICONS[child.site]} /></a>);
         })
         return(
           <Container>
