@@ -8,13 +8,13 @@ import {
   Divider
 } from "semantic-ui-react";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import style from "../stylesheets/interestList.css";
 import inline from "formula_one/src/css/inline.css";
 import { Interest } from "./interest";
 import { InterestForm } from "./interestForm";
 import { initial } from "./interestForm";
-import {DragAndDropBox} from "./dragAndDropBox";
+import { DragAndDropBox } from "./dragAndDropBox";
 
 export class InterestList extends React.Component {
   constructor(props) {
@@ -68,7 +68,7 @@ export class InterestList extends React.Component {
       update: false
     });
   };
-  
+
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
@@ -94,7 +94,7 @@ export class InterestList extends React.Component {
     return (
       <Segment padded attached="bottom">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Interests</Header>
+          <Header styleName="inline.margin-bottom-0">INTERESTS</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
         <Dimmer active={active} page>
@@ -107,7 +107,7 @@ export class InterestList extends React.Component {
             handleHide={handleHide}
           />
         </Dimmer>
-        
+
         <Segment.Group> {children}</Segment.Group>
       </Segment>
     );

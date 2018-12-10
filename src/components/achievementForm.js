@@ -88,19 +88,18 @@ export class AchievementForm extends React.Component {
     console.log("form-data", this.state.data);
     console.log("form-update", update);
     return (
-      <Segment basic styleName="style.formStyle">
-        <Segment attached="top">
-          {/* <Icon color="blue" name="stop" /> */}
-          <h4>ACHIEVEMENT</h4>
-        </Segment>
-        {/* <Icon
-            bordered
-            name="cancel"
-            color="black"
+      <Segment basic>
+        <Segment attached styleName="style.headingBox">
+          <h4 styleName="style.heading">ACHIEVEMENT</h4>
+          <Icon
+            color="grey"
+            name="delete"
+            size="large"
             onClick={this.props.handleHide}
-          /> */}
+          />
+        </Segment>
 
-        <Segment attached="bottom">
+        <Segment attached styleName="style.formStyle">
           <Form autoComplete="off">
             <Form.Field required>
               <label>Topic</label>
@@ -112,31 +111,28 @@ export class AchievementForm extends React.Component {
                 placeholder="Achievement"
               />
             </Form.Field>
-            {update ? (
-              <span>
-                <Button
-                  onClick={e => this.handleUpdateDelete(e, "put")}
-                  color="blue"
-                >
-                  Save Changes
-                </Button>
-                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                  Delete
-                </Button>
-              </span>
-            ) : (
-              <Button
-                onClick={this.handleSubmit}
-                color="blue"
-                type="submit"
-                disabled={!this.state.data.achievement}
-              >
-                Submit
-              </Button>
-            )}
-            <Button onClick={this.props.handleHide}>Cancel</Button>
           </Form>
         </Segment>
+
+        {update ? (
+          <Segment attached styleName="style.headingBox">
+            <Button
+              onClick={e => this.handleUpdateDelete(e, "put")}
+              color="blue"
+            >
+              Save Changes
+            </Button>
+            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+              Delete
+            </Button>
+          </Segment>
+        ) : (
+          <Segment attached styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
+        )}
       </Segment>
     );
   }

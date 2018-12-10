@@ -14,7 +14,8 @@ import { DateInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import { ImagePreview } from "./imagePreview";
 import { ProjectList } from "./projectList";
-import style from "../stylesheets/interestForm.css";
+import style from "../stylesheets/bookForm.css";
+import style1 from "../stylesheets/interestForm.css";
 import inline from "formula_one/src/css/inline.css";
 import moment from "moment";
 
@@ -72,7 +73,8 @@ export class ProjectForm extends React.Component {
       image: "",
       active: false,
       update: false,
-      data: initial
+      data: initial,
+      errors: []
     });
   };
 
@@ -252,26 +254,17 @@ export class ProjectForm extends React.Component {
   };
   render() {
     console.log(this.state.errors);
-    let { list } = this.state;
+    let { list, update } = this.state;
     const children = <ProjectList arr={list} update={this.update} />;
-    let buttonMode = <Button onClick={this.handleErrors}>Submit</Button>;
-    if (this.state.update) {
-      buttonMode = (
-        <div>
-          <Button onClick={this.handleErrors}>Update</Button>
-          <Button onClick={this.onDelete}>Delete</Button>
-        </div>
-      );
-    }
     let imagePreview = (
       <div>
         <input
           type="file"
           onChange={this.handleImageChange}
-          styleName="style.inputfile"
+          styleName="style1.inputfile"
           id="embedpollfileinput"
         />
-        <div styleName="style.inputLabel">
+        <div styleName="style1.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
             Upload Image
@@ -293,22 +286,23 @@ export class ProjectForm extends React.Component {
 
     return (
       <Segment padded>
-        <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Projects</Header>
+        <div styleName="style1.headingBox">
+          <Header styleName="inline.margin-bottom-0">PROJECTS</Header>
           <Icon color="grey" name="add" onClick={this.handleShow} />
         </div>
 
         <Dimmer active={this.state.active} page>
-          <div styleName="style.profileForm">
+          <Segment basic>
             <Segment attached styleName="style.headingBox">
-              <span>
-                <Icon color="blue" name="stop" />
-                <h4 styleName="style.heading">PROJECTS</h4>
-              </span>
-
-              <Icon name="cancel" color="black" onClick={this.handleHide} />
+              <h4 styleName="style.heading">PROJECT</h4>
+              <Icon
+                color="grey"
+                name="delete"
+                size="large"
+                onClick={this.handleHide}
+              />
             </Segment>
-            <Segment attached textAlign="left">
+            <Segment attached styleName="style.formStyle">
               {this.state.errors.length > 0 ? (
                 <Message
                   error
@@ -316,7 +310,6 @@ export class ProjectForm extends React.Component {
                   list={this.state.errors}
                 />
               ) : null}
-
               <Form autoComplete="off">
                 <Form.Field>
                   <Form.Input
@@ -370,10 +363,21 @@ export class ProjectForm extends React.Component {
                 <Form.Field> {imagePreview}</Form.Field>
               </Form>
             </Segment>
-            <Segment attached styleName="style.headingBox">
-              {buttonMode}
-            </Segment>
-          </div>
+            {update ? (
+              <Segment attached styleName="style.headingBox">
+                <Button onClick={this.handleErrors} color="blue">
+                  Save Changes
+                </Button>
+                <Button onClick={this.handleDelete}>Delete</Button>
+              </Segment>
+            ) : (
+              <Segment attached styleName="style.buttonBox">
+                <Button onClick={this.handleErrors} color="blue" type="submit">
+                  Submit
+                </Button>
+              </Segment>
+            )}
+          </Segment>
         </Dimmer>
         <Segment.Group> {children}</Segment.Group>
       </Segment>

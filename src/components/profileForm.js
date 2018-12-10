@@ -3,7 +3,7 @@ import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
-import {Resume} from "./resume";
+import { Resume } from "./resume";
 import style from "../stylesheets/interestForm.css";
 
 const initial = {
@@ -17,20 +17,20 @@ export class ProfileForm extends React.Component {
       data: props.data,
       createNew: props.createNew,
       resumeLink: props.data.resume,
-      resume:null
+      resume: null
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     document.addEventListener("keydown", this.handleEscape, false);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener("keydown", this.handleEscape, false);
   }
-  handleEscape = e =>{
-    if (e.keyCode===27){
+  handleEscape = e => {
+    if (e.keyCode === 27) {
       this.props.handleHide();
     }
-  }
+  };
   handleChange = e => {
     const target = e.target;
     const value = target.value;
@@ -42,16 +42,11 @@ export class ProfileForm extends React.Component {
     data.append("handle", this.state.data.handle);
     data.append("description", this.state.data.description);
     console.log(this.state.data.resume);
-    if (this.state.resumeLink !=null && this.state.resume!= null) {
+    if (this.state.resumeLink != null && this.state.resume != null) {
       data.append("resume", this.state.resume);
-    }
-    else if(this.state.resume == null && this.state.resumeLink != null)
-    {
-
-    }
-    else if(this.state.resume == null && this.state.resumeLink == null)
-    {
-        data.append("resume", '');
+    } else if (this.state.resume == null && this.state.resumeLink != null) {
+    } else if (this.state.resume == null && this.state.resumeLink == null) {
+      data.append("resume", "");
     }
 
     let headers = {
@@ -99,37 +94,45 @@ export class ProfileForm extends React.Component {
   handleFile = event => {
     console.log(event.target.value);
     this.setState({
-      resume: event.target.files[0] ,
+      resume: event.target.files[0],
       resumeLink: event.target.value
     });
     event.target.value = null;
   };
-  handleDelete = () =>
-  {
+  handleDelete = () => {
     this.setState({
-      resume:null,
-      resumeLink:null
+      resume: null,
+      resumeLink: null
     });
-  }
+  };
 
   render() {
-    var res = (<Form.Field>
-      <input
-        type="file"
-        onChange={this.handleFile}
-        styleName="style.inputfile"
-        id="embedpollfileinput"
-      />
-      <div styleName="style.inputLabel">
-        <label htmlFor="embedpollfileinput" className="ui blue button">
-          <i className="ui upload icon" />
-          Upload Resume
-        </label>
-      </div>
-    </Form.Field>);
+    var res = (
+      <Form.Field>
+        <input
+          type="file"
+          onChange={this.handleFile}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
+        <div styleName="style.inputLabel">
+          <label htmlFor="embedpollfileinput" className="ui blue button">
+            <i className="ui upload icon" />
+            Upload Resume
+          </label>
+        </div>
+      </Form.Field>
+    );
 
-    if(this.state.resumeLink){
-      res = <Form.Field><Resume resume={this.state.resumeLink} handleDelete={this.handleDelete}/></Form.Field>
+    if (this.state.resumeLink) {
+      res = (
+        <Form.Field>
+          <Resume
+            resume={this.state.resumeLink}
+            handleDelete={this.handleDelete}
+          />
+        </Form.Field>
+      );
     }
     return (
       <div styleName="style.profileForm">
@@ -164,7 +167,6 @@ export class ProfileForm extends React.Component {
                 value={this.state.data.description}
                 name="description"
                 placeholder="Describe yourself"
-              
               />
             </Form.Field>
 
@@ -172,7 +174,6 @@ export class ProfileForm extends React.Component {
           </Form>
         </Segment>
         <Segment attached="bottom" styleName="style.headingBox">
-          
           <Button primary onClick={this.handleSubmit}>
             Submit
           </Button>

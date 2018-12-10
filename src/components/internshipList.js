@@ -108,7 +108,7 @@ export class InternshipList extends React.Component {
     return (
       <Segment padded color="red">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Internships</Header>
+          <Header styleName="inline.margin-bottom-0">INTERNSHIPS</Header>
           <div>
             <Icon color="grey" name="add" onClick={handleShow} />
             <Icon color="grey" name="sort amount up" onClick={handleDragShow} />

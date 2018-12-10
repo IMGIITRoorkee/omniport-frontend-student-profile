@@ -107,12 +107,18 @@ export class CurrentEducationForm extends React.Component {
     const { update } = this.state;
     const { semesterNumber, sgpa, cgpa } = this.state.data;
     return (
-      <Segment basic styleName="style.formStyle">
-        <Segment attached="top">
-          <h4>Current Education</h4>
+      <Segment basic>
+        <Segment attached styleName="style.headingBox">
+          <h4 styleName="style.heading">CURRENT EDUCATION</h4>
+          <Icon
+            color="grey"
+            name="delete"
+            size="large"
+            onClick={this.props.handleHide}
+          />
         </Segment>
 
-        <Segment attached="bottom">
+        <Segment attached styleName="style.formStyle">
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
@@ -144,26 +150,27 @@ export class CurrentEducationForm extends React.Component {
                 />
               </Form.Field>
             </Form.Group>
-            {update ? (
-              <span>
-                <Button
-                  onClick={e => this.handleUpdateDelete(e, "put")}
-                  color="blue"
-                >
-                  Save Changes
-                </Button>
-                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                  Delete
-                </Button>
-              </span>
-            ) : (
-              <Button onClick={this.handleSubmit} color="blue" type="submit">
-                Submit
-              </Button>
-            )}
-            <Button onClick={this.props.handleHide}>Cancel</Button>
           </Form>
         </Segment>
+        {update ? (
+          <Segment attached styleName="style.headingBox">
+            <Button
+              onClick={e => this.handleUpdateDelete(e, "put")}
+              color="blue"
+            >
+              Save Changes
+            </Button>
+            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+              Delete
+            </Button>
+          </Segment>
+        ) : (
+          <Segment attached styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
+        )}
       </Segment>
     );
   }

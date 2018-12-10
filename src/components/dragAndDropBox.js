@@ -28,9 +28,7 @@ export class DragAndDropBox extends Component {
 
   getListStyle = isDraggingOver => ({
     color: "black",
-    padding: grid,
-    width: "40vw",
-    minWidth: "300px"
+    padding: grid
   });
   reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -79,41 +77,42 @@ export class DragAndDropBox extends Component {
   render() {
     const { element } = this.state;
     return (
-      <Segment basic styleName="style.formStyle">
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div
-                className="ui segment"
-                ref={provided.innerRef}
-                style={this.getListStyle(snapshot.isDraggingOver)}
-              >
-                {this.state.items.map((item, index) => (
-                  <Draggable key={index} draggableId={index} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        {React.createElement(
-                          element,
-                          {
-                            data: item,
-                            id: item.id,
-                            key: item.id
-                          },
-                          null
-                        )}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      <Segment compact>
+        <Segment basic styleName="style.dragStyle">
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  style={this.getListStyle(snapshot.isDraggingOver)}
+                >
+                  {this.state.items.map((item, index) => (
+                    <Draggable key={index} draggableId={index} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          {React.createElement(
+                            element,
+                            {
+                              data: item,
+                              id: item.id,
+                              key: item.id
+                            },
+                            null
+                          )}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </Segment>
         <Button onClick={this.onSubmit}>Change order</Button>
         <Button onClick={this.props.handleDragHide}>Cancel</Button>
       </Segment>

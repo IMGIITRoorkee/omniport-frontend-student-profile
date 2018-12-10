@@ -121,12 +121,18 @@ export class PreviousEducationForm extends React.Component {
       percentage
     } = this.state.data;
     return (
-      <Segment basic styleName="style.formStyle">
-        <Segment attached="top">
-          <h4>Previous Education</h4>
+      <Segment basic>
+        <Segment attached styleName="style.headingBox">
+          <h4 styleName="style.heading">PREVIOUS EDUCATION</h4>
+          <Icon
+            color="grey"
+            name="delete"
+            size="large"
+            onClick={this.props.handleHide}
+          />
         </Segment>
 
-        <Segment attached="bottom">
+        <Segment attached styleName="style.formStyle">
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
@@ -148,49 +154,46 @@ export class PreviousEducationForm extends React.Component {
                 />
               </Form.Field>
             </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Field required>
-                <label>Graduation</label>
-                <Dropdown
-                  onChange={this.handleChange}
-                  name="graduation"
-                  options={graduationOptions}
-                  placeholder="Choose Graduation options"
-                  selection
-                  value={graduation}
-                />
-              </Form.Field>
-              <Form.Field required>
-                <label>Subject</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={subject}
-                  name="subject"
-                  placeholder="Subject (Ex- Science or Commerce)"
-                />
-              </Form.Field>
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Field required>
-                <label>CGPA</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={cgpa}
-                  name="cgpa"
-                  placeholder="CGPA"
-                />
-              </Form.Field>
-              <YearInput
-                closable={true}
-                popupPosition="bottom left"
-                label="Year"
-                name="year"
-                placeholder="Year"
-                value={year}
-                iconPosition="left"
+            <Form.Field required>
+              <label>Graduation</label>
+              <Dropdown
                 onChange={this.handleChange}
+                name="graduation"
+                options={graduationOptions}
+                placeholder="Choose Graduation options"
+                selection
+                value={graduation}
               />
-            </Form.Group>
+            </Form.Field>
+            <Form.Field required>
+              <label>Subject</label>
+              <Form.Input
+                onChange={this.handleChange}
+                value={subject}
+                name="subject"
+                placeholder="Subject (Ex- Science or Commerce)"
+              />
+            </Form.Field>
+
+            <Form.Field required>
+              <label>CGPA</label>
+              <Form.Input
+                onChange={this.handleChange}
+                value={cgpa}
+                name="cgpa"
+                placeholder="CGPA"
+              />
+            </Form.Field>
+            <YearInput
+              closable={true}
+              popupPosition="bottom left"
+              label="Year"
+              name="year"
+              placeholder="Year"
+              value={year}
+              iconPosition="left"
+              onChange={this.handleChange}
+            />
 
             {/* <Form.Field required>
                 <label>Graduation</label>
@@ -201,27 +204,27 @@ export class PreviousEducationForm extends React.Component {
                   placeholder="Graduation"
                 />
               </Form.Field> */}
-
-            {update ? (
-              <span>
-                <Button
-                  onClick={e => this.handleUpdateDelete(e, "put")}
-                  color="blue"
-                >
-                  Save Changes
-                </Button>
-                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                  Delete
-                </Button>
-              </span>
-            ) : (
-              <Button onClick={this.handleSubmit} color="blue" type="submit">
-                Submit
-              </Button>
-            )}
-            <Button onClick={this.props.handleHide}>Cancel</Button>
           </Form>
         </Segment>
+        {update ? (
+          <Segment attached styleName="style.headingBox">
+            <Button
+              onClick={e => this.handleUpdateDelete(e, "put")}
+              color="blue"
+            >
+              Save Changes
+            </Button>
+            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+              Delete
+            </Button>
+          </Segment>
+        ) : (
+          <Segment attached styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
+        )}
       </Segment>
     );
   }

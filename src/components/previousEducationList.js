@@ -84,7 +84,7 @@ export class PreviousEducationList extends React.Component {
     return (
       <Segment padded>
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Previous Education</Header>
+          <Header styleName="inline.margin-bottom-0">PREVIOUS EDUCATION</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 

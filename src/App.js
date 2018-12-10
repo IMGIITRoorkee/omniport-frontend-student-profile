@@ -55,12 +55,12 @@ class App extends Component {
           userDropdown
         />
         <AppMain>
-          <div style={{ flexGrow: "1" }}>
+          <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <Container as={Segment} basic>
               <Grid stackable>
                 <Grid.Row>
                   <Grid.Column width={4}>
-                    <Profile />
+                    <Profile style={{ position: "fixed" }} />
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <Segment attached="top">

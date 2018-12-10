@@ -68,7 +68,7 @@ export class SkillForm extends React.Component {
     }
     e.preventDefault();
   };
-  handleUpdateDelete = () => {
+  handleDelete = () => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -78,21 +78,25 @@ export class SkillForm extends React.Component {
         url: "/api/student_profile/skill/" + this.state.data.id + "/",
         headers: headers
       }).then(response => {
-        this.setState({
-          data: response.data
-        });
+        this.props.handleUpdate(initial.data, true);
       });
     }
   };
 
   render() {
+    const { createNew } = this.state;
     return (
-      <Segment basic styleName="style.formStyle">
-        <Segment attached="top">
-          <h4>BOOK</h4>
+      <Segment basic>
+        <Segment attached styleName="style.headingBox">
+          <h4 styleName="style.heading">SKILL</h4>
+          <Icon
+            color="grey"
+            name="delete"
+            size="large"
+            onClick={this.props.handleHide}
+          />
         </Segment>
-
-        <Segment attached="bottom" styleName="style.formStyle2">
+        <Segment attached styleName="style.formStyle">
           <Form>
             <Form.Field>
               <Form.TextArea
@@ -139,11 +143,22 @@ export class SkillForm extends React.Component {
                 placeholder="Leave blank if none"
               />
             </Form.Field>
-            <Button primary onClick={this.handleSubmit}>
-              Submit
-            </Button>
           </Form>
         </Segment>
+        {!createNew ? (
+          <Segment attached styleName="style.headingBox">
+            <Button onClick={this.handleSubmit} color="blue">
+              Save Changes
+            </Button>
+            <Button onClick={this.handleDelete}>Delete</Button>
+          </Segment>
+        ) : (
+          <Segment attached styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
+        )}
       </Segment>
     );
   }

@@ -5,3 +5,20 @@
   flex-direction: row;
   justify-content: space-between
 }
+
+
+.image{
+
+  display: flex;
+  align-items:flex-start;
+  justify-content: flex-end
+
+}
+
+.picture{
+  height: 15vh;
+  width: 15vh;
+  padding: 0.5vh;
+  min-width:100px;
+  min-height:100px
+}

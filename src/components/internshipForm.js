@@ -101,13 +101,17 @@ export class InternshipForm extends React.Component {
       description
     } = this.state.data;
     return (
-      <Segment basic styleName="style.formStyle">
-        <Segment attached="top">
-          {/* <Icon color="blue" name="stop" /> */}
-          <h4>INTERNSHIP</h4>
+      <Segment basic>
+        <Segment attached styleName="style.headingBox">
+          <h4 styleName="style.heading">INTERNSHIP</h4>
+          <Icon
+            color="grey"
+            name="delete"
+            size="large"
+            onClick={this.props.handleHide}
+          />
         </Segment>
-
-        <Segment attached>
+        <Segment attached styleName="style.formStyle">
           <Form autoComplete="off">
             <Form.Field required>
               <label>Position</label>
@@ -158,27 +162,27 @@ export class InternshipForm extends React.Component {
                 placeholder="Description"
               />
             </Form.Field>
-
-            {update ? (
-              <span>
-                <Button
-                  onClick={e => this.handleUpdateDelete(e, "put")}
-                  color="blue"
-                >
-                  Save Changes
-                </Button>
-                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                  Delete
-                </Button>
-              </span>
-            ) : (
-              <Button onClick={this.handleSubmit} color="blue" type="submit">
-                Submit
-              </Button>
-            )}
-            <Button onClick={this.props.handleHide}>Cancel</Button>
           </Form>
         </Segment>
+        {update ? (
+          <Segment attached styleName="style.headingBox">
+            <Button
+              onClick={e => this.handleUpdateDelete(e, "put")}
+              color="blue"
+            >
+              Save Changes
+            </Button>
+            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+              Delete
+            </Button>
+          </Segment>
+        ) : (
+          <Segment attached styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
+        )}
       </Segment>
     );
   }

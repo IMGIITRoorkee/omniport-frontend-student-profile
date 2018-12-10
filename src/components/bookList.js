@@ -7,7 +7,7 @@ import axios from "axios";
 import style from "../stylesheets/bookList.css";
 import inline from "formula_one/src/css/inline.css";
 import { initial } from "./bookForm";
-import {DragAndDropBox} from "./dragAndDropBox";
+import { DragAndDropBox } from "./dragAndDropBox";
 
 export class BookList extends React.Component {
   constructor(props) {
@@ -56,31 +56,28 @@ export class BookList extends React.Component {
       update: false
     });
   };
-  handleDragShow = () =>
-  {
-     this.setState({
-       rearrange:true
-     });
-  }
-  handleDragHide = () =>
-  {
+  handleDragShow = () => {
     this.setState({
-      rearrange:false
-    })
-  }
-  handleUpdate = data =>
-  {
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
     this.setState({
-      data:data,
-      rearrange:false
-    })
-  }
+      rearrange: false
+    });
+  };
+  handleUpdate = data => {
+    this.setState({
+      data: data,
+      rearrange: false
+    });
+  };
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
 
   render() {
-    const { active, update, formData, data, rearrange} = this.state;
+    const { active, update, formData, data, rearrange } = this.state;
     const {
       fetchData,
       appendData,
@@ -101,10 +98,10 @@ export class BookList extends React.Component {
     return (
       <Segment padded>
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Books</Header>
+          <Header styleName="inline.margin-bottom-0">BOOKS</Header>
           <div>
-          <Icon color="grey" name="add" onClick={handleShow} />
-          <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
+            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
           </div>
         </div>
 
@@ -119,7 +116,13 @@ export class BookList extends React.Component {
           />
         </Dimmer>
         <Dimmer active={rearrange} page>
-          <DragAndDropBox data={data} modelName="Book" element={Book} handleUpdate={handleUpdate} handleDragHide={this.handleDragHide}/>
+          <DragAndDropBox
+            data={data}
+            modelName="Book"
+            element={Book}
+            handleUpdate={handleUpdate}
+            handleDragHide={this.handleDragHide}
+          />
         </Dimmer>
         <Segment.Group> {children}</Segment.Group>
       </Segment>
