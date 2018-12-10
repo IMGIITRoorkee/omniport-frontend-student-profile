@@ -14,7 +14,7 @@ import axios from "axios";
 import style from "../stylesheets/internshipList.css";
 import inline from "formula_one/src/css/inline.css";
 import { initial } from "./internshipForm";
-import {DragAndDropBox} from "./dragAndDropBox";
+import { DragAndDropBox } from "./dragAndDropBox";
 
 export class InternshipList extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export class InternshipList extends React.Component {
       formData: this.state.data.find(x => x.id == id),
       update: true,
       active: true,
-      rearrange:false,
+      rearrange: false
     });
   };
   appendData = item => {
@@ -64,29 +64,26 @@ export class InternshipList extends React.Component {
       update: false
     });
   };
-  handleDragShow = () =>
-  {
-     this.setState({
-       rearrange:true
-     });
-  }
-  handleDragHide = () =>
-  {
+  handleDragShow = () => {
     this.setState({
-      rearrange:false
-    })
-  }
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
+    this.setState({
+      rearrange: false
+    });
+  };
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
 
-  handleUpdate = data =>
-  {
+  handleUpdate = data => {
     this.setState({
-      data:data,
-      rearrange:false
-    })
-  }
+      data: data,
+      rearrange: false
+    });
+  };
   render() {
     const { active, update, formData, data, rearrange } = this.state;
     const {
@@ -109,12 +106,12 @@ export class InternshipList extends React.Component {
       });
     }
     return (
-      <Segment padded>
+      <Segment padded color="red">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Internships</Header>
           <div>
-          <Icon color="grey" name="add" onClick={handleShow} />
-          <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
+            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
           </div>
         </div>
 
@@ -129,7 +126,13 @@ export class InternshipList extends React.Component {
           />
         </Dimmer>
         <Dimmer active={rearrange} page>
-          <DragAndDropBox data={data} modelName="Experience" element={Internship} handleUpdate={handleUpdate} handleDragHide={this.handleDragHide}/>
+          <DragAndDropBox
+            data={data}
+            modelName="Experience"
+            element={Internship}
+            handleUpdate={handleUpdate}
+            handleDragHide={this.handleDragHide}
+          />
         </Dimmer>
         <Segment.Group> {children}</Segment.Group>
       </Segment>

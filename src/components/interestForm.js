@@ -3,7 +3,7 @@ import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/interestForm.css";
+import style from "../stylesheets/bookForm.css";
 
 export const initial = {
   update: false,

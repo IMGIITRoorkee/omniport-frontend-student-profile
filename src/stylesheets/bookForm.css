@@ -1,7 +1,22 @@
 .formStyle {
-    width: 900px;
+  
+    overflow-y:scroll;
     text-align: left;
     max-width: 90vw;
-    height: 90vh;
+
+    max-height: 90vh;
+}
+
+.formStyle2 {
+    
+    height:100%;
+    overflow-y:scroll;
+}
+
+.dragStyle{
+    overflow-y:scroll;
+    text-align: left;
+    max-width: 900px;
+
     max-height: 80vh;
 }

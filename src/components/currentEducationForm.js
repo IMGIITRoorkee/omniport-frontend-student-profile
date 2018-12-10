@@ -10,9 +10,8 @@ import {
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import { Scrollbars } from "react-custom-scrollbars";
 
-import style from "../stylesheets/currentEducationForm.css";
+import style from "../stylesheets/bookForm.css";
 import { YearInput } from "semantic-ui-calendar-react";
 
 const graduationOptions = [
@@ -42,17 +41,17 @@ export class CurrentEducationForm extends React.Component {
       update: this.props.update
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     document.addEventListener("keydown", this.handleEscape, false);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener("keydown", this.handleEscape, false);
   }
-  handleEscape = e =>{
-    if (e.keyCode===27){
+  handleEscape = e => {
+    if (e.keyCode === 27) {
       this.props.handleHide();
     }
-  }
+  };
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -112,60 +111,59 @@ export class CurrentEducationForm extends React.Component {
         <Segment attached="top">
           <h4>Current Education</h4>
         </Segment>
-        <Scrollbars>
-          <Segment attached="bottom">
-            <Form autoComplete="off">
-              <Form.Group widths="equal">
-                <Form.Field required>
-                  <label>Semester Number</label>
-                  <Input
-                    type="number"
-                    onChange={this.handleChange}
-                    value={semesterNumber}
-                    name="semesterNumber"
-                    placeholder="Semester Number"
-                  />
-                </Form.Field>
-                <Form.Field required>
-                  <label>CGPA</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={cgpa}
-                    name="cgpa"
-                    placeholder="CGPA"
-                  />
-                </Form.Field>
-                <Form.Field required>
-                  <label>SGPA</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={sgpa}
-                    name="sgpa"
-                    placeholder="SGPA"
-                  />
-                </Form.Field>
-              </Form.Group>
-              {update ? (
-                <span>
-                  <Button
-                    onClick={e => this.handleUpdateDelete(e, "put")}
-                    color="blue"
-                  >
-                    Save Changes
-                  </Button>
-                  <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                    Delete
-                  </Button>
-                </span>
-              ) : (
-                <Button onClick={this.handleSubmit} color="blue" type="submit">
-                  Submit
+
+        <Segment attached="bottom">
+          <Form autoComplete="off">
+            <Form.Group widths="equal">
+              <Form.Field required>
+                <label>Semester Number</label>
+                <Input
+                  type="number"
+                  onChange={this.handleChange}
+                  value={semesterNumber}
+                  name="semesterNumber"
+                  placeholder="Semester Number"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label>CGPA</label>
+                <Form.Input
+                  onChange={this.handleChange}
+                  value={cgpa}
+                  name="cgpa"
+                  placeholder="CGPA"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label>SGPA</label>
+                <Form.Input
+                  onChange={this.handleChange}
+                  value={sgpa}
+                  name="sgpa"
+                  placeholder="SGPA"
+                />
+              </Form.Field>
+            </Form.Group>
+            {update ? (
+              <span>
+                <Button
+                  onClick={e => this.handleUpdateDelete(e, "put")}
+                  color="blue"
+                >
+                  Save Changes
                 </Button>
-              )}
-              <Button onClick={this.props.handleHide}>Cancel</Button>
-            </Form>
-          </Segment>
-        </Scrollbars>
+                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+                  Delete
+                </Button>
+              </span>
+            ) : (
+              <Button onClick={this.handleSubmit} color="blue" type="submit">
+                Submit
+              </Button>
+            )}
+            <Button onClick={this.props.handleHide}>Cancel</Button>
+          </Form>
+        </Segment>
       </Segment>
     );
   }

@@ -32,17 +32,17 @@ export class BookForm extends React.Component {
       update: this.props.update
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     document.addEventListener("keydown", this.handleEscape, false);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener("keydown", this.handleEscape, false);
   }
-  handleEscape = e =>{
-    if (e.keyCode===27){
+  handleEscape = e => {
+    if (e.keyCode === 27) {
       this.props.handleHide();
     }
-  }
+  };
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -111,120 +111,119 @@ export class BookForm extends React.Component {
         <Segment attached="top">
           <h4>BOOK</h4>
         </Segment>
-        <Scrollbars>
-          <Segment attached="bottom">
-            <Form autoComplete="off">
+
+        <Segment attached="bottom" styleName="style.formStyle2">
+          <Form autoComplete="off">
+            <Form.Field required>
+              <label>Title</label>
+              <Input
+                onChange={this.handleChange}
+                value={title}
+                name="title"
+                placeholder="Title"
+              />
+            </Form.Field>
+            <Form.Field required>
+              <label>Authors</label>
+              <Form.Input
+                onChange={this.handleChange}
+                value={authors}
+                name="authors"
+                placeholder="Authors"
+              />
+            </Form.Field>
+            <Form.Group widths="equal">
               <Form.Field required>
-                <label>Title</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={title}
-                  name="title"
-                  placeholder="Title"
-                />
-              </Form.Field>
-              <Form.Field required>
-                <label>Authors</label>
+                <label>Publisher</label>
                 <Form.Input
                   onChange={this.handleChange}
-                  value={authors}
-                  name="authors"
-                  placeholder="Authors"
+                  value={publisher}
+                  name="publisher"
+                  placeholder="Publisher"
                 />
               </Form.Field>
-              <Form.Group widths="equal">
-                <Form.Field required>
-                  <label>Publisher</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={publisher}
-                    name="publisher"
-                    placeholder="Publisher"
-                  />
-                </Form.Field>
-                <Form.Field required>
-                  <label>Publication Year</label>
-                  <Input
-                    type="number"
-                    onChange={this.handleChange}
-                    value={year}
-                    name="year"
-                    placeholder="Publication Year"
-                  />
-                </Form.Field>
-              </Form.Group>
-              {/* optional fields */}
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label>Pages</label>
-                  <Input
-                    onChange={this.handleChange}
-                    value={pages}
-                    name="pages"
-                    placeholder="Pages"
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Volumes</label>
-                  <Input
-                    onChange={this.handleChange}
-                    value={volumes}
-                    name="volumes"
-                    placeholder="Volumes"
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Contribution</label>
-                  <Input
-                    onChange={this.handleChange}
-                    value={contribution}
-                    name="contribution"
-                    placeholder="Contribution"
-                  />
-                </Form.Field>
-              </Form.Group>
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label>Editors</label>
-                  <Input
-                    onChange={this.handleChange}
-                    value={editors}
-                    name="editors"
-                    placeholder="Editors"
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>ISBN code</label>
-                  <Input
-                    onChange={this.handleChange}
-                    value={isbnCode}
-                    name="isbnCode"
-                    placeholder="ISBN code"
-                  />
-                </Form.Field>
-              </Form.Group>
+              <Form.Field required>
+                <label>Publication Year</label>
+                <Input
+                  type="number"
+                  onChange={this.handleChange}
+                  value={year}
+                  name="year"
+                  placeholder="Publication Year"
+                />
+              </Form.Field>
+            </Form.Group>
+            {/* optional fields */}
+            <Form.Group widths="equal">
+              <Form.Field>
+                <label>Pages</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={pages}
+                  name="pages"
+                  placeholder="Pages"
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Volumes</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={volumes}
+                  name="volumes"
+                  placeholder="Volumes"
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Contribution</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={contribution}
+                  name="contribution"
+                  placeholder="Contribution"
+                />
+              </Form.Field>
+            </Form.Group>
+            <Form.Group widths="equal">
+              <Form.Field>
+                <label>Editors</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={editors}
+                  name="editors"
+                  placeholder="Editors"
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>ISBN code</label>
+                <Input
+                  onChange={this.handleChange}
+                  value={isbnCode}
+                  name="isbnCode"
+                  placeholder="ISBN code"
+                />
+              </Form.Field>
+            </Form.Group>
 
-              {update ? (
-                <span>
-                  <Button
-                    onClick={e => this.handleUpdateDelete(e, "put")}
-                    color="blue"
-                  >
-                    Save Changes
-                  </Button>
-                  <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                    Delete
-                  </Button>
-                </span>
-              ) : (
-                <Button onClick={this.handleSubmit} color="blue" type="submit">
-                  Submit
+            {update ? (
+              <span>
+                <Button
+                  onClick={e => this.handleUpdateDelete(e, "put")}
+                  color="blue"
+                >
+                  Save Changes
                 </Button>
-              )}
-              <Button onClick={this.props.handleHide}>Cancel</Button>
-            </Form>
-          </Segment>
-        </Scrollbars>
+                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+                  Delete
+                </Button>
+              </span>
+            ) : (
+              <Button onClick={this.handleSubmit} color="blue" type="submit">
+                Submit
+              </Button>
+            )}
+            <Button onClick={this.props.handleHide}>Cancel</Button>
+          </Form>
+        </Segment>
       </Segment>
     );
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/internshipForm.css";
+import style from "../stylesheets/bookForm.css";
 import { DateInput } from "semantic-ui-calendar-react";
 import { Scrollbars } from "react-custom-scrollbars";
 
@@ -11,7 +11,7 @@ export const initial = {
   data: {
     id: -1,
     startDate: "",
-    endDate: "",
+    endDate: null,
     isFullDate: "true",
     position: "",
     organisation: "",
@@ -57,6 +57,7 @@ export class InternshipForm extends React.Component {
     }
   };
   handleSubmit = e => {
+    console.log(this.state.data);
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -105,80 +106,79 @@ export class InternshipForm extends React.Component {
           {/* <Icon color="blue" name="stop" /> */}
           <h4>INTERNSHIP</h4>
         </Segment>
-        <Scrollbars>
-          <Segment attached>
-            <Form autoComplete="off">
-              <Form.Field required>
-                <label>Position</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={position}
-                  name="position"
-                  placeholder="Position"
-                  autoFocus
-                />
-              </Form.Field>
-              <Form.Field required>
-                <label>Organisation</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={organisation}
-                  name="organisation"
-                  placeholder="Organisation"
-                />
-              </Form.Field>
 
-              <Form.Group widths="equal" required>
-                <DateInput
-                  dateFormat="YYYY-MM-DD"
-                  label="Start Date"
-                  name="startDate"
-                  placeholder="Start Date [YYYY-MM-DD]"
-                  value={startDate}
-                  iconPosition="left"
-                  onChange={this.handleChange}
-                />
-                <DateInput
-                  dateFormat="YYYY-MM-DD"
-                  label="End Date"
-                  name="endDate"
-                  placeholder="End Date [YYYY-MM-DD]"
-                  value={endDate}
-                  iconPosition="left"
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Form.Field required>
-                <label>Description</label>
-                <Form.TextArea
-                  onChange={this.handleChange}
-                  value={description}
-                  name="description"
-                  placeholder="Description"
-                />
-              </Form.Field>
+        <Segment attached>
+          <Form autoComplete="off">
+            <Form.Field required>
+              <label>Position</label>
+              <Input
+                onChange={this.handleChange}
+                value={position}
+                name="position"
+                placeholder="Position"
+                autoFocus
+              />
+            </Form.Field>
+            <Form.Field required>
+              <label>Organisation</label>
+              <Input
+                onChange={this.handleChange}
+                value={organisation}
+                name="organisation"
+                placeholder="Organisation"
+              />
+            </Form.Field>
 
-              {update ? (
-                <span>
-                  <Button
-                    onClick={e => this.handleUpdateDelete(e, "put")}
-                    color="blue"
-                  >
-                    Save Changes
-                  </Button>
-                  <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
-                    Delete
-                  </Button>
-                </span>
-              ) : (
-                <Button onClick={this.handleSubmit} color="blue" type="submit">
-                  Submit
+            <Form.Group widths="equal" required>
+              <DateInput
+                dateFormat="YYYY-MM-DD"
+                label="Start Date"
+                name="startDate"
+                placeholder="Start Date [YYYY-MM-DD]"
+                value={startDate}
+                iconPosition="left"
+                onChange={this.handleChange}
+              />
+              <DateInput
+                dateFormat="YYYY-MM-DD"
+                label="End Date"
+                name="endDate"
+                placeholder="End Date [YYYY-MM-DD]"
+                value={endDate}
+                iconPosition="left"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Field required>
+              <label>Description</label>
+              <Form.TextArea
+                onChange={this.handleChange}
+                value={description}
+                name="description"
+                placeholder="Description"
+              />
+            </Form.Field>
+
+            {update ? (
+              <span>
+                <Button
+                  onClick={e => this.handleUpdateDelete(e, "put")}
+                  color="blue"
+                >
+                  Save Changes
                 </Button>
-              )}
-              <Button onClick={this.props.handleHide}>Cancel</Button>
-            </Form>
-          </Segment>
-        </Scrollbars>
+                <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+                  Delete
+                </Button>
+              </span>
+            ) : (
+              <Button onClick={this.handleSubmit} color="blue" type="submit">
+                Submit
+              </Button>
+            )}
+            <Button onClick={this.props.handleHide}>Cancel</Button>
+          </Form>
+        </Segment>
       </Segment>
     );
   }

@@ -4,7 +4,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 
 import { Resume } from "./resume";
-import style from "../stylesheets/interestForm.css";
+import style from "../stylesheets/bookForm.css";
 
 const initial = {
   data: {
@@ -87,22 +87,13 @@ export class SkillForm extends React.Component {
 
   render() {
     return (
-      <div styleName="style.profileForm">
-        <Segment attached styleName="style.headingBox">
-          <span>
-            <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">PROFILE</h4>
-          </span>
-
-          <Icon
-            bordered
-            name="cancel"
-            color="black"
-            onClick={this.props.handleHide}
-          />
+      <Segment basic styleName="style.formStyle">
+        <Segment attached="top">
+          <h4>BOOK</h4>
         </Segment>
-        <Segment attached textAlign="left">
-          <Form styleName="style.form">
+
+        <Segment attached="bottom" styleName="style.formStyle2">
+          <Form>
             <Form.Field>
               <Form.TextArea
                 label="Additional Courses"
@@ -148,14 +139,12 @@ export class SkillForm extends React.Component {
                 placeholder="Leave blank if none"
               />
             </Form.Field>
+            <Button primary onClick={this.handleSubmit}>
+              Submit
+            </Button>
           </Form>
         </Segment>
-        <Segment attached="bottom" styleName="style.headingBox">
-          <Button primary onClick={this.handleSubmit}>
-            Submit
-          </Button>
-        </Segment>
-      </div>
+      </Segment>
     );
   }
 }

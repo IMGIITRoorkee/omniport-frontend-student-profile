@@ -1,5 +1,7 @@
 .flex-box {
+
   display: flex;
+  max-width:100%;
   flex-direction: row;
   justify-content: space-between
 }

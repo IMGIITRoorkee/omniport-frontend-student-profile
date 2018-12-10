@@ -223,12 +223,15 @@ export class ProjectForm extends React.Component {
     }
     if (startDate != "") {
       if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
-        if (endDate != "" && moment(endDate, "YYYY-MM-DD", true).isValid()) {
+        if (
+          (endDate != "" || endDate != null) &&
+          moment(endDate, "YYYY-MM-DD", true).isValid()
+        ) {
           if (moment(endDate).isBefore(startDate)) {
             errors.push("Start date must be before end date");
           }
         } else {
-          if (endDate != "") {
+          if (endDate != "" || endDate != null) {
             errors.push("End date must be of the YYYY-MM-DD format");
           }
         }
@@ -367,7 +370,7 @@ export class ProjectForm extends React.Component {
                 <Form.Field> {imagePreview}</Form.Field>
               </Form>
             </Segment>
-            <Segment attached="bottom" styleName="style.headingBox">
+            <Segment attached styleName="style.headingBox">
               {buttonMode}
             </Segment>
           </div>

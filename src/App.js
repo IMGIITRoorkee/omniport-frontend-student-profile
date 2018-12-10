@@ -12,8 +12,8 @@ import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
 import { LinkForm } from "./components/linkForm";
 import { Profile } from "./components/profile";
-import {ProjectForm} from "./components/projectForm";
-import {skill, Skill} from "./components/skill";
+import { ProjectForm } from "./components/projectForm";
+import { skill, Skill } from "./components/skill";
 const creators = [
   {
     name: "Mahip Jain",
@@ -55,33 +55,36 @@ class App extends Component {
           userDropdown
         />
         <AppMain>
-          <Container as={Segment} basic>
-            <Grid stackable>
-              <Grid.Row>
-                <Grid.Column width={4}>
-                  <Profile />
-                </Grid.Column>
-                <Grid.Column width={12}>
-                  <Segment attached="top">
-                    <Segment basic>
-                      <Header as="h2">About me</Header>
-                      Electrical Engineering undergraduate, exploring Web
-                      Development and having an interest in Mathematics.
+          <div style={{ flexGrow: "1" }}>
+            <Container as={Segment} basic>
+              <Grid stackable>
+                <Grid.Row>
+                  <Grid.Column width={4}>
+                    <Profile />
+                  </Grid.Column>
+                  <Grid.Column width={12}>
+                    <Segment attached="top">
+                      <Segment basic>
+                        <Header as="h2">About me</Header>
+                        Electrical Engineering undergraduate, exploring Web
+                        Development and having an interest in Mathematics.
+                      </Segment>
                     </Segment>
-                  </Segment>
-                  <InterestList />
-                  <AchievementList />
-                  <InternshipList />
-                  <BookList />
-                  <CurrentEducationList />
-                  <PreviousEducationList />
-                  <ProjectForm/>
-                  <Skill/>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
+                    <InterestList />
+                    <AchievementList />
+                    <InternshipList />
+                    <BookList />
+                    <CurrentEducationList />
+                    <PreviousEducationList />
+                    <ProjectForm />
+                    <Skill />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Container>
+          </div>
         </AppMain>
+        <AppFooter creators={creators} />
       </div>
     );
   }

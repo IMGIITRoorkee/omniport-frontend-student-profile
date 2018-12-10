@@ -88,7 +88,7 @@ export class AchievementList extends React.Component {
       });
     }
     return (
-      <Segment padded>
+      <Segment padded color="pink">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Achievements</Header>
           <Icon color="grey" name="add" onClick={handleShow} />

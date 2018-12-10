@@ -9,6 +9,6 @@ export default class AppRouter extends Component {
   }
   render() {
     const { match } = this.props;
-    return<div><Route path={`${match.path}/`} component={App} /></div>;
+    return <Route path={`${match.path}/`} component={App} />;
   }
 }
