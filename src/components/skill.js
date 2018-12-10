@@ -98,7 +98,7 @@ export class Skill extends React.Component {
       ) : null;
 
     return (
-      <Segment>
+      <Segment padded color="red">
         <div styleName="style.flex-box">
           <h3>SKILLS</h3>
           <div>

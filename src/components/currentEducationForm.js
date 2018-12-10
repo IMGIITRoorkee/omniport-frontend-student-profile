@@ -6,7 +6,8 @@ import {
   Icon,
   Label,
   Segment,
-  Dropdown
+  Dropdown,
+  Message
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -38,18 +39,23 @@ export class CurrentEducationForm extends React.Component {
     super(props);
     this.state = {
       data: this.props.formData,
-      update: this.props.update
+      update: this.props.update,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
     }
   };
   componentWillUpdate(nextProps, nextState) {
@@ -69,7 +75,7 @@ export class CurrentEducationForm extends React.Component {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
   };
-  handleSubmit = e => {
+  handleSubmit = () => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -80,12 +86,12 @@ export class CurrentEducationForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
-      this.props.handleHide();
-      this.setState(initial);
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-    e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = option => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -96,13 +102,52 @@ export class CurrentEducationForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
-      this.setState(initial);
-      this.props.handleHide();
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-
-    e.preventDefault();
   };
+  handleErrors = () => {
+    console.log(this.state.data);
+    let errors = [];
+    const { semesterNumber, sgpa, cgpa } = this.state.data;
+    if (semesterNumber == "") {
+      errors.push("Semester number must be filled");
+    } else if (
+      isNaN(parseInt(semesterNumber)) ||
+      parseInt(semesterNumber) > 10 ||
+      parseInt(semesterNumber) < 1
+    ) {
+      errors.push("Please enter a valid semester number");
+    }
+    if (cgpa == "") {
+      errors.push("CGPA must be filled");
+    } else if (
+      isNaN(parseInt(cgpa)) ||
+      parseFloat(cgpa) > 10 ||
+      parseFloat(cgpa) < 0
+    ) {
+      errors.push("Please enter valid CGPA");
+    }
+    if (sgpa == "") {
+      errors.push("SGPA must be filled");
+    } else if (
+      isNaN(parseInt(sgpa)) ||
+      parseFloat(sgpa) > 10 ||
+      parseFloat(sgpa) < 0
+    ) {
+      errors.push("Please enter valid SGPA");
+    }
 
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleUpdateDelete("put");
+      });
+    }
+  };
   render() {
     const { update } = this.state;
     const { semesterNumber, sgpa, cgpa } = this.state.data;
@@ -119,16 +164,23 @@ export class CurrentEducationForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
-                <label>Semester Number</label>
-                <Input
-                  type="number"
+                <label>Semester number</label>
+                <Form.Input
+                  autoFocus
                   onChange={this.handleChange}
                   value={semesterNumber}
                   name="semesterNumber"
-                  placeholder="Semester Number"
+                  placeholder="Semester number"
                 />
               </Form.Field>
               <Form.Field required>
@@ -154,19 +206,16 @@ export class CurrentEducationForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button
-              onClick={e => this.handleUpdateDelete(e, "put")}
-              color="blue"
-            >
+            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
               Save Changes
             </Button>
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+            <Button onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>
         ) : (
           <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>

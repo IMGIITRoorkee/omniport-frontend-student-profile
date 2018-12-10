@@ -21,18 +21,23 @@ export class SkillForm extends React.Component {
     super(props);
     this.state = {
       data: props.data,
-      createNew: props.createNew
+      createNew: props.createNew,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleSubmit();
     }
   };
   handleChange = e => {
@@ -100,6 +105,7 @@ export class SkillForm extends React.Component {
           <Form>
             <Form.Field>
               <Form.TextArea
+                autoFocus
                 label="Additional Courses"
                 onChange={this.handleChange}
                 value={this.state.data.additionalCourses}

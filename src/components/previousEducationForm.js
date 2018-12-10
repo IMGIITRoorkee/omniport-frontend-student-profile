@@ -6,10 +6,12 @@ import {
   Icon,
   Label,
   Segment,
-  Dropdown
+  Dropdown,
+  Message
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
+import moment from "moment";
 
 import style from "../stylesheets/bookForm.css";
 import { YearInput } from "semantic-ui-calendar-react";
@@ -43,18 +45,23 @@ export class PreviousEducationForm extends React.Component {
     super(props);
     this.state = {
       data: this.props.formData,
-      update: this.props.update
+      update: this.props.update,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
     }
   };
   componentWillUpdate(nextProps, nextState) {
@@ -69,7 +76,6 @@ export class PreviousEducationForm extends React.Component {
   }
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
-    console.log(event);
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
@@ -85,12 +91,12 @@ export class PreviousEducationForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
-      this.props.handleHide();
-      this.setState(initial);
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-    e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = option => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -102,13 +108,47 @@ export class PreviousEducationForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
-      this.setState(initial);
-      this.props.handleHide();
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-
-    e.preventDefault();
   };
-
+  handleErrors = () => {
+    console.log(this.state.data);
+    let errors = [];
+    const { institute, degree, subject, cgpa, year } = this.state.data;
+    if (institute == "") {
+      errors.push("Institute must be filled");
+    }
+    if (degree == "") {
+      errors.push("Degree must be filled");
+    }
+    if (subject == "") {
+      errors.push("Subject must be filled");
+    }
+    if (cgpa == "") {
+      errors.push("CGPA must be filled");
+    } else if (
+      isNaN(parseInt(cgpa)) ||
+      parseFloat(cgpa) > 10 ||
+      parseFloat(cgpa) < 0
+    ) {
+      errors.push("Please enter valid CGPA");
+    }
+    if (year == "") {
+      errors.push("Year must be filled");
+    } else if (!moment(year, "YYYY", true).isValid()) {
+      errors.push("Please enter year in YYYY format");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleUpdateDelete("put");
+      });
+    }
+  };
   render() {
     const { update } = this.state;
     const {
@@ -133,6 +173,13 @@ export class PreviousEducationForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
@@ -185,7 +232,6 @@ export class PreviousEducationForm extends React.Component {
               />
             </Form.Field>
             <YearInput
-              closable={true}
               popupPosition="bottom left"
               label="Year"
               name="year"
@@ -194,33 +240,20 @@ export class PreviousEducationForm extends React.Component {
               iconPosition="left"
               onChange={this.handleChange}
             />
-
-            {/* <Form.Field required>
-                <label>Graduation</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={graduation}
-                  name="graduation"
-                  placeholder="Graduation"
-                />
-              </Form.Field> */}
           </Form>
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button
-              onClick={e => this.handleUpdateDelete(e, "put")}
-              color="blue"
-            >
+            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
               Save Changes
             </Button>
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+            <Button onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>
         ) : (
           <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>

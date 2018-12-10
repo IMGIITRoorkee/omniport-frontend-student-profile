@@ -1,5 +1,13 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Label,
+  Segment,
+  Message
+} from "semantic-ui-react";
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -14,18 +22,23 @@ export class InterestForm extends React.Component {
     super(props);
     this.state = {
       data: this.props.formData,
-      update: this.props.update
+      update: this.props.update,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
     }
   };
   componentWillUpdate(nextProps, nextState) {
@@ -45,7 +58,7 @@ export class InterestForm extends React.Component {
     this.setState({ data: { ...this.state.data, [name]: value } });
   };
 
-  handleSubmit = e => {
+  handleSubmit = () => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -56,13 +69,14 @@ export class InterestForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
-      this.props.handleHide();
-      this.setState(initial);
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
 
-    e.preventDefault();
+    // e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = option => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -73,16 +87,34 @@ export class InterestForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
-      this.setState({
-        data: { topic: "", id: -1 },
-        update: false
-      });
-      this.props.handleHide();
+      this.setState(
+        {
+          data: { topic: "", id: -1 },
+          update: false
+        },
+        () => {
+          this.props.handleHide();
+        }
+      );
     });
 
-    e.preventDefault();
+    // e.preventDefault();
   };
-
+  handleErrors = () => {
+    let errors = [];
+    const { topic } = this.state.data;
+    if (topic == "") {
+      errors.push("Topic must be filled");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleUpdateDelete("put");
+      });
+    }
+  };
   render() {
     const { update } = this.state;
     console.log("form-data", this.state.data);
@@ -99,8 +131,15 @@ export class InterestForm extends React.Component {
           />
         </Segment>
         <Segment attached styleName="style.formStyle">
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
           <Form autoComplete="off">
-            <Form.Field required>
+            <Form.Field>
               <label>Topic</label>
               <Input
                 autoFocus
@@ -114,19 +153,16 @@ export class InterestForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button
-              onClick={e => this.handleUpdateDelete(e, "put")}
-              color="blue"
-            >
+            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
               Save Changes
             </Button>
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+            <Button onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>
         ) : (
           <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>

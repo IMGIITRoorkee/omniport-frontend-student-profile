@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Image, Dimmer } from "semantic-ui-react";
+import { Card, Icon, Image, Dimmer, Segment } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "./linkDisplay";
@@ -64,16 +64,17 @@ export class Profile extends React.Component {
     const desc = this.state.data.description;
     console.log(desc);
     return (
-      <Card fluid>
+      <Card fluid color="blue">
         <Card.Header textAlign="right">
-          <Icon name="write" onClick={this.handleShow} />
+          <Icon name="edit" onClick={this.handleShow} />
         </Card.Header>
         <Image
+          centered
           src={this.state.person_data.displayPicture}
-          size="medium"
+          size="small"
           circular
         />
-        <Card.Content>
+        <Card.Content as={Segment}>
           <Card.Header textAlign="center">
             {this.state.person_data.fullName}
           </Card.Header>

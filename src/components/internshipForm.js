@@ -1,5 +1,14 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
+import moment from "moment";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Label,
+  Segment,
+  Message
+} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../stylesheets/bookForm.css";
@@ -11,7 +20,7 @@ export const initial = {
   data: {
     id: -1,
     startDate: "",
-    endDate: null,
+    endDate: "",
     isFullDate: "true",
     position: "",
     organisation: "",
@@ -26,18 +35,23 @@ export class InternshipForm extends React.Component {
     super(props);
     this.state = {
       data: this.props.formData,
-      update: this.props.update
+      update: this.props.update,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
     }
   };
   componentWillUpdate(nextProps, nextState) {
@@ -51,9 +65,10 @@ export class InternshipForm extends React.Component {
     }
   }
   handleChange = (event, { name = undefined, value }) => {
+    console.log(this.state.data);
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
-      this.setState({ data: { ...this.state.data, [name]: value } });
+      this.setState({ data: { ...this.state.data, [name]: value } }, () => {});
     }
   };
   handleSubmit = e => {
@@ -68,12 +83,12 @@ export class InternshipForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
-      this.props.handleHide();
-      this.setState(initial);
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-    e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = option => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -84,13 +99,58 @@ export class InternshipForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
-      this.setState(initial);
-      this.props.handleHide();
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-
-    e.preventDefault();
   };
-
+  handleErrors = () => {
+    let errors = [];
+    const {
+      position,
+      organisation,
+      startDate,
+      endDate,
+      description
+    } = this.state.data;
+    if (position == "") {
+      errors.push("Position must be filled");
+    }
+    if (organisation == "") {
+      errors.push("Organisation must be filled");
+    }
+    if (startDate != "") {
+      if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
+        if (
+          (endDate != "" || endDate != null) &&
+          moment(endDate, "YYYY-MM-DD", true).isValid()
+        ) {
+          if (moment(endDate).isBefore(startDate)) {
+            errors.push("Start date must be before end date");
+          }
+        } else {
+          if (endDate != "" || endDate != null) {
+            errors.push("End date must be of the YYYY-MM-DD format");
+          }
+        }
+      } else {
+        errors.push("Start date must be of the YYYY-MM-DD format");
+      }
+    } else {
+      errors.push("Start date must be filled");
+    }
+    if (description == "") {
+      errors.push("Description must be filled");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleUpdateDelete("put");
+      });
+    }
+  };
   render() {
     const { update } = this.state;
     const {
@@ -112,8 +172,15 @@ export class InternshipForm extends React.Component {
           />
         </Segment>
         <Segment attached styleName="style.formStyle">
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
           <Form autoComplete="off">
-            <Form.Field required>
+            <Form.Field>
               <label>Position</label>
               <Input
                 onChange={this.handleChange}
@@ -123,17 +190,17 @@ export class InternshipForm extends React.Component {
                 autoFocus
               />
             </Form.Field>
-            <Form.Field required>
-              <label>Organisation</label>
+            <Form.Field>
+              <label>Experience</label>
               <Input
                 onChange={this.handleChange}
                 value={organisation}
                 name="organisation"
-                placeholder="Organisation"
+                placeholder="Experience"
               />
             </Form.Field>
 
-            <Form.Group widths="equal" required>
+            <Form.Group widths="equal">
               <DateInput
                 dateFormat="YYYY-MM-DD"
                 label="Start Date"
@@ -153,7 +220,7 @@ export class InternshipForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Field required>
+            <Form.Field>
               <label>Description</label>
               <Form.TextArea
                 onChange={this.handleChange}
@@ -166,19 +233,16 @@ export class InternshipForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button
-              onClick={e => this.handleUpdateDelete(e, "put")}
-              color="blue"
-            >
+            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
               Save Changes
             </Button>
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+            <Button onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>
         ) : (
           <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>
