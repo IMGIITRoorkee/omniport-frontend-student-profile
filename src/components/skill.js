@@ -105,13 +105,13 @@ export class Skill extends React.Component {
             <Icon name="edit" color="grey" onClick={this.handleShow} />
           </div>
         </div>
-        <Segment attached textAlign="left">
+        <div>
           {additionalCourses}
           {minorCourses}
           {computerLanguages}
           {softwarePackages}
           {languages}
-        </Segment>
+        </div>
 
         <Dimmer active={this.state.active} page>
           <SkillForm

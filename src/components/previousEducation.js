@@ -15,14 +15,14 @@ export function PreviousEducation(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <Segment basic>
+        <div>
           {props.data.degree} - {graduationOptions[props.data.graduation]} in{" "}
           {props.data.subject}
           <p>
             {props.data.institute}-{props.data.year}
           </p>
           <p>CGPA: {props.data.cgpa}</p>
-        </Segment>
+        </div>
 
         <div>
           <Icon

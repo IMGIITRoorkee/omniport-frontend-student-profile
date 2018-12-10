@@ -8,6 +8,7 @@ export function Interest(props) {
       <div styleName="style.flex-box">
         <div>
           <Icon name="stop" size="small" color="blue" />
+
           {props.data.topic}
         </div>
 

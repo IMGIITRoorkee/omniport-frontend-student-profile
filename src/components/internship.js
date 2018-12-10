@@ -7,13 +7,13 @@ export function Internship(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <Segment basic>
+        <div>
           {props.data.position} - <b>{props.data.organisation}</b>
           <p>
             {props.data.startDate} - {props.data.endDate}
           </p>
           <p>{props.data.description}</p>
-        </Segment>
+        </div>
         <div>
           <Icon
             name="edit"

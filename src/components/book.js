@@ -7,7 +7,7 @@ export function Book(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <Segment basic>
+        <div>
           {props.data.title} by <b>{props.data.authors}</b>
           <p>
             Published by {props.data.publisher} in {props.data.year}
@@ -24,7 +24,7 @@ export function Book(props) {
               <span>ISBN Code: {props.data.isbnCode}</span>
             ) : null}
           </p>
-        </Segment>
+        </div>
         <div>
           <Icon
             name="edit"

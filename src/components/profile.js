@@ -69,6 +69,7 @@ export class Profile extends React.Component {
           <Icon name="write" onClick={this.handleShow} />
         </Card.Header>
         <Image
+          centered
           src={this.state.person_data.displayPicture}
           size="medium"
           circular

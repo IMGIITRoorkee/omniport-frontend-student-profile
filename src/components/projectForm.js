@@ -146,12 +146,12 @@ export class ProjectForm extends React.Component {
     data.append("end_date", obj.endDate);
     data.append("description", obj.description);
 
-    if (this.state.image != null && obj.file != null) {
+    if (this.state.image != "" && obj.file != "") {
       //image uploaded
       data.append("image", obj.file);
-    } else if (this.state.image != null && obj.file == null) {
+    } else if (this.state.image != "" && obj.file == "") {
       //image not modfied
-    } else if (this.state.image == null && obj.file == null) {
+    } else if (this.state.image == "" && obj.file == "") {
       //image removed
       data.append("image", "");
     }
@@ -368,7 +368,7 @@ export class ProjectForm extends React.Component {
                 <Button onClick={this.handleErrors} color="blue">
                   Save Changes
                 </Button>
-                <Button onClick={this.handleDelete}>Delete</Button>
+                <Button onClick={this.onDelete}>Delete</Button>
               </Segment>
             ) : (
               <Segment attached styleName="style.buttonBox">

@@ -7,11 +7,11 @@ export function CurrentEducation(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <Segment basic>
+        <div>
           <p>Semester-{props.data.semesterNumber}</p>
           <p>SGPA: {props.data.sgpa} </p>
           <p>CGPA: {props.data.cgpa} </p>
-        </Segment>
+        </div>
 
         <div>
           <Icon

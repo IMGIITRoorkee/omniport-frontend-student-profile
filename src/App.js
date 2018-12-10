@@ -60,7 +60,7 @@ class App extends Component {
               <Grid stackable>
                 <Grid.Row>
                   <Grid.Column width={4}>
-                    <Profile style={{ position: "fixed" }} />
+                    <Profile />
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <Segment attached="top">
