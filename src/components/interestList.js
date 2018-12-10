@@ -92,7 +92,7 @@ export class InterestList extends React.Component {
       });
     }
     return (
-      <Segment padded attached="bottom">
+      <Segment padded color="teal">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">INTERESTS</Header>
           <Icon color="grey" name="add" onClick={handleShow} />

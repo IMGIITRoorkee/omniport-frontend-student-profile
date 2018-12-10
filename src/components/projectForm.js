@@ -46,7 +46,6 @@ export class ProjectForm extends React.Component {
     document.removeEventListener("keydown", this.handleEscape, false);
   }
   handleEscape = e => {
-    console.log("sdf");
     if (e.keyCode === 27) {
       this.handleHide();
     }
@@ -58,7 +57,6 @@ export class ProjectForm extends React.Component {
   }
   fetchData = () => {
     axios.get("/api/student_profile/project/").then(response => {
-      console.log(this);
       this.setState({ list: response.data });
     });
   };
@@ -285,7 +283,7 @@ export class ProjectForm extends React.Component {
     }
 
     return (
-      <Segment padded>
+      <Segment padded color="orange">
         <div styleName="style1.headingBox">
           <Header styleName="inline.margin-bottom-0">PROJECTS</Header>
           <Icon color="grey" name="add" onClick={this.handleShow} />

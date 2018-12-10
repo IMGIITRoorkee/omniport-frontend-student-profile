@@ -63,7 +63,7 @@ class App extends Component {
                     <Profile />
                   </Grid.Column>
                   <Grid.Column width={12}>
-                    <Segment attached="top">
+                    <Segment color="red">
                       <Segment basic>
                         <Header as="h2">About me</Header>
                         Electrical Engineering undergraduate, exploring Web

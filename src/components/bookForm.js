@@ -1,11 +1,20 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Label,
+  Segment,
+  Message
+} from "semantic-ui-react";
+import moment from "moment";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
 
 import style from "../stylesheets/bookForm.css";
-import { DateInput } from "semantic-ui-calendar-react";
+import { YearInput } from "semantic-ui-calendar-react";
 
 export const initial = {
   update: false,
@@ -29,18 +38,23 @@ export class BookForm extends React.Component {
     super(props);
     this.state = {
       data: this.props.formData,
-      update: this.props.update
+      update: this.props.update,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
+    document.removeEventListener("keydown", this.handleKeyPress, false);
   }
-  handleEscape = e => {
+  handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
     }
   };
   componentWillUpdate(nextProps, nextState) {
@@ -70,12 +84,12 @@ export class BookForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
-      this.props.handleHide();
-      this.setState(initial);
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-    e.preventDefault();
   };
-  handleUpdateDelete = (e, option) => {
+  handleUpdateDelete = option => {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -86,13 +100,41 @@ export class BookForm extends React.Component {
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
-      this.setState(initial);
-      this.props.handleHide();
+      this.setState(initial, () => {
+        this.props.handleHide();
+      });
     });
-
-    e.preventDefault();
   };
-
+  handleErrors = () => {
+    console.log(this.state.data);
+    let errors = [];
+    const { title, authors, publisher, year, isbnCode } = this.state.data;
+    if (title == "") {
+      errors.push("Title must be filled");
+    }
+    if (authors == "") {
+      errors.push("Authors must be filled");
+    }
+    if (publisher == "") {
+      errors.push("Publisher must be filled");
+    }
+    if (year == "") {
+      errors.push("Year must be filled");
+    } else if (!moment(year, "YYYY", true).isValid()) {
+      errors.push("Please enter year in YYYY format");
+    }
+    if (isNaN(isbnCode)) {
+      errors.push("Please enter valid ISBN code");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleUpdateDelete("put");
+      });
+    }
+  };
   render() {
     const { update } = this.state;
     const {
@@ -119,10 +161,18 @@ export class BookForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
           <Form autoComplete="off">
             <Form.Field required>
               <label>Title</label>
               <Input
+                autoFocus
                 onChange={this.handleChange}
                 value={title}
                 name="title"
@@ -148,16 +198,14 @@ export class BookForm extends React.Component {
                   placeholder="Publisher"
                 />
               </Form.Field>
-              <Form.Field required>
-                <label>Publication Year</label>
-                <Input
-                  type="number"
-                  onChange={this.handleChange}
-                  value={year}
-                  name="year"
-                  placeholder="Publication Year"
-                />
-              </Form.Field>
+              <YearInput
+                label="Year"
+                name="year"
+                placeholder="Year"
+                value={year}
+                iconPosition="left"
+                onChange={this.handleChange}
+              />
             </Form.Group>
             {/* optional fields */}
             <Form.Group widths="equal">
@@ -214,19 +262,16 @@ export class BookForm extends React.Component {
 
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button
-              onClick={e => this.handleUpdateDelete(e, "put")}
-              color="blue"
-            >
+            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
               Save Changes
             </Button>
-            <Button onClick={e => this.handleUpdateDelete(e, "delete")}>
+            <Button onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>
         ) : (
           <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>

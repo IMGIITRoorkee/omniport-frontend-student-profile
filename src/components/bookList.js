@@ -96,7 +96,7 @@ export class BookList extends React.Component {
       });
     }
     return (
-      <Segment padded>
+      <Segment padded color="olive">
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">BOOKS</Header>
           <div>

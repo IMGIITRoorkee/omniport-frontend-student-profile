@@ -54,18 +54,18 @@ export class LinkDisplay extends React.Component {
       );
     });
     return (
-      <Container>
-        <div styleName="style.headingBox">
+      <div>
+        {/* <div styleName="style.headingBox">
           <h4 styleName="style.heading">Social Media</h4>
           <Icon color="grey" name="add" onClick={this.handleShow} />
-        </div>
+        </div> */}
         <Segment basic textAlign="center">
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
           <LinkForm data={data} handleUpdate={this.handleUpdate} />
         </Dimmer>
-      </Container>
+      </div>
     );
   }
 }
