@@ -122,20 +122,12 @@ export class CurrentEducationForm extends React.Component {
     }
     if (cgpa == "") {
       errors.push("CGPA must be filled");
-    } else if (
-      isNaN(parseInt(cgpa)) ||
-      parseFloat(cgpa) > 10 ||
-      parseFloat(cgpa) < 0
-    ) {
+    } else if (isNaN(cgpa) || parseFloat(cgpa) > 10 || parseFloat(cgpa) < 0) {
       errors.push("Please enter valid CGPA");
     }
     if (sgpa == "") {
       errors.push("SGPA must be filled");
-    } else if (
-      isNaN(parseInt(sgpa)) ||
-      parseFloat(sgpa) > 10 ||
-      parseFloat(sgpa) < 0
-    ) {
+    } else if (isNaN(sgpa) || parseFloat(sgpa) > 10 || parseFloat(sgpa) < 0) {
       errors.push("Please enter valid SGPA");
     }
 
@@ -206,7 +198,7 @@ export class CurrentEducationForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
+            <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
             <Button onClick={() => this.handleUpdateDelete("delete")}>

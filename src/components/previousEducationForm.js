@@ -244,7 +244,7 @@ export class PreviousEducationForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
+            <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
             <Button onClick={() => this.handleUpdateDelete("delete")}>

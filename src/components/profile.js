@@ -64,7 +64,7 @@ export class Profile extends React.Component {
     const desc = this.state.data.description;
     console.log(desc);
     return (
-      <Card fluid color="blue">
+      <Card fluid as={Segment} color="blue" style={{ color: "white" }}>
         <Card.Header textAlign="right">
           <Icon name="edit" onClick={this.handleShow} />
         </Card.Header>

@@ -9,7 +9,6 @@ export function ImagePreview(props) {
         style={{ border: "2px solid black", height: "15vh", width: "15vh" }}
       />
       <Icon
-        inverted
         color="black"
         name="trash"
         onClick={() => {

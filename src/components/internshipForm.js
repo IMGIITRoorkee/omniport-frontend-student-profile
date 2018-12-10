@@ -191,12 +191,12 @@ export class InternshipForm extends React.Component {
               />
             </Form.Field>
             <Form.Field>
-              <label>Experience</label>
+              <label>Organisation</label>
               <Input
                 onChange={this.handleChange}
                 value={organisation}
                 name="organisation"
-                placeholder="Experience"
+                placeholder="Organisation"
               />
             </Form.Field>
 
@@ -233,7 +233,7 @@ export class InternshipForm extends React.Component {
         </Segment>
         {update ? (
           <Segment attached styleName="style.headingBox">
-            <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
+            <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
             <Button onClick={() => this.handleUpdateDelete("delete")}>
