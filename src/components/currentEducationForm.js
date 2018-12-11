@@ -145,14 +145,9 @@ export class CurrentEducationForm extends React.Component {
     const { semesterNumber, sgpa, cgpa } = this.state.data;
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
-          <h4 styleName="style.heading">CURRENT EDUCATION</h4>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">Currrent education</h3>
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
 
         <Segment attached styleName="style.formStyle">
@@ -197,16 +192,19 @@ export class CurrentEducationForm extends React.Component {
           </Form>
         </Segment>
         {update ? (
-          <Segment attached styleName="style.headingBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button onClick={() => this.handleUpdateDelete("delete")}>
+            <Button
+              color="red"
+              onClick={() => this.handleUpdateDelete("delete")}
+            >
               Delete
             </Button>
           </Segment>
         ) : (
-          <Segment attached styleName="style.buttonBox">
+          <Segment attached="bottom" styleName="style.buttonBox">
             <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>

@@ -7,7 +7,8 @@ import {
   Segment,
   Header,
   Dimmer,
-  Message
+  Message,
+  Checkbox
 } from "semantic-ui-react";
 import axios from "axios";
 import { DateInput } from "semantic-ui-calendar-react";
@@ -35,24 +36,15 @@ export class ProjectForm extends React.Component {
     super(props);
     this.state = {
       image: "",
-      list: null,
+      list: "",
       update: false,
       active: false,
       data: initial,
       errors: []
     };
   }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEscape, false);
-  }
-  handleEscape = e => {
-    if (e.keyCode === 27) {
-      this.handleHide();
-    }
-  };
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleEscape, false);
 
+  componentDidMount() {
     this.fetchData();
   }
   fetchData = () => {
@@ -142,6 +134,7 @@ export class ProjectForm extends React.Component {
     data.append("field", obj.field);
     data.append("start_date", obj.startDate);
     data.append("end_date", obj.endDate);
+    data.append("is_full_date", obj.isFullDate);
     data.append("description", obj.description);
 
     if (this.state.image != "" && obj.file != "") {
@@ -252,6 +245,12 @@ export class ProjectForm extends React.Component {
       });
     }
   };
+  handleToggle = () => {
+    const value = !this.state.data.isFullDate;
+    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {
+      console.log(this.state.data.isFullDate);
+    });
+  };
   render() {
     console.log(this.state.errors);
     let { list, update } = this.state;
@@ -285,22 +284,17 @@ export class ProjectForm extends React.Component {
     }
 
     return (
-      <Segment padded color="orange">
+      <Segment padded color="teal">
         <div styleName="style1.headingBox">
-          <Header styleName="inline.margin-bottom-0">PROJECTS</Header>
+          <Header styleName="inline.margin-bottom-0">Projects</Header>
           <Icon color="grey" name="add" onClick={this.handleShow} />
         </div>
 
         <Dimmer active={this.state.active} page>
           <Segment basic>
             <Segment attached styleName="style.headingBox">
-              <h4 styleName="style.heading">PROJECT</h4>
-              <Icon
-                color="grey"
-                name="delete"
-                size="large"
-                onClick={this.handleHide}
-              />
+              <h3 styleName="style.heading">Project</h3>
+              <Icon color="grey" name="delete" onClick={this.handleHide} />
             </Segment>
             <Segment attached styleName="style.formStyle">
               {this.state.errors.length > 0 ? (
@@ -351,6 +345,13 @@ export class ProjectForm extends React.Component {
                   ) : null}
                 </Form.Group>
                 <Form.Field>
+                  <Checkbox
+                    label="I remember the exact date"
+                    onChange={this.handleToggle}
+                    checked={this.state.data.isFullDate}
+                  />
+                </Form.Field>
+                <Form.Field>
                   <Form.TextArea
                     label="Description"
                     onChange={this.onChange}
@@ -368,7 +369,9 @@ export class ProjectForm extends React.Component {
                 <Button onClick={this.handleErrors} color="blue">
                   Save Changes
                 </Button>
-                <Button onClick={this.onDelete}>Delete</Button>
+                <Button color="red" onClick={this.onDelete}>
+                  Delete
+                </Button>
               </Segment>
             ) : (
               <Segment attached styleName="style.buttonBox">
@@ -379,7 +382,7 @@ export class ProjectForm extends React.Component {
             )}
           </Segment>
         </Dimmer>
-        <Segment.Group> {children}</Segment.Group>
+        {list == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }

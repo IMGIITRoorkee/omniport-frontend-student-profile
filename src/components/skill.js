@@ -1,8 +1,9 @@
 import React from "react";
-import { Dimmer, Icon, Segment } from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Header, List } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import style from "../stylesheets/internship.css";
+import inline from "formula_one/src/css/inline.css";
 import { SkillForm } from "./skillForm";
 
 export class Skill extends React.Component {
@@ -63,55 +64,90 @@ export class Skill extends React.Component {
     console.log(desc);
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
-        <Segment basic>
-          <h4>Additional Courses</h4>
-          <p>{this.state.data.additionalCourses}</p>
+        <Segment>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <h4>Additional Courses</h4>
+                <p>{this.state.data.additionalCourses}</p>
+              </List.Content>
+            </List.Item>
+          </List>
         </Segment>
       ) : null;
     const softwarePackages =
       this.state.data.softwarePackages != "" ? (
-        <Segment basic>
-          <h4>Software Packages</h4>
-          <p>{this.state.data.softwarePackages}</p>
+        <Segment>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <h4>Software Packages</h4>
+                <p>{this.state.data.softwarePackages}</p>
+              </List.Content>
+            </List.Item>
+          </List>
         </Segment>
       ) : null;
     const computerLanguages =
       this.state.data.computerLanguages != "" ? (
-        <Segment basic>
-          <h4>Computer Languages</h4>
-          <p>{this.state.data.computerLanguages}</p>
+        <Segment>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <h4>Computer Languages</h4>
+                <p>{this.state.data.computerLanguages}</p>
+              </List.Content>
+            </List.Item>
+          </List>
         </Segment>
       ) : null;
     const minorCourses =
       this.state.data.minorCourses != "" ? (
-        <Segment basic>
-          <h4>Minor Courses</h4>
-          <p>{this.state.data.minorCourses}</p>
+        <Segment>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <h4>Minor Courses</h4>
+                <p>{this.state.data.minorCourses}</p>
+              </List.Content>
+            </List.Item>
+          </List>
         </Segment>
       ) : null;
     const languages =
       this.state.data.languages != "" ? (
-        <Segment basic>
-          <h4>Languages</h4>
-          <p>{this.state.data.languages}</p>
+        <Segment>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <h4>Languages</h4>
+                <p>{this.state.data.languages}</p>
+              </List.Content>
+            </List.Item>
+          </List>
         </Segment>
       ) : null;
 
     return (
-      <Segment padded color="red">
+      <Segment padded color="teal">
         <div styleName="style.flex-box">
-          <h3>SKILLS</h3>
+          <Header styleName="inline.margin-bottom-0">Skills</Header>
           <div>
-            <Icon name="edit" color="grey" onClick={this.handleShow} />
+            <Icon name="add" color="grey" onClick={this.handleShow} />
           </div>
         </div>
-        <div>
+        <Segment.Group>
           {additionalCourses}
           {minorCourses}
           {computerLanguages}
           {softwarePackages}
           {languages}
-        </div>
+        </Segment.Group>
 
         <Dimmer active={this.state.active} page>
           <SkillForm

@@ -26,20 +26,7 @@ export class SkillForm extends React.Component {
       errors: []
     };
   }
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress, false);
-  }
-  handleKeyPress = e => {
-    if (e.keyCode === 27) {
-      this.props.handleHide();
-    }
-    if (e.keyCode === 13) {
-      this.handleSubmit();
-    }
-  };
+
   handleChange = e => {
     const target = e.target;
     const value = target.value;
@@ -92,17 +79,19 @@ export class SkillForm extends React.Component {
     const { createNew } = this.state;
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
-          <h4 styleName="style.heading">SKILL</h4>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">Skill</h3>
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
-          <Form>
+          {this.state.errors.length > 0 ? (
+            <Message
+              error
+              header="There were some errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
+          <Form styleName="style.skillForm">
             <Form.Field>
               <Form.TextArea
                 autoFocus
@@ -152,14 +141,16 @@ export class SkillForm extends React.Component {
           </Form>
         </Segment>
         {!createNew ? (
-          <Segment attached styleName="style.headingBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleSubmit} color="blue">
               Save Changes
             </Button>
-            <Button onClick={this.handleDelete}>Delete</Button>
+            <Button color="red" onClick={this.handleDelete}>
+              Delete
+            </Button>
           </Segment>
         ) : (
-          <Segment attached styleName="style.buttonBox">
+          <Segment attached="bottom" styleName="style.buttonBox">
             <Button onClick={this.handleSubmit} color="blue" type="submit">
               Submit
             </Button>

@@ -5,7 +5,7 @@ import {
   Input,
   Button,
   Icon,
-  Label,
+  Checkbox,
   Segment,
   Message
 } from "semantic-ui-react";
@@ -21,7 +21,7 @@ export const initial = {
     id: -1,
     startDate: "",
     endDate: "",
-    isFullDate: "true",
+    isFullDate: true,
     position: "",
     organisation: "",
     description: "",
@@ -40,20 +40,7 @@ export class InternshipForm extends React.Component {
       errors: []
     };
   }
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress, false);
-  }
-  handleKeyPress = e => {
-    if (e.keyCode === 27) {
-      this.props.handleHide();
-    }
-    if (e.keyCode === 13) {
-      this.handleErrors();
-    }
-  };
+
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -65,21 +52,21 @@ export class InternshipForm extends React.Component {
     }
   }
   handleChange = (event, { name = undefined, value }) => {
-    console.log(this.state.data);
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
-      this.setState({ data: { ...this.state.data, [name]: value } }, () => {});
+      this.setState({ data: { ...this.state.data, [name]: value } });
     }
   };
   handleSubmit = e => {
-    console.log(this.state.data);
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
+    var data = this.state.data;
+    if (data.endDate == "") data.endDate = null;
     axios({
       method: "post",
       url: "/api/student_profile/experience/",
-      data: this.state.data,
+      data: data,
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);
@@ -92,10 +79,12 @@ export class InternshipForm extends React.Component {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
+    var data = this.state.data;
+    if (data.endDate == "") data.endDate = null;
     axios({
       method: option,
       url: "/api/student_profile/experience/" + this.state.data.id + "/",
-      data: this.state.data,
+      data: data,
       headers: headers
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
@@ -152,6 +141,12 @@ export class InternshipForm extends React.Component {
       });
     }
   };
+  handleToggle = () => {
+    const value = !this.state.data.isFullDate;
+    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {
+      console.log(this.state.data.isFullDate);
+    });
+  };
   render() {
     const { update } = this.state;
     const {
@@ -159,18 +154,14 @@ export class InternshipForm extends React.Component {
       organisation,
       startDate,
       endDate,
+      isFullDate,
       description
     } = this.state.data;
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
-          <h4 styleName="style.heading">INTERNSHIP</h4>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">Internship</h3>
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
           {this.state.errors.length > 0 ? (
@@ -222,6 +213,13 @@ export class InternshipForm extends React.Component {
               />
             </Form.Group>
             <Form.Field>
+              <Checkbox
+                label="I remember the exact date"
+                onChange={this.handleToggle}
+                checked={isFullDate}
+              />
+            </Form.Field>
+            <Form.Field>
               <label>Description</label>
               <Form.TextArea
                 onChange={this.handleChange}
@@ -233,16 +231,19 @@ export class InternshipForm extends React.Component {
           </Form>
         </Segment>
         {update ? (
-          <Segment attached styleName="style.headingBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button onClick={() => this.handleUpdateDelete("delete")}>
+            <Button
+              color="red"
+              onClick={() => this.handleUpdateDelete("delete")}
+            >
               Delete
             </Button>
           </Segment>
         ) : (
-          <Segment attached styleName="style.buttonBox">
+          <Segment attached="bottom" styleName="style.buttonBox">
             <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>

@@ -77,9 +77,8 @@ export class DragAndDropBox extends Component {
   render() {
     const { element } = this.state;
     return (
-      <Segment attached compact>
-        <Segment attached>REORDER</Segment>
-        <Segment attached styleName="style.dragStyle">
+      <Segment compact>
+        <Segment basic styleName="style.dragStyle">
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (

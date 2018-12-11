@@ -85,7 +85,7 @@ class App extends Component {
               </Container>
             </BrowserView>
             <MobileView>
-              <div>
+              <Container>
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
@@ -110,7 +110,7 @@ class App extends Component {
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
-              </div>
+              </Container>
             </MobileView>
           </div>
         </AppMain>

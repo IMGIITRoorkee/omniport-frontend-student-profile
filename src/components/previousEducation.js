@@ -15,22 +15,30 @@ export function PreviousEducation(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <div>
-          {props.data.degree} - {graduationOptions[props.data.graduation]} in{" "}
-          {props.data.fieldOfStudy}
-          <p>
-            {props.data.institute}-{props.data.year}
-          </p>
-          <p>CGPA: {props.data.cgpa}</p>
-        </div>
+        <List>
+          <List.Item>
+            <List.Icon name="stop" color="blue" />
+            <List.Content>
+              <div>
+                <p>
+                  {props.data.degree} -{" "}
+                  {graduationOptions[props.data.graduation]} in{" "}
+                  <b>{props.data.fieldOfStudy}</b>
+                </p>
+                <p>
+                  {props.data.institute}-{props.data.year}
+                </p>
+                <p>CGPA: {props.data.cgpa}</p>
+              </div>
+            </List.Content>
+          </List.Item>
+        </List>
 
-        <div>
-          <Icon
-            name="edit"
-            color="grey"
-            onClick={() => props.manageData(props.data.id)}
-          />
-        </div>
+        <Icon
+          name="edit"
+          color="grey"
+          onClick={() => props.manageData(props.data.id)}
+        />
       </div>
     </Segment>
   );

@@ -4,13 +4,14 @@ import style from "../stylesheets/interest.css";
 
 export function Interest(props) {
   return (
-    <Segment attached>
+    <Segment>
       <div styleName="style.flex-box">
-        <div>
-          <Icon name="stop" size="small" color="blue" />
-
-          {props.data.topic}
-        </div>
+        <List>
+          <List.Item>
+            <List.Icon name="stop" color="blue" />
+            <List.Content>{props.data.topic}</List.Content>
+          </List.Item>
+        </List>
 
         <div>
           <Icon

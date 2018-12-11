@@ -1,6 +1,6 @@
 import React from "react";
 import "./../index.css";
-import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { Icon, List, Segment } from "semantic-ui-react";
 import style from "../stylesheets/book.css";
 
 export function Book(props) {
@@ -8,22 +8,30 @@ export function Book(props) {
     <Segment>
       <div styleName="style.flex-box">
         <div>
-          {props.data.title} by <b>{props.data.authors}</b>
-          <p>
-            Published by {props.data.publisher} in {props.data.year}
-          </p>
-          <p style={{ fontSize: "0.95rem" }}>
-            {props.data.pages ? <span>Pages: {props.data.pages}</span> : null}
-            {props.data.volumes ? (
-              <span>Volumes: {props.data.volumes}</span>
-            ) : null}
-            {props.data.contributions ? (
-              <span>Contributions: {props.data.contributions}</span>
-            ) : null}
-            {props.data.isbnCode ? (
-              <span>ISBN Code: {props.data.isbnCode}</span>
-            ) : null}
-          </p>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                <div>
+                  <p>
+                    <b>"{props.data.title}"</b> by <b>{props.data.authors}</b>
+                  </p>
+                  <p>Publisher : {props.data.publisher}</p>
+                  <p>Year : {props.data.year}</p>
+                  {props.data.pages ? <p>Pages : {props.data.pages}</p> : null}
+                  {props.data.volumes ? (
+                    <p>Volumes : {props.data.volumes}</p>
+                  ) : null}
+                  {props.data.contribution ? (
+                    <p>Contributions : {props.data.contribution}</p>
+                  ) : null}
+                  {props.data.isbnCode ? (
+                    <p>ISBN Code : {props.data.isbnCode}</p>
+                  ) : null}
+                </div>
+              </List.Content>
+            </List.Item>
+          </List>
         </div>
         <div>
           {!props.rearrange ? (

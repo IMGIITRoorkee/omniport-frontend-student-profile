@@ -19,7 +19,7 @@ import { DragAndDropBox } from "./dragAndDropBox";
 export class InternshipList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [] };
+    this.state = { update: false, active: false, formData: null, data: "" };
   }
   componentDidMount() {
     this.fetchData();
@@ -93,12 +93,13 @@ export class InternshipList extends React.Component {
       handleHide,
       handleShow,
       handleDragShow,
-      handleUpdate
+      handleUpdate,
+      handleDragHide
     } = this;
 
     let data_array;
-    let children;
-    if (data) {
+    let children = null;
+    if (data != []) {
       children = data.map(data => {
         return (
           <Internship
@@ -111,12 +112,12 @@ export class InternshipList extends React.Component {
       });
     }
     return (
-      <Segment padded color="red">
+      <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">INTERNSHIPS</Header>
+          <Header styleName="inline.margin-bottom-0">Internships</Header>
           <div>
-            <Icon color="grey" name="add" onClick={handleShow} />
             <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>
 
@@ -136,10 +137,10 @@ export class InternshipList extends React.Component {
             modelName="Experience"
             element={Internship}
             handleUpdate={handleUpdate}
-            handleDragHide={this.handleDragHide}
+            handleDragHide={handleDragHide}
           />
         </Dimmer>
-        <Segment.Group> {children}</Segment.Group>
+        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }

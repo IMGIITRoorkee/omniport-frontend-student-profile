@@ -7,13 +7,20 @@ export function Internship(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <div>
-          {props.data.position} - <b>{props.data.organisation}</b>
-          <p>
-            {props.data.startDate} - {props.data.endDate}
-          </p>
-          <p>{props.data.description}</p>
-        </div>
+        <List>
+          <List.Item>
+            <List.Icon name="stop" color="blue" />
+            <List.Content>
+              {props.data.position} - <b>{props.data.organisation}</b>
+              <p>
+                {props.data.startDate} to{" "}
+                {props.data.endData == "" ? props.data.endDate : "present"}
+              </p>
+              <p>{props.data.description}</p>
+            </List.Content>
+          </List.Item>
+        </List>
+
         <div>
           {!props.rearrange ? (
             <Icon

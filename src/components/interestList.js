@@ -72,6 +72,22 @@ export class InterestList extends React.Component {
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
+  handleUpdate = data => {
+    this.setState({
+      data: data,
+      rearrange: false
+    });
+  };
+  handleDragShow = () => {
+    this.setState({
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
+    this.setState({
+      rearrange: false
+    });
+  };
   render() {
     const { active, update, formData, data, rearrange } = this.state;
     const {
@@ -80,7 +96,9 @@ export class InterestList extends React.Component {
       updateDeleteData,
       handleHide,
       handleShow,
-      handleDragShow
+      handleDragShow,
+      handleUpdate,
+      handleDragHide
     } = this;
     let data_array;
     let children;
@@ -94,8 +112,11 @@ export class InterestList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">INTERESTS</Header>
-          <Icon color="grey" name="add" onClick={handleShow} />
+          <Header styleName="inline.margin-bottom-0">Interests</Header>
+          <div>
+            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
+          </div>
         </div>
         <Dimmer active={active} page>
           <InterestForm
@@ -107,8 +128,17 @@ export class InterestList extends React.Component {
             handleHide={handleHide}
           />
         </Dimmer>
+        <Dimmer active={rearrange} page>
+          <DragAndDropBox
+            data={data}
+            modelName="Interest"
+            element={Interest}
+            handleUpdate={handleUpdate}
+            handleDragHide={handleDragHide}
+          />
+        </Dimmer>
 
-        <Segment.Group> {children}</Segment.Group>
+        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }

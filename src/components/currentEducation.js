@@ -7,19 +7,22 @@ export function CurrentEducation(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <div>
-          <p>Semester-{props.data.semesterNumber}</p>
-          <p>SGPA: {props.data.sgpa} </p>
-          <p>CGPA: {props.data.cgpa} </p>
-        </div>
+        <List>
+          <List.Item>
+            <List.Icon name="stop" color="blue" />
+            <List.Content>
+              <p>Semester-{props.data.semesterNumber}</p>
+              <p>SGPA: {props.data.sgpa} </p>
+              <p>CGPA: {props.data.cgpa} </p>
+            </List.Content>
+          </List.Item>
+        </List>
 
-        <div>
-          <Icon
-            name="edit"
-            color="grey"
-            onClick={() => props.manageData(props.data.id)}
-          />
-        </div>
+        <Icon
+          name="edit"
+          color="grey"
+          onClick={() => props.manageData(props.data.id)}
+        />
       </div>
     </Segment>
   );

@@ -12,7 +12,12 @@ import { DragAndDropBox } from "./dragAndDropBox";
 export class BookList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [] };
+    this.state = {
+      update: false,
+      active: false,
+      formData: initial.data,
+      data: []
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -90,18 +95,18 @@ export class BookList extends React.Component {
 
     let data_array;
     let children;
-    if (data) {
+    if (data != "") {
       children = data.map(data => {
         return <Book data={data} key={data.id} manageData={this.manageData} />;
       });
     }
     return (
-      <Segment padded color="olive">
+      <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">BOOKS</Header>
+          <Header styleName="inline.margin-bottom-0">Books</Header>
           <div>
-            <Icon color="grey" name="add" onClick={handleShow} />
             <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>
 
@@ -124,7 +129,7 @@ export class BookList extends React.Component {
             handleDragHide={this.handleDragHide}
           />
         </Dimmer>
-        <Segment.Group> {children}</Segment.Group>
+        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }

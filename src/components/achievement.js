@@ -4,12 +4,14 @@ import style from "../stylesheets/achievement.css";
 
 export function Achievement(props) {
   return (
-    <Segment basic>
+    <Segment>
       <div styleName="style.flex-box">
-        <div>
-          <Icon name="stop" size="small" color="blue" />
-          {props.data.achievement}
-        </div>
+        <List>
+          <List.Item>
+            <List.Icon name="stop" color="blue" />
+            <List.Content>{props.data.achievement}</List.Content>
+          </List.Item>
+        </List>
 
         <div>
           <Icon

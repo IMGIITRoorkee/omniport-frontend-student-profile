@@ -82,9 +82,9 @@ export class CurrentEducationList extends React.Component {
       });
     }
     return (
-      <Segment padded color="purple">
+      <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">CURRENT EDUCATION</Header>
+          <Header styleName="inline.margin-bottom-0">Current education</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 
@@ -98,7 +98,7 @@ export class CurrentEducationList extends React.Component {
             handleHide={handleHide}
           />
         </Dimmer>
-        <Segment.Group> {children}</Segment.Group>
+        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }

@@ -150,14 +150,9 @@ export class BookForm extends React.Component {
     } = this.state.data;
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
-          <h4 styleName="style.heading">BOOK</h4>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">Book</h3>
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
 
         <Segment attached styleName="style.formStyle">
@@ -261,16 +256,19 @@ export class BookForm extends React.Component {
         </Segment>
 
         {update ? (
-          <Segment attached styleName="style.headingBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button onClick={() => this.handleUpdateDelete("delete")}>
+            <Button
+              color="red"
+              onClick={() => this.handleUpdateDelete("delete")}
+            >
               Delete
             </Button>
           </Segment>
         ) : (
-          <Segment attached styleName="style.buttonBox">
+          <Segment attached="bottom" styleName="style.buttonBox">
             <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>

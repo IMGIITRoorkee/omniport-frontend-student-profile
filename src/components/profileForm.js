@@ -4,7 +4,8 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 
 import { Resume } from "./resume";
-import style from "../stylesheets/interestForm.css";
+import style from "../stylesheets/bookForm.css";
+import style1 from "../stylesheets/interestForm.css";
 
 const initial = {
   data: { handle: "", description: "", customWebsite: false, resume: null }
@@ -112,10 +113,10 @@ export class ProfileForm extends React.Component {
         <input
           type="file"
           onChange={this.handleFile}
-          styleName="style.inputfile"
+          styleName="style1.inputfile"
           id="embedpollfileinput"
         />
-        <div styleName="style.inputLabel">
+        <div styleName="style1.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
             Upload Resume
@@ -135,22 +136,18 @@ export class ProfileForm extends React.Component {
       );
     }
     return (
-      <div styleName="style.profileForm">
+      <Segment basic>
         <Segment attached styleName="style.headingBox">
-          <span>
-            <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">PROFILE</h4>
-          </span>
-
+          <h3 styleName="style.heading">Profile</h3>
           <Icon
-            bordered
-            name="cancel"
-            color="black"
+            color="grey"
+            name="delete"
+            size="large"
             onClick={this.props.handleHide}
           />
         </Segment>
-        <Segment attached textAlign="left">
-          <Form styleName="style.form">
+        <Segment attached styleName="style.formStyle">
+          <Form>
             <Form.Field>
               <Form.Input
                 label="Handle"
@@ -173,12 +170,13 @@ export class ProfileForm extends React.Component {
             {res}
           </Form>
         </Segment>
-        <Segment attached="bottom" styleName="style.headingBox">
-          <Button primary onClick={this.handleSubmit}>
+
+        <Segment attached styleName="style.buttonBox">
+          <Button onClick={this.handleSubmit} color="blue" type="submit">
             Submit
           </Button>
         </Segment>
-      </div>
+      </Segment>
     );
   }
 }

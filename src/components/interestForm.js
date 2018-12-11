@@ -121,14 +121,9 @@ export class InterestForm extends React.Component {
     console.log("form-update", update);
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
-          <h4 styleName="style.heading">INTEREST</h4>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">Interest</h3>
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
           {this.state.errors.length > 0 ? (
@@ -152,17 +147,20 @@ export class InterestForm extends React.Component {
           </Form>
         </Segment>
         {update ? (
-          <Segment attached styleName="style.headingBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button onClick={() => this.handleUpdateDelete("delete")}>
+            <Button
+              color="red"
+              onClick={() => this.handleUpdateDelete("delete")}
+            >
               Delete
             </Button>
           </Segment>
         ) : (
-          <Segment attached styleName="style.buttonBox">
-            <Button onClick={this.handleErrors} color="blue" type="submit">
+          <Segment attached="bottom" styleName="style.buttonBox">
+            <Button color="red" onClick={this.handleErrors} type="submit">
               Submit
             </Button>
           </Segment>

@@ -16,10 +16,9 @@
 }
 
 .compPicture{
-  width: 15vh;
   padding: 0.5vh;
-  min-width:100px;
-  min-height:100px
+  width:10em;
+  flex-shrink: 0;
 }
 .mobPicture{
   height: 15vh;
@@ -30,6 +29,7 @@
 
 .textBox{
   display: flex;
+  align-items: center;
   justify-content: space-between;
   flex-grow: 1;
   flex-wrap: wrap;
@@ -45,6 +45,7 @@
 }
 
 .compStyle{
-  width:80%;
+  width:calc(100% - 10em);
   flex-grow:1;
+  flex-shrink: 0;
 }

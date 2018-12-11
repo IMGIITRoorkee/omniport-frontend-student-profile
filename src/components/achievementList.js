@@ -13,6 +13,7 @@ import inline from "formula_one/src/css/inline.css";
 import { Achievement } from "./achievement";
 import { AchievementForm } from "./achievementForm";
 import { initial } from "./achievementForm";
+import { DragAndDropBox } from "./dragAndDropBox";
 
 export class AchievementList extends React.Component {
   constructor(props) {
@@ -21,7 +22,8 @@ export class AchievementList extends React.Component {
       update: false,
       active: false,
       formData: null,
-      data: null
+      data: null,
+      rearrange: false
     };
   }
   componentDidMount() {
@@ -69,14 +71,34 @@ export class AchievementList extends React.Component {
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
+  handleUpdate = data => {
+    this.setState({
+      data: data,
+      rearrange: false
+    });
+  };
+  handleDragShow = () => {
+    this.setState({
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
+    this.setState({
+      rearrange: false
+    });
+  };
   render() {
-    const { active, update, formData, data } = this.state;
+    const { active, update, formData, data, rearrange } = this.state;
     const {
       fetchData,
       appendData,
       updateDeleteData,
       handleHide,
-      handleShow
+      handleShow,
+
+      handleDragHide,
+      handleDragShow,
+      handleUpdate
     } = this;
     let data_array;
     let children;
@@ -88,10 +110,13 @@ export class AchievementList extends React.Component {
       });
     }
     return (
-      <Segment padded color="pink">
+      <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">ACHIEVEMENTS</Header>
-          <Icon color="grey" name="add" onClick={handleShow} />
+          <Header styleName="inline.margin-bottom-0">Achievements</Header>
+          <div>
+            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
+          </div>
         </div>
         <Dimmer active={active} page>
           <AchievementForm
@@ -103,7 +128,16 @@ export class AchievementList extends React.Component {
             handleHide={handleHide}
           />
         </Dimmer>
-        <Segment.Group> {children}</Segment.Group>
+        <Dimmer active={rearrange} page>
+          <DragAndDropBox
+            data={data}
+            modelName="Achievement"
+            element={Achievement}
+            handleUpdate={handleUpdate}
+            handleDragHide={handleDragHide}
+          />
+        </Dimmer>
+        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );
   }
