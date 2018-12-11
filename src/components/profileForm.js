@@ -42,7 +42,6 @@ export class ProfileForm extends React.Component {
     let data = new FormData();
     data.append("handle", this.state.data.handle);
     data.append("description", this.state.data.description);
-    console.log(this.state.data.resume);
     if (this.state.resumeLink != null && this.state.resume != null) {
       data.append("resume", this.state.resume);
     } else if (this.state.resume == null && this.state.resumeLink != null) {
@@ -93,7 +92,6 @@ export class ProfileForm extends React.Component {
     }
   };
   handleFile = event => {
-    console.log(event.target.value);
     this.setState({
       resume: event.target.files[0],
       resumeLink: event.target.value

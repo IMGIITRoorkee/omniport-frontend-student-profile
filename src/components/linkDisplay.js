@@ -45,7 +45,6 @@ export class LinkDisplay extends React.Component {
   };
   render() {
     const data = this.state.data;
-    console.log(data);
     const children = Array.from(data).map(function(child, index) {
       return (
         <a href={child.url} key={index}>
