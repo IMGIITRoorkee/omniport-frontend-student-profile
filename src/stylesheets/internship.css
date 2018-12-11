@@ -15,8 +15,14 @@
 
 }
 
-.picture{
+.compPicture{
   width: 15vh;
+  padding: 0.5vh;
+  min-width:100px;
+  min-height:100px
+}
+.mobPicture{
+  height: 15vh;
   padding: 0.5vh;
   min-width:100px;
   min-height:100px

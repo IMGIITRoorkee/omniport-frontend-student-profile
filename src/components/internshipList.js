@@ -101,7 +101,12 @@ export class InternshipList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Internship data={data} key={data.id} manageData={this.manageData} />
+          <Internship
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={false}
+          />
         );
       });
     }

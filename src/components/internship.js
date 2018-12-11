@@ -15,11 +15,13 @@ export function Internship(props) {
           <p>{props.data.description}</p>
         </div>
         <div>
-          <Icon
-            name="edit"
-            color="grey"
-            onClick={() => props.manageData(props.data.id)}
-          />
+          {!props.rearrange ? (
+            <Icon
+              name="edit"
+              color="grey"
+              onClick={() => props.manageData(props.data.id)}
+            />
+          ) : null}
         </div>
       </div>
     </Segment>

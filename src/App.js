@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Segment, Header, Container, Grid } from "semantic-ui-react";
-
+import { BrowserView, MobileView } from "react-device-detect";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
@@ -56,32 +56,62 @@ class App extends Component {
         />
         <AppMain>
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
-            <Container as={Segment} basic>
-              <Grid stackable>
-                <Grid.Row>
-                  <Grid.Column width={4}>
-                    <Profile />
-                  </Grid.Column>
-                  <Grid.Column width={12}>
-                    <Segment color="red">
-                      <Segment basic>
-                        <Header as="h2">About me</Header>
-                        Electrical Engineering undergraduate, exploring Web
-                        Development and having an interest in Mathematics.
+            <BrowserView>
+              <Container as={Segment} basic>
+                <Grid stackable>
+                  <Grid.Row>
+                    <Grid.Column width={4}>
+                      <Profile />
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                      <Segment color="red">
+                        <Segment basic>
+                          <Header as="h2">About me</Header>
+                          Electrical Engineering undergraduate, exploring Web
+                          Development and having an interest in Mathematics.
+                        </Segment>
                       </Segment>
-                    </Segment>
-                    <InterestList />
-                    <AchievementList />
-                    <InternshipList />
-                    <BookList />
-                    <CurrentEducationList />
-                    <PreviousEducationList />
-                    <ProjectForm />
-                    <Skill />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Container>
+                      <InterestList />
+                      <AchievementList />
+                      <InternshipList />
+                      <BookList />
+                      <CurrentEducationList />
+                      <PreviousEducationList />
+                      <ProjectForm />
+                      <Skill />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Container>
+            </BrowserView>
+            <MobileView>
+              <div>
+                <Grid stackable>
+                  <Grid.Row>
+                    <Grid.Column width={4}>
+                      <Profile />
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                      <Segment color="red">
+                        <Segment basic>
+                          <Header as="h2">About me</Header>
+                          Electrical Engineering undergraduate, exploring Web
+                          Development and having an interest in Mathematics
+                        </Segment>
+                      </Segment>
+                      <InterestList />
+                      <AchievementList />
+                      <InternshipList />
+                      <BookList />
+                      <CurrentEducationList />
+                      <PreviousEducationList />
+                      <ProjectForm />
+                      <Skill />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </div>
+            </MobileView>
           </div>
         </AppMain>
         <AppFooter creators={creators} />

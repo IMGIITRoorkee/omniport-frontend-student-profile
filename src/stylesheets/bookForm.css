@@ -11,7 +11,7 @@
 .dragStyle{
     overflow-y:scroll;
     text-align: left;
-    width: 50vw;
+    width: 40vw;
     min-width:300px;
     max-height: 80vh;
 }

@@ -122,14 +122,15 @@ export class InternshipForm extends React.Component {
     if (startDate != "") {
       if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
         if (
-          (endDate != "" || endDate != null) &&
+          endDate != "" &&
+          endDate != null &&
           moment(endDate, "YYYY-MM-DD", true).isValid()
         ) {
           if (moment(endDate).isBefore(startDate)) {
             errors.push("Start date must be before end date");
           }
         } else {
-          if (endDate != "" || endDate != null) {
+          if (endDate != "" && endDate != null) {
             errors.push("End date must be of the YYYY-MM-DD format");
           }
         }

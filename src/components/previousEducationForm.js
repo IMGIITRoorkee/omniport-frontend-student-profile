@@ -30,7 +30,7 @@ export const initial = {
   data: {
     year: "",
     institute: "",
-    subject: "",
+    fieldOfStudy: "",
     degree: "",
     graduation: "",
     priority: 1,
@@ -75,6 +75,7 @@ export class PreviousEducationForm extends React.Component {
     }
   }
   handleChange = (event, { name = undefined, value }) => {
+    console.log(this.state.data);
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
@@ -116,15 +117,25 @@ export class PreviousEducationForm extends React.Component {
   handleErrors = () => {
     console.log(this.state.data);
     let errors = [];
-    const { institute, degree, subject, cgpa, year } = this.state.data;
+    const {
+      institute,
+      degree,
+      graduation,
+      fieldOfStudy,
+      cgpa,
+      year
+    } = this.state.data;
     if (institute == "") {
       errors.push("Institute must be filled");
     }
     if (degree == "") {
       errors.push("Degree must be filled");
     }
-    if (subject == "") {
-      errors.push("Subject must be filled");
+    if (graduation == "") {
+      errors.push("Graduation must be filled");
+    }
+    if (fieldOfStudy == "") {
+      errors.push("Field of study must be filled");
     }
     if (cgpa == "") {
       errors.push("CGPA must be filled");
@@ -154,7 +165,7 @@ export class PreviousEducationForm extends React.Component {
     const {
       year,
       institute,
-      subject,
+      fieldOfStudy,
       degree,
       graduation,
       cgpa,
@@ -213,12 +224,12 @@ export class PreviousEducationForm extends React.Component {
               />
             </Form.Field>
             <Form.Field required>
-              <label>Subject</label>
+              <label>Field of study</label>
               <Form.Input
                 onChange={this.handleChange}
-                value={subject}
-                name="subject"
-                placeholder="Subject (Ex- Science or Commerce)"
+                value={fieldOfStudy}
+                name="fieldOfStudy"
+                placeholder="Field of study (Ex- Science or Commerce)"
               />
             </Form.Field>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Segment, Icon, Grid } from "semantic-ui-react";
+import { Button, Segment, Icon, Image } from "semantic-ui-react";
 import style from "../stylesheets/internship.css";
 import { isMobile } from "react-device-detect";
 
@@ -28,13 +28,23 @@ export function Project(props) {
         )}
 
         {props.data.image ? (
-          <img
-            src={props.data.image.replace(
-              "http://localhost:3003/",
-              "http://192.168.121.228:60025/"
-            )}
-            styleName="style.picture"
-          />
+          isMobile ? (
+            <Image
+              src={props.data.image.replace(
+                "http://localhost:3003/",
+                "http://192.168.121.228:60025/"
+              )}
+              styleName="style.mobPicture"
+            />
+          ) : (
+            <Image
+              src={props.data.image.replace(
+                "http://localhost:3003/",
+                "http://192.168.121.228:60025/"
+              )}
+              styleName="style.compPicture"
+            />
+          )
         ) : null}
       </div>
       <Icon

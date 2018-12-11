@@ -17,7 +17,7 @@ export function PreviousEducation(props) {
       <div styleName="style.flex-box">
         <div>
           {props.data.degree} - {graduationOptions[props.data.graduation]} in{" "}
-          {props.data.subject}
+          {props.data.fieldOfStudy}
           <p>
             {props.data.institute}-{props.data.year}
           </p>
