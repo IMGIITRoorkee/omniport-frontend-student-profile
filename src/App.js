@@ -6,13 +6,11 @@ import {
   Grid,
   List,
   Transition,
-  List,
   Button
 } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
-import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
 import { BookList } from "./components/bookList";
@@ -132,7 +130,7 @@ class App extends Component {
     );
     const { show, erroneous, handle } = this.state;
     const app = (
-      <div styleName="app.wrapper">
+      <div styleName="style.wrapper">
         <AppHeader
           appName="student_profile"
           appLogo={false}
