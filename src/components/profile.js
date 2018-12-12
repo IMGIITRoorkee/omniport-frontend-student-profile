@@ -70,7 +70,7 @@ export class Profile extends React.Component {
           size="small"
           circular
         />
-        <Card.Content as={Segment}>
+        <Card.Content as={Segment} basic>
           <Card.Header textAlign="center">
             {this.state.person_data.fullName}
           </Card.Header>

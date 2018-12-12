@@ -43,7 +43,7 @@ export class ComponentTransition extends React.Component {
       <Transition
         visible={this.state.tvisibility}
         animation="fade"
-        duration={5000}
+        duration={50}
       >
         {this.props.children}
       </Transition>

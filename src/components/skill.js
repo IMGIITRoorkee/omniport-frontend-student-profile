@@ -130,7 +130,7 @@ export class Skill extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.flex-box">
-          <Header styleName="style.heading">Skills</Header>
+          <h3 styleName="style.heading">Skills</h3>
           <div>
             <Icon name="add" color="grey" onClick={this.handleShow} />
           </div>

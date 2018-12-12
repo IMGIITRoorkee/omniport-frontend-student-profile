@@ -13,13 +13,15 @@ export function Interest(props) {
           </List.Item>
         </List>
 
-        <div>
-          <Icon
-            name="edit"
-            color="grey"
-            onClick={() => props.manageData(props.data.id)}
-          />
-        </div>
+        {!props.rearrange ? (
+          <div>
+            <Icon
+              name="edit"
+              color="grey"
+              onClick={() => props.manageData(props.data.id)}
+            />
+          </div>
+        ) : null}
       </div>
     </Segment>
   );

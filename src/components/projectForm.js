@@ -295,7 +295,7 @@ export class ProjectForm extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="style.heading">Projects</Header>
+          <h3 styleName="style.heading">Projects</h3>
           <div>
             <Icon color="grey" name="sort" onClick={handleDragShow} />
             <Icon color="grey" name="add" onClick={handleShow} />

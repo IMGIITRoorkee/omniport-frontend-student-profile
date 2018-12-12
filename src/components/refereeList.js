@@ -1,14 +1,7 @@
 import React from "react";
 import { Referee } from "./referee";
 import { RefereeForm } from "./refereeForm";
-import {
-  Dimmer,
-  Icon,
-  Segment,
-  Transition,
-  Header,
-  Button
-} from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Transition, Button } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./refereeForm";
@@ -92,7 +85,7 @@ export class RefereeList extends React.Component {
       <ComponentTransition>
         <Segment padded color="teal">
           <div styleName="style.headingBox">
-            <Header styleName="style.heading">Referee</Header>
+            <h3 styleName="style.heading">References</h3>
             <Icon color="grey" name="add" onClick={handleShow} />
           </div>
           <Dimmer active={active} page>

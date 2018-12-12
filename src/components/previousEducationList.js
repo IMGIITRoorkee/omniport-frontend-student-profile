@@ -85,7 +85,7 @@ export class PreviousEducationList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="style.heading">Previous education</Header>
+          <h3 styleName="style.heading">Previous education</h3>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 

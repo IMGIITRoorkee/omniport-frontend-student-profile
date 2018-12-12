@@ -106,7 +106,7 @@ export class InternshipList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="style.heading">Internships</Header>
+          <h3 styleName="style.heading">Internships</h3>
           <div>
             <Popup
               trigger={
