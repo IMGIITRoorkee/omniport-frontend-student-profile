@@ -30,8 +30,10 @@ export class InterestList extends React.Component {
     this.fetchData();
   }
   fetchData = e => {
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/interest/")
+      .get("/api/student_profile/interest/" + url)
       .then(response => {
         this.setState({ data: response.data });
       })

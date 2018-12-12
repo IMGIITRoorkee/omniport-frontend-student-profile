@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Segment, Header, Container, Grid } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
+import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import app from "./stylesheets/app.css";
 import { InterestList } from "./components/interestList";
@@ -14,6 +15,8 @@ import { LinkForm } from "./components/linkForm";
 import { Profile } from "./components/profile";
 import { ProjectForm } from "./components/projectForm";
 import { skill, Skill } from "./components/skill";
+import { NotFound } from "./components/notFound";
+
 const creators = [
   {
     name: "Mahip Jain",
@@ -41,12 +44,39 @@ const creators = [
     role: "Developer"
   }
 ];
+
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = { show: false, erroneous: "don't know", handle: "" };
+  }
+  componentDidMount() {
+    const handle = this.props.match.params.handle;
+    this.setState({ handle: handle });
+    let show;
+    if (handle != undefined) {
+      show = false;
+      this.setState({ show: false });
+    } else {
+      this.setState({ show: true });
+    }
+    if (!show) {
+      axios
+        .get("/api/student_profile/profile/" + handle + "/handle/")
+        .then(response => {
+          this.setState({ erroneous: "no" });
+        })
+        .catch(error => {
+          console.log(error);
+          if (error.response.status == 404) {
+            this.setState({ erroneous: "yes" });
+          }
+        });
+    }
   }
   render() {
-    return (
+    const { show, erroneous, handle } = this.state;
+    const app = (
       <div styleName="app.wrapper">
         <AppHeader
           appName="student_profile"
@@ -71,14 +101,14 @@ class App extends Component {
                           Development and having an interest in Mathematics.
                         </Segment>
                       </Segment>
-                      <InterestList />
-                      <AchievementList />
-                      <InternshipList />
-                      <BookList />
-                      <CurrentEducationList />
-                      <PreviousEducationList />
+                      <InterestList handle={handle} />
+                      <AchievementList handle={handle} />
+                      <InternshipList handle={handle} />
+                      <BookList handle={handle} />
+                      <CurrentEducationList handle={handle} />
+                      <PreviousEducationList handle={handle} />
                       <ProjectForm />
-                      <Skill />
+                      <Skill handle={handle} />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -117,6 +147,16 @@ class App extends Component {
         <AppFooter creators={creators} />
       </div>
     );
+    if (show) {
+      return app;
+    } else if (erroneous == "no") {
+      return app;
+    } else if (erroneous === "yes") {
+      return <NotFound />;
+    } else if (erroneous === "don't know") {
+      return null;
+    } else return null;
+    console.log(this.state.show);
   }
 }
 

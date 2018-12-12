@@ -64,7 +64,7 @@ export class InterestForm extends React.Component {
     };
     axios({
       method: "post",
-      url: "/api/student_profile/interest/",
+      url: "/api/student_profile/interest/" + url,
       data: this.state.data,
       headers: headers
     }).then(response => {

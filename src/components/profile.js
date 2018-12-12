@@ -26,10 +26,7 @@ export class Profile extends React.Component {
     axios
       .get("/api/student_profile/profile/")
       .then(function(response) {
-        console.log(response.data);
-
         if (response.data.length != 0) {
-          console.log("already created");
           self.setState({ data: response.data[0], createNew: false });
         } else {
           self.setState({ createNew: true });
@@ -62,9 +59,8 @@ export class Profile extends React.Component {
 
   render() {
     const desc = this.state.data.description;
-    console.log(desc);
     return (
-      <Card fluid as={Segment} color="blue" style={{ color: "white" }}>
+      <Card fluid color="blue">
         <Card.Header textAlign="right">
           <Icon name="edit" onClick={this.handleShow} />
         </Card.Header>

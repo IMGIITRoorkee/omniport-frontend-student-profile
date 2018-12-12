@@ -32,10 +32,7 @@ export class Skill extends React.Component {
     axios
       .get("/api/student_profile/skill/")
       .then(function(response) {
-        console.log(response.data);
-
         if (response.data.length != 0) {
-          console.log("already created");
           self.setState({ data: response.data[0], createNew: false });
         } else {
           self.setState({ createNew: true });
@@ -60,7 +57,6 @@ export class Skill extends React.Component {
 
   render() {
     const desc = this.state.data.description;
-    console.log(desc);
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
         <Segment basic>

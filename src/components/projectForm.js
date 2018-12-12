@@ -113,7 +113,6 @@ export class ProjectForm extends React.Component {
     data.append("end_date", this.state.data.endDate);
     data.append("description", this.state.data.description);
     data.append("image", this.state.data.file);
-    console.log(data);
     axios
       .post("/api/student_profile/project/", data, {
         headers: {
@@ -153,7 +152,6 @@ export class ProjectForm extends React.Component {
       //image removed
       data.append("image", "");
     }
-    console.log(data);
     axios
       .patch("/api/student_profile/project/" + obj.id + "/", data, {
         headers: {
@@ -163,9 +161,7 @@ export class ProjectForm extends React.Component {
       })
       .then(response => {
         const d = response.data;
-        console.log(this.state.list);
         const arr = this.state.list.map(obj => (obj.id == d.id ? d : obj));
-        console.log(arr);
         this.setState({
           list: arr,
           image: "",
@@ -185,11 +181,9 @@ export class ProjectForm extends React.Component {
         }
       })
       .then(response => {
-        console.log(this.state.list);
         const arr = this.state.list.filter(obj =>
           obj.id == id ? false : true
         );
-        console.log(arr);
         this.setState({
           list: arr,
           image: "",
@@ -203,7 +197,6 @@ export class ProjectForm extends React.Component {
     this.setState({ image: "", data: { ...this.state.data, file: "" } });
   };
   update = data => {
-    console.log(data.image);
     if (data.endDate == null) data.endDate = "";
     this.setState({
       update: true,
@@ -213,7 +206,6 @@ export class ProjectForm extends React.Component {
     });
   };
   handleErrors = () => {
-    console.log(this.state.data);
     let errors = [];
     const { topic, field, startDate, endDate, isFullDate } = this.state.data;
     if (topic == "") {
@@ -253,7 +245,6 @@ export class ProjectForm extends React.Component {
     }
   };
   render() {
-    console.log(this.state.errors);
     let { list, update } = this.state;
     const children = <ProjectList arr={list} update={this.update} />;
     let imagePreview = (
