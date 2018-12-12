@@ -201,7 +201,7 @@ class App extends Component {
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
-                      <Profile />
+                      <Profile handle={handle} />
                     </Grid.Column>
                     <Grid.Column width={12}>
                       <InterestList handle={handle} />

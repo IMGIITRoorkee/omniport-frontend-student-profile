@@ -142,6 +142,7 @@ export class ProfileForm extends React.Component {
           <Form>
             <Form.Field>
               <Form.Input
+                required
                 label="Handle"
                 onChange={this.handleChange}
                 value={this.state.data.handle}

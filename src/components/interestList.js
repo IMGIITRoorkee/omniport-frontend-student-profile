@@ -116,9 +116,10 @@ export class InterestList extends React.Component {
       <ComponentTransition>
         <Segment padded color="teal">
           <div styleName="style.headingBox">
-            <h3 styleName="style.heading">
-              <Icon name="star" color="teal" size="large" /> Interest
-            </h3>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Icon name="star" color="teal" />
+              <h3 styleName="style.heading">Interest</h3>
+            </div>
             <div>
               <Icon color="grey" name="sort" onClick={handleDragShow} />
               <Icon color="grey" name="add" onClick={handleShow} />

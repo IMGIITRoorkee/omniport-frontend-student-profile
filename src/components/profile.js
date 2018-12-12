@@ -1,10 +1,20 @@
 import React from "react";
-import { Card, Icon, Image, Dimmer, Segment } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Image,
+  Dimmer,
+  Segment,
+  Label,
+  Button
+} from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "./linkDisplay";
 import { ProfileForm } from "./profileForm";
-
+import { ResumeDownload } from "./resumeDownload";
+import { BrowserView, MobileView } from "react-device-detect";
+import style from "../styles.css";
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +22,8 @@ export class Profile extends React.Component {
       data: { handle: "", description: "", customWebsite: false, resume: null },
       person_data: "",
       active: false,
-      createNew: true
+      createNew: true,
+      handle: props.handle
     };
   }
   componentDidMount() {
@@ -59,39 +70,50 @@ export class Profile extends React.Component {
 
   render() {
     const desc = this.state.data.description;
+    const { handle, data } = this.state;
+    const preview = handle == undefined ? false : true;
+    const ownHandle = this.state.handle;
     return (
-      <Card fluid color="teal" style={{ position: "sticky", top: "5em" }}>
-        <Card.Header textAlign="right">
-          <Icon name="edit" onClick={this.handleShow} />
-        </Card.Header>
-        <Image
-          centered
-          src={this.state.person_data.displayPicture}
-          size="small"
-          circular
-        />
-        <Card.Content as={Segment} basic>
-          <Card.Header textAlign="center">
-            {this.state.person_data.fullName}
+      <div style={{ position: "sticky", top: "5em" }}>
+        <Card fluid color="teal">
+          <Card.Header textAlign="right">
+            <Icon name="edit" onClick={this.handleShow} />
           </Card.Header>
-          <Card.Meta textAlign="center">
-            {this.state.data.handle ? "@" : null}
-            {this.state.data.handle}
-          </Card.Meta>
-          <Card.Description textAlign="center"> {desc}</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <LinkDisplay />
-        </Card.Content>
-        <Dimmer active={this.state.active} page>
-          <ProfileForm
-            data={this.state.data}
-            createNew={this.state.createNew}
-            handleHide={this.handleHide}
-            handleUpdate={this.handleUpdate}
+          <Image
+            centered
+            src={this.state.person_data.displayPicture}
+            size="small"
+            circular
           />
-        </Dimmer>
-      </Card>
+          <Card.Content as={Segment} basic>
+            <Card.Header textAlign="center">
+              {this.state.person_data.fullName}
+            </Card.Header>
+            <Card.Meta textAlign="center">
+              {this.state.data.handle ? "@" : null}
+              {this.state.data.handle}
+            </Card.Meta>
+            <Card.Description textAlign="center"> {desc}</Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <LinkDisplay />
+          </Card.Content>
+          <Dimmer active={this.state.active} page>
+            <ProfileForm
+              data={this.state.data}
+              createNew={this.state.createNew}
+              handleHide={this.handleHide}
+              handleUpdate={this.handleUpdate}
+            />
+          </Dimmer>
+        </Card>
+
+        <ResumeDownload
+          preview={preview}
+          url={data.resume}
+          ownHandle={ownHandle}
+        />
+      </div>
     );
   }
 }
