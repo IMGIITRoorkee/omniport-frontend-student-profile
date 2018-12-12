@@ -33,7 +33,7 @@ export class CurrentEducationList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [item, ...this.state.data] });
+    this.setState({ data: [...this.state.data, item] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;

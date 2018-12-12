@@ -5,8 +5,8 @@ export const ErrorTransition = props => {
   return (
     <Transition
       visible={props.errors.length > 0}
-      animation="slide down"
-      duration={1000}
+      animation="slide up"
+      duration={100}
     >
       <Message
         error
