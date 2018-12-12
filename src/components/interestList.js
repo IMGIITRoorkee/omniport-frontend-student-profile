@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import style from "../stylesheets/interestList.css";
+import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { Interest } from "./interest";
 import { InterestForm } from "./interestForm";
@@ -116,7 +116,7 @@ export class InterestList extends React.Component {
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Interests</Header>
           <div>
-            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="sort" onClick={handleDragShow} />
             <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>

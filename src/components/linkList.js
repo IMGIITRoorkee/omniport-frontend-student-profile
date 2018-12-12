@@ -3,6 +3,7 @@ import axios from "axios";
 import { Segment } from "semantic-ui-react";
 
 import { Link } from "../components/link";
+import style from "../styles.css";
 
 export class LinkList extends React.Component {
   constructor(props) {
@@ -21,6 +22,6 @@ export class LinkList extends React.Component {
         />
       );
     });
-    return <div>{children}</div>;
+    return <Segment.Group>{children}</Segment.Group>;
   }
 }

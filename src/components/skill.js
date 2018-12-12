@@ -2,8 +2,7 @@ import React from "react";
 import { Dimmer, Icon, Segment, Header, List } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
-import style from "../stylesheets/internship.css";
-import inline from "formula_one/src/css/inline.css";
+import style from "../styles.css";
 import { SkillForm } from "./skillForm";
 const initial = {
   computerLanguages: "",
@@ -131,7 +130,7 @@ export class Skill extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.flex-box">
-          <Header styleName="inline.margin-bottom-0">Skills</Header>
+          <Header styleName="style.heading">Skills</Header>
           <div>
             <Icon name="add" color="grey" onClick={this.handleShow} />
           </div>

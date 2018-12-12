@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Segment, Button } from "semantic-ui-react";
+import { Segment, Button, Icon } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 const grid = 8;
 
 export class DragAndDropBox extends Component {
@@ -76,11 +76,25 @@ export class DragAndDropBox extends Component {
   };
   render() {
     const { element } = this.state;
+    let heading = this.state.modelName;
+    if (this.state.modelName == "Experience") heading = "Internship";
     return (
-      <Segment compact>
-        <Segment basic styleName="style.dragStyle">
+      <Segment basic>
+        <Segment attached="top" styleName="style.headingBox">
+          <h3 styleName="style.heading">{heading}</h3>
+          <Icon
+            color="grey"
+            name="delete"
+            onClick={this.props.handleDragHide}
+          />
+        </Segment>
+        <Segment
+          styleName="style.formStyle2"
+          style={{ width: "40vw" }}
+          attached
+        >
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
+            <Droppable droppableId="droppable" styleName="style.skillForm">
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
@@ -114,8 +128,11 @@ export class DragAndDropBox extends Component {
             </Droppable>
           </DragDropContext>
         </Segment>
-        <Button onClick={this.onSubmit}>Change order</Button>
-        <Button onClick={this.props.handleDragHide}>Cancel</Button>
+        <Segment attached="bottom" styleName="style.buttonBox">
+          <Button color="blue" onClick={this.onSubmit}>
+            Confirm order
+          </Button>
+        </Segment>
       </Segment>
     );
   }

@@ -11,9 +11,8 @@ import {
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 import { DateInput } from "semantic-ui-calendar-react";
-import { Scrollbars } from "react-custom-scrollbars";
 
 export const initial = {
   update: false,

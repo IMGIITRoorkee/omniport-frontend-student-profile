@@ -4,7 +4,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 
 import { Resume } from "./resume";
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 
 const initial = {
   data: {
@@ -150,7 +150,7 @@ export class SkillForm extends React.Component {
             </Button>
           </Segment>
         ) : (
-          <Segment attached="bottom" styleName="style.buttonBox">
+          <Segment attached="bottom" styleName="style.headingBox">
             <Button onClick={this.handleSubmit} color="blue" type="submit">
               Submit
             </Button>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
-import style from "../stylesheets/interest.css";
+import style from "../styles.css";
 
 export function Interest(props) {
   return (

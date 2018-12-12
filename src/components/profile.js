@@ -60,7 +60,7 @@ export class Profile extends React.Component {
   render() {
     const desc = this.state.data.description;
     return (
-      <Card fluid color="blue">
+      <Card fluid color="teal" style={{ position: "sticky", top: "5em" }}>
         <Card.Header textAlign="right">
           <Icon name="edit" onClick={this.handleShow} />
         </Card.Header>
@@ -74,7 +74,10 @@ export class Profile extends React.Component {
           <Card.Header textAlign="center">
             {this.state.person_data.fullName}
           </Card.Header>
-          <Card.Meta textAlign="center">@{this.state.data.handle}</Card.Meta>
+          <Card.Meta textAlign="center">
+            {this.state.data.handle ? "@" : null}
+            {this.state.data.handle}
+          </Card.Meta>
           <Card.Description textAlign="center"> {desc}</Card.Description>
         </Card.Content>
         <Card.Content extra>

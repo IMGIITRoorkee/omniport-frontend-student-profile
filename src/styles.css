@@ -1,0 +1,159 @@
+.formStyle {
+  
+    overflow-y:scroll;
+    text-align: left;
+    max-width: 90vw;
+
+    max-height: 70vh;
+}
+
+.formStyle2{
+    overflow-y:scroll;
+    text-align: left;
+    width: 50vw;
+    min-width: 300px;
+    max-height: 70vh;
+}
+
+
+.dragStyle{
+    overflow-y:scroll;
+    text-align: left;
+    width: 40vw;
+    min-width:300px;
+    max-height: 80vh;
+}
+
+.linkFormStyle {
+  
+    overflow-y:scroll;
+    text-align: left;
+    max-height: 60vh;
+}
+.headingBox{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    color:black;
+}
+.heading{
+    display: inline;
+    margin:0;
+}
+.buttonBox{
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
+}
+
+.resume{
+    display:flex;
+    justify-content: space-between;
+    align-items:center
+
+}
+
+.resumeText{
+    width:80%;
+}
+
+.skillForm{
+    width:30vw;
+    min-width:300px;
+
+}
+
+.navBar{
+    
+        display: "flex";
+        justify-content: "space-between";
+        flex-wrap: "wrap";
+        position:sticky;
+        top:0;
+        z-index: 5;
+      
+}
+.socialBox{
+    
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+
+    word-wrap: break-word;
+}
+
+.link{
+    word-break: break-all;
+    padding:0.5em;
+}
+
+.linkForm{
+    max-height:450px;
+    min-width:300px;
+    overflow-y: scroll;
+}
+
+.linkBox{
+    max-height:450px;
+    min-width:300px;
+    width:30vw;
+    overflow-y: scroll;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+    z-index: -1;
+    display:none;
+    
+
+}
+
+.inputLabel{
+    display:inline;
+}
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+  }
+
+  
+ .compPicture{
+    padding: 0.5vh;
+    width:10em;
+    flex-shrink: 0;
+  }
+ .mobPicture{
+    height: 15vh;
+    
+    padding-top:1.5vh;
+    min-width:100px;
+    min-height:100px
+  }
+  
+ .textBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-wrap: wrap;
+   
+  }
+  
+ .icon{
+    flex-grow:0;
+  }
+ .project{
+    display:flex;
+    justify-content: space-between;
+  }
+  
+ .compStyle{
+    width:calc(100% - 10em);
+    flex-grow:1;
+    flex-shrink: 0;
+  }

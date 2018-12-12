@@ -2,8 +2,7 @@ import React from "react";
 import axios from "axios";
 import { LinkForm } from "./linkForm";
 import { Segment, Dimmer, Icon, Container } from "semantic-ui-react";
-import style from "./../stylesheets/interestForm.css";
-import inline from "formula_one/src/css/inline.css";
+import style from "./../styles.css";
 
 export class LinkDisplay extends React.Component {
   constructor(props) {
@@ -54,10 +53,10 @@ export class LinkDisplay extends React.Component {
     });
     return (
       <div>
-        {/* <div styleName="style.headingBox">
+        <div styleName="style.headingBox">
           <h4 styleName="style.heading">Social Media</h4>
           <Icon color="grey" name="add" onClick={this.handleShow} />
-        </div> */}
+        </div>
         <Segment basic textAlign="center">
           {children}
         </Segment>

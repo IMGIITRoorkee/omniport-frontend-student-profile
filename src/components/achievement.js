@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
-import style from "../stylesheets/achievement.css";
+import style from "../styles.css";
 
 export function Achievement(props) {
   return (

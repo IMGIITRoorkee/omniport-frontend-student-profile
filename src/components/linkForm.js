@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/interestForm.css";
+import style from "../styles.css";
 import { LinkList } from "./linkList";
 
 const initial = {
@@ -91,56 +91,50 @@ export class LinkForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <Segment attached styleName="style.headingBox">
+      <Segment basic styleName="style.linkBox">
+        <Segment attached="top" styleName="style.headingBox">
           <span>
             <Icon color="blue" name="stop" />
-            <h4 styleName="style.heading">SOCIAL MEDIA LINKS</h4>
+            <h3 styleName="style.heading">Social media links</h3>
           </span>
 
-          <Icon
-            bordered
-            name="cancel"
-            color="black"
-            onClick={this.handleHide}
-          />
+          <Icon name="cancel" color="black" onClick={this.handleHide} />
         </Segment>
-        <Segment attached>
+        <Segment textAlign="left" attached="bottom" styleName="style.linkForm">
           <Form>
-            <Form.Group inline>
-              <Form.Field>
-                <label>Site</label>
-                <Dropdown
-                  selection
-                  value={this.state.data.site}
-                  name="site"
-                  onChange={this.onChange}
-                  options={options}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Form.Input
-                  label="URL"
-                  onChange={this.handleChange}
-                  value={this.state.data.url}
-                  name="url"
-                  placeholder="Add interest ..."
-                />
-              </Form.Field>
-              <Form.Field />
-              <Icon
-                name="add"
-                onClick={this.handleSubmit}
-                style={{ color: "black" }}
+            <Form.Field>
+              <label>Site</label>
+              <Dropdown
+                selection
+                value={this.state.data.site}
+                name="site"
+                onChange={this.onChange}
+                options={options}
               />
-            </Form.Group>
+            </Form.Field>
+            <Form.Field>
+              <Form.Input
+                label="URL"
+                onChange={this.handleChange}
+                value={this.state.data.url}
+                name="url"
+                placeholder="Add interest ..."
+              />
+            </Form.Field>
+
+            <Form.Field>
+              <Button color="blue" onClick={this.handleSubmit}>
+                Add
+              </Button>
+            </Form.Field>
           </Form>
+
           <LinkList
             data={this.state.links}
             handleUpdateDelete={this.handleUpdateDelete}
           />
         </Segment>
-      </div>
+      </Segment>
     );
   }
 }

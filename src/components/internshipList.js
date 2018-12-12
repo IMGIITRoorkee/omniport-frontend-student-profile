@@ -1,18 +1,10 @@
 import React from "react";
 import { Internship } from "./internship";
 import { InternshipForm } from "./internshipForm";
-import {
-  Dimmer,
-  Icon,
-  Segment,
-  Container,
-  Header,
-  Divider
-} from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import style from "../stylesheets/internshipList.css";
-import inline from "formula_one/src/css/inline.css";
+import style from "../styles.css";
 import { initial } from "./internshipForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 
@@ -114,9 +106,14 @@ export class InternshipList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Internships</Header>
+          <Header styleName="style.heading">Internships</Header>
           <div>
-            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Popup
+              trigger={
+                <Icon color="grey" name="sort" onClick={handleDragShow} />
+              }
+              content="Rearrange the information"
+            />
             <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>

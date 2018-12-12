@@ -3,8 +3,7 @@ import { PreviousEducation } from "./previousEducation";
 import { PreviousEducationForm } from "./previousEducationForm";
 import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import axios from "axios";
-import style from "../stylesheets/previousEducationList.css";
-import inline from "formula_one/src/css/inline.css";
+import style from "../styles.css";
 import { initial } from "./previousEducationForm";
 
 export class PreviousEducationList extends React.Component {
@@ -26,6 +25,8 @@ export class PreviousEducationList extends React.Component {
       });
   };
   manageData = id => {
+    let data = this.state.data.find(x => x.id == id);
+    data.year = String(data.year);
     this.setState({
       formData: this.state.data.find(x => x.id == id),
       update: true,
@@ -84,7 +85,7 @@ export class PreviousEducationList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Previous Education</Header>
+          <Header styleName="style.heading">Previous education</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
 

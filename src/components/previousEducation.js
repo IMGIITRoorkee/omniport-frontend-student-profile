@@ -1,7 +1,7 @@
 import React from "react";
 import "./../index.css";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
-import style from "../stylesheets/previousEducation.css";
+import style from "../styles.css";
 const graduationOptions = {
   mat: "Matriculate",
   int: "Intermediate",

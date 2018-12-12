@@ -11,7 +11,7 @@ import {
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 
 export const initial = {
   update: false,
@@ -160,7 +160,7 @@ export class InterestForm extends React.Component {
           </Segment>
         ) : (
           <Segment attached="bottom" styleName="style.buttonBox">
-            <Button color="red" onClick={this.handleErrors} type="submit">
+            <Button color="blue" onClick={this.handleErrors} type="submit">
               Submit
             </Button>
           </Segment>

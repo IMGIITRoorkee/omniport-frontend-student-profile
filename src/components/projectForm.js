@@ -15,9 +15,9 @@ import { DateInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import { ImagePreview } from "./imagePreview";
 import { ProjectList } from "./projectList";
-import style from "../stylesheets/bookForm.css";
-import style1 from "../stylesheets/interestForm.css";
-import inline from "formula_one/src/css/inline.css";
+import { Project } from "./project";
+import { DragAndDropBox } from "./dragAndDropBox";
+import style from "../styles.css";
 import moment from "moment";
 
 const initial = {
@@ -36,11 +36,12 @@ export class ProjectForm extends React.Component {
     super(props);
     this.state = {
       image: "",
-      list: "",
+      list: [],
       update: false,
       active: false,
       data: initial,
-      errors: []
+      errors: [],
+      rearrange: false
     };
   }
 
@@ -243,18 +244,35 @@ export class ProjectForm extends React.Component {
       console.log(this.state.data.isFullDate);
     });
   };
+  handleUpdate = data => {
+    this.setState({
+      list: data,
+      rearrange: false
+    });
+  };
+  handleDragShow = () => {
+    this.setState({
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
+    this.setState({
+      rearrange: false
+    });
+  };
   render() {
-    let { list, update } = this.state;
+    let { list, update, rearrange } = this.state;
+    const { handleUpdate, handleDragHide, handleDragShow, handleShow } = this;
     const children = <ProjectList arr={list} update={this.update} />;
     let imagePreview = (
       <div>
         <input
           type="file"
           onChange={this.handleImageChange}
-          styleName="style1.inputfile"
+          styleName="style.inputfile"
           id="embedpollfileinput"
         />
-        <div styleName="style1.inputLabel">
+        <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
             Upload Image
@@ -276,14 +294,17 @@ export class ProjectForm extends React.Component {
 
     return (
       <Segment padded color="teal">
-        <div styleName="style1.headingBox">
-          <Header styleName="inline.margin-bottom-0">Projects</Header>
-          <Icon color="grey" name="add" onClick={this.handleShow} />
+        <div styleName="style.headingBox">
+          <Header styleName="style.heading">Projects</Header>
+          <div>
+            <Icon color="grey" name="sort" onClick={handleDragShow} />
+            <Icon color="grey" name="add" onClick={handleShow} />
+          </div>
         </div>
 
         <Dimmer active={this.state.active} page>
           <Segment basic>
-            <Segment attached styleName="style.headingBox">
+            <Segment attached="top" styleName="style.headingBox">
               <h3 styleName="style.heading">Project</h3>
               <Icon color="grey" name="delete" onClick={this.handleHide} />
             </Segment>
@@ -356,7 +377,7 @@ export class ProjectForm extends React.Component {
               </Form>
             </Segment>
             {update ? (
-              <Segment attached styleName="style.headingBox">
+              <Segment attached="bottom" styleName="style.headingBox">
                 <Button onClick={this.handleErrors} color="blue">
                   Save Changes
                 </Button>
@@ -365,7 +386,7 @@ export class ProjectForm extends React.Component {
                 </Button>
               </Segment>
             ) : (
-              <Segment attached styleName="style.buttonBox">
+              <Segment attached="bottom" styleName="style.buttonBox">
                 <Button onClick={this.handleErrors} color="blue" type="submit">
                   Submit
                 </Button>
@@ -374,6 +395,16 @@ export class ProjectForm extends React.Component {
           </Segment>
         </Dimmer>
         {list == "" ? null : <Segment.Group> {children}</Segment.Group>}
+
+        <Dimmer active={rearrange} page>
+          <DragAndDropBox
+            data={list}
+            modelName="Project"
+            element={Project}
+            handleUpdate={handleUpdate}
+            handleDragHide={handleDragHide}
+          />
+        </Dimmer>
       </Segment>
     );
   }

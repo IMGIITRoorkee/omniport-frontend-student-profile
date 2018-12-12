@@ -1,13 +1,13 @@
 import React from "react";
-import { CurrentEducation } from "./currentEducation";
-import { CurrentEducationForm } from "./currentEducationForm";
-import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
+import { Referee } from "./referee";
+import { RefereeForm } from "./refereeForm";
+import { Dimmer, Icon, Segment, Transition, Header } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
+import { initial } from "./refereeForm";
+import { getTheme } from "formula_one";
 
-import { initial } from "./currentEducationForm";
-
-export class CurrentEducationList extends React.Component {
+export class RefereeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { update: false, active: false, formData: null, data: null };
@@ -17,7 +17,7 @@ export class CurrentEducationList extends React.Component {
   }
   fetchData = e => {
     axios
-      .get("/api/student_profile/current_education/")
+      .get("/api/student_profile/referee/")
       .then(response => {
         this.setState({ data: response.data });
       })
@@ -73,31 +73,28 @@ export class CurrentEducationList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <CurrentEducation
-            data={data}
-            key={data.id}
-            manageData={this.manageData}
-          />
+          <Referee data={data} key={data.id} manageData={this.manageData} />
         );
       });
     }
     return (
-      <Segment padded color="teal">
+      <Segment padded color={getTheme()}>
         <div styleName="style.headingBox">
-          <Header styleName="style.heading">Current education</Header>
+          <Header styleName="style.heading">Referee</Header>
           <Icon color="grey" name="add" onClick={handleShow} />
         </div>
-
-        <Dimmer active={active} page>
-          <CurrentEducationForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
+        <Transition visible={active} animation="scale" duration={500}>
+          <Dimmer active={active} page>
+            <RefereeForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+        </Transition>
         {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
       </Segment>
     );

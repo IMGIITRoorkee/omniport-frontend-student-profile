@@ -6,48 +6,36 @@ import {
   Icon,
   Label,
   Segment,
-  Dropdown,
+  Transition,
   Message
 } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import moment from "moment";
-
+import { validateEmail } from "./../helperFunctions";
 import style from "../styles.css";
-import { YearInput } from "semantic-ui-calendar-react";
 
-const graduationOptions = [
-  { text: "Matriculate", key: "MATRICULATE", value: "mat" },
-  { text: "Intermediate", key: "INTERMEDIATE", value: "int" },
-  { text: "Associate", key: "ASSOCIATE", value: "ass" },
-  { text: "Graduate", key: "GRADUATE", value: "gra" },
-  { text: "Postgraduate", key: "POSTGRADUATE", value: "pos" },
-  { text: "Doctorate", key: "DOCTORATE", value: "doc" },
-  { text: "Postdoctorate", key: "POSTDOCTORATE", value: "pdo" }
-];
 export const initial = {
   update: false,
   data: {
-    year: "",
+    referee: "",
+    designation: "",
     institute: "",
-    fieldOfStudy: "",
-    degree: "",
-    graduation: "",
+    phoneNumber: "",
+    email: "",
     priority: 1,
-    visibility: true,
-    cgpa: "",
-    percentage: "98",
-    is_percentage: false
+    visibility: true
   }
 };
-export class PreviousEducationForm extends React.Component {
+export class RefereeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: this.props.formData,
       update: this.props.update,
       list: null,
-      errors: []
+      errors: [],
+      visible: true
     };
   }
   componentDidMount() {
@@ -55,6 +43,7 @@ export class PreviousEducationForm extends React.Component {
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPress, false);
+    this.setState({ visible: false });
   }
   handleKeyPress = e => {
     if (e.keyCode === 27) {
@@ -74,6 +63,7 @@ export class PreviousEducationForm extends React.Component {
       this.setState(initial);
     }
   }
+
   handleChange = (event, { name = undefined, value }) => {
     console.log(this.state.data);
     event.persist();
@@ -87,7 +77,7 @@ export class PreviousEducationForm extends React.Component {
     };
     axios({
       method: "post",
-      url: "/api/student_profile/previous_education/",
+      url: "/api/student_profile/referee/",
       data: this.state.data,
       headers: headers
     }).then(response => {
@@ -103,8 +93,7 @@ export class PreviousEducationForm extends React.Component {
     };
     axios({
       method: option,
-      url:
-        "/api/student_profile/previous_education/" + this.state.data.id + "/",
+      url: "/api/student_profile/referee/" + this.state.data.id + "/",
       data: this.state.data,
       headers: headers
     }).then(response => {
@@ -118,38 +107,28 @@ export class PreviousEducationForm extends React.Component {
     console.log(this.state.data);
     let errors = [];
     const {
+      referee,
+      designation,
       institute,
-      degree,
-      graduation,
-      fieldOfStudy,
-      cgpa,
-      year
+      phoneNumber,
+      email
     } = this.state.data;
+    if (referee == "") {
+      errors.push("Refree name must be filled");
+    }
+    if (designation == "") {
+      errors.push("Designation must be filled");
+    }
     if (institute == "") {
-      errors.push("Institute must be filled");
+      errors.push("Institute name must be filled");
     }
-    if (degree == "") {
-      errors.push("Degree must be filled");
+    if (phoneNumber == "") {
+      errors.push("Phone number must be filled");
     }
-    if (graduation == "") {
-      errors.push("Graduation must be filled");
-    }
-    if (fieldOfStudy == "") {
-      errors.push("Field of study must be filled");
-    }
-    if (cgpa == "") {
-      errors.push("CGPA must be filled");
-    } else if (
-      isNaN(parseInt(cgpa)) ||
-      parseFloat(cgpa) > 10 ||
-      parseFloat(cgpa) < 0
-    ) {
-      errors.push("Please enter valid CGPA");
-    }
-    if (year == "") {
-      errors.push("Year must be filled");
-    } else if (!moment(year, "YYYY", true).isValid()) {
-      errors.push("Please enter year in YYYY format");
+    if (email == "") {
+      errors.push("Email must be filled");
+    } else if (!validateEmail(email)) {
+      errors.push("Please enter a valid email address");
     }
     if (errors.length > 0) {
       this.setState({ errors: errors });
@@ -163,18 +142,16 @@ export class PreviousEducationForm extends React.Component {
   render() {
     const { update } = this.state;
     const {
-      year,
+      referee,
+      designation,
       institute,
-      fieldOfStudy,
-      degree,
-      graduation,
-      cgpa,
-      percentage
+      phoneNumber,
+      email
     } = this.state.data;
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
-          <h3 styleName="style.heading">Previous Education</h3>
+          <h3 styleName="style.heading">Referee</h3>
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
 
@@ -189,63 +166,52 @@ export class PreviousEducationForm extends React.Component {
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
-                <label>Institute</label>
+                <label>Referee</label>
                 <Form.Input
                   onChange={this.handleChange}
-                  value={institute}
-                  name="institute"
-                  placeholder="Institute"
+                  value={referee}
+                  name="referee"
+                  placeholder="Referee"
                 />
               </Form.Field>
+              page
               <Form.Field required>
-                <label>Degree</label>
+                <label>Designation</label>
                 <Form.Input
                   onChange={this.handleChange}
-                  value={degree}
-                  name="degree"
-                  placeholder="Degree"
+                  value={designation}
+                  name="designation"
+                  placeholder="Designation"
                 />
               </Form.Field>
             </Form.Group>
             <Form.Field required>
-              <label>Graduation</label>
-              <Dropdown
+              <label>Institute</label>
+              <Form.Input
                 onChange={this.handleChange}
-                name="graduation"
-                options={graduationOptions}
-                placeholder="Choose Graduation options"
-                selection
-                value={graduation}
+                value={institute}
+                name="institute"
+                placeholder="Institute"
               />
             </Form.Field>
             <Form.Field required>
-              <label>Field of study</label>
-              <Form.Input
+              <label>Phone number</label>
+              <Input
                 onChange={this.handleChange}
-                value={fieldOfStudy}
-                name="fieldOfStudy"
-                placeholder="Field of study (Ex- Science or Commerce)"
+                value={phoneNumber}
+                name="phoneNumber"
+                placeholder="Phone number (optional)"
               />
             </Form.Field>
-
             <Form.Field required>
-              <label>CGPA</label>
+              <label>Email</label>
               <Form.Input
                 onChange={this.handleChange}
-                value={cgpa}
-                name="cgpa"
-                placeholder="CGPA"
+                value={email}
+                name="email"
+                placeholder="Email"
               />
             </Form.Field>
-            <YearInput
-              popupPosition="bottom left"
-              label="Year"
-              name="year"
-              placeholder="Year"
-              value={year}
-              iconPosition="left"
-              onChange={this.handleChange}
-            />
           </Form>
         </Segment>
         {update ? (

@@ -12,7 +12,7 @@ import {
 import { getCookie } from "formula_one";
 import axios from "axios";
 
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
 
 const graduationOptions = [

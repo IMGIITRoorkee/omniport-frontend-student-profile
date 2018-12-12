@@ -8,7 +8,7 @@ import {
   Divider
 } from "semantic-ui-react";
 import axios from "axios";
-import style from "../stylesheets/achievementList.css";
+import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { Achievement } from "./achievement";
 import { AchievementForm } from "./achievementForm";
@@ -114,7 +114,7 @@ export class AchievementList extends React.Component {
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Achievements</Header>
           <div>
-            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="sort" onClick={handleDragShow} />
             <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>

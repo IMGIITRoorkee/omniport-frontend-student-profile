@@ -4,7 +4,7 @@ import { BookForm } from "./bookForm";
 import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import style from "../stylesheets/bookList.css";
+import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { initial } from "./bookForm";
 import { DragAndDropBox } from "./dragAndDropBox";
@@ -105,7 +105,7 @@ export class BookList extends React.Component {
         <div styleName="style.headingBox">
           <Header styleName="inline.margin-bottom-0">Books</Header>
           <div>
-            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
+            <Icon color="grey" name="sort" onClick={handleDragShow} />
             <Icon color="grey" name="add" onClick={handleShow} />
           </div>
         </div>

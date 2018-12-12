@@ -1,7 +1,7 @@
 import React from "react";
 import "./../index.css";
 import { Icon, List, Segment } from "semantic-ui-react";
-import style from "../stylesheets/book.css";
+import style from "../styles.css";
 
 export function Book(props) {
   return (

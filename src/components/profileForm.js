@@ -4,8 +4,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 
 import { Resume } from "./resume";
-import style from "../stylesheets/bookForm.css";
-import style1 from "../stylesheets/interestForm.css";
+import style from "../styles.css";
 
 const initial = {
   data: { handle: "", description: "", customWebsite: false, resume: null }
@@ -111,10 +110,10 @@ export class ProfileForm extends React.Component {
         <input
           type="file"
           onChange={this.handleFile}
-          styleName="style1.inputfile"
+          styleName="style.inputfile"
           id="embedpollfileinput"
         />
-        <div styleName="style1.inputLabel">
+        <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
             Upload Resume
@@ -135,7 +134,7 @@ export class ProfileForm extends React.Component {
     }
     return (
       <Segment basic>
-        <Segment attached styleName="style.headingBox">
+        <Segment attached="top" styleName="style.headingBox">
           <h3 styleName="style.heading">Profile</h3>
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
@@ -164,7 +163,7 @@ export class ProfileForm extends React.Component {
           </Form>
         </Segment>
 
-        <Segment attached styleName="style.buttonBox">
+        <Segment attached="bottom" styleName="style.buttonBox">
           <Button onClick={this.handleSubmit} color="blue" type="submit">
             Submit
           </Button>

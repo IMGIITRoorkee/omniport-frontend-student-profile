@@ -11,7 +11,7 @@ import {
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 
 export const initial = {
   update: false,

@@ -13,7 +13,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import { Scrollbars } from "react-custom-scrollbars";
 
-import style from "../stylesheets/bookForm.css";
+import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
 
 export const initial = {

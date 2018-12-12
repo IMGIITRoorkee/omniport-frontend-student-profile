@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Segment, Icon, Image, List } from "semantic-ui-react";
-import style from "../stylesheets/internship.css";
+import style from "../styles.css";
 import { isMobile } from "react-device-detect";
 
 export function Project(props) {
@@ -68,13 +68,14 @@ export function Project(props) {
           ) : null}
         </div>
       )}
-
-      <Icon
-        styleName="style.icon"
-        name="edit"
-        color="grey"
-        onClick={() => props.update(props.data)}
-      />
+      {props.rearrange != true ? (
+        <Icon
+          styleName="style.icon"
+          name="edit"
+          color="grey"
+          onClick={() => props.update(props.data)}
+        />
+      ) : null}
     </Segment>
   );
 }

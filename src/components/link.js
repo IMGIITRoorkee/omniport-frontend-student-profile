@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Segment, Icon } from "semantic-ui-react";
-import style from "../stylesheets/interestForm.css";
+import style from "../styles.css";
 
 export class Link extends React.Component {
   constructor(props) {
@@ -12,12 +12,11 @@ export class Link extends React.Component {
     this.props.handleUpdateDelete(this.props.data.id);
   };
   render() {
-    //ad-hoc solution
     return (
-      <Segment attached styleName="style.headingBox">
-        <div styleName="style.headingBox">
+      <Segment styleName="style.headingBox">
+        <div styleName="style.socialBox">
           <Icon name={SOCIAL_SITE_ICONS[this.props.data.site]} />
-          {this.props.data.url}
+          <p styleName="style.link">{this.props.data.url}</p>
         </div>
         <Icon name="delete" onClick={this.handleDelete} />
       </Segment>
