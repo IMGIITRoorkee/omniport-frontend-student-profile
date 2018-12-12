@@ -1,16 +1,28 @@
 import React from "react";
 import { Referee } from "./referee";
 import { RefereeForm } from "./refereeForm";
-import { Dimmer, Icon, Segment, Transition, Header } from "semantic-ui-react";
+import {
+  Dimmer,
+  Icon,
+  Segment,
+  Transition,
+  Header,
+  Button
+} from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./refereeForm";
-import { getTheme } from "formula_one";
+import { ComponentTransition } from "./transition";
 
 export class RefereeList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: null };
+    this.state = {
+      update: false,
+      active: false,
+      formData: null,
+      data: null
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -19,7 +31,7 @@ export class RefereeList extends React.Component {
     axios
       .get("/api/student_profile/referee/")
       .then(response => {
-        this.setState({ data: response.data });
+        this.setState({ data: response.data }, () => {});
       })
       .catch(error => {
         console.log(error);
@@ -57,7 +69,6 @@ export class RefereeList extends React.Component {
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
-
   render() {
     const { active, update, formData, data } = this.state;
     const {
@@ -78,12 +89,12 @@ export class RefereeList extends React.Component {
       });
     }
     return (
-      <Segment padded color={getTheme()}>
-        <div styleName="style.headingBox">
-          <Header styleName="style.heading">Referee</Header>
-          <Icon color="grey" name="add" onClick={handleShow} />
-        </div>
-        <Transition visible={active} animation="scale" duration={500}>
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <Header styleName="style.heading">Referee</Header>
+            <Icon color="grey" name="add" onClick={handleShow} />
+          </div>
           <Dimmer active={active} page>
             <RefereeForm
               update={update}
@@ -94,9 +105,9 @@ export class RefereeList extends React.Component {
               handleHide={handleHide}
             />
           </Dimmer>
-        </Transition>
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

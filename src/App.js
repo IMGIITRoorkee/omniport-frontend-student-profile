@@ -5,7 +5,9 @@ import {
   Container,
   Grid,
   List,
-  Image
+  Transition,
+  List,
+  Button
 } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
@@ -58,7 +60,12 @@ const creators = [
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { show: false, erroneous: "don't know", handle: "" };
+    this.state = {
+      show: false,
+      erroneous: "don't know",
+      handle: "",
+      tVisibility: false
+    };
   }
   componentDidMount() {
     const handle = this.props.match.params.handle;
@@ -84,6 +91,12 @@ class App extends Component {
         });
     }
   }
+  handleToggle = () => {
+    console.log(this.state.tVisibility);
+    const newtVisibility = !this.state.tVisibility;
+    this.setState({ tVisibility: newtVisibility });
+  };
+
   render() {
     const innerApp = (
       <Container as={Segment} basic>
@@ -93,6 +106,7 @@ class App extends Component {
               <Profile />
             </Grid.Column>
             <Grid.Column width={12}>
+              <Button onClick={this.handleToggle}>Toggle tVisibility</Button>
               <Segment color="red">
                 <Segment basic>
                   <Header as="h2">About me</Header>
@@ -100,6 +114,9 @@ class App extends Component {
                   Development and having an interest in Mathematics.
                 </Segment>
               </Segment>
+
+              <RefereeList handle={handle} />
+
               <InterestList handle={handle} />
               <AchievementList handle={handle} />
               <InternshipList handle={handle} />
@@ -108,7 +125,6 @@ class App extends Component {
               <PreviousEducationList handle={handle} />
               <ProjectForm />
               <Skill handle={handle} />
-              <RefereeList handle={handle} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
