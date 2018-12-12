@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Segment, Header, Container, Grid } from "semantic-ui-react";
+import { Segment, Header, Container, Grid, Label } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
@@ -16,7 +16,7 @@ import { Profile } from "./components/profile";
 import { ProjectForm } from "./components/projectForm";
 import { skill, Skill } from "./components/skill";
 import { NotFound } from "./components/notFound";
-
+import style from "./stylesheets/bookForm.css";
 const creators = [
   {
     name: "Mahip Jain",
@@ -88,19 +88,46 @@ class App extends Component {
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <BrowserView>
               <Container as={Segment} basic>
+                <Segment
+                  basic
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap"
+                  }}
+                >
+                  {" "}
+                  <Segment attached styleName="style.navElement">
+                    <h3>Achievements</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Interests</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Internships</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Books</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Current education</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Previous Education</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Projects</h3>
+                  </Segment>
+                  <Segment attached styleName="style.navElement">
+                    <h3>Skills</h3>
+                  </Segment>
+                </Segment>
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
                       <Profile />
                     </Grid.Column>
                     <Grid.Column width={12}>
-                      <Segment color="red">
-                        <Segment basic>
-                          <Header as="h2">About me</Header>
-                          Electrical Engineering undergraduate, exploring Web
-                          Development and having an interest in Mathematics.
-                        </Segment>
-                      </Segment>
                       <InterestList handle={handle} />
                       <AchievementList handle={handle} />
                       <InternshipList handle={handle} />
@@ -132,10 +159,9 @@ class App extends Component {
                       <InterestList />
                       <AchievementList />
                       <InternshipList />
-                      <BookList />
+                      <BookList /> <ProjectForm />
                       <CurrentEducationList />
                       <PreviousEducationList />
-                      <ProjectForm />
                       <Skill />
                     </Grid.Column>
                   </Grid.Row>

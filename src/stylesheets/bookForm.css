@@ -62,3 +62,23 @@
     min-width:300px;
 
 }
+
+.navBar{
+    
+        display: "flex";
+        justify-content: "center";
+        flex-wrap: "wrap"
+     
+}
+
+.navElement{
+ flex-grow: 1 ;
+ flex:1;
+ display: flex;
+ justify-content:center;
+ align-items: center;
+ border:1px solid gray;
+ 
+ 
+
+}

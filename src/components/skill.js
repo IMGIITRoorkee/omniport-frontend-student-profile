@@ -5,18 +5,18 @@ import { getCookie } from "formula_one";
 import style from "../stylesheets/internship.css";
 import inline from "formula_one/src/css/inline.css";
 import { SkillForm } from "./skillForm";
-
+const initial = {
+  computerLanguages: "",
+  softwarePackages: "",
+  additionalCourses: "",
+  minorCourses: "",
+  languages: ""
+};
 export class Skill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        computerLanguages: "",
-        softwarePackages: "",
-        additionalCourses: "",
-        minorCourses: "",
-        languages: ""
-      },
+      data: initial,
       person_data: "",
       active: false,
       createNew: true
@@ -57,7 +57,6 @@ export class Skill extends React.Component {
   };
 
   render() {
-    const desc = this.state.data.description;
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
         <Segment>
@@ -137,14 +136,15 @@ export class Skill extends React.Component {
             <Icon name="add" color="grey" onClick={this.handleShow} />
           </div>
         </div>
-        <Segment.Group>
-          {additionalCourses}
-          {minorCourses}
-          {computerLanguages}
-          {softwarePackages}
-          {languages}
-        </Segment.Group>
-
+        {this.state.data != initial ? (
+          <Segment.Group>
+            {additionalCourses}
+            {minorCourses}
+            {computerLanguages}
+            {softwarePackages}
+            {languages}
+          </Segment.Group>
+        ) : null}
         <Dimmer active={this.state.active} page>
           <SkillForm
             data={this.state.data}

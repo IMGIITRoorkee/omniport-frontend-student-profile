@@ -137,12 +137,7 @@ export class ProfileForm extends React.Component {
       <Segment basic>
         <Segment attached styleName="style.headingBox">
           <h3 styleName="style.heading">Profile</h3>
-          <Icon
-            color="grey"
-            name="delete"
-            size="large"
-            onClick={this.props.handleHide}
-          />
+          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
           <Form>
