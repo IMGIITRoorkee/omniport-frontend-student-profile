@@ -14,6 +14,7 @@ import axios from "axios";
 import moment from "moment";
 import { validateEmail } from "./../helperFunctions";
 import style from "../stylesheets/bookForm.css";
+import { ErrorTransition, FormTransition } from "./transition";
 
 export const initial = {
   update: false,
@@ -31,23 +32,23 @@ export class RefereeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.formData,
-      update: this.props.update,
+      data: props.formData,
+      update: props.update,
       list: null,
       errors: [],
-      visible: true
+      visible: false
     };
   }
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress, false);
+    this.setState({ visible: true });
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPress, false);
-    this.setState({ visible: false });
   }
   handleKeyPress = e => {
     if (e.keyCode === 27) {
-      this.props.handleHide();
+      this.handleHide();
     }
     if (e.keyCode === 13) {
       this.handleErrors();
@@ -57,7 +58,8 @@ export class RefereeForm extends React.Component {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
         data: nextProps.formData,
-        update: nextProps.update
+        update: nextProps.update,
+        visible: true
       });
     } else if (this.props != nextProps && nextProps.update == false) {
       this.setState(initial);
@@ -83,7 +85,7 @@ export class RefereeForm extends React.Component {
     }).then(response => {
       this.props.appendData(response.data);
       this.setState(initial, () => {
-        this.props.handleHide();
+        this.handleHide();
       });
     });
   };
@@ -99,7 +101,7 @@ export class RefereeForm extends React.Component {
     }).then(response => {
       this.props.updateDeleteData(this.state.data, option);
       this.setState(initial, () => {
-        this.props.handleHide();
+        this.handleHide();
       });
     });
   };
@@ -122,9 +124,6 @@ export class RefereeForm extends React.Component {
     if (institute == "") {
       errors.push("Institute name must be filled");
     }
-    if (phoneNumber == "") {
-      errors.push("Phone number must be filled");
-    }
     if (email == "") {
       errors.push("Email must be filled");
     } else if (!validateEmail(email)) {
@@ -139,6 +138,10 @@ export class RefereeForm extends React.Component {
       });
     }
   };
+  handleHide = () => {
+    this.setState({ visible: false });
+    setTimeout(this.props.handleHide, 200);
+  };
   render() {
     const { update } = this.state;
     const {
@@ -149,93 +152,89 @@ export class RefereeForm extends React.Component {
       email
     } = this.state.data;
     return (
-      <Transition visible={this.state.visible} animation="scale" duration={500}>
-        <Segment basic>
-          <Segment attached="top" styleName="style.headingBox">
-            <h3 styleName="style.heading">Referee</h3>
-            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
-          </Segment>
+      <div>
+        <FormTransition visible={this.state.visible}>
+          <Segment basic>
+            <Segment attached="top" styleName="style.headingBox">
+              <h3 styleName="style.heading">Referee</h3>
+              <Icon color="grey" name="delete" onClick={this.handleHide} />
+            </Segment>
 
-          <Segment attached styleName="style.formStyle">
-            {this.state.errors.length > 0 ? (
-              <Message
-                error
-                header="There were some errors with your submission:"
-                list={this.state.errors}
-              />
-            ) : null}
-            <Form autoComplete="off">
-              <Form.Group widths="equal">
+            <Segment attached styleName="style.formStyle">
+              <ErrorTransition errors={this.state.errors} />
+              <Form autoComplete="off">
+                <Form.Group widths="equal">
+                  <Form.Field required>
+                    <label>Referee</label>
+                    <Form.Input
+                      onChange={this.handleChange}
+                      value={referee}
+                      name="referee"
+                      placeholder="Referee"
+                    />
+                  </Form.Field>
+                  page
+                  <Form.Field required>
+                    <label>Designation</label>
+                    <Form.Input
+                      onChange={this.handleChange}
+                      value={designation}
+                      name="designation"
+                      placeholder="Designation"
+                    />
+                  </Form.Field>
+                </Form.Group>
                 <Form.Field required>
-                  <label>Referee</label>
+                  <label>Institute</label>
                   <Form.Input
                     onChange={this.handleChange}
-                    value={referee}
-                    name="referee"
-                    placeholder="Referee"
+                    value={institute}
+                    name="institute"
+                    placeholder="Institute"
                   />
                 </Form.Field>
-                page
+                <Form.Field>
+                  <label>Phone number</label>
+                  <Input
+                    onChange={this.handleChange}
+                    value={phoneNumber}
+                    name="phoneNumber"
+                    placeholder="Phone number (optional)"
+                  />
+                </Form.Field>
                 <Form.Field required>
-                  <label>Designation</label>
+                  <label>Email</label>
                   <Form.Input
                     onChange={this.handleChange}
-                    value={designation}
-                    name="designation"
-                    placeholder="Designation"
+                    value={email}
+                    name="email"
+                    placeholder="Email"
                   />
                 </Form.Field>
-              </Form.Group>
-              <Form.Field required>
-                <label>Institute</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={institute}
-                  name="institute"
-                  placeholder="Institute"
-                />
-              </Form.Field>
-              <Form.Field required>
-                <label>Phone number</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={phoneNumber}
-                  name="phoneNumber"
-                  placeholder="Phone number (optional)"
-                />
-              </Form.Field>
-              <Form.Field required>
-                <label>Email</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={email}
-                  name="email"
-                  placeholder="Email"
-                />
-              </Form.Field>
-            </Form>
+              </Form>
+            </Segment>
+            {update ? (
+              <Segment attached="bottom" styleName="style.headingBox">
+                <Button onClick={this.handleErrors} color="blue">
+                  Save Changes
+                </Button>
+                <Button
+                  color="red"
+                  onClick={() => this.handleUpdateDelete("delete")}
+                >
+                  Delete
+                </Button>
+              </Segment>
+            ) : (
+              <Segment attached="bottom" styleName="style.buttonBox">
+                <Button onClick={this.handleErrors} color="blue" type="submit">
+                  Submit
+                </Button>
+              </Segment>
+            )}
           </Segment>
-          {update ? (
-            <Segment attached="bottom" styleName="style.headingBox">
-              <Button onClick={this.handleErrors} color="blue">
-                Save Changes
-              </Button>
-              <Button
-                color="red"
-                onClick={() => this.handleUpdateDelete("delete")}
-              >
-                Delete
-              </Button>
-            </Segment>
-          ) : (
-            <Segment attached="bottom" styleName="style.buttonBox">
-              <Button onClick={this.handleErrors} color="blue" type="submit">
-                Submit
-              </Button>
-            </Segment>
-          )}
-        </Segment>
-      </Transition>
+        </FormTransition>
+      </div>
     );
   }
 }

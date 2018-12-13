@@ -15,6 +15,7 @@ import { Interest } from "./interest";
 import { InterestForm } from "./interestForm";
 import { initial } from "./interestForm";
 import { DragAndDropBox } from "./dragAndDropBox";
+import { ComponentTransition } from "./transition";
 
 export class InterestList extends React.Component {
   constructor(props) {
@@ -112,36 +113,42 @@ export class InterestList extends React.Component {
       });
     }
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Interests</Header>
-          <div>
-            <Icon color="grey" name="sort amount up" onClick={handleDragShow} />
-            <Icon color="grey" name="add" onClick={handleShow} />
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <Header styleName="inline.margin-bottom-0">Interests</Header>
+            <div>
+              <Icon
+                color="grey"
+                name="sort amount up"
+                onClick={handleDragShow}
+              />
+              <Icon color="grey" name="add" onClick={handleShow} />
+            </div>
           </div>
-        </div>
-        <Dimmer active={active} page>
-          <InterestForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
-        <Dimmer active={rearrange} page>
-          <DragAndDropBox
-            data={data}
-            modelName="Interest"
-            element={Interest}
-            handleUpdate={handleUpdate}
-            handleDragHide={handleDragHide}
-          />
-        </Dimmer>
+          <Dimmer active={active} page>
+            <InterestForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={data}
+              modelName="Interest"
+              element={Interest}
+              handleUpdate={handleUpdate}
+              handleDragHide={handleDragHide}
+            />
+          </Dimmer>
 
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }
