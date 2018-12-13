@@ -18,11 +18,15 @@ export function CurrentEducation(props) {
           </List.Item>
         </List>
 
-        <Icon
-          name="edit"
-          color="grey"
-          onClick={() => props.manageData(props.data.id)}
-        />
+        <div>
+          {!props.rearrange ? (
+            <Icon
+              name="edit"
+              color="grey"
+              onClick={() => props.manageData(props.data.id)}
+            />
+          ) : null}
+        </div>
       </div>
     </Segment>
   );

@@ -4,6 +4,8 @@ import axios from "axios";
 import { getCookie } from "formula_one";
 import style from "../styles.css";
 import { SkillForm } from "./skillForm";
+import { ComponentTransition } from "./transition";
+
 const initial = {
   computerLanguages: "",
   softwarePackages: "",
@@ -128,31 +130,39 @@ export class Skill extends React.Component {
       ) : null;
 
     return (
-      <Segment padded color="teal">
-        <div styleName="style.flex-box">
-          <h3 styleName="style.heading">Skills</h3>
-          <div>
-            <Icon name="add" color="grey" onClick={this.handleShow} />
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.flex-box">
+            <h3 styleName="style.heading">
+              <Icon name="star" color="teal" /> Skills
+            </h3>
+            <div>
+              {this.props.handle != undefined ? null : (
+                <div>
+                  <Icon color="grey" name="add" onClick={this.handleShow} />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        {this.state.data != initial ? (
-          <Segment.Group>
-            {additionalCourses}
-            {minorCourses}
-            {computerLanguages}
-            {softwarePackages}
-            {languages}
-          </Segment.Group>
-        ) : null}
-        <Dimmer active={this.state.active} page>
-          <SkillForm
-            data={this.state.data}
-            createNew={this.state.createNew}
-            handleHide={this.handleHide}
-            handleUpdate={this.handleUpdate}
-          />
-        </Dimmer>
-      </Segment>
+          {this.state.data != initial ? (
+            <Segment.Group>
+              {additionalCourses}
+              {minorCourses}
+              {computerLanguages}
+              {softwarePackages}
+              {languages}
+            </Segment.Group>
+          ) : null}
+          <Dimmer active={this.state.active} page>
+            <SkillForm
+              data={this.state.data}
+              createNew={this.state.createNew}
+              handleHide={this.handleHide}
+              handleUpdate={this.handleUpdate}
+            />
+          </Dimmer>
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

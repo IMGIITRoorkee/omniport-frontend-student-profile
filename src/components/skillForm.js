@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { Resume } from "./resume";
 import style from "../styles.css";
+import { ComponentTransition } from "./transition";
 
 const initial = {
   data: {
@@ -95,15 +96,6 @@ export class SkillForm extends React.Component {
             <Form.Field>
               <Form.TextArea
                 autoFocus
-                label="Additional Courses"
-                onChange={this.handleChange}
-                value={this.state.data.additionalCourses}
-                name="additionalCourses"
-                placeholder="Leave blank if none"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Form.TextArea
                 label="Computer Languages"
                 onChange={this.handleChange}
                 value={this.state.data.computerLanguages}
@@ -135,6 +127,15 @@ export class SkillForm extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.data.languages}
                 name="languages"
+                placeholder="Leave blank if none"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Form.TextArea
+                label="Additional Courses"
+                onChange={this.handleChange}
+                value={this.state.data.additionalCourses}
+                name="additionalCourses"
                 placeholder="Leave blank if none"
               />
             </Form.Field>

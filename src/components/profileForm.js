@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { Resume } from "./resume";
 import style from "../styles.css";
+import { ComponentTransition } from "./transition";
 
 const initial = {
   data: { handle: "", description: "", customWebsite: false, resume: null }
@@ -133,42 +134,44 @@ export class ProfileForm extends React.Component {
       );
     }
     return (
-      <Segment basic>
-        <Segment attached="top" styleName="style.headingBox">
-          <h3 styleName="style.heading">Profile</h3>
-          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
-        </Segment>
-        <Segment attached styleName="style.formStyle">
-          <Form>
-            <Form.Field>
-              <Form.Input
-                label="Handle"
-                onChange={this.handleChange}
-                value={this.state.data.handle}
-                name="handle"
-                placeholder="Change your handle"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Form.TextArea
-                label="Description"
-                onChange={this.handleChange}
-                value={this.state.data.description}
-                name="description"
-                placeholder="Describe yourself"
-              />
-            </Form.Field>
+      <ComponentTransition>
+        <Segment basic>
+          <Segment attached="top" styleName="style.headingBox">
+            <h3 styleName="style.heading">Profile</h3>
+            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
+          </Segment>
+          <Segment attached styleName="style.formStyle">
+            <Form>
+              <Form.Field>
+                <Form.Input
+                  label="Handle"
+                  onChange={this.handleChange}
+                  value={this.state.data.handle}
+                  name="handle"
+                  placeholder="Change your handle"
+                />
+              </Form.Field>
+              <Form.Field>
+                <Form.TextArea
+                  label="Description"
+                  onChange={this.handleChange}
+                  value={this.state.data.description}
+                  name="description"
+                  placeholder="Describe yourself"
+                />
+              </Form.Field>
 
-            {res}
-          </Form>
-        </Segment>
+              {res}
+            </Form>
+          </Segment>
 
-        <Segment attached="bottom" styleName="style.buttonBox">
-          <Button onClick={this.handleSubmit} color="blue" type="submit">
-            Submit
-          </Button>
+          <Segment attached="bottom" styleName="style.buttonBox">
+            <Button onClick={this.handleSubmit} color="blue" type="submit">
+              Submit
+            </Button>
+          </Segment>
         </Segment>
-      </Segment>
+      </ComponentTransition>
     );
   }
 }

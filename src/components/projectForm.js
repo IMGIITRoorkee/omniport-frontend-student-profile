@@ -5,7 +5,7 @@ import {
   Button,
   Icon,
   Segment,
-  Header,
+  Popup,
   Dimmer,
   Message,
   Checkbox
@@ -19,6 +19,7 @@ import { Project } from "./project";
 import { DragAndDropBox } from "./dragAndDropBox";
 import style from "../styles.css";
 import moment from "moment";
+import { ComponentTransition } from "./transition";
 
 const initial = {
   id: -1,
@@ -263,7 +264,9 @@ export class ProjectForm extends React.Component {
   render() {
     let { list, update, rearrange } = this.state;
     const { handleUpdate, handleDragHide, handleDragShow, handleShow } = this;
-    const children = <ProjectList arr={list} update={this.update} />;
+    const children = (
+      <ProjectList arr={list} update={this.update} handle={this.props.handle} />
+    );
     let imagePreview = (
       <div>
         <input
@@ -293,119 +296,134 @@ export class ProjectForm extends React.Component {
     }
 
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <h3 styleName="style.heading">Projects</h3>
-          <div>
-            <Icon color="grey" name="sort" onClick={handleDragShow} />
-            <Icon color="grey" name="add" onClick={handleShow} />
-          </div>
-        </div>
-
-        <Dimmer active={this.state.active} page>
-          <Segment basic>
-            <Segment attached="top" styleName="style.headingBox">
-              <h3 styleName="style.heading">Project</h3>
-              <Icon color="grey" name="delete" onClick={this.handleHide} />
-            </Segment>
-            <Segment attached styleName="style.formStyle">
-              {this.state.errors.length > 0 ? (
-                <Message
-                  error
-                  header="There were some errors with your submission:"
-                  list={this.state.errors}
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <h3 styleName="style.heading">
+              <Icon name="file alternate" color="teal" /> Projects
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Popup
+                  trigger={
+                    <Icon color="grey" name="sort" onClick={handleDragShow} />
+                  }
+                  content="Rearrange the information"
                 />
-              ) : null}
-              <Form autoComplete="off">
-                <Form.Field>
-                  <Form.Input
-                    autoFocus
-                    label="Topic"
-                    onChange={this.onChange}
-                    value={this.state.data.topic}
-                    name="topic"
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}
+          </div>
+
+          <Dimmer active={this.state.active} page>
+            <Segment basic>
+              <Segment attached="top" styleName="style.headingBox">
+                <h3 styleName="style.heading">Project</h3>
+                <Icon color="grey" name="delete" onClick={this.handleHide} />
+              </Segment>
+              <Segment attached styleName="style.formStyle">
+                {this.state.errors.length > 0 ? (
+                  <Message
+                    error
+                    header="There were some errors with your submission:"
+                    list={this.state.errors}
                   />
-                </Form.Field>
-                <Form.Field>
-                  <Form.Input
-                    label="Field of work"
-                    onChange={this.onChange}
-                    value={this.state.data.field}
-                    name="field"
-                  />
-                </Form.Field>
-                <Form.Group widths="equal" required>
-                  <DateInput
-                    dateFormat="YYYY-MM-DD"
-                    label="Start date"
-                    name="startDate"
-                    placeholder="YYYY-MM-DD"
-                    value={this.state.data.startDate}
-                    iconPosition="left"
-                    onChange={this.handleChange}
-                  />
-                  {this.state.startDate != "" ? (
+                ) : null}
+                <Form autoComplete="off">
+                  <Form.Field>
+                    <Form.Input
+                      autoFocus
+                      label="Topic"
+                      onChange={this.onChange}
+                      value={this.state.data.topic}
+                      name="topic"
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      label="Field of work"
+                      onChange={this.onChange}
+                      value={this.state.data.field}
+                      name="field"
+                    />
+                  </Form.Field>
+                  <Form.Group widths="equal" required>
                     <DateInput
                       dateFormat="YYYY-MM-DD"
-                      label="End date"
-                      name="endDate"
+                      label="Start date"
+                      name="startDate"
                       placeholder="YYYY-MM-DD"
-                      value={this.state.data.endDate}
+                      value={this.state.data.startDate}
                       iconPosition="left"
                       onChange={this.handleChange}
                     />
-                  ) : null}
-                </Form.Group>
-                <Form.Field>
-                  <Checkbox
-                    label="I remember the exact date"
-                    onChange={this.handleToggle}
-                    checked={this.state.data.isFullDate}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Form.TextArea
-                    label="Description"
-                    onChange={this.onChange}
-                    value={this.state.data.description}
-                    name="description"
-                    placeholder="Describe your project (Optional)"
-                  />
-                </Form.Field>
+                    {this.state.startDate != "" ? (
+                      <DateInput
+                        dateFormat="YYYY-MM-DD"
+                        label="End date"
+                        name="endDate"
+                        placeholder="YYYY-MM-DD"
+                        value={this.state.data.endDate}
+                        iconPosition="left"
+                        onChange={this.handleChange}
+                      />
+                    ) : null}
+                  </Form.Group>
+                  <Form.Field>
+                    <Checkbox
+                      label="I remember the exact date"
+                      onChange={this.handleToggle}
+                      checked={this.state.data.isFullDate}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.TextArea
+                      label="Description"
+                      onChange={this.onChange}
+                      value={this.state.data.description}
+                      name="description"
+                      placeholder="Describe your project (Optional)"
+                    />
+                  </Form.Field>
 
-                <Form.Field> {imagePreview}</Form.Field>
-              </Form>
+                  <Form.Field> {imagePreview}</Form.Field>
+                </Form>
+              </Segment>
+              {update ? (
+                <Segment attached="bottom" styleName="style.headingBox">
+                  <Button onClick={this.handleErrors} color="blue">
+                    Save Changes
+                  </Button>
+                  <Button color="red" onClick={this.onDelete}>
+                    Delete
+                  </Button>
+                </Segment>
+              ) : (
+                <Segment attached="bottom" styleName="style.buttonBox">
+                  <Button
+                    onClick={this.handleErrors}
+                    color="blue"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Segment>
+              )}
             </Segment>
-            {update ? (
-              <Segment attached="bottom" styleName="style.headingBox">
-                <Button onClick={this.handleErrors} color="blue">
-                  Save Changes
-                </Button>
-                <Button color="red" onClick={this.onDelete}>
-                  Delete
-                </Button>
-              </Segment>
-            ) : (
-              <Segment attached="bottom" styleName="style.buttonBox">
-                <Button onClick={this.handleErrors} color="blue" type="submit">
-                  Submit
-                </Button>
-              </Segment>
-            )}
-          </Segment>
-        </Dimmer>
-        {list == "" ? null : <Segment.Group> {children}</Segment.Group>}
+          </Dimmer>
+          {list == "" ? null : <Segment.Group> {children}</Segment.Group>}
 
-        <Dimmer active={rearrange} page>
-          <DragAndDropBox
-            data={list}
-            modelName="Project"
-            element={Project}
-            handleUpdate={handleUpdate}
-            handleDragHide={handleDragHide}
-          />
-        </Dimmer>
-      </Segment>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={list}
+              modelName="Project"
+              element={Project}
+              handleUpdate={handleUpdate}
+              handleDragHide={handleDragHide}
+            />
+          </Dimmer>
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

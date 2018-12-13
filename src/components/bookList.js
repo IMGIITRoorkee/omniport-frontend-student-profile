@@ -1,13 +1,14 @@
 import React from "react";
 import { Book } from "./book";
 import { BookForm } from "./bookForm";
-import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { initial } from "./bookForm";
 import { DragAndDropBox } from "./dragAndDropBox";
+import { ComponentTransition } from "./transition";
 
 export class BookList extends React.Component {
   constructor(props) {
@@ -97,40 +98,58 @@ export class BookList extends React.Component {
     let children;
     if (data != "") {
       children = data.map(data => {
-        return <Book data={data} key={data.id} manageData={this.manageData} />;
+        return (
+          <Book
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
+        );
       });
     }
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Books</Header>
-          <div>
-            <Icon color="grey" name="sort" onClick={handleDragShow} />
-            <Icon color="grey" name="add" onClick={handleShow} />
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <h3 styleName="style.heading">
+              <Icon name="book" color="teal" /> Book
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Popup
+                  trigger={
+                    <Icon color="grey" name="sort" onClick={handleDragShow} />
+                  }
+                  content="Rearrange the information"
+                />
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}
           </div>
-        </div>
 
-        <Dimmer active={active} page>
-          <BookForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
-        <Dimmer active={rearrange} page>
-          <DragAndDropBox
-            data={data}
-            modelName="Book"
-            element={Book}
-            handleUpdate={handleUpdate}
-            handleDragHide={this.handleDragHide}
-          />
-        </Dimmer>
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          <Dimmer active={active} page>
+            <BookForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={data}
+              modelName="Book"
+              element={Book}
+              handleUpdate={handleUpdate}
+              handleDragHide={this.handleDragHide}
+            />
+          </Dimmer>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

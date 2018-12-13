@@ -1,7 +1,14 @@
 import React from "react";
 import { Referee } from "./referee";
 import { RefereeForm } from "./refereeForm";
-import { Dimmer, Icon, Segment, Transition, Button } from "semantic-ui-react";
+import {
+  Dimmer,
+  Icon,
+  Segment,
+  Transition,
+  Button,
+  Popup
+} from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./refereeForm";
@@ -77,7 +84,12 @@ export class RefereeList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Referee data={data} key={data.id} manageData={this.manageData} />
+          <Referee
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
         );
       });
     }
@@ -85,8 +97,14 @@ export class RefereeList extends React.Component {
       <ComponentTransition>
         <Segment padded color="teal">
           <div styleName="style.headingBox">
-            <h3 styleName="style.heading">References</h3>
-            <Icon color="grey" name="add" onClick={handleShow} />
+            <h3 styleName="style.heading">
+              <Icon name="at" color="teal" /> References
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}{" "}
           </div>
           <Dimmer active={active} page>
             <RefereeForm
