@@ -9,12 +9,15 @@ import { InternshipList } from "./components/internshipList";
 import { BookList } from "./components/bookList";
 import { PreviousEducationList } from "./components/previousEducationList";
 import { CurrentEducationList } from "./components/currentEducationList";
+import { RefereeList } from "./components/refereeList";
+
 import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
 import { LinkForm } from "./components/linkForm";
 import { Profile } from "./components/profile";
 import { ProjectForm } from "./components/projectForm";
-import { skill, Skill } from "./components/skill";
+import { Skill } from "./components/skill";
+
 import { NotFound } from "./components/notFound";
 
 const creators = [
@@ -75,6 +78,35 @@ class App extends Component {
     }
   }
   render() {
+    const innerApp = (
+      <Container as={Segment} basic>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <Profile />
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <Segment color="red">
+                <Segment basic>
+                  <Header as="h2">About me</Header>
+                  Electrical Engineering undergraduate, exploring Web
+                  Development and having an interest in Mathematics.
+                </Segment>
+              </Segment>
+              <InterestList handle={handle} />
+              <AchievementList handle={handle} />
+              <InternshipList handle={handle} />
+              <BookList handle={handle} />
+              <CurrentEducationList handle={handle} />
+              <PreviousEducationList handle={handle} />
+              <ProjectForm />
+              <Skill handle={handle} />
+              <RefereeList handle={handle} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
+    );
     const { show, erroneous, handle } = this.state;
     const app = (
       <div styleName="app.wrapper">
@@ -86,62 +118,8 @@ class App extends Component {
         />
         <AppMain>
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
-            <BrowserView>
-              <Container as={Segment} basic>
-                <Grid stackable>
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      <Profile />
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                      <Segment color="red">
-                        <Segment basic>
-                          <Header as="h2">About me</Header>
-                          Electrical Engineering undergraduate, exploring Web
-                          Development and having an interest in Mathematics.
-                        </Segment>
-                      </Segment>
-                      <InterestList handle={handle} />
-                      <AchievementList handle={handle} />
-                      <InternshipList handle={handle} />
-                      <BookList handle={handle} />
-                      <CurrentEducationList handle={handle} />
-                      <PreviousEducationList handle={handle} />
-                      <ProjectForm />
-                      <Skill handle={handle} />
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </Container>
-            </BrowserView>
-            <MobileView>
-              <Container>
-                <Grid stackable>
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      <Profile />
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                      <Segment color="red">
-                        <Segment basic>
-                          <Header as="h2">About me</Header>
-                          Electrical Engineering undergraduate, exploring Web
-                          Development and having an interest in Mathematics
-                        </Segment>
-                      </Segment>
-                      <InterestList />
-                      <AchievementList />
-                      <InternshipList />
-                      <BookList />
-                      <CurrentEducationList />
-                      <PreviousEducationList />
-                      <ProjectForm />
-                      <Skill />
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </Container>
-            </MobileView>
+            <BrowserView>{innerApp}</BrowserView>
+            <MobileView>{innerApp}</MobileView>
           </div>
         </AppMain>
         <AppFooter creators={creators} />
