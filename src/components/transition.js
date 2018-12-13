@@ -5,8 +5,8 @@ export const ErrorTransition = props => {
   return (
     <Transition
       visible={props.errors.length > 0}
-      animation="slide down"
-      duration={1000}
+      animation="slide up"
+      duration={100}
     >
       <Message
         error
@@ -43,7 +43,7 @@ export class ComponentTransition extends React.Component {
       <Transition
         visible={this.state.tvisibility}
         animation="fade"
-        duration={5000}
+        duration={50}
       >
         {this.props.children}
       </Transition>

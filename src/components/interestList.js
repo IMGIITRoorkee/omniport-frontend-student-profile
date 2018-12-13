@@ -50,7 +50,7 @@ export class InterestList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [item, ...this.state.data] });
+    this.setState({ data: [...this.state.data, item] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
@@ -116,7 +116,9 @@ export class InterestList extends React.Component {
       <ComponentTransition>
         <Segment padded color="teal">
           <div styleName="style.headingBox">
-            <Header styleName="style.heading">Interests</Header>
+            <h3 styleName="style.heading">
+              <Icon name="star" color="teal" size="large" /> Interest
+            </h3>
             <div>
               <Icon color="grey" name="sort" onClick={handleDragShow} />
               <Icon color="grey" name="add" onClick={handleShow} />

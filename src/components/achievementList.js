@@ -47,7 +47,7 @@ export class AchievementList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [item, ...this.state.data] });
+    this.setState({ data: [...this.state.data, item] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
@@ -112,7 +112,9 @@ export class AchievementList extends React.Component {
     return (
       <Segment padded color="teal">
         <div styleName="style.headingBox">
-          <Header styleName="inline.margin-bottom-0">Achievements</Header>
+          <h3 styleName="style.heading">
+            <Icon name="gem" color="teal" size="large" /> Achievement
+          </h3>
           <div>
             <Icon color="grey" name="sort" onClick={handleDragShow} />
             <Icon color="grey" name="add" onClick={handleShow} />
