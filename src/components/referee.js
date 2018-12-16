@@ -20,11 +20,13 @@ export function Referee(props) {
           </List.Item>
         </List>
 
-        <Icon
-          name="edit"
-          color="grey"
-          onClick={() => props.manageData(props.data.id)}
-        />
+        {!props.rearrange ? (
+          <Icon
+            name="edit"
+            color="grey"
+            onClick={() => props.manageData(props.data.id)}
+          />
+        ) : null}
       </div>
     </Segment>
   );

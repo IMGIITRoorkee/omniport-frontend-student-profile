@@ -7,6 +7,7 @@ import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./internshipForm";
 import { DragAndDropBox } from "./dragAndDropBox";
+import { ComponentTransition } from "./transition";
 
 export class InternshipList extends React.Component {
   constructor(props) {
@@ -98,47 +99,53 @@ export class InternshipList extends React.Component {
             data={data}
             key={data.id}
             manageData={this.manageData}
-            rearrange={false}
+            rearrange={this.props.handle != undefined}
           />
         );
       });
     }
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <h3 styleName="style.heading">Internships</h3>
-          <div>
-            <Popup
-              trigger={
-                <Icon color="grey" name="sort" onClick={handleDragShow} />
-              }
-              content="Rearrange the information"
-            />
-            <Icon color="grey" name="add" onClick={handleShow} />
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <h3 styleName="style.heading">
+              <Icon name="student" color="teal" /> Internship
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Popup
+                  trigger={
+                    <Icon color="grey" name="sort" onClick={handleDragShow} />
+                  }
+                  content="Rearrange the information"
+                />
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}
           </div>
-        </div>
 
-        <Dimmer active={active} page>
-          <InternshipForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
-        <Dimmer active={rearrange} page>
-          <DragAndDropBox
-            data={data}
-            modelName="Experience"
-            element={Internship}
-            handleUpdate={handleUpdate}
-            handleDragHide={handleDragHide}
-          />
-        </Dimmer>
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          <Dimmer active={active} page>
+            <InternshipForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={data}
+              modelName="Experience"
+              element={Internship}
+              handleUpdate={handleUpdate}
+              handleDragHide={handleDragHide}
+            />
+          </Dimmer>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

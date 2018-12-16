@@ -210,7 +210,7 @@ class App extends Component {
                       <BookList handle={handle} />
                       <CurrentEducationList handle={handle} />
                       <PreviousEducationList handle={handle} />
-                      <ProjectForm />
+                      <ProjectForm handle={handle} />
                       <Skill handle={handle} />
                       <RefereeList handle={handle} />
                     </Grid.Column>

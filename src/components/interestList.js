@@ -5,7 +5,7 @@ import {
   Segment,
   Container,
   Header,
-  Divider
+  Popup
 } from "semantic-ui-react";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -108,7 +108,12 @@ export class InterestList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Interest data={data} key={data.id} manageData={this.manageData} />
+          <Interest
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
         );
       });
     }
@@ -116,14 +121,20 @@ export class InterestList extends React.Component {
       <ComponentTransition>
         <Segment padded color="teal">
           <div styleName="style.headingBox">
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Icon name="star" color="teal" />
-              <h3 styleName="style.heading">Interest</h3>
-            </div>
-            <div>
-              <Icon color="grey" name="sort" onClick={handleDragShow} />
-              <Icon color="grey" name="add" onClick={handleShow} />
-            </div>
+            <h3 styleName="style.heading">
+              <Icon name="game" color="teal" /> Interest
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Popup
+                  trigger={
+                    <Icon color="grey" name="sort" onClick={handleDragShow} />
+                  }
+                  content="Rearrange the information"
+                />
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}
           </div>
           <Dimmer active={active} page>
             <InterestForm

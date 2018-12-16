@@ -5,7 +5,8 @@ import {
   Segment,
   Container,
   Header,
-  Divider
+  Divider,
+  Popup
 } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
@@ -14,6 +15,7 @@ import { Achievement } from "./achievement";
 import { AchievementForm } from "./achievementForm";
 import { initial } from "./achievementForm";
 import { DragAndDropBox } from "./dragAndDropBox";
+import { ComponentTransition } from "./transition";
 
 export class AchievementList extends React.Component {
   constructor(props) {
@@ -105,42 +107,56 @@ export class AchievementList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Achievement data={data} key={data.id} manageData={this.manageData} />
+          <Achievement
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
         );
       });
     }
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <h3 styleName="style.heading">
-            <Icon name="gem" color="teal" size="large" /> Achievement
-          </h3>
-          <div>
-            <Icon color="grey" name="sort" onClick={handleDragShow} />
-            <Icon color="grey" name="add" onClick={handleShow} />
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <h3 styleName="style.heading">
+              <Icon name="winner" color="teal" /> Achievement
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <div>
+                <Popup
+                  trigger={
+                    <Icon color="grey" name="sort" onClick={handleDragShow} />
+                  }
+                  content="Rearrange the information"
+                />
+                <Icon color="grey" name="add" onClick={handleShow} />
+              </div>
+            )}
           </div>
-        </div>
-        <Dimmer active={active} page>
-          <AchievementForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
-        <Dimmer active={rearrange} page>
-          <DragAndDropBox
-            data={data}
-            modelName="Achievement"
-            element={Achievement}
-            handleUpdate={handleUpdate}
-            handleDragHide={handleDragHide}
-          />
-        </Dimmer>
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          <Dimmer active={active} page>
+            <AchievementForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={data}
+              modelName="Achievement"
+              element={Achievement}
+              handleUpdate={handleUpdate}
+              handleDragHide={handleDragHide}
+            />
+          </Dimmer>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }

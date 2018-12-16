@@ -5,6 +5,7 @@ import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./previousEducationForm";
+import { ComponentTransition } from "./transition";
 
 export class PreviousEducationList extends React.Component {
   constructor(props) {
@@ -78,29 +79,36 @@ export class PreviousEducationList extends React.Component {
             data={data}
             key={data.id}
             manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
           />
         );
       });
     }
     return (
-      <Segment padded color="teal">
-        <div styleName="style.headingBox">
-          <h3 styleName="style.heading">Previous education</h3>
-          <Icon color="grey" name="add" onClick={handleShow} />
-        </div>
+      <ComponentTransition>
+        <Segment padded color="teal">
+          <div styleName="style.headingBox">
+            <h3 styleName="style.heading">
+              <Icon name="certificate" color="teal" /> Previous education
+            </h3>
+            {this.props.handle != undefined ? null : (
+              <Icon color="grey" name="add" onClick={handleShow} />
+            )}{" "}
+          </div>
 
-        <Dimmer active={active} page>
-          <PreviousEducationForm
-            update={update}
-            formData={formData}
-            fetchData={fetchData}
-            appendData={appendData}
-            updateDeleteData={updateDeleteData}
-            handleHide={handleHide}
-          />
-        </Dimmer>
-        {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-      </Segment>
+          <Dimmer active={active} page>
+            <PreviousEducationForm
+              update={update}
+              formData={formData}
+              fetchData={fetchData}
+              appendData={appendData}
+              updateDeleteData={updateDeleteData}
+              handleHide={handleHide}
+            />
+          </Dimmer>
+          {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+        </Segment>
+      </ComponentTransition>
     );
   }
 }
