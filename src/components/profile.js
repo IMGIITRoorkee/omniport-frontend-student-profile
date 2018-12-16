@@ -88,20 +88,23 @@ export class Profile extends React.Component {
     const ownHandle = data.handle;
     return (
       <div style={{ position: "sticky", top: 0 }}>
-        <Card fluid color="teal">
-          <Card.Header textAlign="right">
-            <Segment styleName="style.headingBox" basic>
-              <h3 styleName="style.heading">Profile </h3>
-              <Icon name="edit" onClick={this.handleShow} color="grey" />
-            </Segment>
-          </Card.Header>
-          <Image
-            centered
-            src={this.state.person_data.displayPicture}
-            size="small"
-            circular
-            wrapped
-          />
+        <Card color="teal">
+          {this.props.handle == undefined ? (
+            <Card.Content>
+              <div styleName="style.headingBox">
+                <h3 styleName="style.heading">Profile </h3>
+                <Icon name="edit" onClick={this.handleShow} color="grey" />
+              </div>
+            </Card.Content>
+          ) : null}
+          <Card.Content textAlign="center">
+            <Image
+              centered
+              src={this.state.person_data.displayPicture}
+              size="small"
+              circular
+            />
+          </Card.Content>
           <Card.Content as={Segment} basic>
             <Card.Header textAlign="center">
               {this.state.person_data.fullName} sadf
@@ -113,7 +116,7 @@ export class Profile extends React.Component {
             <Card.Description textAlign="center"> {desc}</Card.Description>
           </Card.Content>
           <Card.Content>
-            <LinkDisplay />
+            <LinkDisplay handle={this.props.handle} />
           </Card.Content>
           <Dimmer active={this.state.active} page>
             <ProfileForm

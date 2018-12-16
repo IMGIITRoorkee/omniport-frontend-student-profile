@@ -43,6 +43,7 @@ export class LinkDisplay extends React.Component {
     });
   };
   render() {
+    console.log("link handle", this.props.handle);
     const data = this.state.data;
     const children = Array.from(data).map(function(child, index) {
       return (
@@ -53,11 +54,14 @@ export class LinkDisplay extends React.Component {
     });
     return (
       <div>
-        <div styleName="style.headingBox">
-          <h4 styleName="style.heading">Social Media</h4>
-          <Icon color="grey" name="add" onClick={this.handleShow} />
-        </div>
-        <Segment basic textAlign="center">
+        {this.props.handle === undefined ? (
+          <div styleName="style.headingBox">
+            <h4 styleName="style.heading">Social Media</h4>
+            <Icon color="grey" name="add" onClick={this.handleShow} />
+          </div>
+        ) : null}
+
+        <Segment basic textAlign="center" style={{ margin: "0" }}>
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
