@@ -21,13 +21,15 @@ export class RefereeList extends React.Component {
       update: false,
       active: false,
       formData: null,
-      data: null
+      data: []
     };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
+    let extra =
+      this.props.handle == undefined ? "" : this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/referee/")
       .then(response => {

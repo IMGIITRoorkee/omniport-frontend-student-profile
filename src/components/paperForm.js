@@ -141,7 +141,33 @@ export class PaperForm extends React.Component {
       volumes,
       journal
     } = this.state.data;
+    var res = (
+      <Form.Field>
+        <input
+          type="file"
+          onChange={this.handleFile}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
+        <div styleName="style.inputLabel">
+          <label htmlFor="embedpollfileinput" className="ui blue button">
+            <i className="ui upload icon" />
+            Upload Paper
+          </label>
+        </div>
+      </Form.Field>
+    );
 
+    if (this.state.resumeLink) {
+      res = (
+        <Form.Field>
+          <Resume
+            resume={this.state.resumeLink}
+            handleDelete={this.handleDelete}
+          />
+        </Form.Field>
+      );
+    }
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -171,7 +197,6 @@ export class PaperForm extends React.Component {
             <Form.Field required>
               <label>Journal</label>
               <Input
-                autoFocus
                 onChange={this.handleChange}
                 value={journal}
                 name="journal"

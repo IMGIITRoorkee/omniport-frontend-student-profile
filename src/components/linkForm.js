@@ -27,7 +27,7 @@ export class LinkForm extends React.Component {
     super(props);
     this.state = {
       data: initial.data,
-      links: Array.from(props.data)
+      links: props.data
     };
   }
   componentDidMount() {

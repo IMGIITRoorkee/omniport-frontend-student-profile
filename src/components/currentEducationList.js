@@ -10,7 +10,7 @@ import { ComponentTransition } from "./transition";
 export class CurrentEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: null };
+    this.state = { update: false, active: false, formData: null, data: [] };
   }
   componentDidMount() {
     this.fetchData();
@@ -33,7 +33,14 @@ export class CurrentEducationList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [...this.state.data, item] });
+    let data = this.state.data;
+    for (var i = 0; i < data.length; i++) {
+      if (item.id == data[i].id) {
+        data[i] = item;
+        break;
+      }
+    }
+    this.setState({ data: [data] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;

@@ -24,7 +24,7 @@ export class AchievementList extends React.Component {
       update: false,
       active: false,
       formData: null,
-      data: null,
+      data: [],
       rearrange: false
     };
   }
