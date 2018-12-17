@@ -17,6 +17,7 @@ import { BookList } from "./components/bookList";
 import { PreviousEducationList } from "./components/previousEducationList";
 import { CurrentEducationList } from "./components/currentEducationList";
 import { RefereeList } from "./components/refereeList";
+import { PaperList } from "./components/paperList";
 
 import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
@@ -112,15 +113,15 @@ class App extends Component {
                   Development and having an interest in Mathematics.
                 </Segment>
               </Segment>
-
               <RefereeList handle={handle} />
-
               <InterestList handle={handle} />
               <AchievementList handle={handle} />
               <InternshipList handle={handle} />
               <BookList handle={handle} />
-              <CurrentEducationList handle={handle} />
-              <PreviousEducationList handle={handle} />
+              <Segment.Group>
+                <CurrentEducationList handle={handle} />
+                <PreviousEducationList handle={handle} />
+              </Segment.Group>
               <ProjectForm />
               <Skill handle={handle} />
             </Grid.Column>
@@ -138,10 +139,14 @@ class App extends Component {
           userDropdown
         />
         <AppMain>
+          {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <BrowserView>
               <Container as={Segment} basic>
-                <Segment style={{ zIndex: "5", position: "sticky", top: 0 }}>
+                <Segment
+                  style={{ zIndex: "5", position: "sticky", top: 0 }}
+                  color="teal"
+                >
                   <List
                     horizontal
                     celled
@@ -166,21 +171,7 @@ class App extends Component {
                         <h3>Internships</h3>
                       </List.Content>
                     </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Books</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Current education</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Previous education</h3>
-                      </List.Content>
-                    </List.Item>
+
                     <List.Item>
                       <List.Content>
                         <h3>Projects</h3>
@@ -189,6 +180,17 @@ class App extends Component {
                     <List.Item>
                       <List.Content>
                         <h3>Skills</h3>
+                      </List.Content>
+                    </List.Item>
+                    <List.Item>
+                      <List.Content>
+                        <h3>Publications</h3>
+                      </List.Content>
+                    </List.Item>
+
+                    <List.Item>
+                      <List.Content>
+                        <h3>Education</h3>
                       </List.Content>
                     </List.Item>
                     <List.Item>
@@ -207,11 +209,12 @@ class App extends Component {
                       <InterestList handle={handle} />
                       <AchievementList handle={handle} />
                       <InternshipList handle={handle} />
-                      <BookList handle={handle} />
-                      <CurrentEducationList handle={handle} />
-                      <PreviousEducationList handle={handle} />
                       <ProjectForm handle={handle} />
                       <Skill handle={handle} />
+                      <BookList handle={handle} />
+                      <PaperList handle={handle} />
+                      <CurrentEducationList handle={handle} />
+                      <PreviousEducationList handle={handle} />
                       <RefereeList handle={handle} />
                     </Grid.Column>
                   </Grid.Row>
@@ -236,7 +239,9 @@ class App extends Component {
                       <InterestList />
                       <AchievementList />
                       <InternshipList />
-                      <BookList /> <ProjectForm />
+                      <BookList />
+                      <PaperList />
+                      <ProjectForm />
                       <CurrentEducationList />
                       <PreviousEducationList />
                       <Skill />

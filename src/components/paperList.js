@@ -1,29 +1,22 @@
 import React from "react";
-import {
-  Dimmer,
-  Icon,
-  Segment,
-  Container,
-  Header,
-  Popup
-} from "semantic-ui-react";
+import { Paper } from "./paper";
+import { PaperForm } from "./paperForm";
+import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
-import { Interest } from "./interest";
-import { InterestForm } from "./interestForm";
-import { initial } from "./interestForm";
+import { initial } from "./paperForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 
-export class InterestList extends React.Component {
+export class PaperList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       update: false,
       active: false,
-      formData: null,
+      formData: initial.data,
       data: []
     };
   }
@@ -31,10 +24,8 @@ export class InterestList extends React.Component {
     this.fetchData();
   }
   fetchData = e => {
-    let url = "";
-    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/interest/" + url)
+      .get("/api/student_profile/paper/")
       .then(response => {
         this.setState({ data: response.data });
       })
@@ -71,16 +62,6 @@ export class InterestList extends React.Component {
       update: false
     });
   };
-
-  handleHide = e => {
-    this.setState({ active: false, update: false });
-  };
-  handleUpdate = data => {
-    this.setState({
-      data: data,
-      rearrange: false
-    });
-  };
   handleDragShow = () => {
     this.setState({
       rearrange: true
@@ -91,6 +72,16 @@ export class InterestList extends React.Component {
       rearrange: false
     });
   };
+  handleUpdate = data => {
+    this.setState({
+      data: data,
+      rearrange: false
+    });
+  };
+  handleHide = e => {
+    this.setState({ active: false, update: false });
+  };
+
   render() {
     const { active, update, formData, data, rearrange } = this.state;
     const {
@@ -100,15 +91,15 @@ export class InterestList extends React.Component {
       handleHide,
       handleShow,
       handleDragShow,
-      handleUpdate,
-      handleDragHide
+      handleUpdate
     } = this;
+
     let data_array;
     let children;
-    if (data) {
+    if (data != "") {
       children = data.map(data => {
         return (
-          <Interest
+          <Paper
             data={data}
             key={data.id}
             manageData={this.manageData}
@@ -122,7 +113,7 @@ export class InterestList extends React.Component {
         <Segment padded color="teal">
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="game" color="teal" /> Interests
+              <Icon name="paperclip" color="teal" /> Papers Authored
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
@@ -136,8 +127,9 @@ export class InterestList extends React.Component {
               </div>
             )}
           </div>
+
           <Dimmer active={active} page>
-            <InterestForm
+            <PaperForm
               update={update}
               formData={formData}
               fetchData={fetchData}
@@ -149,13 +141,12 @@ export class InterestList extends React.Component {
           <Dimmer active={rearrange} page>
             <DragAndDropBox
               data={data}
-              modelName="Interest"
-              element={Interest}
+              modelName="Paper"
+              element={Paper}
               handleUpdate={handleUpdate}
-              handleDragHide={handleDragHide}
+              handleDragHide={this.handleDragHide}
             />
           </Dimmer>
-
           {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
         </Segment>
       </ComponentTransition>

@@ -113,7 +113,7 @@ export class BookList extends React.Component {
         <Segment padded color="teal">
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="book" color="teal" /> Book
+              <Icon name="book" color="teal" /> Books Authored
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

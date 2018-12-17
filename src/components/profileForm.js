@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
+import { Form, Message, Button, Icon, Label, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ import { ComponentTransition } from "./transition";
 const initial = {
   data: { handle: "", description: "", customWebsite: false, resume: null }
 };
-
+//default handle must be there
 export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,9 @@ export class ProfileForm extends React.Component {
       data: props.data,
       createNew: props.createNew,
       resumeLink: props.data.resume,
-      resume: null
+      resume: null,
+      list: null,
+      errors: []
     };
   }
   componentDidMount() {
@@ -72,7 +74,6 @@ export class ProfileForm extends React.Component {
         this.props.handleUpdate(response.data, false);
       });
     }
-    e.preventDefault();
   };
   handleUpdateDelete = () => {
     let headers = {
@@ -104,7 +105,24 @@ export class ProfileForm extends React.Component {
       resumeLink: null
     });
   };
-
+  handleErrors = () => {
+    let errors = [];
+    const { handle, description } = this.state.data;
+    if (handle == "") {
+      errors.push("Handle must be filled");
+    }
+    if (description == "") {
+      errors.push("Description must be filled");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        if (this.state.update == false) this.handleSubmit();
+        else this.handleSubmit();
+      });
+    }
+  };
   render() {
     var res = (
       <Form.Field>
@@ -141,6 +159,13 @@ export class ProfileForm extends React.Component {
             <Icon color="grey" name="delete" onClick={this.props.handleHide} />
           </Segment>
           <Segment attached styleName="style.formStyle">
+            {this.state.errors.length > 0 ? (
+              <Message
+                error
+                header="There were some errors with your submission:"
+                list={this.state.errors}
+              />
+            ) : null}
             <Form>
               <Form.Field>
                 <Form.Input
@@ -166,7 +191,7 @@ export class ProfileForm extends React.Component {
           </Segment>
 
           <Segment attached="bottom" styleName="style.buttonBox">
-            <Button onClick={this.handleSubmit} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color="blue" type="submit">
               Submit
             </Button>
           </Segment>

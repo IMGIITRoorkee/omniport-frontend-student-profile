@@ -121,7 +121,7 @@ export class AchievementList extends React.Component {
         <Segment padded color="teal">
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="winner" color="teal" /> Achievement
+              <Icon name="winner" color="teal" /> Achievements
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

@@ -109,7 +109,7 @@ export class InternshipList extends React.Component {
         <Segment padded color="teal">
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="student" color="teal" /> Internship
+              <Icon name="student" color="teal" /> Internships
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
