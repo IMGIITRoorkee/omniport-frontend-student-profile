@@ -32,8 +32,10 @@ export class AchievementList extends React.Component {
     this.fetchData();
   }
   fetchData = e => {
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/achievement/")
+      .get("/api/student_profile/achievement/" + url)
       .then(response => {
         this.setState({ data: response.data });
       })

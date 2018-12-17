@@ -171,7 +171,6 @@ export class PaperForm extends React.Component {
             <Form.Field required>
               <label>Journal</label>
               <Input
-                autoFocus
                 onChange={this.handleChange}
                 value={journal}
                 name="journal"

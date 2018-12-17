@@ -34,11 +34,16 @@ export class Profile extends React.Component {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
+    console.log("url", url);
     axios
-      .get("/api/student_profile/profile/")
-      .then(function(response) {
+      .get("/api/student_profile/profile/" + url)
+      .then(response => {
         if (response.data.length != 0) {
-          self.setState({ data: response.data[0], createNew: false });
+          let data =
+            this.props.handle != undefined ? response.data : response.data[0];
+          self.setState({ data: data, createNew: false });
         } else {
           self.setState({ createNew: true });
         }
@@ -70,24 +75,29 @@ export class Profile extends React.Component {
 
   render() {
     const desc = this.state.data.description;
-    const { handle, data } = this.state;
+    const { data } = this.state;
+    const { handle } = this.state;
     const preview = handle == undefined ? false : true;
-    const ownHandle = this.state.handle;
+    const ownHandle = data.handle;
     return (
       <div style={{ position: "sticky", top: "5em" }}>
         <Card fluid color="teal">
           <Card.Header textAlign="right">
-            <Icon name="edit" onClick={this.handleShow} />
+            <Segment styleName="style.headingBox" basic>
+              <h3 styleName="style.heading">Profile </h3>
+              <Icon name="edit" onClick={this.handleShow} color="grey" />
+            </Segment>
           </Card.Header>
           <Image
             centered
             src={this.state.person_data.displayPicture}
             size="small"
             circular
+            wrapped
           />
           <Card.Content as={Segment} basic>
             <Card.Header textAlign="center">
-              {this.state.person_data.fullName}
+              {this.state.person_data.fullName} sadf
             </Card.Header>
             <Card.Meta textAlign="center">
               {this.state.data.handle ? "@" : null}

@@ -24,8 +24,10 @@ export class BookList extends React.Component {
     this.fetchData();
   }
   fetchData = e => {
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/book/")
+      .get("/api/student_profile/book/" + url)
       .then(response => {
         this.setState({ data: response.data });
       })

@@ -29,7 +29,8 @@ const initial = {
   startDate: "",
   endDate: "",
   isFullDate: true,
-  file: ""
+  file: "",
+  visibility: true
 };
 
 export class ProjectForm extends React.Component {
@@ -50,7 +51,10 @@ export class ProjectForm extends React.Component {
     this.fetchData();
   }
   fetchData = () => {
-    axios.get("/api/student_profile/project/").then(response => {
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
+
+    axios.get("/api/student_profile/project/" + url).then(response => {
       this.setState({ list: response.data });
     });
   };

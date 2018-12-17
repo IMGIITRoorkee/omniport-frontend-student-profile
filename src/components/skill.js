@@ -31,8 +31,10 @@ export class Skill extends React.Component {
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/skill/")
+      .get("/api/student_profile/skill/" + url)
       .then(function(response) {
         if (response.data.length != 0) {
           self.setState({ data: response.data[0], createNew: false });

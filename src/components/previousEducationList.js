@@ -16,8 +16,10 @@ export class PreviousEducationList extends React.Component {
     this.fetchData();
   }
   fetchData = e => {
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/previous_education/")
+      .get("/api/student_profile/previous_education/" + url)
       .then(response => {
         this.setState({ data: response.data });
       })

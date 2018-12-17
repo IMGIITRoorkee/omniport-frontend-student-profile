@@ -1,11 +1,14 @@
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { Card, Icon, Popup, Segment, Label, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import style from "../styles.css";
 
 export function ResumeDownload(props) {
   console.log(props.url != null);
   const url = props.url;
+  const preview_url = "/student_profile/" + props.ownHandle + "/";
+  console.log(preview_url);
   if (props.preview == false) {
     return (
       <div>
@@ -36,10 +39,12 @@ export function ResumeDownload(props) {
                 content="Resume not uploaded"
               />
             )}
-            <Label size="large" color="blue" as="a">
-              <Icon name="print" />
-              Preview
-            </Label>
+            <Link to={preview_url} target="_blank">
+              <Label size="large" color="blue" as="a">
+                <Icon name="print" />
+                Preview
+              </Label>
+            </Link>
           </Segment>
         </BrowserView>
         <MobileView>

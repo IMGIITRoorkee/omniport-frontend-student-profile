@@ -13,7 +13,7 @@ export function Paper(props) {
               <List.Icon name="stop" color="blue" />
               <List.Content>
                 Journal description here
-                {/* <div>
+                <div>
                   <p>
                     <b>"{props.data.title}"</b> by <b>{props.data.authors}</b>
                   </p>
@@ -23,13 +23,7 @@ export function Paper(props) {
                   {props.data.volumes ? (
                     <p>Volumes : {props.data.volumes}</p>
                   ) : null}
-                  {props.data.contribution ? (
-                    <p>Contributions : {props.data.contribution}</p>
-                  ) : null}
-                  {props.data.isbnCode ? (
-                    <p>ISBN Code : {props.data.isbnCode}</p>
-                  ) : null}
-                </div> */}
+                </div>
               </List.Content>
             </List.Item>
           </List>

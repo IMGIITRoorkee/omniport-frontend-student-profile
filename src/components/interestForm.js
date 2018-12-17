@@ -73,8 +73,6 @@ export class InterestForm extends React.Component {
         this.props.handleHide();
       });
     });
-
-    // e.preventDefault();
   };
   handleUpdateDelete = option => {
     let headers = {
@@ -97,8 +95,6 @@ export class InterestForm extends React.Component {
         }
       );
     });
-
-    // e.preventDefault();
   };
   handleErrors = () => {
     let errors = [];
