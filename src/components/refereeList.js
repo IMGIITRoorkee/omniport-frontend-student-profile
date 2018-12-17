@@ -21,7 +21,7 @@ export class RefereeList extends React.Component {
       update: false,
       active: false,
       formData: null,
-      data: null
+      data: []
     };
   }
   componentDidMount() {

@@ -12,7 +12,6 @@ export function Paper(props) {
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                Journal description here
                 <div>
                   <p>
                     <b>"{props.data.title}"</b> by <b>{props.data.authors}</b>
@@ -22,6 +21,9 @@ export function Paper(props) {
                   {props.data.pages ? <p>Pages : {props.data.pages}</p> : null}
                   {props.data.volumes ? (
                     <p>Volumes : {props.data.volumes}</p>
+                  ) : null}
+                  {props.data.journal ? (
+                    <p>journal : {props.data.journal}</p>
                   ) : null}
                 </div>
               </List.Content>

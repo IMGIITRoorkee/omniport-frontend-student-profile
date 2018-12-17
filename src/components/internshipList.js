@@ -12,7 +12,7 @@ import { ComponentTransition } from "./transition";
 export class InternshipList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: "" };
+    this.state = { update: false, active: false, formData: null, data: [] };
   }
   componentDidMount() {
     this.fetchData();

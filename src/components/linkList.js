@@ -22,6 +22,6 @@ export class LinkList extends React.Component {
         />
       );
     });
-    return <Segment.Group>{children}</Segment.Group>;
+    return data ? <Segment.Group>{children}</Segment.Group> : null;
   }
 }

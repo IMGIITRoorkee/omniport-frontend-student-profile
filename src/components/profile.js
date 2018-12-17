@@ -19,11 +19,18 @@ export class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: { handle: "", description: "", customWebsite: false, resume: null },
+      data: {
+        handle: "",
+        description: "",
+        customWebsite: false,
+        resume: null,
+        displayPicture: null
+      },
       person_data: "",
       active: false,
       createNew: true,
-      handle: props.handle
+      handle: props.handle,
+      image: null
     };
   }
   componentDidMount() {
@@ -80,7 +87,7 @@ export class Profile extends React.Component {
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
     return (
-      <div style={{ position: "sticky", top: "5em" }}>
+      <div style={{ position: "sticky", top: 0 }}>
         <Card fluid color="teal">
           <Card.Header textAlign="right">
             <Segment styleName="style.headingBox" basic>
@@ -105,7 +112,7 @@ export class Profile extends React.Component {
             </Card.Meta>
             <Card.Description textAlign="center"> {desc}</Card.Description>
           </Card.Content>
-          <Card.Content extra>
+          <Card.Content>
             <LinkDisplay />
           </Card.Content>
           <Dimmer active={this.state.active} page>

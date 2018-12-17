@@ -110,7 +110,8 @@ class App extends Component {
                 <Segment basic>
                   <Header as="h2">About me</Header>
                   Electrical Engineering undergraduate, exploring Web
-                  Development and having an interest in Mathematics.
+                  Development and having an interest in Mathematics. (to be
+                  removed . . .)
                 </Segment>
               </Segment>
               <RefereeList handle={handle} />
@@ -118,11 +119,9 @@ class App extends Component {
               <AchievementList handle={handle} />
               <InternshipList handle={handle} />
               <BookList handle={handle} />
-              <Segment.Group>
-                <CurrentEducationList handle={handle} />
-                <PreviousEducationList handle={handle} />
-              </Segment.Group>
-              <ProjectForm />
+              <CurrentEducationList handle={handle} />
+              <PreviousEducationList handle={handle} />
+              <ProjectForm handle={handle} />
               <Skill handle={handle} />
             </Grid.Column>
           </Grid.Row>
@@ -143,69 +142,68 @@ class App extends Component {
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <BrowserView>
               <Container as={Segment} basic>
-                <Segment
-                  style={{ zIndex: "5", position: "sticky", top: 0 }}
-                  color="teal"
-                >
-                  <List
-                    horizontal
-                    celled
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      flexWrap: "wrap"
-                    }}
-                  >
-                    <List.Item>
-                      <List.Content>
-                        <h3>Interests</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Achievements</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Internships</h3>
-                      </List.Content>
-                    </List.Item>
-
-                    <List.Item>
-                      <List.Content>
-                        <h3>Projects</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Skills</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>Publications</h3>
-                      </List.Content>
-                    </List.Item>
-
-                    <List.Item>
-                      <List.Content>
-                        <h3>Education</h3>
-                      </List.Content>
-                    </List.Item>
-                    <List.Item>
-                      <List.Content>
-                        <h3>References</h3>
-                      </List.Content>
-                    </List.Item>
-                  </List>
-                </Segment>
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
                       <Profile handle={handle} />
                     </Grid.Column>
                     <Grid.Column width={12}>
+                      <Segment
+                        style={{ zIndex: "5", position: "sticky", top: 0 }}
+                      >
+                        <List
+                          horizontal
+                          celled
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            flexWrap: "wrap"
+                          }}
+                        >
+                          <List.Item>
+                            <List.Content>
+                              <h3>Interests</h3>
+                            </List.Content>
+                          </List.Item>
+                          <List.Item>
+                            <List.Content>
+                              <h3>Achievements</h3>
+                            </List.Content>
+                          </List.Item>
+                          <List.Item>
+                            <List.Content>
+                              <h3>Internships</h3>
+                            </List.Content>
+                          </List.Item>
+
+                          <List.Item>
+                            <List.Content>
+                              <h3>Projects</h3>
+                            </List.Content>
+                          </List.Item>
+                          <List.Item>
+                            <List.Content>
+                              <h3>Skills</h3>
+                            </List.Content>
+                          </List.Item>
+                          <List.Item>
+                            <List.Content>
+                              <h3>Publications</h3>
+                            </List.Content>
+                          </List.Item>
+
+                          <List.Item>
+                            <List.Content>
+                              <h3>Education</h3>
+                            </List.Content>
+                          </List.Item>
+                          <List.Item>
+                            <List.Content>
+                              <h3>References</h3>
+                            </List.Content>
+                          </List.Item>
+                        </List>
+                      </Segment>
                       <InterestList handle={handle} />
                       <AchievementList handle={handle} />
                       <InternshipList handle={handle} />
@@ -229,13 +227,6 @@ class App extends Component {
                       <Profile />
                     </Grid.Column>
                     <Grid.Column width={12}>
-                      <Segment color="red">
-                        <Segment basic>
-                          <Header as="h2">About me</Header>
-                          Electrical Engineering undergraduate, exploring Web
-                          Development and having an interest in Mathematics
-                        </Segment>
-                      </Segment>
                       <InterestList />
                       <AchievementList />
                       <InternshipList />
