@@ -6,7 +6,7 @@ import axios from "axios";
 import { Resume } from "./resume";
 import style from "../styles.css";
 import { ComponentTransition } from "./transition";
-
+import { ProfileImagePreview } from "./profileImagePreview";
 const initial = {
   data: { handle: "", description: "", customWebsite: false, resume: null }
 };
@@ -14,13 +14,16 @@ const initial = {
 export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       data: props.data,
       createNew: props.createNew,
       resumeLink: props.data.resume,
       resume: null,
       list: null,
-      errors: []
+      errors: [],
+      image: props.person_data.displayPicture,
+      img_file: null
     };
   }
   componentDidMount() {
@@ -49,6 +52,12 @@ export class ProfileForm extends React.Component {
     } else if (this.state.resume == null && this.state.resumeLink != null) {
     } else if (this.state.resume == null && this.state.resumeLink == null) {
       data.append("resume", "");
+    }
+    if (this.state.image != null && this.state.img_file != null) {
+      data.append("image", this.state.img_file);
+    } else if (this.state.img_file == null && this.state.image != null) {
+    } else if (this.state.img_file == null && this.state.image == null) {
+      data.append("image", "");
     }
 
     let headers = {
@@ -123,7 +132,27 @@ export class ProfileForm extends React.Component {
       });
     }
   };
+  handleImageChange = e => {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      const image = reader.result;
+      this.setState({
+        img_file: file,
+        image: image
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+  removeImage = () => {
+    this.setState({ image: "", img_file: null });
+  };
   render() {
+    console.log(this.props.person_data);
     var res = (
       <Form.Field>
         <input
@@ -140,6 +169,33 @@ export class ProfileForm extends React.Component {
         </div>
       </Form.Field>
     );
+    let imagePreview = (
+      <div>
+        <input
+          type="file"
+          onChange={this.handleImageChange}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
+        <div styleName="style.inputLabel">
+          <label htmlFor="embedpollfileinput" className="ui blue button">
+            <i className="ui upload icon" />
+            Upload profile image
+          </label>
+        </div>
+      </div>
+    );
+    if (this.state.image) {
+      imagePreview = (
+        <ProfileImagePreview
+          imagePreviewUrl={this.state.image.replace(
+            "http://localhost:3003/",
+            "http://192.168.121.228:60025/"
+          )}
+          removeImage={this.removeImage}
+        />
+      );
+    }
 
     if (this.state.resumeLink) {
       res = (
@@ -167,6 +223,7 @@ export class ProfileForm extends React.Component {
               />
             ) : null}
             <Form>
+              <Form.Field>{imagePreview}</Form.Field>
               <Form.Field>
                 <Form.Input
                   label="Handle"

@@ -81,6 +81,7 @@ export class Profile extends React.Component {
   };
 
   render() {
+    console.log(this.state.data);
     const desc = this.state.data.description;
     const { data } = this.state;
     const { handle } = this.state;
@@ -121,6 +122,7 @@ export class Profile extends React.Component {
           <Dimmer active={this.state.active} page>
             <ProfileForm
               data={this.state.data}
+              person_data={this.state.person_data}
               createNew={this.state.createNew}
               handleHide={this.handleHide}
               handleUpdate={this.handleUpdate}

@@ -23,7 +23,7 @@ export function ResumeDownload(props) {
           >
             {url != null ? (
               <a href={url}>
-                <Label size="large" icon color="blue">
+                <Label size="large" color="blue">
                   <Icon name="download" />
                   Resume
                 </Label>
@@ -31,7 +31,7 @@ export function ResumeDownload(props) {
             ) : (
               <Popup
                 trigger={
-                  <Label size="large" icon color="blue">
+                  <Label size="large" color="blue">
                     <Icon name="download" />
                     Resume
                   </Label>
