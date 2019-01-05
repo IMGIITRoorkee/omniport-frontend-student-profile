@@ -64,6 +64,8 @@ export class PreviousEducationList extends React.Component {
 
   render() {
     const { active, update, formData, data } = this.state;
+    const { theme } = this.props;
+
     const {
       fetchData,
       appendData,
@@ -88,10 +90,10 @@ export class PreviousEducationList extends React.Component {
     }
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="certificate" color="teal" /> Previous education
+              <Icon name="student" color={theme} /> Previous education
             </h3>
             {this.props.handle != undefined ? null : (
               <Icon color="grey" name="add" onClick={handleShow} />

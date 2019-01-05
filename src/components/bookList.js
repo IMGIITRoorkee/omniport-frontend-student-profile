@@ -86,6 +86,7 @@ export class BookList extends React.Component {
 
   render() {
     const { active, update, formData, data, rearrange } = this.state;
+    const { theme } = this.props;
     const {
       fetchData,
       appendData,
@@ -112,10 +113,10 @@ export class BookList extends React.Component {
     }
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="book" color="teal" /> Books Authored
+              <Icon name="book" color={theme} /> Books Authored
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

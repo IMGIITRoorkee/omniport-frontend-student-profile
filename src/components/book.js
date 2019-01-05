@@ -16,17 +16,17 @@ export function Book(props) {
                   <p>
                     <b>"{props.data.title}"</b> by <b>{props.data.authors}</b>
                   </p>
-                  <p>Publisher : {props.data.publisher}</p>
-                  <p>Year : {props.data.year}</p>
-                  {props.data.pages ? <p>Pages : {props.data.pages}</p> : null}
+                  <p>Publisher: {props.data.publisher}</p>
+                  <p>Year: {props.data.year}</p>
+                  {props.data.pages ? <p>Pages: {props.data.pages}</p> : null}
                   {props.data.volumes ? (
-                    <p>Volumes : {props.data.volumes}</p>
+                    <p>Volumes: {props.data.volumes}</p>
                   ) : null}
                   {props.data.contribution ? (
-                    <p>Contributions : {props.data.contribution}</p>
+                    <p>Contributions: {props.data.contribution}</p>
                   ) : null}
                   {props.data.isbnCode ? (
-                    <p>ISBN Code : {props.data.isbnCode}</p>
+                    <p>ISBN Code: {props.data.isbnCode}</p>
                   ) : null}
                 </div>
               </List.Content>

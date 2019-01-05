@@ -16,12 +16,27 @@ import { LinkList } from "./linkList";
 const initial = {
   data: { site: "git", url: "" }
 };
+
 const options = [
-  { key: "Github", text: "Github", value: "git" },
+  { key: "Behance", text: "Behance", value: "beh" },
+  { key: "Blogger", text: "Blogger", value: "blo" },
+  { key: "Dribble", text: "Dribble", value: "dri" },
   { key: "Facebook", text: "Facebook", value: "fac" },
+  { key: "Flickr", text: "Flickr", value: "fli" },
+  { key: "GitHub", text: "GitHub", value: "git" },
+  { key: "Google", text: "Google", value: "goo" },
   { key: "LinkedIn", text: "LinkedIn", value: "lin" },
+  { key: "Medium", text: "Medium", value: "med" },
+  { key: "Pinterest", text: "Pinterest", value: "pin" },
+  { key: "Reddit", text: "Reddit", value: "red" },
+  { key: "Skype", text: "Skype", value: "sky" },
+  { key: "Snapchat", text: "Snapchat", value: "sna" },
+  { key: "Tumblr", text: "Tumblr", value: "tum" },
+  { key: "Twitter", text: "Twitter", value: "twi" },
+  { key: "YouTube", text: "YouTube", value: "you" },
   { key: "Other Website", text: "Other Website", value: "oth" }
 ];
+
 export class LinkForm extends React.Component {
   constructor(props) {
     super(props);

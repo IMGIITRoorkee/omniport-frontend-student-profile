@@ -60,6 +60,7 @@ export class Skill extends React.Component {
   };
 
   render() {
+    const { theme } = this.props;
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
         <Segment>
@@ -133,10 +134,10 @@ export class Skill extends React.Component {
 
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.flex-box">
             <h3 styleName="style.heading">
-              <Icon name="star" color="teal" /> Skills
+              <Icon name="star" color={theme} /> Skills
             </h3>
             <div>
               {this.props.handle != undefined ? null : (

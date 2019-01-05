@@ -93,6 +93,7 @@ export class AchievementList extends React.Component {
   };
   render() {
     const { active, update, formData, data, rearrange } = this.state;
+    const { theme } = this.props;
     const {
       fetchData,
       appendData,
@@ -120,10 +121,10 @@ export class AchievementList extends React.Component {
     }
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="winner" color="teal" /> Achievements
+              <Icon name="winner" color={theme} /> Achievements
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

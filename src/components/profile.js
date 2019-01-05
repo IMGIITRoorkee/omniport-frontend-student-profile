@@ -43,7 +43,6 @@ export class Profile extends React.Component {
     };
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
-    console.log("url", url);
     axios
       .get("/api/student_profile/profile/" + url)
       .then(response => {
@@ -81,14 +80,15 @@ export class Profile extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const desc = this.state.data.description;
-    const { data } = this.state;
-    const { handle } = this.state;
+    const { theme } = this.props;
+    const { data, handle } = this.state;
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
     return (
       <div style={{ position: "sticky", top: 0 }}>
-        <Card color="teal">
+        <Card color={theme}>
           {this.props.handle == undefined ? (
             <Card.Content>
               <div styleName="style.headingBox">
@@ -107,7 +107,7 @@ export class Profile extends React.Component {
           </Card.Content>
           <Card.Content as={Segment} basic>
             <Card.Header textAlign="center">
-              {this.state.person_data.fullName} sadf
+              {this.state.person_data.fullName}
             </Card.Header>
             <Card.Meta textAlign="center">
               {this.state.data.handle ? "@" : null}
@@ -124,6 +124,7 @@ export class Profile extends React.Component {
               createNew={this.state.createNew}
               handleHide={this.handleHide}
               handleUpdate={this.handleUpdate}
+              changeTheme={this.props.changeTheme}
             />
           </Dimmer>
         </Card>

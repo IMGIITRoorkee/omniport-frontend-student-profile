@@ -93,6 +93,7 @@ export class InterestList extends React.Component {
   };
   render() {
     const { active, update, formData, data, rearrange } = this.state;
+    const { theme } = this.props;
     const {
       fetchData,
       appendData,
@@ -119,10 +120,10 @@ export class InterestList extends React.Component {
     }
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="game" color="teal" /> Interests
+              <Icon name="game" color={theme} /> Interests
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

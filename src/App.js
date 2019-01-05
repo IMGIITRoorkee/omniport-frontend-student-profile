@@ -28,6 +28,7 @@ import { Skill } from "./components/skill";
 
 import { NotFound } from "./components/notFound";
 import style from "./styles.css";
+
 const creators = [
   {
     name: "Mahip Jain",
@@ -63,6 +64,7 @@ class App extends Component {
       show: false,
       erroneous: "don't know",
       handle: "",
+      theme: "",
       tVisibility: false
     };
   }
@@ -76,7 +78,7 @@ class App extends Component {
     } else {
       this.setState({ show: true });
     }
-    if (!show) {
+    if (!show && handle != undefined) {
       axios
         .get("/api/student_profile/profile/" + handle + "/handle/")
         .then(response => {
@@ -89,46 +91,34 @@ class App extends Component {
           }
         });
     }
+    axios
+      .get("/api/student_profile/profile/")
+      .then(response => {
+        console.log(response);
+        this.setState({ theme: response.data[0].theme });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   handleToggle = () => {
     console.log(this.state.tVisibility);
     const newtVisibility = !this.state.tVisibility;
     this.setState({ tVisibility: newtVisibility });
   };
-
+  changeTheme = theme => {
+    console.log("new theme of app");
+    this.setState({ theme: theme }, () => {
+      console.log("new theme of app ", this.state.theme);
+    });
+  };
+  scroll = target => {
+    let ele = document.getElementById(target);
+    console.log(ele.offsetTop);
+    window.scrollTo(ele.offsetLeft, ele.offsetTop);
+  };
   render() {
-    const innerApp = (
-      <Container as={Segment} basic>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={4}>
-              <Profile />
-            </Grid.Column>
-            <Grid.Column width={12}>
-              <Button onClick={this.handleToggle}>Toggle tVisibility</Button>
-              <Segment color="red">
-                <Segment basic>
-                  <Header as="h2">About me</Header>
-                  Electrical Engineering undergraduate, exploring Web
-                  Development and having an interest in Mathematics. (to be
-                  removed . . .)
-                </Segment>
-              </Segment>
-              <RefereeList handle={handle} />
-              <InterestList handle={handle} />
-              <AchievementList handle={handle} />
-              <InternshipList handle={handle} />
-              <BookList handle={handle} />
-              <CurrentEducationList handle={handle} />
-              <PreviousEducationList handle={handle} />
-              <ProjectForm handle={handle} />
-              <Skill handle={handle} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-    );
-    const { show, erroneous, handle } = this.state;
+    const { show, erroneous, handle, theme } = this.state;
     const app = (
       <div styleName="style.wrapper">
         <AppHeader
@@ -145,15 +135,26 @@ class App extends Component {
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
-                      <Profile handle={handle} />
+                      <Profile
+                        handle={handle}
+                        theme={this.state.theme}
+                        changeTheme={this.changeTheme}
+                      />
                     </Grid.Column>
                     <Grid.Column width={12}>
                       <Segment
                         style={{ zIndex: "5", position: "sticky", top: 0 }}
                       >
+                        {/* <Button
+                          onClick={() => {
+                            this.setState({ theme: "teal" });
+                          }}
+                        >
+                          Change theme
+                        </Button> */}
                         <List
                           horizontal
-                          celled
+                          divided
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -197,23 +198,29 @@ class App extends Component {
                               <h3>Education</h3>
                             </List.Content>
                           </List.Item>
-                          <List.Item>
+                          <List.Item
+                            onClick={(e, target) => {
+                              this.scroll("references");
+                            }}
+                          >
                             <List.Content>
                               <h3>References</h3>
                             </List.Content>
                           </List.Item>
                         </List>
                       </Segment>
-                      <InterestList handle={handle} />
-                      <AchievementList handle={handle} />
-                      <InternshipList handle={handle} />
-                      <ProjectForm handle={handle} />
-                      <Skill handle={handle} />
-                      <BookList handle={handle} />
-                      <PaperList handle={handle} />
-                      <CurrentEducationList handle={handle} />
-                      <PreviousEducationList handle={handle} />
-                      <RefereeList handle={handle} />
+                      <InterestList handle={handle} theme={theme} />
+                      <AchievementList handle={handle} theme={theme} />
+                      <InternshipList handle={handle} theme={theme} />
+                      <ProjectForm handle={handle} theme={theme} />
+                      <Skill handle={handle} theme={theme} />
+                      <BookList handle={handle} theme={theme} />
+                      <PaperList handle={handle} theme={theme} />
+                      <CurrentEducationList handle={handle} theme={theme} />
+                      <PreviousEducationList handle={handle} theme={theme} />
+                      <div id="references">
+                        <RefereeList handle={handle} theme={theme} />
+                      </div>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

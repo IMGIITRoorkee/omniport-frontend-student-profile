@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Message, Button, Icon, Label, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Message,
+  Button,
+  Icon,
+  Dropdown,
+  Segment
+} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -7,8 +14,28 @@ import { Resume } from "./resume";
 import style from "../styles.css";
 import { ComponentTransition } from "./transition";
 
+const themeOptions = [
+  { text: "Luscious Red", key: "red", value: "red" },
+  { text: "Maverick Orange", key: "orange", value: "orange" },
+  { text: "Sunkissed Yellow", key: "yellow", value: "yellow" },
+  { text: "Disgusting Olive", key: "olive", value: "olive" },
+  { text: "Earthly Green", key: "green", value: "green" },
+  { text: "Aqua Teal", key: "teal", value: "teal" },
+  { text: "Default Blue", key: "blue", value: "blue" },
+  { text: "Rich Lavender", key: "violet", value: "violet" },
+  { text: "Lightning Purple", key: "purple", value: "purple" },
+  { text: "Proud Pink", key: "pink", value: "pink" },
+  { text: "Wicked Black", key: "black", value: "black" }
+];
+
 const initial = {
-  data: { handle: "", description: "", customWebsite: false, resume: null }
+  data: {
+    handle: "",
+    description: "",
+    theme: "",
+    customWebsite: false,
+    resume: null
+  }
 };
 //default handle must be there
 export class ProfileForm extends React.Component {
@@ -19,6 +46,7 @@ export class ProfileForm extends React.Component {
       createNew: props.createNew,
       resumeLink: props.data.resume,
       resume: null,
+      theme: this.props.theme,
       list: null,
       errors: []
     };
@@ -34,15 +62,17 @@ export class ProfileForm extends React.Component {
       this.props.handleHide();
     }
   };
-  handleChange = e => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({ data: { ...this.state.data, [name]: value } });
+  handleChange = (event, { name = undefined, value }) => {
+    console.log(this.state.data);
+    event.persist();
+    if (this.state.data.hasOwnProperty(name)) {
+      this.setState({ data: { ...this.state.data, [name]: value } });
+    }
   };
   handleSubmit = e => {
     let data = new FormData();
     data.append("handle", this.state.data.handle);
+    data.append("theme", this.state.data.theme);
     data.append("description", this.state.data.description);
     if (this.state.resumeLink != null && this.state.resume != null) {
       data.append("resume", this.state.resume);
@@ -107,9 +137,13 @@ export class ProfileForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
-    const { handle, description } = this.state.data;
+    const { handle, description, theme } = this.state.data;
+    console.log(theme);
+    console.log(this.props.changeTheme);
     if (handle == "") {
       errors.push("Handle must be filled");
+    } else if (handle.match(" ")) {
+      errors.push("Handle must not contain spaces");
     }
     if (description == "") {
       errors.push("Description must be filled");
@@ -118,12 +152,14 @@ export class ProfileForm extends React.Component {
       this.setState({ errors: errors });
     } else {
       this.setState({ errors: [] }, () => {
+        this.props.changeTheme(theme);
         if (this.state.update == false) this.handleSubmit();
         else this.handleSubmit();
       });
     }
   };
   render() {
+    console.log(this.state.data.theme);
     var res = (
       <Form.Field>
         <input
@@ -169,11 +205,23 @@ export class ProfileForm extends React.Component {
             <Form>
               <Form.Field>
                 <Form.Input
+                  required
                   label="Handle"
                   onChange={this.handleChange}
                   value={this.state.data.handle}
                   name="handle"
                   placeholder="Change your handle"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label>Theme</label>
+                <Dropdown
+                  onChange={this.handleChange}
+                  name="theme"
+                  options={themeOptions}
+                  placeholder="Choose theme options"
+                  selection
+                  value={this.state.data.theme}
                 />
               </Form.Field>
               <Form.Field>

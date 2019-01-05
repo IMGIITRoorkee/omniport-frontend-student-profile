@@ -22,8 +22,8 @@ export function ResumeDownload(props) {
             }}
           >
             {url != null ? (
-              <a href={url}>
-                <Label size="large" icon color="blue">
+              <a href={url} target="_blank">
+                <Label size="large" color="blue">
                   <Icon name="download" />
                   Resume
                 </Label>
@@ -31,7 +31,7 @@ export function ResumeDownload(props) {
             ) : (
               <Popup
                 trigger={
-                  <Label size="large" icon color="blue">
+                  <Label size="large" color="blue">
                     <Icon name="download" />
                     Resume
                   </Label>
@@ -40,8 +40,8 @@ export function ResumeDownload(props) {
               />
             )}
             <Link to={preview_url} target="_blank">
-              <Label size="large" color="blue" as="a">
-                <Icon name="print" />
+              <Label size="large" color="blue">
+                <Icon name="eye" />
                 Preview
               </Label>
             </Link>
@@ -88,7 +88,7 @@ export function ResumeDownload(props) {
       <Segment styleName="style.headingBox">
         <h4 styleName="style.heading">Download resume</h4>
         {url != null ? (
-          <a href={url}>
+          <a href={url} target="_blank">
             <Icon name="download" color="blue" />
           </a>
         ) : (

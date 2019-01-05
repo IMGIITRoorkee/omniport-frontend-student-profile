@@ -267,6 +267,7 @@ export class ProjectForm extends React.Component {
   };
   render() {
     let { list, update, rearrange } = this.state;
+    const { theme } = this.props;
     const { handleUpdate, handleDragHide, handleDragShow, handleShow } = this;
     const children = (
       <ProjectList arr={list} update={this.update} handle={this.props.handle} />
@@ -301,10 +302,10 @@ export class ProjectForm extends React.Component {
 
     return (
       <ComponentTransition>
-        <Segment padded color="teal">
+        <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="file alternate" color="teal" /> Projects
+              <Icon name="file alternate" color={theme} /> Projects
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
