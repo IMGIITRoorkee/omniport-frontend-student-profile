@@ -36,20 +36,21 @@ export class CurrentEducationList extends React.Component {
   };
   appendData = item => {
     let data = this.state.data;
-    for (var i = 0; i < data.length; i++) {
-      if (item.id == data[i].id) {
-        data[i] = item;
+    let n = data.length;
+    let i = 0;
+    for (i = 0; i < n; i++) {
+      if (data[i].semesterNumber >= item.semesterNumber) {
+        data.splice(i, 0, item);
+        this.setState({ data: data });
+        console.log(i);
         break;
       }
     }
-    this.setState({ data: [data] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj =>
-        obj.id != item.id ? true : false
-      );
+      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -71,13 +72,7 @@ export class CurrentEducationList extends React.Component {
     const { active, update, formData, data } = this.state;
     const { theme } = this.props;
 
-    const {
-      fetchData,
-      appendData,
-      updateDeleteData,
-      handleHide,
-      handleShow
-    } = this;
+    const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
 
     let data_array;
     let children;

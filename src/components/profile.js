@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Icon,
-  Image,
-  Dimmer,
-  Segment,
-  Label,
-  Button
-} from "semantic-ui-react";
+import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "./linkDisplay";
@@ -108,7 +100,7 @@ export class Profile extends React.Component {
     const ownHandle = data.handle;
     return (
       <div style={{ position: "sticky", top: 0 }}>
-        <Card color={theme}>
+        <Card color={theme} fluid>
           {this.props.handle == undefined ? (
             <Card.Content style={{ border: "0!important" }}>
               <div styleName="style.headingBox">
@@ -118,12 +110,7 @@ export class Profile extends React.Component {
             </Card.Content>
           ) : null}
           <Card.Content textAlign="center">
-            <Image
-              centered
-              src={this.state.person_data.displayPicture}
-              size="small"
-              circular
-            />
+            <Image centered src={this.state.person_data.displayPicture} size="small" circular />
           </Card.Content>
           <Card.Content as={Segment} basic>
             <Card.Header textAlign="center">{data.student}</Card.Header>
@@ -148,11 +135,7 @@ export class Profile extends React.Component {
           </Dimmer>
         </Card>
 
-        <ResumeDownload
-          preview={preview}
-          url={data.resume}
-          ownHandle={ownHandle}
-        />
+        <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} />
       </div>
     );
   }
