@@ -1,14 +1,6 @@
 import React from "react";
 import moment from "moment";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Checkbox,
-  Segment,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Checkbox, Segment, Message } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
@@ -39,7 +31,20 @@ export class InternshipForm extends React.Component {
       errors: []
     };
   }
-
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+  handleKeyPress = e => {
+    if (e.keyCode === 27) {
+      this.props.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
+    }
+  };
   componentWillUpdate(nextProps, nextState) {
     if (this.props != nextProps && nextProps.update == true) {
       this.setState({
@@ -94,13 +99,7 @@ export class InternshipForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
-    const {
-      position,
-      organisation,
-      startDate,
-      endDate,
-      description
-    } = this.state.data;
+    const { position, organisation, startDate, endDate, description } = this.state.data;
     if (position == "") {
       errors.push("Position must be filled");
     }
@@ -109,11 +108,7 @@ export class InternshipForm extends React.Component {
     }
     if (startDate != "") {
       if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
-        if (
-          endDate != "" &&
-          endDate != null &&
-          moment(endDate, "YYYY-MM-DD", true).isValid()
-        ) {
+        if (endDate != "" && endDate != null && moment(endDate, "YYYY-MM-DD", true).isValid()) {
           if (moment(endDate).isBefore(startDate)) {
             errors.push("Start date must be before end date");
           }
@@ -148,14 +143,7 @@ export class InternshipForm extends React.Component {
   };
   render() {
     const { update } = this.state;
-    const {
-      position,
-      organisation,
-      startDate,
-      endDate,
-      isFullDate,
-      description
-    } = this.state.data;
+    const { position, organisation, startDate, endDate, isFullDate, description } = this.state.data;
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -164,31 +152,16 @@ export class InternshipForm extends React.Component {
         </Segment>
         <Segment attached styleName="style.formStyle">
           {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
+            <Message error header="There were some errors with your submission:" list={this.state.errors} />
           ) : null}
           <Form autoComplete="off">
             <Form.Field>
               <label>Position</label>
-              <Input
-                onChange={this.handleChange}
-                value={position}
-                name="position"
-                placeholder="Position"
-                autoFocus
-              />
+              <Input onChange={this.handleChange} value={position} name="position" placeholder="Position" autoFocus />
             </Form.Field>
             <Form.Field>
               <label>Organisation</label>
-              <Input
-                onChange={this.handleChange}
-                value={organisation}
-                name="organisation"
-                placeholder="Organisation"
-              />
+              <Input onChange={this.handleChange} value={organisation} name="organisation" placeholder="Organisation" />
             </Form.Field>
 
             <Form.Group widths="equal">
@@ -212,11 +185,7 @@ export class InternshipForm extends React.Component {
               />
             </Form.Group>
             <Form.Field>
-              <Checkbox
-                label="I remember the exact date"
-                onChange={this.handleToggle}
-                checked={isFullDate}
-              />
+              <Checkbox label="I remember the exact date" onChange={this.handleToggle} checked={isFullDate} />
             </Form.Field>
             <Form.Field>
               <label>Description</label>
@@ -234,10 +203,7 @@ export class InternshipForm extends React.Component {
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
-            >
+            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>

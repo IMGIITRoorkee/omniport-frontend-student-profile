@@ -27,7 +27,17 @@ export class SkillForm extends React.Component {
       errors: []
     };
   }
-
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+  handleKeyPress = e => {
+    if (e.keyCode === 27) {
+      this.props.handleHide();
+    }
+  };
   handleChange = e => {
     const target = e.target;
     const value = target.value;
@@ -86,11 +96,7 @@ export class SkillForm extends React.Component {
         </Segment>
         <Segment attached styleName="style.formStyle">
           {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
+            <Message error header="There were some errors with your submission:" list={this.state.errors} />
           ) : null}
           <Form styleName="style.skillForm">
             <Form.Field>

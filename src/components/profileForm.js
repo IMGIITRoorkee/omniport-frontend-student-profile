@@ -35,7 +35,6 @@ const initial = {
 export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       data: props.data,
       createNew: props.createNew,
@@ -60,7 +59,6 @@ export class ProfileForm extends React.Component {
     }
   };
   handleChange = (event, { name = undefined, value }) => {
-    console.log(this.state.data);
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
@@ -68,8 +66,6 @@ export class ProfileForm extends React.Component {
   };
   handleSubmit = e => {
     let data = new FormData();
-    console.log(this.state.img_file);
-    console.log(this.state.image);
     data.append("handle", this.state.data.handle);
     data.append("theme", this.state.data.theme);
     data.append("description", this.state.data.description);
@@ -102,12 +98,10 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        console.log(displayPicture);
         if (displayPicture.search("http://localhost:3000") == -1) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
-        console.log("hello");
-        console.log(data);
+
         this.props.handleUpdate(data, false, displayPicture);
       });
     } else {
@@ -119,12 +113,9 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        console.log(displayPicture);
         if (displayPicture.search("http://localhost:3000") == -1) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
-        console.log("hello");
-        console.log(data);
         this.props.handleUpdate(data, false, displayPicture);
       });
     }
@@ -147,7 +138,6 @@ export class ProfileForm extends React.Component {
     }
   };
   handleFile = event => {
-    console.log("hello");
     this.setState({
       resume: event.target.files[0],
       resumeLink: event.target.value
@@ -163,13 +153,26 @@ export class ProfileForm extends React.Component {
   handleErrors = () => {
     let errors = [];
     const { handle, description, theme } = this.state.data;
-    console.log(theme);
-    console.log(this.props.changeTheme);
+
+    let headers = {
+      "X-CSRFToken": getCookie("csrftoken"),
+      "Content-type": "multipart/form-data"
+    };
     if (handle == "") {
       errors.push("Handle must be filled");
     } else if (handle.match(" ")) {
       errors.push("Handle must not contain spaces");
     }
+    axios({
+      method: "get",
+      url: "/api/student_profile/profile/" + handle + "/handle/",
+      headers: headers
+    }).catch(error => {
+      console.log(error);
+      if (error.response.status == 404) {
+        errors.push("Handle is already taken");
+      }
+    });
     if (description == "") {
       errors.push("Description must be filled");
     }
@@ -184,12 +187,9 @@ export class ProfileForm extends React.Component {
     }
   };
   handleImageChange = e => {
-    console.log("ho ho");
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       const image = reader.result;
       this.setState({
@@ -204,7 +204,6 @@ export class ProfileForm extends React.Component {
     this.setState({ image: "", img_file: "" });
   };
   render() {
-    console.log(this.state);
     let res = (
       <Form.Field>
         <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />

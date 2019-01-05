@@ -43,9 +43,7 @@ export class InternshipList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj =>
-        obj.id != item.id ? true : false
-      );
+      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -117,9 +115,7 @@ export class InternshipList extends React.Component {
             {this.props.handle != undefined ? null : (
               <div>
                 <Popup
-                  trigger={
-                    <Icon color="grey" name="sort" onClick={handleDragShow} />
-                  }
+                  trigger={<Icon color="grey" name="sort" onClick={handleDragShow} />}
                   content="Rearrange the information"
                 />
                 <Icon color="grey" name="add" onClick={handleShow} />

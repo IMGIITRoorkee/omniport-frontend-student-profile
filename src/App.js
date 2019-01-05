@@ -133,6 +133,8 @@ class App extends Component {
                       <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
                         <Menu
                           fluid
+                          icon="labeled"
+                          borderless
                           stackable
                           widths={8}
                           style={

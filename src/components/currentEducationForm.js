@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Segment,
-  Dropdown,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Dropdown, Message } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -113,11 +104,7 @@ export class CurrentEducationForm extends React.Component {
     const { semesterNumber, sgpa, cgpa } = this.state.data;
     if (semesterNumber == "") {
       errors.push("Semester number must be filled");
-    } else if (
-      isNaN(parseInt(semesterNumber)) ||
-      parseInt(semesterNumber) > 10 ||
-      parseInt(semesterNumber) < 1
-    ) {
+    } else if (isNaN(parseInt(semesterNumber)) || parseInt(semesterNumber) > 10 || parseInt(semesterNumber) < 1) {
       errors.push("Please enter a valid semester number");
     }
     if (cgpa == "") {
@@ -152,11 +139,7 @@ export class CurrentEducationForm extends React.Component {
 
         <Segment attached styleName="style.formStyle">
           {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
+            <Message error header="There were some errors with your submission:" list={this.state.errors} />
           ) : null}
           <Form autoComplete="off">
             <Form.Group widths="equal">
@@ -172,21 +155,11 @@ export class CurrentEducationForm extends React.Component {
               </Form.Field>
               <Form.Field required>
                 <label>CGPA</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={cgpa}
-                  name="cgpa"
-                  placeholder="CGPA"
-                />
+                <Form.Input onChange={this.handleChange} value={cgpa} name="cgpa" placeholder="CGPA" />
               </Form.Field>
               <Form.Field required>
                 <label>SGPA</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={sgpa}
-                  name="sgpa"
-                  placeholder="SGPA"
-                />
+                <Form.Input onChange={this.handleChange} value={sgpa} name="sgpa" placeholder="SGPA" />
               </Form.Field>
             </Form.Group>
           </Form>
@@ -196,10 +169,7 @@ export class CurrentEducationForm extends React.Component {
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
-            >
+            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>

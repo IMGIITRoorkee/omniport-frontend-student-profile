@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Segment,
-  Popup,
-  Dimmer,
-  Message,
-  Checkbox
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Segment, Popup, Dimmer, Message, Checkbox } from "semantic-ui-react";
 import axios from "axios";
 import { DateInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
@@ -49,7 +39,12 @@ export class ProjectForm extends React.Component {
 
   componentDidMount() {
     this.fetchData();
+    document.addEventListener("keydown", this.handleKeyPress, false);
   }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+
   fetchData = () => {
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
@@ -73,7 +68,14 @@ export class ProjectForm extends React.Component {
       errors: []
     });
   };
-
+  handleKeyPress = e => {
+    if (e.keyCode === 27) {
+      this.handleHide();
+    }
+    if (e.keyCode === 13) {
+      this.handleErrors();
+    }
+  };
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
@@ -180,9 +182,7 @@ export class ProjectForm extends React.Component {
         }
       })
       .then(response => {
-        const arr = this.state.list.filter(obj =>
-          obj.id == id ? false : true
-        );
+        const arr = this.state.list.filter(obj => (obj.id == id ? false : true));
         this.setState({
           list: arr,
           image: "",
@@ -215,11 +215,7 @@ export class ProjectForm extends React.Component {
     }
     if (startDate != "") {
       if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
-        if (
-          endDate != "" &&
-          endDate != null &&
-          moment(endDate, "YYYY-MM-DD", true).isValid()
-        ) {
+        if (endDate != "" && endDate != null && moment(endDate, "YYYY-MM-DD", true).isValid()) {
           if (moment(endDate).isBefore(startDate)) {
             errors.push("Start date must be before end date");
           }
@@ -269,17 +265,10 @@ export class ProjectForm extends React.Component {
     let { list, update, rearrange } = this.state;
     const { theme } = this.props;
     const { handleUpdate, handleDragHide, handleDragShow, handleShow } = this;
-    const children = (
-      <ProjectList arr={list} update={this.update} handle={this.props.handle} />
-    );
+    const children = <ProjectList arr={list} update={this.update} handle={this.props.handle} />;
     let imagePreview = (
       <div>
-        <input
-          type="file"
-          onChange={this.handleImageChange}
-          styleName="style.inputfile"
-          id="embedpollfileinput"
-        />
+        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
@@ -291,10 +280,7 @@ export class ProjectForm extends React.Component {
     if (this.state.image) {
       imagePreview = (
         <ImagePreview
-          imagePreviewUrl={this.state.image.replace(
-            "http://localhost:3003/",
-            "http://192.168.121.228:60025/"
-          )}
+          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
           removeImage={this.removeImage}
         />
       );
@@ -310,9 +296,7 @@ export class ProjectForm extends React.Component {
             {this.props.handle != undefined ? null : (
               <div>
                 <Popup
-                  trigger={
-                    <Icon color="grey" name="sort" onClick={handleDragShow} />
-                  }
+                  trigger={<Icon color="grey" name="sort" onClick={handleDragShow} />}
                   content="Rearrange the information"
                 />
                 <Icon color="grey" name="add" onClick={handleShow} />
@@ -328,11 +312,7 @@ export class ProjectForm extends React.Component {
               </Segment>
               <Segment attached styleName="style.formStyle">
                 {this.state.errors.length > 0 ? (
-                  <Message
-                    error
-                    header="There were some errors with your submission:"
-                    list={this.state.errors}
-                  />
+                  <Message error header="There were some errors with your submission:" list={this.state.errors} />
                 ) : null}
                 <Form autoComplete="off">
                   <Form.Field>
@@ -405,11 +385,7 @@ export class ProjectForm extends React.Component {
                 </Segment>
               ) : (
                 <Segment attached="bottom" styleName="style.buttonBox">
-                  <Button
-                    onClick={this.handleErrors}
-                    color="blue"
-                    type="submit"
-                  >
+                  <Button onClick={this.handleErrors} color="blue" type="submit">
                     Submit
                   </Button>
                 </Segment>
