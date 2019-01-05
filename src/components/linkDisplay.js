@@ -20,13 +20,14 @@ export class LinkDisplay extends React.Component {
     this.setState({ data: data });
   };
   fetchData = () => {
-    const self = this;
+    let url = "";
+    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
-      .get("/api/student_profile/social_link/")
-      .then(function(response) {
-        self.setState({ data: Array.from(response.data) });
+      .get("/api/student_profile/social_link/" + url)
+      .then(response => {
+        this.setState({ data: response.data });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   };

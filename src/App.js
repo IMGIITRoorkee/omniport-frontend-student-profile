@@ -69,13 +69,14 @@ class App extends Component {
       show = false;
       this.setState({ show: false });
     } else {
+      show = true;
       this.setState({ show: true });
     }
-    if (!show && handle != undefined) {
+    if (!show) {
       axios
         .get("/api/student_profile/profile/" + handle + "/handle/")
         .then(response => {
-          this.setState({ erroneous: "no" });
+          this.setState({ erroneous: "no", theme: response.data.theme });
         })
         .catch(error => {
           console.log(error);
@@ -83,16 +84,17 @@ class App extends Component {
             this.setState({ erroneous: "yes" });
           }
         });
+    } else {
+      axios
+        .get("/api/student_profile/profile/")
+        .then(response => {
+          console.log(response);
+          this.setState({ theme: response.data[0].theme });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-    axios
-      .get("/api/student_profile/profile/")
-      .then(response => {
-        console.log(response);
-        this.setState({ theme: response.data[0].theme });
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
   handleToggle = () => {
     console.log(this.state.tVisibility);
@@ -131,6 +133,7 @@ class App extends Component {
                       <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
                         <Menu
                           fluid
+                          stackable
                           widths={8}
                           style={
                             {

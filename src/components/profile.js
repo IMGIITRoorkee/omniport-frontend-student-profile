@@ -35,6 +35,7 @@ export class Profile extends React.Component {
     };
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
+    console.log(url);
     axios
       .get("/api/student_profile/profile/" + url)
       .then(response => {
