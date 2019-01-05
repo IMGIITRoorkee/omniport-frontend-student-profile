@@ -25,6 +25,7 @@ import { ProfileImagePreview } from "./profileImagePreview";
 const initial = {
   data: {
     handle: "",
+    student: "",
     description: "",
     theme: "",
     customWebsite: false,
@@ -44,7 +45,8 @@ export class ProfileForm extends React.Component {
       list: null,
       errors: [],
       image: props.person_data.displayPicture,
-      img_file: ""
+      img_file: "",
+      initial_handle: props.data.handle
     };
   }
   componentDidMount() {
@@ -57,9 +59,13 @@ export class ProfileForm extends React.Component {
     if (e.keyCode === 27) {
       this.props.handleHide();
     }
+    if (e.keyCode === 13) {
+      this.handleErrors();
+    }
   };
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
+    console.log("pro data", this.state.data);
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
@@ -82,7 +88,6 @@ export class ProfileForm extends React.Component {
     } else if (this.state.img_file == "" && this.state.image == "") {
       data.append("image", null);
     }
-
     let headers = {
       "X-CSRFToken": getCookie("csrftoken"),
       "Content-type": "multipart/form-data"
@@ -98,7 +103,8 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        if (displayPicture.search("http://localhost:3000") == -1) {
+        console.log(displayPicture);
+        if (displayPicture != null && displayPicture.search("http://localhost:3000") == -1) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
 
@@ -113,7 +119,8 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        if (displayPicture.search("http://localhost:3000") == -1) {
+        console.log(displayPicture);
+        if (displayPicture != null && displayPicture.search("http://localhost:3000") == -1) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
         this.props.handleUpdate(data, false, displayPicture);
@@ -152,7 +159,8 @@ export class ProfileForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
-    const { handle, description, theme } = this.state.data;
+    const { handle, description, theme, student } = this.state.data;
+    const { createNew } = this.state;
 
     let headers = {
       "X-CSRFToken": getCookie("csrftoken"),
@@ -160,31 +168,42 @@ export class ProfileForm extends React.Component {
     };
     if (handle == "") {
       errors.push("Handle must be filled");
-    } else if (handle.match(" ")) {
-      errors.push("Handle must not contain spaces");
+    } else if (/^[a-zA-Z](-*_*[a-zA-Z0-9])*$/.test(handle) == false) {
+      errors.push("Enter valid handle (avoid spaces and special characters)");
+    }
+    if (description == "") {
+      errors.push("Description must be filled");
     }
     axios({
       method: "get",
       url: "/api/student_profile/profile/" + handle + "/handle/",
       headers: headers
-    }).catch(error => {
-      console.log(error);
-      if (error.response.status == 404) {
-        errors.push("Handle is already taken");
-      }
-    });
-    if (description == "") {
-      errors.push("Description must be filled");
-    }
-    if (errors.length > 0) {
-      this.setState({ errors: errors });
-    } else {
-      this.setState({ errors: [] }, () => {
-        this.props.changeTheme(theme);
-        if (this.state.update == false) this.handleSubmit();
-        else this.handleSubmit();
+    })
+      .then(response => {
+        if (createNew == true || response.data.student != student) {
+          errors.push("Handle is already taken");
+        }
+        if (errors.length > 0) {
+          this.setState({ errors: errors });
+        } else {
+          this.setState({ errors: [] }, () => {
+            this.props.changeTheme(theme);
+            if (this.state.update == false) this.handleSubmit();
+            else this.handleSubmit();
+          });
+        }
+      })
+      .catch(error => {
+        if (errors.length > 0) {
+          this.setState({ errors: errors });
+        } else {
+          this.setState({ errors: [] }, () => {
+            this.props.changeTheme(theme);
+            if (this.state.update == false) this.handleSubmit();
+            else this.handleSubmit();
+          });
+        }
       });
-    }
   };
   handleImageChange = e => {
     e.preventDefault();
@@ -244,7 +263,7 @@ export class ProfileForm extends React.Component {
     }
     return (
       <ComponentTransition>
-        <Segment basic>
+        <div style={{ minWidth: "350px" }}>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">Profile</h3>
             <Icon color="grey" name="delete" onClick={this.props.handleHide} />
@@ -253,7 +272,7 @@ export class ProfileForm extends React.Component {
             {this.state.errors.length > 0 ? (
               <Message error header="There were some errors with your submission:" list={this.state.errors} />
             ) : null}
-            <Form>
+            <Form autoComplete="off">
               <Form.Field>{imagePreview}</Form.Field>
               <Form.Field>
                 <Form.Input
@@ -295,7 +314,7 @@ export class ProfileForm extends React.Component {
               Submit
             </Button>
           </Segment>
-        </Segment>
+        </div>
       </ComponentTransition>
     );
   }

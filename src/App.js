@@ -57,7 +57,7 @@ class App extends Component {
       show: false,
       erroneous: "don't know",
       handle: "",
-      theme: "",
+      theme: "teal",
       tVisibility: false
     };
   }
@@ -132,6 +132,7 @@ class App extends Component {
                     <Grid.Column width={12}>
                       <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
                         <Menu
+                          size="large"
                           fluid
                           icon="labeled"
                           borderless
