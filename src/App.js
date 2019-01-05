@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  Segment,
-  Header,
-  Container,
-  Grid,
-  List,
-  Transition,
-  Button
-} from "semantic-ui-react";
+import { Segment, Header, Container, Grid, List, Transition, Button, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
@@ -61,6 +53,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeItem: "Interests",
       show: false,
       erroneous: "don't know",
       handle: "",
@@ -114,19 +107,16 @@ class App extends Component {
   };
   scroll = target => {
     let ele = document.getElementById(target);
+    console.log(ele);
     console.log(ele.offsetTop);
     window.scrollTo(ele.offsetLeft, ele.offsetTop);
   };
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   render() {
-    const { show, erroneous, handle, theme } = this.state;
+    const { show, erroneous, handle, theme, activeItem } = this.state;
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader
-          appName="student_profile"
-          appLogo={false}
-          appLink={`http://${window.location.host}`}
-          userDropdown
-        />
+        <AppHeader appName="student_profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
         <AppMain>
           {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
@@ -135,90 +125,124 @@ class App extends Component {
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
-                      <Profile
-                        handle={handle}
-                        theme={this.state.theme}
-                        changeTheme={this.changeTheme}
-                      />
+                      <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />
                     </Grid.Column>
                     <Grid.Column width={12}>
-                      <Segment
-                        style={{ zIndex: "5", position: "sticky", top: 0 }}
-                      >
-                        {/* <Button
-                          onClick={() => {
-                            this.setState({ theme: "teal" });
-                          }}
+                      <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
+                        <Menu
+                          fluid
+                          widths={8}
+                          style={
+                            {
+                              // display: "flex",
+                              // justifyContent: "space-between",
+                              // flexWrap: "wrap"
+                            }
+                          }
                         >
-                          Change theme
-                        </Button> */}
-                        <List
-                          horizontal
-                          divided
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            flexWrap: "wrap"
-                          }}
-                        >
-                          <List.Item>
-                            <List.Content>
-                              <h3>Interests</h3>
-                            </List.Content>
-                          </List.Item>
-                          <List.Item>
-                            <List.Content>
-                              <h3>Achievements</h3>
-                            </List.Content>
-                          </List.Item>
-                          <List.Item>
-                            <List.Content>
-                              <h3>Internships</h3>
-                            </List.Content>
-                          </List.Item>
-
-                          <List.Item>
-                            <List.Content>
-                              <h3>Projects</h3>
-                            </List.Content>
-                          </List.Item>
-                          <List.Item>
-                            <List.Content>
-                              <h3>Skills</h3>
-                            </List.Content>
-                          </List.Item>
-                          <List.Item>
-                            <List.Content>
-                              <h3>Publications</h3>
-                            </List.Content>
-                          </List.Item>
-
-                          <List.Item>
-                            <List.Content>
-                              <h3>Education</h3>
-                            </List.Content>
-                          </List.Item>
-                          <List.Item
+                          {/* <Mnu.Item header>Our Company</Menu.Item> */}
+                          <Menu.Item
+                            name="Interests"
+                            active={activeItem === "Interests"}
                             onClick={(e, target) => {
-                              this.scroll("references");
+                              this.setState({ activeItem: "Interests" });
+                              handleItemClick;
+                              this.scroll("interest");
                             }}
-                          >
-                            <List.Content>
-                              <h3>References</h3>
-                            </List.Content>
-                          </List.Item>
-                        </List>
-                      </Segment>
-                      <InterestList handle={handle} theme={theme} />
-                      <AchievementList handle={handle} theme={theme} />
-                      <InternshipList handle={handle} theme={theme} />
-                      <ProjectForm handle={handle} theme={theme} />
-                      <Skill handle={handle} theme={theme} />
-                      <BookList handle={handle} theme={theme} />
-                      <PaperList handle={handle} theme={theme} />
-                      <CurrentEducationList handle={handle} theme={theme} />
-                      <PreviousEducationList handle={handle} theme={theme} />
-                      <div id="references">
+                          />
+                          <Menu.Item
+                            name="Achievements"
+                            active={activeItem === "Achievements"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Achievements" });
+                              this.scroll("achievement");
+                            }}
+                          />
+                          <Menu.Item
+                            name="Internships"
+                            active={activeItem === "Internships"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Internships" });
+                              this.scroll("internship");
+                            }}
+                          />
+                          <Menu.Item
+                            name="Projects"
+                            active={activeItem === "Projects"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Projects" });
+                              this.scroll("project");
+                            }}
+                          />
+                          <Menu.Item
+                            name="Skills"
+                            active={activeItem === "Skills"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Skills" });
+                              this.scroll("skill");
+                            }}
+                          />
+                          <Menu.Item
+                            name="Publications"
+                            active={activeItem === "Publications"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Publications" });
+                              this.scroll("book");
+                            }}
+                          />
+                          <Menu.Item
+                            name="Education"
+                            active={activeItem === "Education"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "Education" });
+                              this.scroll("currentEducation");
+                            }}
+                          />
+                          <Menu.Item
+                            name="References"
+                            active={activeItem === "References"}
+                            onClick={(e, target) => {
+                              this.handleItemClick;
+                              this.setState({ activeItem: "References" });
+                              this.scroll("referee");
+                            }}
+                          />
+                        </Menu>
+                      </div>
+                      <div id="interest">
+                        <InterestList handle={handle} theme={theme} />
+                      </div>
+                      <div id="achievement">
+                        <AchievementList handle={handle} theme={theme} />
+                      </div>
+                      <div id="internship">
+                        <InternshipList handle={handle} theme={theme} />
+                      </div>
+                      <div id="project">
+                        <ProjectForm handle={handle} theme={theme} />
+                      </div>
+                      <div id="skill">
+                        <Skill handle={handle} theme={theme} />
+                      </div>
+                      <div id="book">
+                        <BookList handle={handle} theme={theme} />
+                      </div>
+                      <div id="paper">
+                        <PaperList handle={handle} theme={theme} />
+                      </div>
+                      <div id="currentEducation">
+                        <CurrentEducationList handle={handle} theme={theme} />
+                      </div>
+                      <div id="previousEducation">
+                        <PreviousEducationList handle={handle} theme={theme} />
+                      </div>
+                      <div id="referee">
                         <RefereeList handle={handle} theme={theme} />
                       </div>
                     </Grid.Column>
