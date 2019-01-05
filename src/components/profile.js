@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Icon,
-  Image,
-  Dimmer,
-  Segment,
-  Label,
-  Button
-} from "semantic-ui-react";
+import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "./linkDisplay";
@@ -47,8 +39,7 @@ export class Profile extends React.Component {
       .get("/api/student_profile/profile/" + url)
       .then(response => {
         if (response.data.length != 0) {
-          let data =
-            this.props.handle != undefined ? response.data : response.data[0];
+          let data = this.props.handle != undefined ? response.data : response.data[0];
           self.setState({ data: data, createNew: false });
         } else {
           self.setState({ createNew: true });
@@ -72,8 +63,13 @@ export class Profile extends React.Component {
       active: true
     });
   };
-  handleUpdate = (data, flag) => {
-    this.setState({ active: false, data: data, createNew: flag });
+  handleUpdate = (data, flag, displayPicture) => {
+    this.setState({
+      active: false,
+      data: data,
+      createNew: flag,
+      person_data: { ...this.state.person_data, displayPicture: displayPicture }
+    });
   };
   handleHide = () => {
     this.setState({ active: false });
@@ -81,6 +77,7 @@ export class Profile extends React.Component {
 
   render() {
     console.log(this.props);
+    console.log(this.state);
     const desc = this.state.data.description;
     const { theme } = this.props;
     const { data, handle } = this.state;
@@ -90,7 +87,7 @@ export class Profile extends React.Component {
       <div style={{ position: "sticky", top: 0 }}>
         <Card color={theme}>
           {this.props.handle == undefined ? (
-            <Card.Content>
+            <Card.Content style={{ border: "0!important" }}>
               <div styleName="style.headingBox">
                 <h3 styleName="style.heading">Profile </h3>
                 <Icon name="edit" onClick={this.handleShow} color="grey" />
@@ -98,17 +95,10 @@ export class Profile extends React.Component {
             </Card.Content>
           ) : null}
           <Card.Content textAlign="center">
-            <Image
-              centered
-              src={this.state.person_data.displayPicture}
-              size="small"
-              circular
-            />
+            <Image centered src={this.state.person_data.displayPicture} size="small" circular />
           </Card.Content>
           <Card.Content as={Segment} basic>
-            <Card.Header textAlign="center">
-              {this.state.person_data.fullName}
-            </Card.Header>
+            <Card.Header textAlign="center">{this.state.person_data.fullName}</Card.Header>
             <Card.Meta textAlign="center">
               {this.state.data.handle ? "@" : null}
               {this.state.data.handle}
@@ -121,6 +111,7 @@ export class Profile extends React.Component {
           <Dimmer active={this.state.active} page>
             <ProfileForm
               data={this.state.data}
+              person_data={this.state.person_data}
               createNew={this.state.createNew}
               handleHide={this.handleHide}
               handleUpdate={this.handleUpdate}
@@ -129,11 +120,7 @@ export class Profile extends React.Component {
           </Dimmer>
         </Card>
 
-        <ResumeDownload
-          preview={preview}
-          url={data.resume}
-          ownHandle={ownHandle}
-        />
+        <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} />
       </div>
     );
   }

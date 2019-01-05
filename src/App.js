@@ -145,8 +145,8 @@ class App extends Component {
                             name="Interests"
                             active={activeItem === "Interests"}
                             onClick={(e, target) => {
+                              this.handleItemClick;
                               this.setState({ activeItem: "Interests" });
-                              handleItemClick;
                               this.scroll("interest");
                             }}
                           />

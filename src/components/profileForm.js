@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Message,
-  Button,
-  Icon,
-  Dropdown,
-  Segment
-} from "semantic-ui-react";
+import { Form, Message, Button, Icon, Dropdown, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -28,6 +21,7 @@ const themeOptions = [
   { text: "Wicked Black", key: "black", value: "black" }
 ];
 
+import { ProfileImagePreview } from "./profileImagePreview";
 const initial = {
   data: {
     handle: "",
@@ -41,6 +35,7 @@ const initial = {
 export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       data: props.data,
       createNew: props.createNew,
@@ -48,7 +43,9 @@ export class ProfileForm extends React.Component {
       resume: null,
       theme: this.props.theme,
       list: null,
-      errors: []
+      errors: [],
+      image: props.person_data.displayPicture,
+      img_file: ""
     };
   }
   componentDidMount() {
@@ -71,6 +68,8 @@ export class ProfileForm extends React.Component {
   };
   handleSubmit = e => {
     let data = new FormData();
+    console.log(this.state.img_file);
+    console.log(this.state.image);
     data.append("handle", this.state.data.handle);
     data.append("theme", this.state.data.theme);
     data.append("description", this.state.data.description);
@@ -80,28 +79,53 @@ export class ProfileForm extends React.Component {
     } else if (this.state.resume == null && this.state.resumeLink == null) {
       data.append("resume", "");
     }
+    if (this.state.image != "" && this.state.img_file != "") {
+      data.append("image", this.state.img_file);
+    } else if (this.state.img_file == "" && this.state.image != "") {
+      console.log("no change");
+    } else if (this.state.img_file == "" && this.state.image == "") {
+      data.append("image", null);
+    }
 
     let headers = {
       "X-CSRFToken": getCookie("csrftoken"),
       "Content-type": "multipart/form-data"
     };
+    let request_type = "patch";
+    if (this.state.createNew) request_type = "post";
     if (this.state.createNew) {
       axios({
-        method: "post",
+        method: request_type,
         url: "/api/student_profile/profile/",
         data: data,
         headers: headers
       }).then(response => {
-        this.props.handleUpdate(response.data, false);
+        let data = response.data;
+        let displayPicture = data.displayPicture;
+        console.log(displayPicture);
+        if (displayPicture.search("http://localhost:3000") == -1) {
+          displayPicture = "http://localhost:3000" + displayPicture;
+        }
+        console.log("hello");
+        console.log(data);
+        this.props.handleUpdate(data, false, displayPicture);
       });
     } else {
       axios({
-        method: "patch",
+        method: request_type,
         url: "/api/student_profile/profile/" + this.state.data.id + "/",
         data: data,
         headers: headers
       }).then(response => {
-        this.props.handleUpdate(response.data, false);
+        let data = response.data;
+        let displayPicture = data.displayPicture;
+        console.log(displayPicture);
+        if (displayPicture.search("http://localhost:3000") == -1) {
+          displayPicture = "http://localhost:3000" + displayPicture;
+        }
+        console.log("hello");
+        console.log(data);
+        this.props.handleUpdate(data, false, displayPicture);
       });
     }
   };
@@ -123,6 +147,7 @@ export class ProfileForm extends React.Component {
     }
   };
   handleFile = event => {
+    console.log("hello");
     this.setState({
       resume: event.target.files[0],
       resumeLink: event.target.value
@@ -158,32 +183,63 @@ export class ProfileForm extends React.Component {
       });
     }
   };
+  handleImageChange = e => {
+    console.log("ho ho");
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      const image = reader.result;
+      this.setState({
+        img_file: file,
+        image: image
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+  removeImage = () => {
+    this.setState({ image: "", img_file: "" });
+  };
   render() {
-    console.log(this.state.data.theme);
-    var res = (
+    console.log(this.state);
+    let res = (
       <Form.Field>
-        <input
-          type="file"
-          onChange={this.handleFile}
-          styleName="style.inputfile"
-          id="embedpollfileinput"
-        />
+        <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
         <div styleName="style.inputLabel">
-          <label htmlFor="embedpollfileinput" className="ui blue button">
+          <label htmlFor="embedpollfileinput1" className="ui blue button">
             <i className="ui upload icon" />
             Upload Resume
           </label>
         </div>
       </Form.Field>
     );
+    let imagePreview = (
+      <div>
+        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
+        <div styleName="style.inputLabel">
+          <label htmlFor="embedpollfileinput" className="ui blue button">
+            <i className="ui upload icon" />
+            Upload profile image
+          </label>
+        </div>
+      </div>
+    );
+    if (this.state.image) {
+      imagePreview = (
+        <ProfileImagePreview
+          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
+          removeImage={this.removeImage}
+        />
+      );
+    }
 
     if (this.state.resumeLink) {
       res = (
         <Form.Field>
-          <Resume
-            resume={this.state.resumeLink}
-            handleDelete={this.handleDelete}
-          />
+          <Resume resume={this.state.resumeLink} handleDelete={this.handleDelete} />
         </Form.Field>
       );
     }
@@ -196,13 +252,10 @@ export class ProfileForm extends React.Component {
           </Segment>
           <Segment attached styleName="style.formStyle">
             {this.state.errors.length > 0 ? (
-              <Message
-                error
-                header="There were some errors with your submission:"
-                list={this.state.errors}
-              />
+              <Message error header="There were some errors with your submission:" list={this.state.errors} />
             ) : null}
             <Form>
+              <Form.Field>{imagePreview}</Form.Field>
               <Form.Field>
                 <Form.Input
                   required

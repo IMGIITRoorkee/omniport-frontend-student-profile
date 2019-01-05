@@ -1,18 +1,12 @@
 import React from "react";
 import { Referee } from "./referee";
 import { RefereeForm } from "./refereeForm";
-import {
-  Dimmer,
-  Icon,
-  Segment,
-  Transition,
-  Button,
-  Popup
-} from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Transition, Button, Popup } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./refereeForm";
 import { ComponentTransition } from "./transition";
+import { DragAndDropBox } from "./dragAndDropBox";
 
 export class RefereeList extends React.Component {
   constructor(props) {
@@ -21,7 +15,8 @@ export class RefereeList extends React.Component {
       update: false,
       active: false,
       formData: null,
-      data: []
+      data: [],
+      rearrange: false
     };
   }
   componentDidMount() {
@@ -52,9 +47,7 @@ export class RefereeList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj =>
-        obj.id != item.id ? true : false
-      );
+      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -71,15 +64,34 @@ export class RefereeList extends React.Component {
   handleHide = e => {
     this.setState({ active: false, update: false });
   };
+  handleDragShow = () => {
+    this.setState({
+      rearrange: true
+    });
+  };
+  handleDragHide = () => {
+    this.setState({
+      rearrange: false
+    });
+  };
+  handleUpdate = data => {
+    this.setState({
+      data: data,
+      rearrange: false
+    });
+  };
   render() {
-    const { active, update, formData, data } = this.state;
+    const { active, update, formData, data, rearrange } = this.state;
     const { theme } = this.props;
     const {
       fetchData,
       appendData,
       updateDeleteData,
       handleHide,
-      handleShow
+      handleShow,
+      handleUpdate,
+      handleDragHide,
+      handleDragShow
     } = this;
 
     let data_array;
@@ -87,12 +99,7 @@ export class RefereeList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Referee
-            data={data}
-            key={data.id}
-            manageData={this.manageData}
-            rearrange={this.props.handle != undefined}
-          />
+          <Referee data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />
         );
       });
     }
@@ -105,9 +112,13 @@ export class RefereeList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
+                <Popup
+                  trigger={<Icon color="grey" name="sort" onClick={handleDragShow} />}
+                  content="Rearrange the information"
+                />
                 <Icon color="grey" name="add" onClick={handleShow} />
               </div>
-            )}{" "}
+            )}
           </div>
           <Dimmer active={active} page>
             <RefereeForm
@@ -117,6 +128,15 @@ export class RefereeList extends React.Component {
               appendData={appendData}
               updateDeleteData={updateDeleteData}
               handleHide={handleHide}
+            />
+          </Dimmer>
+          <Dimmer active={rearrange} page>
+            <DragAndDropBox
+              data={data}
+              modelName="Referee"
+              element={Referee}
+              handleUpdate={handleUpdate}
+              handleDragHide={handleDragHide}
             />
           </Dimmer>
           {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
