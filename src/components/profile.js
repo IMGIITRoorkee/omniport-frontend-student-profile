@@ -1,5 +1,13 @@
 import React from "react";
-import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Image,
+  Dimmer,
+  Segment,
+  Label,
+  Button
+} from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "./linkDisplay";
@@ -7,6 +15,8 @@ import { ProfileForm } from "./profileForm";
 import { ResumeDownload } from "./resumeDownload";
 import { BrowserView, MobileView } from "react-device-detect";
 import style from "../styles.css";
+import defaultDp from "./../../../../../omniport/formula_one/src/components/default-dp";
+import DefaultDp from "./../../../../../omniport/formula_one/src/components/default-dp";
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -95,48 +105,57 @@ export class Profile extends React.Component {
     console.log(this.state);
     const desc = this.state.data.description;
     const { theme } = this.props;
-    const { data, handle } = this.state;
+    const { data, handle, person_data } = this.state;
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
-    return (
-      <div style={{ position: "sticky", top: 0 }}>
-        <Card color={theme} fluid>
-          {this.props.handle == undefined ? (
-            <Card.Content style={{ border: "0!important" }}>
-              <div styleName="style.headingBox">
-                <h3 styleName="style.heading">Profile </h3>
-                <Icon name="edit" onClick={this.handleShow} color="grey" />
-              </div>
-            </Card.Content>
-          ) : null}
-          <Card.Content textAlign="center">
-            <Image centered src={this.state.person_data.displayPicture} size="small" circular />
-          </Card.Content>
-          <Card.Content as={Segment} basic>
-            <Card.Header textAlign="center">{data.student}</Card.Header>
-            <Card.Meta textAlign="center">
-              {this.state.data.handle ? "@" : null}
-              {this.state.data.handle}
-            </Card.Meta>
-            <Card.Description textAlign="center"> {desc}</Card.Description>
-          </Card.Content>
-          <Card.Content>
-            <LinkDisplay handle={this.props.handle} />
-          </Card.Content>
-          <Dimmer active={this.state.active} page>
-            <ProfileForm
-              data={this.state.data}
-              person_data={this.state.person_data}
-              createNew={this.state.createNew}
-              handleHide={this.handleHide}
-              handleUpdate={this.handleUpdate}
-              changeTheme={this.props.changeTheme}
-            />
-          </Dimmer>
-        </Card>
-
-        <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} />
-      </div>
+    let imageView = (
+      <Image centered src={person_data.displayPicture} size="small" circular />
     );
+    if (person_data.displayPicture == null) {
+      imageView = <DefaultDp name={data.student} size={100} />;
+    }
+    if (data)
+      return (
+        <div style={{ position: "sticky", top: 0 }}>
+          <Card color={theme} fluid>
+            {this.props.handle == undefined ? (
+              <Card.Content>
+                <div styleName="style.headingBox">
+                  <h3 styleName="style.heading">Profile </h3>
+                  <Icon name="edit" onClick={this.handleShow} color="grey" />
+                </div>
+              </Card.Content>
+            ) : null}
+            <Card.Content textAlign="center">{imageView}</Card.Content>
+            <Card.Content as={Segment} basic>
+              <Card.Header textAlign="center">{data.student}</Card.Header>
+              <Card.Meta textAlign="center">
+                {this.state.data.handle ? "@" : null}
+                {this.state.data.handle}
+              </Card.Meta>
+              <Card.Description textAlign="center"> {desc}</Card.Description>
+            </Card.Content>
+            <Card.Content>
+              <LinkDisplay handle={this.props.handle} />
+            </Card.Content>
+            <Dimmer active={this.state.active} page>
+              <ProfileForm
+                data={this.state.data}
+                person_data={this.state.person_data}
+                createNew={this.state.createNew}
+                handleHide={this.handleHide}
+                handleUpdate={this.handleUpdate}
+                changeTheme={this.props.changeTheme}
+              />
+            </Dimmer>
+          </Card>
+
+          <ResumeDownload
+            preview={preview}
+            url={data.resume}
+            ownHandle={ownHandle}
+          />
+        </div>
+      );
   }
 }

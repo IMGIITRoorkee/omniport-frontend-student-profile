@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Message, Button, Icon, Dropdown, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Message,
+  Button,
+  Icon,
+  Dropdown,
+  Segment
+} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -103,7 +110,10 @@ export class ProfileForm extends React.Component {
         let data = response.data;
         let displayPicture = data.displayPicture;
         console.log(displayPicture);
-        if (displayPicture.search("http://localhost:3000") == -1) {
+        if (
+          displayPicture != null &&
+          displayPicture.search("http://localhost:3000") == -1
+        ) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
         console.log("hello");
@@ -120,7 +130,10 @@ export class ProfileForm extends React.Component {
         let data = response.data;
         let displayPicture = data.displayPicture;
         console.log(displayPicture);
-        if (displayPicture.search("http://localhost:3000") == -1) {
+        if (
+          displayPicture != null &&
+          displayPicture.search("http://localhost:3000") == -1
+        ) {
           displayPicture = "http://localhost:3000" + displayPicture;
         }
         console.log("hello");
@@ -207,7 +220,12 @@ export class ProfileForm extends React.Component {
     console.log(this.state);
     let res = (
       <Form.Field>
-        <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
+        <input
+          type="file"
+          onChange={this.handleFile}
+          styleName="style.inputfile"
+          id="embedpollfileinput1"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput1" className="ui blue button">
             <i className="ui upload icon" />
@@ -218,7 +236,12 @@ export class ProfileForm extends React.Component {
     );
     let imagePreview = (
       <div>
-        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
+        <input
+          type="file"
+          onChange={this.handleImageChange}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
@@ -230,7 +253,10 @@ export class ProfileForm extends React.Component {
     if (this.state.image) {
       imagePreview = (
         <ProfileImagePreview
-          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
+          imagePreviewUrl={this.state.image.replace(
+            "http://localhost:3003/",
+            "http://192.168.121.228:60025/"
+          )}
           removeImage={this.removeImage}
         />
       );
@@ -239,20 +265,27 @@ export class ProfileForm extends React.Component {
     if (this.state.resumeLink) {
       res = (
         <Form.Field>
-          <Resume resume={this.state.resumeLink} handleDelete={this.handleDelete} />
+          <Resume
+            resume={this.state.resumeLink}
+            handleDelete={this.handleDelete}
+          />
         </Form.Field>
       );
     }
     return (
       <ComponentTransition>
-        <Segment basic>
+        <div style={{ minWidth: "350px" }}>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">Profile</h3>
             <Icon color="grey" name="delete" onClick={this.props.handleHide} />
           </Segment>
           <Segment attached styleName="style.formStyle">
             {this.state.errors.length > 0 ? (
-              <Message error header="There were some errors with your submission:" list={this.state.errors} />
+              <Message
+                error
+                header="There were some errors with your submission:"
+                list={this.state.errors}
+              />
             ) : null}
             <Form>
               <Form.Field>{imagePreview}</Form.Field>
@@ -296,7 +329,7 @@ export class ProfileForm extends React.Component {
               Submit
             </Button>
           </Segment>
-        </Segment>
+        </div>
       </ComponentTransition>
     );
   }
