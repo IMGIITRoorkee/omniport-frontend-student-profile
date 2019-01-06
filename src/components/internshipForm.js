@@ -5,6 +5,7 @@ import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
 import { DateInput } from "semantic-ui-calendar-react";
+import { ErrorTransition } from "./transition";
 
 export const initial = {
   update: false,
@@ -151,9 +152,7 @@ export class InternshipForm extends React.Component {
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message error header="There were some errors with your submission:" list={this.state.errors} />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form autoComplete="off">
             <Form.Field>
               <label>Position</label>

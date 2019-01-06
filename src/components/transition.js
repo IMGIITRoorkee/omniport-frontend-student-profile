@@ -3,7 +3,7 @@ import { Transition, Message, Segment } from "semantic-ui-react";
 
 export const ErrorTransition = props => {
   return (
-    <Transition visible={props.errors.length > 0} animation="slide up" duration={100}>
+    <Transition visible={props.errors.length > 0} animation="bounce" duration={500}>
       <Message error header="There were some errors with your submission:" list={props.errors} />
     </Transition>
   );

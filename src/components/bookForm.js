@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Segment,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Message } from "semantic-ui-react";
 import moment from "moment";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -15,6 +7,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 
 import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
+import { ErrorTransition } from "./transition";
 
 export const initial = {
   update: false,
@@ -137,17 +130,7 @@ export class BookForm extends React.Component {
   };
   render() {
     const { update } = this.state;
-    const {
-      title,
-      authors,
-      publisher,
-      year,
-      pages,
-      volumes,
-      contribution,
-      editors,
-      isbnCode
-    } = this.state.data;
+    const { title, authors, publisher, year, pages, volumes, contribution, editors, isbnCode } = this.state.data;
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -156,42 +139,20 @@ export class BookForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form autoComplete="off">
             <Form.Field required>
               <label>Title</label>
-              <Input
-                autoFocus
-                onChange={this.handleChange}
-                value={title}
-                name="title"
-                placeholder="Title"
-              />
+              <Input autoFocus onChange={this.handleChange} value={title} name="title" placeholder="Title" />
             </Form.Field>
             <Form.Field required>
               <label>Authors</label>
-              <Form.Input
-                onChange={this.handleChange}
-                value={authors}
-                name="authors"
-                placeholder="Authors"
-              />
+              <Form.Input onChange={this.handleChange} value={authors} name="authors" placeholder="Authors" />
             </Form.Field>
             <Form.Group widths="equal">
               <Form.Field required>
                 <label>Publisher</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={publisher}
-                  name="publisher"
-                  placeholder="Publisher"
-                />
+                <Form.Input onChange={this.handleChange} value={publisher} name="publisher" placeholder="Publisher" />
               </Form.Field>
               <YearInput
                 label="Year"
@@ -206,21 +167,11 @@ export class BookForm extends React.Component {
             <Form.Group widths="equal">
               <Form.Field>
                 <label>Pages</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={pages}
-                  name="pages"
-                  placeholder="Pages"
-                />
+                <Input onChange={this.handleChange} value={pages} name="pages" placeholder="Pages" />
               </Form.Field>
               <Form.Field>
                 <label>Volumes</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={volumes}
-                  name="volumes"
-                  placeholder="Volumes"
-                />
+                <Input onChange={this.handleChange} value={volumes} name="volumes" placeholder="Volumes" />
               </Form.Field>
               <Form.Field>
                 <label>Contribution</label>
@@ -235,21 +186,11 @@ export class BookForm extends React.Component {
             <Form.Group widths="equal">
               <Form.Field>
                 <label>Editors</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={editors}
-                  name="editors"
-                  placeholder="Editors"
-                />
+                <Input onChange={this.handleChange} value={editors} name="editors" placeholder="Editors" />
               </Form.Field>
               <Form.Field>
                 <label>ISBN code</label>
-                <Input
-                  onChange={this.handleChange}
-                  value={isbnCode}
-                  name="isbnCode"
-                  placeholder="ISBN code"
-                />
+                <Input onChange={this.handleChange} value={isbnCode} name="isbnCode" placeholder="ISBN code" />
               </Form.Field>
             </Form.Group>
           </Form>
@@ -260,10 +201,7 @@ export class BookForm extends React.Component {
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
-            >
+            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>

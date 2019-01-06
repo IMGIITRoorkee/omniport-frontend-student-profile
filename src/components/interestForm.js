@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Segment,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Message } from "semantic-ui-react";
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
+import { ErrorTransition } from "./transition";
 
 export const initial = {
   update: false,
@@ -122,13 +115,7 @@ export class InterestForm extends React.Component {
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form autoComplete="off">
             <Form.Field>
               <label>Topic</label>
@@ -147,10 +134,7 @@ export class InterestForm extends React.Component {
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
-            >
+            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>

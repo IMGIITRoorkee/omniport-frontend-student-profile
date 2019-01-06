@@ -56,13 +56,13 @@ export class LinkDisplay extends React.Component {
     return (
       <div>
         {this.props.handle === undefined ? (
-          <div styleName="style.headingBox">
-            <h4 styleName="style.heading">Social Media</h4>
-            <Icon color="grey" name="add" onClick={this.handleShow} />
+          <div styleName="style.socialHeadingBox">
+            <h4 styleName="style.heading">Social links</h4>
+            <Icon color="grey" name="add" circular circular onClick={this.handleShow} />
           </div>
         ) : null}
 
-        <Segment basic textAlign="center" style={{ margin: "0" }}>
+        <Segment basic textAlign="center" style={{ margin: "0", padding: "0" }}>
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>

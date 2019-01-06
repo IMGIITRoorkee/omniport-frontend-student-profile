@@ -6,6 +6,7 @@ import axios from "axios";
 import { Resume } from "./resume";
 import style from "../styles.css";
 import { ComponentTransition } from "./transition";
+import { ErrorTransition } from "./transition";
 
 const initial = {
   data: {
@@ -95,9 +96,7 @@ export class SkillForm extends React.Component {
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message error header="There were some errors with your submission:" list={this.state.errors} />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form styleName="style.skillForm">
             <Form.Field>
               <Form.TextArea

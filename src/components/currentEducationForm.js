@@ -5,6 +5,7 @@ import axios from "axios";
 
 import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
+import { ErrorTransition } from "./transition";
 
 const graduationOptions = [
   { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
@@ -138,9 +139,7 @@ export class CurrentEducationForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message error header="There were some errors with your submission:" list={this.state.errors} />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>

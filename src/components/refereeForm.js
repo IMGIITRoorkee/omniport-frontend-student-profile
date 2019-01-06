@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Segment,
-  Transition,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Transition, Message } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import moment from "moment";
@@ -108,13 +99,7 @@ export class RefereeForm extends React.Component {
   handleErrors = () => {
     console.log(this.state.data);
     let errors = [];
-    const {
-      referee,
-      designation,
-      institute,
-      phoneNumber,
-      email
-    } = this.state.data;
+    const { referee, designation, institute, phoneNumber, email } = this.state.data;
     if (referee == "") {
       errors.push("Refree name must be filled");
     }
@@ -144,13 +129,7 @@ export class RefereeForm extends React.Component {
   };
   render() {
     const { update } = this.state;
-    const {
-      referee,
-      designation,
-      institute,
-      phoneNumber,
-      email
-    } = this.state.data;
+    const { referee, designation, institute, phoneNumber, email } = this.state.data;
     return (
       <div>
         <FormTransition visible={this.state.visible}>
@@ -166,12 +145,7 @@ export class RefereeForm extends React.Component {
                 <Form.Group widths="equal">
                   <Form.Field required>
                     <label>Referee</label>
-                    <Form.Input
-                      onChange={this.handleChange}
-                      value={referee}
-                      name="referee"
-                      placeholder="Referee"
-                    />
+                    <Form.Input onChange={this.handleChange} value={referee} name="referee" placeholder="Referee" />
                   </Form.Field>
                   page
                   <Form.Field required>
@@ -186,12 +160,7 @@ export class RefereeForm extends React.Component {
                 </Form.Group>
                 <Form.Field required>
                   <label>Institute</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={institute}
-                    name="institute"
-                    placeholder="Institute"
-                  />
+                  <Form.Input onChange={this.handleChange} value={institute} name="institute" placeholder="Institute" />
                 </Form.Field>
                 <Form.Field>
                   <label>Phone number</label>
@@ -204,12 +173,7 @@ export class RefereeForm extends React.Component {
                 </Form.Field>
                 <Form.Field required>
                   <label>Email</label>
-                  <Form.Input
-                    onChange={this.handleChange}
-                    value={email}
-                    name="email"
-                    placeholder="Email"
-                  />
+                  <Form.Input onChange={this.handleChange} value={email} name="email" placeholder="Email" />
                 </Form.Field>
               </Form>
             </Segment>
@@ -218,10 +182,7 @@ export class RefereeForm extends React.Component {
                 <Button onClick={this.handleErrors} color="blue">
                   Save Changes
                 </Button>
-                <Button
-                  color="red"
-                  onClick={() => this.handleUpdateDelete("delete")}
-                >
+                <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
                   Delete
                 </Button>
               </Segment>

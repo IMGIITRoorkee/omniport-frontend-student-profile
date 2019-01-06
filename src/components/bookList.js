@@ -105,11 +105,8 @@ export class BookList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Popup
-                  trigger={<Icon color="grey" name="sort" onClick={handleDragShow} />}
-                  content="Rearrange the information"
-                />
-                <Icon color="grey" name="add" onClick={handleShow} />
+                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
           </div>

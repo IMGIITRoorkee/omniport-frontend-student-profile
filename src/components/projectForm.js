@@ -10,6 +10,7 @@ import { DragAndDropBox } from "./dragAndDropBox";
 import style from "../styles.css";
 import moment from "moment";
 import { ComponentTransition } from "./transition";
+import { ErrorTransition } from "./transition";
 
 const initial = {
   id: -1,
@@ -295,11 +296,9 @@ export class ProjectForm extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Popup
-                  trigger={<Icon color="grey" name="sort" onClick={handleDragShow} />}
-                  content="Rearrange the information"
-                />
-                <Icon color="grey" name="add" onClick={handleShow} />
+                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+
+                <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
           </div>
@@ -311,9 +310,7 @@ export class ProjectForm extends React.Component {
                 <Icon color="grey" name="delete" onClick={this.handleHide} />
               </Segment>
               <Segment attached styleName="style.formStyle">
-                {this.state.errors.length > 0 ? (
-                  <Message error header="There were some errors with your submission:" list={this.state.errors} />
-                ) : null}
+                <ErrorTransition errors={this.state.errors} />
                 <Form autoComplete="off">
                   <Form.Field>
                     <Form.Input

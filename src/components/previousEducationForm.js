@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Segment,
-  Dropdown,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Dropdown, Message } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import moment from "moment";
 
 import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
+import { ErrorTransition } from "./transition";
 
 const graduationOptions = [
   { text: "Matriculate", key: "MATRICULATE", value: "mat" },
@@ -103,8 +95,7 @@ export class PreviousEducationForm extends React.Component {
     };
     axios({
       method: option,
-      url:
-        "/api/student_profile/previous_education/" + this.state.data.id + "/",
+      url: "/api/student_profile/previous_education/" + this.state.data.id + "/",
       data: this.state.data,
       headers: headers
     }).then(response => {
@@ -117,14 +108,7 @@ export class PreviousEducationForm extends React.Component {
   handleErrors = () => {
     console.log(this.state.data);
     let errors = [];
-    const {
-      institute,
-      degree,
-      graduation,
-      fieldOfStudy,
-      cgpa,
-      year
-    } = this.state.data;
+    const { institute, degree, graduation, fieldOfStudy, cgpa, year } = this.state.data;
     if (institute == "") {
       errors.push("Institute must be filled");
     }
@@ -139,11 +123,7 @@ export class PreviousEducationForm extends React.Component {
     }
     if (cgpa == "") {
       errors.push("CGPA must be filled");
-    } else if (
-      isNaN(parseInt(cgpa)) ||
-      parseFloat(cgpa) > 10 ||
-      parseFloat(cgpa) < 0
-    ) {
+    } else if (isNaN(parseInt(cgpa)) || parseFloat(cgpa) > 10 || parseFloat(cgpa) < 0) {
       errors.push("Please enter valid CGPA");
     }
     if (year == "") {
@@ -162,15 +142,7 @@ export class PreviousEducationForm extends React.Component {
   };
   render() {
     const { update } = this.state;
-    const {
-      year,
-      institute,
-      fieldOfStudy,
-      degree,
-      graduation,
-      cgpa,
-      percentage
-    } = this.state.data;
+    const { year, institute, fieldOfStudy, degree, graduation, cgpa, percentage } = this.state.data;
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -179,32 +151,16 @@ export class PreviousEducationForm extends React.Component {
         </Segment>
 
         <Segment attached styleName="style.formStyle">
-          {this.state.errors.length > 0 ? (
-            <Message
-              error
-              header="There were some errors with your submission:"
-              list={this.state.errors}
-            />
-          ) : null}
+          <ErrorTransition errors={this.state.errors} />
           <Form autoComplete="off">
             <Form.Group widths="equal">
               <Form.Field required>
                 <label>Institute</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={institute}
-                  name="institute"
-                  placeholder="Institute"
-                />
+                <Form.Input onChange={this.handleChange} value={institute} name="institute" placeholder="Institute" />
               </Form.Field>
               <Form.Field required>
                 <label>Degree</label>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={degree}
-                  name="degree"
-                  placeholder="Degree"
-                />
+                <Form.Input onChange={this.handleChange} value={degree} name="degree" placeholder="Degree" />
               </Form.Field>
             </Form.Group>
             <Form.Field required>
@@ -230,12 +186,7 @@ export class PreviousEducationForm extends React.Component {
 
             <Form.Field required>
               <label>CGPA</label>
-              <Form.Input
-                onChange={this.handleChange}
-                value={cgpa}
-                name="cgpa"
-                placeholder="CGPA"
-              />
+              <Form.Input onChange={this.handleChange} value={cgpa} name="cgpa" placeholder="CGPA" />
             </Form.Field>
             <YearInput
               popupPosition="bottom left"
@@ -253,10 +204,7 @@ export class PreviousEducationForm extends React.Component {
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
             </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
-            >
+            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
               Delete
             </Button>
           </Segment>

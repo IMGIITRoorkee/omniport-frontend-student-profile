@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Label,
-  Dropdown,
-  Segment
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Message, Dropdown, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
 import { LinkList } from "./linkList";
+import { ErrorTransition } from "./transition";
 
 const initial = {
   data: { site: "git", url: "" }
@@ -42,7 +35,9 @@ export class LinkForm extends React.Component {
     super(props);
     this.state = {
       data: initial.data,
-      links: props.data
+      links: props.data,
+      errors: [],
+      list: null
     };
   }
   componentDidMount() {
@@ -103,7 +98,21 @@ export class LinkForm extends React.Component {
       });
     });
   };
-
+  handleErrors = () => {
+    let errors = [];
+    const { url } = this.state.data;
+    let re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+    if (!re.test(url)) {
+      errors.push("Enter a valid URL");
+    }
+    if (errors.length > 0) {
+      this.setState({ errors: errors });
+    } else {
+      this.setState({ errors: [] }, () => {
+        this.handleSubmit();
+      });
+    }
+  };
   render() {
     return (
       <Segment basic styleName="style.linkBox">
@@ -116,16 +125,11 @@ export class LinkForm extends React.Component {
           <Icon name="cancel" color="black" onClick={this.handleHide} />
         </Segment>
         <Segment textAlign="left" attached="bottom" styleName="style.linkForm">
+          <ErrorTransition errors={this.state.errors} />
           <Form>
             <Form.Field>
               <label>Site</label>
-              <Dropdown
-                selection
-                value={this.state.data.site}
-                name="site"
-                onChange={this.onChange}
-                options={options}
-              />
+              <Dropdown selection value={this.state.data.site} name="site" onChange={this.onChange} options={options} />
             </Form.Field>
             <Form.Field>
               <Form.Input
@@ -138,16 +142,13 @@ export class LinkForm extends React.Component {
             </Form.Field>
 
             <Form.Field>
-              <Button color="blue" onClick={this.handleSubmit}>
+              <Button color="blue" onClick={this.handleErrors}>
                 Add
               </Button>
             </Form.Field>
           </Form>
 
-          <LinkList
-            data={this.state.links}
-            handleUpdateDelete={this.handleUpdateDelete}
-          />
+          <LinkList data={this.state.links} handleUpdateDelete={this.handleUpdateDelete} />
         </Segment>
       </Segment>
     );

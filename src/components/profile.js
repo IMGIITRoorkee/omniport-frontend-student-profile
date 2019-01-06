@@ -16,6 +16,7 @@ export class Profile extends React.Component {
       data: {
         handle: "",
         description: "",
+        student: "",
         customWebsite: false,
         resume: null,
         displayPicture: null,
@@ -39,6 +40,17 @@ export class Profile extends React.Component {
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     console.log(url);
+
+    if (this.props.handle == undefined) {
+      axios
+        .get("/kernel/who_am_i/")
+        .then(function(response) {
+          self.setState({ person_data: response.data });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
     axios
       .get("/api/student_profile/profile/" + url)
       .then(response => {
@@ -62,14 +74,6 @@ export class Profile extends React.Component {
         } else {
           self.setState({ createNew: true });
         }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    axios
-      .get("/kernel/who_am_i/")
-      .then(function(response) {
-        self.setState({ person_data: response.data });
       })
       .catch(function(error) {
         console.log(error);
@@ -102,7 +106,7 @@ export class Profile extends React.Component {
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
-    if (person_data.displayPicture == null) {
+    if (person_data.displayPicture == null && data.student != "") {
       imageView = <DefaultDp name={data.student} size={100} />;
     }
     if (data)
@@ -112,23 +116,25 @@ export class Profile extends React.Component {
             {this.props.handle == undefined ? (
               <Card.Content>
                 <div styleName="style.headingBox">
-                  <h3 styleName="style.heading">Profile </h3>
+                  <h3 styleName="style.heading" />
                   <Icon name="edit" onClick={this.handleShow} color="grey" />
                 </div>
               </Card.Content>
             ) : null}
-            <Card.Content textAlign="center">{imageView}</Card.Content>
-            <Card.Content as={Segment} basic>
+            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
+              {imageView}
+            </div>
+            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
               <Card.Header textAlign="center">{data.student}</Card.Header>
               <Card.Meta textAlign="center">
                 {this.state.data.handle ? "@" : null}
                 {this.state.data.handle}
               </Card.Meta>
               <Card.Description textAlign="center"> {desc}</Card.Description>
-            </Card.Content>
-            <Card.Content>
+            </div>
+            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
               <LinkDisplay handle={this.props.handle} />
-            </Card.Content>
+            </div>
             <Dimmer active={this.state.active} page>
               <ProfileForm
                 data={this.state.data}

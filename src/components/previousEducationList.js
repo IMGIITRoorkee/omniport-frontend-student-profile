@@ -6,7 +6,9 @@ import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./previousEducationForm";
 import { ComponentTransition } from "./transition";
-
+function compare(a, b) {
+  return a.year < b.year;
+}
 export class PreviousEducationList extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,9 @@ export class PreviousEducationList extends React.Component {
     axios
       .get("/api/student_profile/previous_education/" + url)
       .then(response => {
-        this.setState({ data: response.data });
+        let objs = response.data;
+        objs.sort(compare);
+        this.setState({ data: objs });
       })
       .catch(error => {
         console.log(error);
@@ -37,14 +41,22 @@ export class PreviousEducationList extends React.Component {
     });
   };
   appendData = item => {
-    this.setState({ data: [...this.state.data, item] });
+    let data = this.state.data;
+    let n = data.length;
+    let i = 0;
+    for (i = 0; i < n; i++) {
+      if (data[i].year <= item.year) {
+        data.splice(i, 0, item);
+        this.setState({ data: data });
+        console.log(i);
+        break;
+      }
+    }
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj =>
-        obj.id != item.id ? true : false
-      );
+      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -66,13 +78,7 @@ export class PreviousEducationList extends React.Component {
     const { active, update, formData, data } = this.state;
     const { theme } = this.props;
 
-    const {
-      fetchData,
-      appendData,
-      updateDeleteData,
-      handleHide,
-      handleShow
-    } = this;
+    const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
 
     let data_array;
     let children;
@@ -95,9 +101,7 @@ export class PreviousEducationList extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="student" color={theme} /> Previous education
             </h3>
-            {this.props.handle != undefined ? null : (
-              <Icon color="grey" name="add" onClick={handleShow} />
-            )}{" "}
+            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}{" "}
           </div>
 
           <Dimmer active={active} page>
