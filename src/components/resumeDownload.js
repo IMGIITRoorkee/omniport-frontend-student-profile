@@ -49,7 +49,6 @@ export function ResumeDownload(props) {
         </BrowserView>
         <MobileView>
           <Segment
-            color="teal"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -58,7 +57,7 @@ export function ResumeDownload(props) {
             }}
           >
             {url != null ? (
-              <a href={url}>
+              <a href={url} target="_blank">
                 <Button icon color="blue">
                   <Icon name="download" />
                   Resume
@@ -75,10 +74,12 @@ export function ResumeDownload(props) {
                 content="Resume not uploaded"
               />
             )}
-            <Button icon color="blue">
-              <Icon name="print" />
-              Preview
-            </Button>
+            <Link to={preview_url} target="_blank">
+              <Button icon color="blue">
+                <Icon name="print" />
+                Preview
+              </Button>
+            </Link>
           </Segment>
         </MobileView>
       </div>
@@ -92,10 +93,7 @@ export function ResumeDownload(props) {
             <Icon name="download" color="blue" />
           </a>
         ) : (
-          <Popup
-            trigger={<Icon name="download" color="blue" />}
-            content="Resume not uploaded"
-          />
+          <Popup trigger={<Icon name="download" color="blue" />} content="Resume not uploaded" />
         )}
       </Segment>
     );

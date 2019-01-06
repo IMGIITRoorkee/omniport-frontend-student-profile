@@ -137,7 +137,7 @@ export class LinkForm extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.data.url}
                 name="url"
-                placeholder="Add interest ..."
+                placeholder="Add URL ..."
               />
             </Form.Field>
 

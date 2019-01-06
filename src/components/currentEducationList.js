@@ -102,7 +102,9 @@ export class CurrentEducationList extends React.Component {
               <Icon name="student" color={theme} /> Current education
             </h3>
             {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
-            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
+            {this.props.handle != undefined ? (
+              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+            ) : null}
           </div>
 
           <Dimmer active={active} page>

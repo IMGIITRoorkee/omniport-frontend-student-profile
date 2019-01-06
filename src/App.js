@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Segment, Header, Container, Grid, List, Transition, Button, Menu } from "semantic-ui-react";
+import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
+import { JobList } from "./components/jobList";
 import { BookList } from "./components/bookList";
 import { PreviousEducationList } from "./components/previousEducationList";
 import { CurrentEducationList } from "./components/currentEducationList";
 import { RefereeList } from "./components/refereeList";
 import { PaperList } from "./components/paperList";
-
 import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
 import { LinkForm } from "./components/linkForm";
@@ -116,6 +116,110 @@ class App extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   render() {
     const { show, erroneous, handle, theme, activeItem } = this.state;
+    const app_menu = (
+      <div style={{ zIndex: "5", position: "sticky", top: 0, backgroundColor: "white" }}>
+        <Menu
+          pointing
+          secondary
+          size="small"
+          fluid
+          icon="labeled"
+          borderless
+          stackable
+          widths={8}
+          style={
+            {
+              // display: "flex",
+              // justifyContent: "space-between",
+              // flexWrap: "wrap"
+            }
+          }
+        >
+          {/* <Mnu.Item header>Our Company</Menu.Item> */}
+          <Menu.Item
+            color={theme}
+            name="Interests"
+            active={activeItem === "Interests"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Interests" });
+              this.scroll("interest");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            fitted="horizontally"
+            name="Achievements"
+            active={activeItem === "Achievements"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Achievements" });
+              this.scroll("achievement");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="Experience"
+            active={activeItem === "Internships"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Internships" });
+              this.scroll("internship");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="Projects"
+            active={activeItem === "Projects"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Projects" });
+              this.scroll("project");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="Skills"
+            active={activeItem === "Skills"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Skills" });
+              this.scroll("skill");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="Publications"
+            active={activeItem === "Publications"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Publications" });
+              this.scroll("book");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="Education"
+            active={activeItem === "Education"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "Education" });
+              this.scroll("currentEducation");
+            }}
+          />
+          <Menu.Item
+            color={theme}
+            name="References"
+            active={activeItem === "References"}
+            onClick={(e, target) => {
+              this.handleItemClick;
+              this.setState({ activeItem: "References" });
+              this.scroll("referee");
+            }}
+          />
+        </Menu>
+      </div>
+    );
     const app = (
       <div styleName="style.wrapper">
         <AppHeader appName="student_profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
@@ -130,98 +234,7 @@ class App extends Component {
                       <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />
                     </Grid.Column>
                     <Grid.Column width={12}>
-                      <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
-                        <Menu
-                          size="large"
-                          fluid
-                          icon="labeled"
-                          borderless
-                          stackable
-                          widths={8}
-                          style={
-                            {
-                              // display: "flex",
-                              // justifyContent: "space-between",
-                              // flexWrap: "wrap"
-                            }
-                          }
-                        >
-                          {/* <Mnu.Item header>Our Company</Menu.Item> */}
-                          <Menu.Item
-                            name="Interests"
-                            active={activeItem === "Interests"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Interests" });
-                              this.scroll("interest");
-                            }}
-                          />
-                          <Menu.Item
-                            fitted="horizontally"
-                            name="Achievements"
-                            active={activeItem === "Achievements"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Achievements" });
-                              this.scroll("achievement");
-                            }}
-                          />
-                          <Menu.Item
-                            name="Internships"
-                            active={activeItem === "Internships"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Internships" });
-                              this.scroll("internship");
-                            }}
-                          />
-                          <Menu.Item
-                            name="Projects"
-                            active={activeItem === "Projects"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Projects" });
-                              this.scroll("project");
-                            }}
-                          />
-                          <Menu.Item
-                            name="Skills"
-                            active={activeItem === "Skills"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Skills" });
-                              this.scroll("skill");
-                            }}
-                          />
-                          <Menu.Item
-                            name="Publications"
-                            active={activeItem === "Publications"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Publications" });
-                              this.scroll("book");
-                            }}
-                          />
-                          <Menu.Item
-                            name="Education"
-                            active={activeItem === "Education"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "Education" });
-                              this.scroll("currentEducation");
-                            }}
-                          />
-                          <Menu.Item
-                            name="References"
-                            active={activeItem === "References"}
-                            onClick={(e, target) => {
-                              this.handleItemClick;
-                              this.setState({ activeItem: "References" });
-                              this.scroll("referee");
-                            }}
-                          />
-                        </Menu>
-                      </div>
+                      {app_menu}
                       <div id="interest">
                         <InterestList handle={handle} theme={theme} />
                       </div>
@@ -230,6 +243,9 @@ class App extends Component {
                       </div>
                       <div id="internship">
                         <InternshipList handle={handle} theme={theme} />
+                      </div>
+                      <div id="job">
+                        <JobList handle={handle} theme={theme} />
                       </div>
                       <div id="project">
                         <ProjectForm handle={handle} theme={theme} />
@@ -262,18 +278,20 @@ class App extends Component {
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
-                      <Profile />
+                      <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />
                     </Grid.Column>
                     <Grid.Column width={12}>
-                      <InterestList />
-                      <AchievementList />
-                      <InternshipList />
-                      <BookList />
-                      <PaperList />
-                      <ProjectForm />
-                      <CurrentEducationList />
-                      <PreviousEducationList />
-                      <Skill />
+                      <InterestList handle={handle} theme={theme} />
+                      <AchievementList handle={handle} theme={theme} />
+                      <InternshipList handle={handle} theme={theme} />
+                      <JobList handle={handle} theme={theme} />
+                      <ProjectForm handle={handle} theme={theme} />
+                      <Skill handle={handle} theme={theme} />
+                      <BookList handle={handle} theme={theme} />
+                      <PaperList handle={handle} theme={theme} />
+                      <CurrentEducationList handle={handle} theme={theme} />
+                      <PreviousEducationList handle={handle} theme={theme} />
+                      <RefereeList handle={handle} theme={theme} />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

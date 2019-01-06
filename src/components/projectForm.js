@@ -305,7 +305,9 @@ export class ProjectForm extends React.Component {
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
-            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
+            {this.props.handle != undefined ? (
+              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+            ) : null}
           </div>
 
           <Dimmer active={this.state.active} page>

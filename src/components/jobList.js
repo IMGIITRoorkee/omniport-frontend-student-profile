@@ -1,15 +1,15 @@
 import React from "react";
-import { Internship } from "./internship";
-import { InternshipForm } from "./internshipForm";
+import { Job } from "./job";
+import { JobForm } from "./jobForm";
 import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import style from "../styles.css";
-import { initial } from "./internshipForm";
+import { initial } from "./jobForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 
-export class InternshipList extends React.Component {
+export class JobList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { update: false, active: false, formData: null, data: [], empty: "" };
@@ -21,18 +21,13 @@ export class InternshipList extends React.Component {
     let url = "";
     let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
-    axios
-      .get("/api/student_profile/experience/" + url)
-      .then(response => {
-        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No internships to show" });
-        else {
-          let data = response.data.filter(item => item.experienceType == "int");
-          this.setState({ data: data });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.get("/api/student_profile/experience/" + url).then(response => {
+      if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No jobs to show" });
+      else {
+        let data = response.data.filter(item => item.experienceType == "job");
+        this.setState({ data: data });
+      }
+    });
   };
   manageData = id => {
     this.setState({
@@ -101,12 +96,7 @@ export class InternshipList extends React.Component {
     if (data != []) {
       children = data.map(data => {
         return (
-          <Internship
-            data={data}
-            key={data.id}
-            manageData={this.manageData}
-            rearrange={this.props.handle != undefined}
-          />
+          <Job data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />
         );
       });
     }
@@ -115,7 +105,7 @@ export class InternshipList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="certificate" color={theme} /> Internships
+              <Icon name="suitcase" color={theme} /> Jobs
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
@@ -127,8 +117,9 @@ export class InternshipList extends React.Component {
               <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
             ) : null}
           </div>
+
           <Dimmer active={active} page>
-            <InternshipForm
+            <JobForm
               update={update}
               formData={formData}
               fetchData={fetchData}
@@ -141,7 +132,7 @@ export class InternshipList extends React.Component {
             <DragAndDropBox
               data={data}
               modelName="Experience"
-              element={Internship}
+              element={Job}
               handleUpdate={handleUpdate}
               handleDragHide={handleDragHide}
             />
