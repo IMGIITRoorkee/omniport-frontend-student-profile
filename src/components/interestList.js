@@ -31,8 +31,7 @@ export class InterestList extends React.Component {
     axios
       .get("/api/student_profile/interest/" + url)
       .then(response => {
-        console.log(response.data.length);
-        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "Nothing to show" });
+        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No interests to show" });
         else {
           this.setState({ data: response.data });
         }

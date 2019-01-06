@@ -16,7 +16,8 @@ export class RefereeList extends React.Component {
       active: false,
       formData: null,
       data: [],
-      rearrange: false
+      rearrange: false,
+      empty: ""
     };
   }
   componentDidMount() {
@@ -24,11 +25,15 @@ export class RefereeList extends React.Component {
   }
   fetchData = e => {
     let url = "";
+    let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/referee/" + url)
       .then(response => {
-        this.setState({ data: response.data }, () => {});
+        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No referees to show" });
+        else {
+          this.setState({ data: response.data });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -106,9 +111,9 @@ export class RefereeList extends React.Component {
     return (
       <ComponentTransition>
         <Segment padded color={theme}>
-          <div styleName="style.headingBox" disable="true">
+          <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="at" color={theme} /> References
+              <Icon name="at" color={theme} /> Reference
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
@@ -116,6 +121,7 @@ export class RefereeList extends React.Component {
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
           <Dimmer active={active} page>
             <RefereeForm

@@ -17,7 +17,8 @@ export class PaperList extends React.Component {
       update: false,
       active: false,
       formData: initial.data,
-      data: []
+      data: [],
+      empty: ""
     };
   }
   componentDidMount() {
@@ -25,11 +26,15 @@ export class PaperList extends React.Component {
   }
   fetchData = e => {
     let url = "";
+    let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/paper/" + url)
       .then(response => {
-        this.setState({ data: response.data });
+        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No papers to show" });
+        else {
+          this.setState({ data: response.data });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -101,15 +106,15 @@ export class PaperList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="paperclip" color={theme} /> Papers Authored
+              <Icon name="paperclip" color={theme} /> Papers
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
                 <Icon color="grey" name="sort" circular onClick={handleDragShow} />
-
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
 
           <Dimmer active={active} page>

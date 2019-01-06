@@ -157,6 +157,7 @@ class App extends Component {
                             }}
                           />
                           <Menu.Item
+                            fitted="horizontally"
                             name="Achievements"
                             active={activeItem === "Achievements"}
                             onClick={(e, target) => {

@@ -20,14 +20,15 @@ export class Skill extends React.Component {
       data: initial,
       person_data: "",
       active: false,
-      createNew: true
+      createNew: true,
+      empty: ""
     };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
-    const self = this;
+    let { handle } = this.props;
     let headers = {
       "X-CSRFToken": getCookie("csrftoken")
     };
@@ -35,11 +36,12 @@ export class Skill extends React.Component {
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/skill/" + url)
-      .then(function(response) {
-        if (response.data.length != 0) {
-          self.setState({ data: response.data[0], createNew: false });
+      .then(response => {
+        if (response.data.length == 0 && handle != undefined) {
+          console.log("yes");
+          this.setState({ empty: "No skills to show", createNew: true });
         } else {
-          self.setState({ createNew: true });
+          if (response.data.length != 0) this.setState({ data: response.data[0], createNew: false });
         }
       })
       .catch(function(error) {
@@ -60,6 +62,7 @@ export class Skill extends React.Component {
   };
 
   render() {
+    const { handleShow } = this;
     const { theme } = this.props;
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
@@ -135,17 +138,12 @@ export class Skill extends React.Component {
     return (
       <ComponentTransition>
         <Segment padded color={theme}>
-          <div styleName="style.flex-box">
+          <div styleName="style.headingBox">
             <h3 styleName="style.heading">
               <Icon name="star" color={theme} /> Skills
             </h3>
-            <div>
-              {this.props.handle != undefined ? null : (
-                <div>
-                  <Icon color="grey" name="add" circular onClick={this.handleShow} />
-                </div>
-              )}
-            </div>
+            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
           {this.state.data != initial ? (
             <Segment.Group>

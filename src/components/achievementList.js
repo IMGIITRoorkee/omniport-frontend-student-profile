@@ -17,19 +17,24 @@ export class AchievementList extends React.Component {
       active: false,
       formData: null,
       data: [],
-      rearrange: false
+      rearrange: false,
+      empty: ""
     };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
+    let { handle } = this.props;
     let url = "";
-    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
+    if (handle != undefined) url = handle + "/handle/";
     axios
       .get("/api/student_profile/achievement/" + url)
       .then(response => {
-        this.setState({ data: response.data });
+        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No achievements to show" });
+        else {
+          this.setState({ data: response.data });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -122,6 +127,7 @@ export class AchievementList extends React.Component {
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
           <Dimmer active={active} page>
             <AchievementForm

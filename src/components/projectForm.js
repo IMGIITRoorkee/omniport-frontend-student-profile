@@ -34,7 +34,8 @@ export class ProjectForm extends React.Component {
       active: false,
       data: initial,
       errors: [],
-      rearrange: false
+      rearrange: false,
+      empty: ""
     };
   }
 
@@ -48,10 +49,14 @@ export class ProjectForm extends React.Component {
 
   fetchData = () => {
     let url = "";
+    let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
 
     axios.get("/api/student_profile/project/" + url).then(response => {
-      this.setState({ list: response.data });
+      if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No projects to show" });
+      else {
+        this.setState({ list: response.data });
+      }
     });
   };
   handleShow = () => {
@@ -297,10 +302,10 @@ export class ProjectForm extends React.Component {
             {this.props.handle != undefined ? null : (
               <div>
                 <Icon color="grey" name="sort" circular onClick={handleDragShow} />
-
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
 
           <Dimmer active={this.state.active} page>

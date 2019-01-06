@@ -12,20 +12,26 @@ function compare(a, b) {
 export class PreviousEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [] };
+    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
     let url = "";
+    let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/previous_education/" + url)
       .then(response => {
-        let objs = response.data;
-        objs.sort(compare);
-        this.setState({ data: objs });
+        if (response.data.length == 0 && handle != undefined) {
+          console.log("yeh");
+          this.setState({ empty: "No previous education to show" });
+        } else {
+          let objs = response.data;
+          objs.sort(compare);
+          this.setState({ data: objs });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -101,7 +107,8 @@ export class PreviousEducationList extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="student" color={theme} /> Previous education
             </h3>
-            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}{" "}
+            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
 
           <Dimmer active={active} page>

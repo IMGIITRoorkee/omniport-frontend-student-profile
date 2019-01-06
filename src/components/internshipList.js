@@ -12,18 +12,22 @@ import { ComponentTransition } from "./transition";
 export class InternshipList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [] };
+    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
     let url = "";
+    let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios
       .get("/api/student_profile/experience/" + url)
       .then(response => {
-        this.setState({ data: response.data });
+        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No internships to show" });
+        else {
+          this.setState({ data: response.data });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -115,11 +119,11 @@ export class InternshipList extends React.Component {
             {this.props.handle != undefined ? null : (
               <div>
                 <Icon color="grey" name="sort" circular onClick={handleDragShow} />
-                <Icon color="grey" name="add" circular circular onClick={handleShow} />
+                <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
-
           <Dimmer active={active} page>
             <InternshipForm
               update={update}

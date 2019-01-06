@@ -107,7 +107,10 @@ export class Profile extends React.Component {
     const ownHandle = data.handle;
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (person_data.displayPicture == null && data.student != "") {
+      console.log("yes");
       imageView = <DefaultDp name={data.student} size={100} />;
+    } else {
+      console.log("no");
     }
     if (data)
       return (

@@ -10,18 +10,24 @@ import { ComponentTransition } from "./transition";
 export class CurrentEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [] };
+    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
   }
   componentDidMount() {
     this.fetchData();
   }
   fetchData = e => {
     let url = "";
-    if (this.props.handle != undefined) url = this.props.handle + "/handle/";
+    let { handle } = this.props;
+    if (handle != undefined) url = handle + "/handle/";
     axios
       .get("/api/student_profile/current_education/" + url)
       .then(response => {
-        this.setState({ data: response.data });
+        if (response.data.length == 0 && handle != undefined) {
+          console.log("yeah");
+          this.setState({ empty: "No current education to show" });
+        } else {
+          this.setState({ data: response.data });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -95,11 +101,8 @@ export class CurrentEducationList extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="student" color={theme} /> Current education
             </h3>
-            {this.props.handle != undefined ? null : (
-              <div>
-                <Icon color="grey" name="add" circular onClick={handleShow} />
-              </div>
-            )}
+            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? <span style={{ color: "grey" }}>{this.state.empty}</span> : null}
           </div>
 
           <Dimmer active={active} page>
