@@ -22,7 +22,7 @@ export function ResumeDownload(props) {
             }}
           >
             {url != null ? (
-              <a href={url}>
+              <a href={url} target="_blank">
                 <Label size="large" color="blue">
                   <Icon name="download" />
                   Resume

@@ -67,6 +67,10 @@ class App extends Component {
     };
   }
   componentDidMount() {
+    window.addEventListener("hashchange", function() {
+      window.scrollTo(window.scrollX, window.scrollY - 100);
+      console.log("hahaha");
+    });
     const handle = this.props.match.params.handle;
     this.setState({ handle: handle });
     let show;
@@ -76,6 +80,7 @@ class App extends Component {
     } else {
       this.setState({ show: true });
     }
+
     if (!show) {
       axios
         .get("/api/student_profile/profile/" + handle + "/handle/")
@@ -199,7 +204,9 @@ class App extends Component {
                           </List.Item>
                           <List.Item>
                             <List.Content>
-                              <h3>References</h3>
+                              <a href="#hello">
+                                <h3>References</h3>
+                              </a>
                             </List.Content>
                           </List.Item>
                         </List>

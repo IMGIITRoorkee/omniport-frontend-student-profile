@@ -73,15 +73,20 @@ export class Profile extends React.Component {
       active: true
     });
   };
-  handleUpdate = (data, flag) => {
-    this.setState({ active: false, data: data, createNew: flag });
+  handleUpdate = (data, flag, displayPicture) => {
+    this.setState({
+      active: false,
+      data: data,
+      createNew: flag,
+      person_data: { ...this.state.person_data, displayPicture: displayPicture }
+    });
   };
   handleHide = () => {
     this.setState({ active: false });
   };
 
   render() {
-    console.log(this.state.data);
+    console.log(this.state);
     const desc = this.state.data.description;
     const { data } = this.state;
     const { handle } = this.state;
@@ -91,7 +96,7 @@ export class Profile extends React.Component {
       <div style={{ position: "sticky", top: 0 }}>
         <Card color="teal">
           {this.props.handle == undefined ? (
-            <Card.Content>
+            <Card.Content style={{ border: "0!important" }}>
               <div styleName="style.headingBox">
                 <h3 styleName="style.heading">Profile </h3>
                 <Icon name="edit" onClick={this.handleShow} color="grey" />
@@ -108,7 +113,7 @@ export class Profile extends React.Component {
           </Card.Content>
           <Card.Content as={Segment} basic>
             <Card.Header textAlign="center">
-              {this.state.person_data.fullName} sadf
+              {this.state.person_data.fullName}
             </Card.Header>
             <Card.Meta textAlign="center">
               {this.state.data.handle ? "@" : null}

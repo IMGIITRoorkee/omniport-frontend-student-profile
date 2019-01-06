@@ -23,7 +23,7 @@ export class ProfileForm extends React.Component {
       list: null,
       errors: [],
       image: props.person_data.displayPicture,
-      img_file: null
+      img_file: ""
     };
   }
   componentDidMount() {
@@ -45,6 +45,8 @@ export class ProfileForm extends React.Component {
   };
   handleSubmit = e => {
     let data = new FormData();
+    console.log(this.state.img_file);
+    console.log(this.state.image);
     data.append("handle", this.state.data.handle);
     data.append("description", this.state.data.description);
     if (this.state.resumeLink != null && this.state.resume != null) {
@@ -53,34 +55,53 @@ export class ProfileForm extends React.Component {
     } else if (this.state.resume == null && this.state.resumeLink == null) {
       data.append("resume", "");
     }
-    if (this.state.image != null && this.state.img_file != null) {
+    if (this.state.image != "" && this.state.img_file != "") {
       data.append("image", this.state.img_file);
-    } else if (this.state.img_file == null && this.state.image != null) {
-    } else if (this.state.img_file == null && this.state.image == null) {
-      data.append("image", "");
+    } else if (this.state.img_file == "" && this.state.image != "") {
+      console.log("no change");
+    } else if (this.state.img_file == "" && this.state.image == "") {
+      data.append("image", null);
     }
 
     let headers = {
       "X-CSRFToken": getCookie("csrftoken"),
       "Content-type": "multipart/form-data"
     };
+    let request_type = "patch";
+    if (this.state.createNew) request_type = "post";
     if (this.state.createNew) {
       axios({
-        method: "post",
+        method: request_type,
         url: "/api/student_profile/profile/",
         data: data,
         headers: headers
       }).then(response => {
-        this.props.handleUpdate(response.data, false);
+        let data = response.data;
+        let displayPicture = data.displayPicture;
+        console.log(displayPicture);
+        if (displayPicture.search("http://localhost:3000") == -1) {
+          displayPicture = "http://localhost:3000" + displayPicture;
+        }
+        console.log("hello");
+        console.log(data);
+        this.props.handleUpdate(data, false, displayPicture);
       });
     } else {
       axios({
-        method: "patch",
+        method: request_type,
         url: "/api/student_profile/profile/" + this.state.data.id + "/",
         data: data,
         headers: headers
       }).then(response => {
-        this.props.handleUpdate(response.data, false);
+        let data = response.data;
+        let displayPicture = data.displayPicture;
+        console.log(displayPicture);
+        if (displayPicture.search("http://localhost:3000") == -1) {
+          displayPicture = "http://localhost:3000" + displayPicture;
+        }
+        console.log("hello");
+        console.log(data);
+        this.props.handleUpdate(data, false, displayPicture);
       });
     }
   };
@@ -102,6 +123,7 @@ export class ProfileForm extends React.Component {
     }
   };
   handleFile = event => {
+    console.log("hello");
     this.setState({
       resume: event.target.files[0],
       resumeLink: event.target.value
@@ -133,6 +155,7 @@ export class ProfileForm extends React.Component {
     }
   };
   handleImageChange = e => {
+    console.log("ho ho");
     e.preventDefault();
 
     let reader = new FileReader();
@@ -149,20 +172,20 @@ export class ProfileForm extends React.Component {
     reader.readAsDataURL(file);
   };
   removeImage = () => {
-    this.setState({ image: "", img_file: null });
+    this.setState({ image: "", img_file: "" });
   };
   render() {
-    console.log(this.props.person_data);
-    var res = (
+    console.log(this.state);
+    let res = (
       <Form.Field>
         <input
           type="file"
           onChange={this.handleFile}
           styleName="style.inputfile"
-          id="embedpollfileinput"
+          id="embedpollfileinput1"
         />
         <div styleName="style.inputLabel">
-          <label htmlFor="embedpollfileinput" className="ui blue button">
+          <label htmlFor="embedpollfileinput1" className="ui blue button">
             <i className="ui upload icon" />
             Upload Resume
           </label>
