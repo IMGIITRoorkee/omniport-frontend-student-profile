@@ -1,15 +1,15 @@
 import React from "react";
-import { Internship } from "./internship";
-import { InternshipForm } from "./internshipForm";
+import { Job } from "./job";
+import { JobForm } from "./jobForm";
 import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import style from "../styles.css";
-import { initial } from "./internshipForm";
+import { initial } from "./jobForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 
-export class InternshipList extends React.Component {
+export class JobList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { update: false, active: false, formData: null, data: [] };
@@ -23,7 +23,7 @@ export class InternshipList extends React.Component {
     axios
       .get("/api/student_profile/experience/" + url)
       .then(response => {
-        let data = response.data.filter(item => item.experienceType == "int");
+        let data = response.data.filter(item => item.experienceType == "job");
         this.setState({ data: data });
       })
       .catch(error => {
@@ -99,7 +99,7 @@ export class InternshipList extends React.Component {
     if (data != []) {
       children = data.map(data => {
         return (
-          <Internship
+          <Job
             data={data}
             key={data.id}
             manageData={this.manageData}
@@ -113,7 +113,7 @@ export class InternshipList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="certificate" color={theme} /> Internships
+              <Icon name="suitcase" color={theme} /> Jobs
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
@@ -135,7 +135,7 @@ export class InternshipList extends React.Component {
           </div>
 
           <Dimmer active={active} page>
-            <InternshipForm
+            <JobForm
               update={update}
               formData={formData}
               fetchData={fetchData}
@@ -148,7 +148,7 @@ export class InternshipList extends React.Component {
             <DragAndDropBox
               data={data}
               modelName="Experience"
-              element={Internship}
+              element={Job}
               handleUpdate={handleUpdate}
               handleDragHide={handleDragHide}
             />

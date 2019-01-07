@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Segment, Header, Container, Grid, List, Transition, Button, Menu } from "semantic-ui-react";
+import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import { InterestList } from "./components/interestList";
 import { InternshipList } from "./components/internshipList";
+import { JobList } from "./components/jobList";
 import { BookList } from "./components/bookList";
 import { PreviousEducationList } from "./components/previousEducationList";
 import { CurrentEducationList } from "./components/currentEducationList";
 import { RefereeList } from "./components/refereeList";
 import { PaperList } from "./components/paperList";
-
 import { AchievementList } from "./components/achievementList";
 import { LinkDisplay } from "./components/linkDisplay";
 import { LinkForm } from "./components/linkForm";
@@ -118,7 +118,12 @@ class App extends Component {
     const { show, erroneous, handle, theme, activeItem } = this.state;
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader appName="student_profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
+        <AppHeader
+          appName="student_profile"
+          appLogo={false}
+          appLink={`http://${window.location.host}`}
+          userDropdown
+        />
         <AppMain>
           {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
@@ -127,7 +132,11 @@ class App extends Component {
                 <Grid stackable>
                   <Grid.Row>
                     <Grid.Column width={4}>
-                      <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />
+                      <Profile
+                        handle={handle}
+                        theme={this.state.theme}
+                        changeTheme={this.changeTheme}
+                      />
                     </Grid.Column>
                     <Grid.Column width={12}>
                       <div style={{ zIndex: "5", position: "sticky", top: 0 }}>
@@ -229,6 +238,9 @@ class App extends Component {
                       </div>
                       <div id="internship">
                         <InternshipList handle={handle} theme={theme} />
+                      </div>
+                      <div id="job">
+                        <JobList handle={handle} theme={theme} />
                       </div>
                       <div id="project">
                         <ProjectForm handle={handle} theme={theme} />
