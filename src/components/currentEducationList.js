@@ -23,7 +23,6 @@ export class CurrentEducationList extends React.Component {
       .get("/api/student_profile/current_education/" + url)
       .then(response => {
         if (response.data.length == 0 && handle != undefined) {
-          console.log("yeah");
           this.setState({ empty: "No current education to show" });
         } else {
           this.setState({ data: response.data });
@@ -44,13 +43,18 @@ export class CurrentEducationList extends React.Component {
     let data = this.state.data;
     let n = data.length;
     let i = 0;
+    let flag = false;
     for (i = 0; i < n; i++) {
       if (data[i].semesterNumber >= item.semesterNumber) {
         data.splice(i, 0, item);
         this.setState({ data: data });
-        console.log(i);
+        flag = true;
         break;
       }
+    }
+    if (flag == false) {
+      data.splice(i, n, item);
+      this.setState({ data: data });
     }
   };
   updateDeleteData = (item, option) => {
@@ -76,7 +80,8 @@ export class CurrentEducationList extends React.Component {
 
   render() {
     const { active, update, formData, data } = this.state;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
 
     const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
 
@@ -99,7 +104,7 @@ export class CurrentEducationList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="student" color={theme} /> Current education
+              <Icon name="student" color={theme || "blue"} /> Current education
             </h3>
             {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
             {this.props.handle != undefined ? (

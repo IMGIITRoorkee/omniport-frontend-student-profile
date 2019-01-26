@@ -78,7 +78,8 @@ export class JobList extends React.Component {
     });
   };
   render() {
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const { active, update, formData, data, rearrange } = this.state;
     const {
       fetchData,
@@ -105,7 +106,7 @@ export class JobList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="suitcase" color={theme} /> Jobs
+              <Icon name="suitcase" color={theme || "blue"} /> Jobs
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

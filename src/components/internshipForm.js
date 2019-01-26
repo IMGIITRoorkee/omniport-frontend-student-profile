@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Form, Input, Button, Icon, Checkbox, Segment, Message } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Checkbox, Segment, Confirm } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
@@ -138,9 +138,7 @@ export class InternshipForm extends React.Component {
   };
   handleToggle = () => {
     const value = !this.state.data.isFullDate;
-    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {
-      console.log(this.state.data.isFullDate);
-    });
+    this.setState({ data: { ...this.state.data, isFullDate: value } });
   };
   render() {
     const { update } = this.state;
@@ -196,14 +194,30 @@ export class InternshipForm extends React.Component {
               />
             </Form.Field>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
-              Delete
             </Button>
           </Segment>
         ) : (

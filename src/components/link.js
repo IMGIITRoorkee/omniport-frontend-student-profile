@@ -8,7 +8,6 @@ export class Link extends React.Component {
     super(props);
   }
   handleDelete = () => {
-    console.log(this.props.data.id);
     this.props.handleUpdateDelete(this.props.data.id);
   };
   render() {

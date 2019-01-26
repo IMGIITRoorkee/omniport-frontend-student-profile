@@ -23,15 +23,7 @@ export function Project(props) {
                 </div>
               </div>
 
-              {props.data.image ? (
-                <img
-                  src={props.data.image.replace(
-                    "http://localhost:3003/",
-                    "http://192.168.121.228:60025/"
-                  )}
-                  styleName="style.mobPicture"
-                />
-              ) : null}
+              {props.data.image ? <img src={props.data.image} styleName="style.mobPicture" /> : null}
             </List.Content>
           </List.Item>
         </List>
@@ -57,24 +49,13 @@ export function Project(props) {
           </div>
           {props.data.image ? (
             <div>
-              <img
-                src={props.data.image.replace(
-                  "http://localhost:3003/",
-                  "http://192.168.121.228:60025/"
-                )}
-                styleName="style.compPicture"
-              />
+              <img src={props.data.image} styleName="style.compPicture" />
             </div>
           ) : null}
         </div>
       )}
       {props.rearrange != true ? (
-        <Icon
-          styleName="style.icon"
-          name="edit"
-          color="grey"
-          onClick={() => props.update(props.data)}
-        />
+        <Icon styleName="style.icon" name="edit" color="grey" onClick={() => props.update(props.data)} />
       ) : null}
     </Segment>
   );

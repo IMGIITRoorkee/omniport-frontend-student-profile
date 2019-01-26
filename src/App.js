@@ -12,28 +12,16 @@ import { CurrentEducationList } from "./components/currentEducationList";
 import { RefereeList } from "./components/refereeList";
 import { PaperList } from "./components/paperList";
 import { AchievementList } from "./components/achievementList";
-import { LinkDisplay } from "./components/linkDisplay";
-import { LinkForm } from "./components/linkForm";
 import { Profile } from "./components/profile";
 import { ProjectForm } from "./components/projectForm";
 import { Skill } from "./components/skill";
-
 import { NotFound } from "./components/notFound";
 import style from "./styles.css";
 
 const creators = [
   {
-    name: "Mahip Jain",
-    role: "Mentor"
-  },
-  {
     name: "Dhruv Bhanushali",
     role: "Backend Mentor"
-  },
-
-  {
-    name: "Gaurav Kumar",
-    role: "Frontend Mentor"
   },
   {
     name: "Praduman Goyal",
@@ -57,7 +45,7 @@ class App extends Component {
       show: false,
       erroneous: "don't know",
       handle: "",
-      theme: "teal",
+      theme: "blue",
       tVisibility: false
     };
   }
@@ -88,7 +76,6 @@ class App extends Component {
       axios
         .get("/api/student_profile/profile/")
         .then(response => {
-          console.log(response);
           this.setState({ theme: response.data[0].theme });
         })
         .catch(error => {
@@ -97,47 +84,26 @@ class App extends Component {
     }
   }
   handleToggle = () => {
-    console.log(this.state.tVisibility);
     const newtVisibility = !this.state.tVisibility;
     this.setState({ tVisibility: newtVisibility });
   };
   changeTheme = theme => {
-    console.log("new theme of app");
-    this.setState({ theme: theme }, () => {
-      console.log("new theme of app ", this.state.theme);
-    });
+    this.setState({ theme: theme }, () => {});
   };
   scroll = target => {
     let ele = document.getElementById(target);
-    console.log(ele);
-    console.log(ele.offsetTop);
-    window.scrollTo(ele.offsetLeft, ele.offsetTop);
+    window.scrollTo({ top: ele.offsetTop + 30, behavior: "smooth" });
   };
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   render() {
-    const { show, erroneous, handle, theme, activeItem } = this.state;
+    const { show, erroneous, handle, activeItem } = this.state;
+    let { theme } = this.state;
+    if (theme == "zero") theme = null;
     const app_menu = (
       <div style={{ zIndex: "5", position: "sticky", top: 0, backgroundColor: "white" }}>
-        <Menu
-          pointing
-          secondary
-          size="small"
-          fluid
-          icon="labeled"
-          borderless
-          stackable
-          widths={8}
-          style={
-            {
-              // display: "flex",
-              // justifyContent: "space-between",
-              // flexWrap: "wrap"
-            }
-          }
-        >
-          {/* <Mnu.Item header>Our Company</Menu.Item> */}
+        <Menu pointing secondary size="small" fluid icon="labeled" borderless stackable widths={8}>
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             name="Interests"
             active={activeItem === "Interests"}
             onClick={(e, target) => {
@@ -147,7 +113,7 @@ class App extends Component {
             }}
           />
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             fitted="horizontally"
             name="Achievements"
             active={activeItem === "Achievements"}
@@ -158,7 +124,7 @@ class App extends Component {
             }}
           />
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             name="Experience"
             active={activeItem === "Internships"}
             onClick={(e, target) => {
@@ -168,7 +134,7 @@ class App extends Component {
             }}
           />
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             name="Projects"
             active={activeItem === "Projects"}
             onClick={(e, target) => {
@@ -178,7 +144,7 @@ class App extends Component {
             }}
           />
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             name="Skills"
             active={activeItem === "Skills"}
             onClick={(e, target) => {
@@ -188,7 +154,7 @@ class App extends Component {
             }}
           />
           <Menu.Item
-            color={theme}
+            color={theme || "blue"}
             name="Publications"
             active={activeItem === "Publications"}
             onClick={(e, target) => {
@@ -311,7 +277,6 @@ class App extends Component {
     } else if (erroneous === "don't know") {
       return null;
     } else return null;
-    console.log(this.state.show);
   }
 }
 

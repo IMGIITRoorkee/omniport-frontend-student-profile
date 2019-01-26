@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Confirm, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -145,14 +145,28 @@ export class SkillForm extends React.Component {
               />
             </Form.Field>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={this.handleDelete}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {!createNew ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleSubmit} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={this.handleDelete}>
-              Delete
             </Button>
           </Segment>
         ) : (

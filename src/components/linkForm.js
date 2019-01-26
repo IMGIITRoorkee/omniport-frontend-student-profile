@@ -10,26 +10,6 @@ const initial = {
   data: { site: "git", url: "" }
 };
 
-const options = [
-  { key: "Behance", text: "Behance", value: "beh" },
-  { key: "Blogger", text: "Blogger", value: "blo" },
-  { key: "Dribble", text: "Dribble", value: "dri" },
-  { key: "Facebook", text: "Facebook", value: "fac" },
-  { key: "Flickr", text: "Flickr", value: "fli" },
-  { key: "GitHub", text: "GitHub", value: "git" },
-  { key: "Google", text: "Google", value: "goo" },
-  { key: "LinkedIn", text: "LinkedIn", value: "lin" },
-  { key: "Medium", text: "Medium", value: "med" },
-  { key: "Pinterest", text: "Pinterest", value: "pin" },
-  { key: "Reddit", text: "Reddit", value: "red" },
-  { key: "Skype", text: "Skype", value: "sky" },
-  { key: "Snapchat", text: "Snapchat", value: "sna" },
-  { key: "Tumblr", text: "Tumblr", value: "tum" },
-  { key: "Twitter", text: "Twitter", value: "twi" },
-  { key: "YouTube", text: "YouTube", value: "you" },
-  { key: "Other Website", text: "Other Website", value: "oth" }
-];
-
 export class LinkForm extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +21,7 @@ export class LinkForm extends React.Component {
     };
   }
   componentDidMount() {
+    console.log("prop", this.props.options);
     document.addEventListener("keydown", this.handleEscape, false);
   }
   componentWillUnmount() {
@@ -91,7 +72,6 @@ export class LinkForm extends React.Component {
       url: "/api/student_profile/social_link/" + id + "/",
       headers: headers
     }).then(response => {
-      console.log(this.state.links);
       this.setState({
         data: initial.data,
         links: this.state.links.filter(obj => (obj.id != id ? true : false))
@@ -129,7 +109,13 @@ export class LinkForm extends React.Component {
           <Form>
             <Form.Field>
               <label>Site</label>
-              <Dropdown selection value={this.state.data.site} name="site" onChange={this.onChange} options={options} />
+              <Dropdown
+                selection
+                value={this.state.data.site}
+                name="site"
+                onChange={this.onChange}
+                options={this.props.options}
+              />
             </Form.Field>
             <Form.Field>
               <Form.Input

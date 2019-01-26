@@ -89,7 +89,8 @@ export class PaperList extends React.Component {
 
   render() {
     const { active, update, formData, data, rearrange } = this.state;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleUpdate } = this;
 
     let data_array;
@@ -106,7 +107,7 @@ export class PaperList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="paperclip" color={theme} /> Papers
+              <Icon name="paperclip" color={theme || "blue"} /> Papers
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

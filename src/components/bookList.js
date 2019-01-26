@@ -89,7 +89,9 @@ export class BookList extends React.Component {
 
   render() {
     const { active, update, formData, data, rearrange } = this.state;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
+    console.log(theme);
     const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleUpdate } = this;
 
     let data_array;
@@ -106,7 +108,7 @@ export class BookList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="book" color={theme} /> Books
+              <Icon name="book" color={theme || "blue"} /> Books
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

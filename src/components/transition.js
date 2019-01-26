@@ -4,7 +4,12 @@ import { Transition, Message, Segment } from "semantic-ui-react";
 export const ErrorTransition = props => {
   return (
     <Transition visible={props.errors.length > 0} animation="bounce" duration={500}>
-      <Message error header="There were some errors with your submission:" list={props.errors} />
+      <Message
+        hidden={props.errors.length == 0}
+        error
+        header="There were some errors with your submission:"
+        list={props.errors}
+      />
     </Transition>
   );
 };
@@ -31,6 +36,29 @@ export class ComponentTransition extends React.Component {
         <Transition visible={this.state.tvisibility} animation="fade" duration={500}>
           {this.props.children}
         </Transition>
+      </div>
+    );
+  }
+}
+
+export class Confirmation extends React.Component {
+  constructor(props) {
+    state = { open: false };
+  }
+  show = () => this.setState({ open: true });
+  handleConfirm = () => this.setState({ open: false });
+  handleCancel = () => this.setState({ open: false });
+
+  render() {
+    return (
+      <div>
+        <Button onClick={this.show}>Show</Button>
+        <Confirm
+          open={this.state.open}
+          header="This is a custom header"
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+        />
       </div>
     );
   }

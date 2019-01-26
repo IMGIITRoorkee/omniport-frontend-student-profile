@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Segment, Popup, Dimmer, Message, Checkbox } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Segment, Popup, Dimmer, Confirm, Checkbox } from "semantic-ui-react";
 import axios from "axios";
 import { DateInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
@@ -247,9 +247,7 @@ export class ProjectForm extends React.Component {
   };
   handleToggle = () => {
     const value = !this.state.data.isFullDate;
-    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {
-      console.log(this.state.data.isFullDate);
-    });
+    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {});
   };
   handleUpdate = data => {
     this.setState({
@@ -269,7 +267,8 @@ export class ProjectForm extends React.Component {
   };
   render() {
     let { list, update, rearrange } = this.state;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const { handleUpdate, handleDragHide, handleDragShow, handleShow } = this;
     const children = <ProjectList arr={list} update={this.update} handle={this.props.handle} />;
     let imagePreview = (
@@ -284,12 +283,7 @@ export class ProjectForm extends React.Component {
       </div>
     );
     if (this.state.image) {
-      imagePreview = (
-        <ImagePreview
-          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
-          removeImage={this.removeImage}
-        />
-      );
+      imagePreview = <ImagePreview imagePreviewUrl={this.state.image} removeImage={this.removeImage} />;
     }
 
     return (
@@ -297,7 +291,7 @@ export class ProjectForm extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="file alternate" color={theme} /> Projects
+              <Icon name="file alternate" color={theme || "blue"} /> Projects
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
@@ -377,14 +371,28 @@ export class ProjectForm extends React.Component {
 
                   <Form.Field> {imagePreview}</Form.Field>
                 </Form>
+                <Confirm
+                  header="Delete"
+                  open={this.state.open}
+                  content="Are you sure you want to delete?"
+                  onConfirm={this.onDelete}
+                  onCancel={() => {
+                    this.setState({ open: false });
+                  }}
+                />
               </Segment>
               {update ? (
                 <Segment attached="bottom" styleName="style.headingBox">
+                  <div
+                    styleName="style.delete"
+                    onClick={() => {
+                      this.setState({ open: true });
+                    }}
+                  >
+                    Delete
+                  </div>
                   <Button onClick={this.handleErrors} color="blue">
                     Save Changes
-                  </Button>
-                  <Button color="red" onClick={this.onDelete}>
-                    Delete
                   </Button>
                 </Segment>
               ) : (

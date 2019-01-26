@@ -168,6 +168,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+
   
   }
   .footer {
@@ -187,3 +188,13 @@
   .main-segment{
     text-align: center
   }
+
+ .delete{
+     color: #2185D0;
+     text-decoration: underline;
+     cursor: pointer;
+ }
+ .themeField{
+     display: none;
+ }
+

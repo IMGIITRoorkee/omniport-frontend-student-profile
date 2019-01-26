@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment, Dropdown, Message } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Confirm, Message } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -62,7 +62,6 @@ export class CurrentEducationForm extends React.Component {
   }
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
-    console.log(event);
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
@@ -100,7 +99,6 @@ export class CurrentEducationForm extends React.Component {
     });
   };
   handleErrors = () => {
-    console.log(this.state.data);
     let errors = [];
     const { semesterNumber, sgpa, cgpa } = this.state.data;
     if (semesterNumber == "") {
@@ -134,7 +132,7 @@ export class CurrentEducationForm extends React.Component {
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
-          <h3 styleName="style.heading">Currrent education</h3>
+          <h3 styleName="style.heading">Current education</h3>
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
 
@@ -162,14 +160,30 @@ export class CurrentEducationForm extends React.Component {
               </Form.Field>
             </Form.Group>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
-              Delete
             </Button>
           </Segment>
         ) : (

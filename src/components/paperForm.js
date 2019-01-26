@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment, Message } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Confirm } from "semantic-ui-react";
 import moment from "moment";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -97,7 +97,6 @@ export class PaperForm extends React.Component {
     });
   };
   handleErrors = () => {
-    console.log(this.state.data);
     let errors = [];
     const { title, authors, publisher, year, isbnCode } = this.state.data;
     if (title == "") {
@@ -191,15 +190,31 @@ export class PaperForm extends React.Component {
               </Form.Field>
             </Form.Group>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
 
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
-              Delete
             </Button>
           </Segment>
         ) : (

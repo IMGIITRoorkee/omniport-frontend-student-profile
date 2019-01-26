@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment, Dropdown, Message } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Label, Segment, Dropdown, Confirm } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import moment from "moment";
@@ -67,7 +67,6 @@ export class PreviousEducationForm extends React.Component {
     }
   }
   handleChange = (event, { name = undefined, value }) => {
-    console.log(this.state.data);
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
@@ -106,7 +105,6 @@ export class PreviousEducationForm extends React.Component {
     });
   };
   handleErrors = () => {
-    console.log(this.state.data);
     let errors = [];
     const { institute, degree, graduation, fieldOfStudy, cgpa, year } = this.state.data;
     if (institute == "") {
@@ -131,6 +129,7 @@ export class PreviousEducationForm extends React.Component {
     } else if (!moment(year, "YYYY", true).isValid()) {
       errors.push("Please enter year in YYYY format");
     }
+    console.log(errors);
     if (errors.length > 0) {
       this.setState({ errors: errors });
     } else {
@@ -156,7 +155,13 @@ export class PreviousEducationForm extends React.Component {
             <Form.Group widths="equal">
               <Form.Field required>
                 <label>Institute</label>
-                <Form.Input onChange={this.handleChange} value={institute} name="institute" placeholder="Institute" />
+                <Form.Input
+                  autoFocus
+                  onChange={this.handleChange}
+                  value={institute}
+                  name="institute"
+                  placeholder="Institute"
+                />
               </Form.Field>
               <Form.Field required>
                 <label>Degree</label>
@@ -198,14 +203,30 @@ export class PreviousEducationForm extends React.Component {
               onChange={this.handleChange}
             />
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
-              Delete
             </Button>
           </Segment>
         ) : (

@@ -25,7 +25,6 @@ export class PreviousEducationList extends React.Component {
       .get("/api/student_profile/previous_education/" + url)
       .then(response => {
         if (response.data.length == 0 && handle != undefined) {
-          console.log("yeh");
           this.setState({ empty: "No previous education to show" });
         } else {
           let objs = response.data;
@@ -50,13 +49,19 @@ export class PreviousEducationList extends React.Component {
     let data = this.state.data;
     let n = data.length;
     let i = 0;
+    let flag = false;
     for (i = 0; i < n; i++) {
       if (data[i].year <= item.year) {
         data.splice(i, 0, item);
+        flag = true;
         this.setState({ data: data });
         console.log(i);
         break;
       }
+    }
+    if (flag == false) {
+      data.splice(i, n, item);
+      this.setState({ data: data });
     }
   };
   updateDeleteData = (item, option) => {
@@ -82,7 +87,8 @@ export class PreviousEducationList extends React.Component {
 
   render() {
     const { active, update, formData, data } = this.state;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
 
     const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
 
@@ -105,7 +111,7 @@ export class PreviousEducationList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="student" color={theme} /> Previous education
+              <Icon name="student" color={theme || "blue"} /> Previous education
             </h3>
             {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
             {this.props.handle != undefined ? (

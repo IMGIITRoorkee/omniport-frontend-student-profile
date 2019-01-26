@@ -39,7 +39,6 @@ export class Profile extends React.Component {
     };
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
-    console.log(url);
 
     if (this.props.handle == undefined) {
       axios
@@ -60,7 +59,6 @@ export class Profile extends React.Component {
             self.setState({ data: data, createNew: false });
           } else {
             let data = response.data;
-            console.log(data);
             let person_data = {
               displayPicture: data.displayPicture,
               fullName: data.fullName
@@ -98,24 +96,23 @@ export class Profile extends React.Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     const desc = this.state.data.description;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const { data, handle, person_data } = this.state;
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
+    const style = {
+      boxShadow: "0 0 0 1px #d4d4d5,0 2px 0 0 #d4d4d5,0 1px 3px 0 #d4d4d5"
+    };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (person_data.displayPicture == null && data.student != "") {
-      console.log("yes");
-      imageView = <DefaultDp name={data.student} size={100} />;
-    } else {
-      console.log("no");
+      imageView = <DefaultDp name={data.student} size={1} />;
     }
     if (data)
       return (
         <div style={{ position: "sticky", top: 0 }}>
-          <Card color={theme} fluid>
+          <Card as={Segment} color={theme} style={style} fluid>
             {this.props.handle == undefined ? (
               <Card.Content>
                 <div styleName="style.headingBox">

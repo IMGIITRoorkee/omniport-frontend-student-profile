@@ -19,7 +19,8 @@ const themeOptions = [
   { text: "Rich Lavender", key: "violet", value: "violet" },
   { text: "Lightning Purple", key: "purple", value: "purple" },
   { text: "Proud Pink", key: "pink", value: "pink" },
-  { text: "Wicked Black", key: "black", value: "black" }
+  { text: "Wicked Black", key: "black", value: "black" },
+  { text: "No color", key: "zero", value: "zero" }
 ];
 
 import { ProfileImagePreview } from "./profileImagePreview";
@@ -66,7 +67,6 @@ export class ProfileForm extends React.Component {
   };
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
-    console.log("pro data", this.state.data);
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
@@ -85,7 +85,6 @@ export class ProfileForm extends React.Component {
     if (this.state.image != "" && this.state.img_file != "") {
       data.append("image", this.state.img_file);
     } else if (this.state.img_file == "" && this.state.image != "") {
-      console.log("no change");
     } else if (this.state.img_file == "" && this.state.image == "") {
       data.append("image", null);
     }
@@ -104,9 +103,8 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        console.log(displayPicture);
-        if (displayPicture != null && displayPicture.search("http://localhost:3000") == -1) {
-          displayPicture = "http://localhost:3000" + displayPicture;
+        if (displayPicture != null) {
+          displayPicture = displayPicture;
         }
 
         this.props.handleUpdate(data, false, displayPicture);
@@ -120,9 +118,8 @@ export class ProfileForm extends React.Component {
       }).then(response => {
         let data = response.data;
         let displayPicture = data.displayPicture;
-        console.log(displayPicture);
-        if (displayPicture != null && displayPicture.search("http://localhost:3000") == -1) {
-          displayPicture = "http://localhost:3000" + displayPicture;
+        if (displayPicture != null) {
+          displayPicture = displayPicture;
         }
         this.props.handleUpdate(data, false, displayPicture);
       });
@@ -283,7 +280,7 @@ export class ProfileForm extends React.Component {
                   placeholder="Change your handle"
                 />
               </Form.Field>
-              <Form.Field required>
+              <Form.Field required styleName="style.themeField">
                 <label>Theme</label>
                 <Dropdown
                   onChange={this.handleChange}

@@ -3,13 +3,21 @@ import axios from "axios";
 import { LinkForm } from "./linkForm";
 import { Segment, Dimmer, Icon, Container } from "semantic-ui-react";
 import style from "./../styles.css";
-
+let options = [];
+function myFunction(value, index, array, item) {
+  let dict = {};
+  dict.key = item.value;
+  dict.text = item.displayName;
+  dict.value = item.value;
+  options[index] = { item };
+}
 export class LinkDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      active: false
+      active: false,
+      linkOptions: []
     };
   }
 
@@ -30,6 +38,24 @@ export class LinkDisplay extends React.Component {
       .catch(error => {
         console.log(error);
       });
+    axios
+      .options("/api/student_profile/social_link/" + url)
+      .then(response => {
+        let dict_array = [];
+        let options = response.data.actions.POST.site.choices;
+        for (let i = 0; i < options.length; i++) {
+          let dict = {};
+          let item = options[i];
+          dict.key = item.value;
+          dict.text = item.displayName;
+          dict.value = item.value;
+          dict_array[i] = dict;
+        }
+        this.setState({ linkOptions: dict_array });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleShow = e => {
@@ -44,12 +70,11 @@ export class LinkDisplay extends React.Component {
     });
   };
   render() {
-    console.log("link handle", this.props.handle);
     const data = this.state.data;
     const children = Array.from(data).map(function(child, index) {
       return (
-        <a href={child.url} target="_blank" key={index} title={SOCIAL_SITE_ICONS[child.site]}>
-          <Icon size="large" key={index} name={SOCIAL_SITE_ICONS[child.site]} />
+        <a href={child.url} target="_blank" key={index} title={child.siteLogo}>
+          <Icon size="large" key={index} name={child.siteLogo} />
         </a>
       );
     });
@@ -66,29 +91,9 @@ export class LinkDisplay extends React.Component {
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
-          <LinkForm data={data} handleUpdate={this.handleUpdate} />
+          <LinkForm data={data} handleUpdate={this.handleUpdate} options={this.state.linkOptions} />
         </Dimmer>
       </div>
     );
   }
 }
-
-const SOCIAL_SITE_ICONS = {
-  beh: "behance",
-  blo: "blogger",
-  dri: "dribble",
-  fac: "facebook",
-  fli: "flickr",
-  git: "github",
-  goo: "google",
-  lin: "linkedin",
-  med: "medium",
-  pin: "pinterest",
-  red: "reddit",
-  sky: "skype",
-  sna: "snapchat",
-  tum: "tumblr",
-  twi: "twitter",
-  you: "youtube",
-  oth: "globe"
-};

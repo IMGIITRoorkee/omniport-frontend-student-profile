@@ -38,7 +38,6 @@ export class Skill extends React.Component {
       .get("/api/student_profile/skill/" + url)
       .then(response => {
         if (response.data.length == 0 && handle != undefined) {
-          console.log("yes");
           this.setState({ empty: "No skills to show", createNew: true });
         } else {
           if (response.data.length != 0) this.setState({ data: response.data[0], createNew: false });
@@ -63,7 +62,8 @@ export class Skill extends React.Component {
 
   render() {
     const { handleShow } = this;
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
         <Segment>
@@ -140,7 +140,7 @@ export class Skill extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="star" color={theme} /> Skills
+              <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
             {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
             {this.props.handle != undefined ? (

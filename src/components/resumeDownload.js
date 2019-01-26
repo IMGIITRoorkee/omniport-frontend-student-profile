@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 import style from "../styles.css";
 
 export function ResumeDownload(props) {
-  console.log(props.url != null);
   const url = props.url;
   const preview_url = "/student_profile/" + props.ownHandle + "/";
-  console.log(preview_url);
   if (props.preview == false) {
     return (
       <div>

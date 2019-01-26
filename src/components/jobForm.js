@@ -1,14 +1,6 @@
 import React from "react";
 import moment from "moment";
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Checkbox,
-  Segment,
-  Message
-} from "semantic-ui-react";
+import { Form, Input, Button, Icon, Checkbox, Segment, Confirm } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../styles.css";
@@ -108,13 +100,7 @@ export class JobForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
-    const {
-      position,
-      organisation,
-      startDate,
-      endDate,
-      description
-    } = this.state.data;
+    const { position, organisation, startDate, endDate, description } = this.state.data;
     if (position == "") {
       errors.push("Position must be filled");
     }
@@ -123,11 +109,7 @@ export class JobForm extends React.Component {
     }
     if (startDate != "") {
       if (moment(startDate, "YYYY-MM-DD", true).isValid()) {
-        if (
-          endDate != "" &&
-          endDate != null &&
-          moment(endDate, "YYYY-MM-DD", true).isValid()
-        ) {
+        if (endDate != "" && endDate != null && moment(endDate, "YYYY-MM-DD", true).isValid()) {
           if (moment(endDate).isBefore(startDate)) {
             errors.push("Start date must be before end date");
           }
@@ -156,20 +138,11 @@ export class JobForm extends React.Component {
   };
   handleToggle = () => {
     const value = !this.state.data.isFullDate;
-    this.setState({ data: { ...this.state.data, isFullDate: value } }, () => {
-      console.log(this.state.data.isFullDate);
-    });
+    this.setState({ data: { ...this.state.data, isFullDate: value } });
   };
   render() {
     const { update } = this.state;
-    const {
-      position,
-      organisation,
-      startDate,
-      endDate,
-      isFullDate,
-      description
-    } = this.state.data;
+    const { position, organisation, startDate, endDate, isFullDate, description } = this.state.data;
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -181,22 +154,11 @@ export class JobForm extends React.Component {
           <Form autoComplete="off">
             <Form.Field>
               <label>Position</label>
-              <Input
-                onChange={this.handleChange}
-                value={position}
-                name="position"
-                placeholder="Position"
-                autoFocus
-              />
+              <Input onChange={this.handleChange} value={position} name="position" placeholder="Position" autoFocus />
             </Form.Field>
             <Form.Field>
               <label>Organisation</label>
-              <Input
-                onChange={this.handleChange}
-                value={organisation}
-                name="organisation"
-                placeholder="Organisation"
-              />
+              <Input onChange={this.handleChange} value={organisation} name="organisation" placeholder="Organisation" />
             </Form.Field>
 
             <Form.Group widths="equal">
@@ -220,11 +182,7 @@ export class JobForm extends React.Component {
               />
             </Form.Group>
             <Form.Field>
-              <Checkbox
-                label="I remember the exact date"
-                onChange={this.handleToggle}
-                checked={isFullDate}
-              />
+              <Checkbox label="I remember the exact date" onChange={this.handleToggle} checked={isFullDate} />
             </Form.Field>
             <Form.Field>
               <label>Description</label>
@@ -236,17 +194,30 @@ export class JobForm extends React.Component {
               />
             </Form.Field>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
-            <Button onClick={this.handleErrors} color="blue">
-              Save Changes
-            </Button>
-            <Button
-              color="red"
-              onClick={() => this.handleUpdateDelete("delete")}
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
             >
               Delete
+            </div>
+            <Button onClick={this.handleErrors} color="blue">
+              Save Changes
             </Button>
           </Segment>
         ) : (

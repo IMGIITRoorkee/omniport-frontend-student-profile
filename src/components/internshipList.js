@@ -83,7 +83,8 @@ export class InternshipList extends React.Component {
     });
   };
   render() {
-    const { theme } = this.props;
+    let { theme } = this.props;
+    if (theme == "zero") theme = null;
     const { active, update, formData, data, rearrange } = this.state;
     const {
       fetchData,
@@ -115,7 +116,7 @@ export class InternshipList extends React.Component {
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
-              <Icon name="certificate" color={theme} /> Internships
+              <Icon name="certificate" color={theme || "blue"} /> Internships
             </h3>
             {this.props.handle != undefined ? null : (
               <div>

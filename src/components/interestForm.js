@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Icon, Label, Segment, Message } from "semantic-ui-react";
+import { Form, Input, Button, Icon, Confirm, Segment, Message } from "semantic-ui-react";
 import { DatesRangeInput } from "semantic-ui-calendar-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
@@ -17,7 +17,8 @@ export class InterestForm extends React.Component {
       data: this.props.formData,
       update: this.props.update,
       list: null,
-      errors: []
+      errors: [],
+      open: false
     };
   }
   componentDidMount() {
@@ -106,8 +107,6 @@ export class InterestForm extends React.Component {
   };
   render() {
     const { update } = this.state;
-    console.log("form-data", this.state.data);
-    console.log("form-update", update);
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
@@ -128,14 +127,30 @@ export class InterestForm extends React.Component {
               />
             </Form.Field>
           </Form>
+          <Confirm
+            header="Delete"
+            open={this.state.open}
+            content="Are you sure you want to delete?"
+            onConfirm={() => {
+              this.handleUpdateDelete("delete");
+            }}
+            onCancel={() => {
+              this.setState({ open: false });
+            }}
+          />
         </Segment>
         {update ? (
           <Segment attached="bottom" styleName="style.headingBox">
+            <div
+              styleName="style.delete"
+              onClick={() => {
+                this.setState({ open: true });
+              }}
+            >
+              Delete
+            </div>
             <Button onClick={this.handleErrors} color="blue">
               Save Changes
-            </Button>
-            <Button color="red" onClick={() => this.handleUpdateDelete("delete")}>
-              Delete
             </Button>
           </Segment>
         ) : (
