@@ -55,7 +55,7 @@ export class JobForm extends React.Component {
     } else if (this.props != nextProps && nextProps.update == false) {
       this.setState(initial);
     }
-  }
+  } //should be removed?
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
@@ -186,12 +186,7 @@ export class JobForm extends React.Component {
             </Form.Field>
             <Form.Field>
               <label>Description</label>
-              <Form.TextArea
-                onChange={this.handleChange}
-                value={description}
-                name="description"
-                placeholder="Description"
-              />
+              <Form.TextArea onChange={this.handleChange} value={description} name="description" placeholder="Description" />
             </Form.Field>
           </Form>
           <Confirm

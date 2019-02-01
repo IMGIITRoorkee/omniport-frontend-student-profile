@@ -9,7 +9,50 @@ import inline from "formula_one/src/css/inline.css";
 import { initial } from "./bookForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+import genericFormMaker from "./genericFormMaker";
+const bookSpec = {
+  fields: {
+    field1: {
+      name: "Title",
+      type: "input_field",
+      const_props: {
+        name: "Title",
+        placeholder: "Enter the title of the book"
+      },
+      user_props: ["onChange"]
+    },
+    field2: {
+      name: "Author",
+      type: "input_field",
+      const_props: {
+        name: "Author",
+        placeholder: "Enter the authors of the book"
+      },
+      user_props: ["onChange"]
+    }
+  },
+  group_fields: {},
 
+  initial: {
+    id: -1,
+    title: "",
+    authors: "",
+    publisher: "",
+    year: "",
+    pages: "",
+    volumes: "",
+    contribution: "",
+    editors: "",
+    isbnCode: "",
+    priority: 1,
+    visibility: true
+  },
+  url: "book"
+};
+console.log(Book);
+const TrialForm = genericFormMaker(bookSpec);
+
+console.log(TrialForm);
 export class BookList extends React.Component {
   constructor(props) {
     super(props);
@@ -98,9 +141,7 @@ export class BookList extends React.Component {
     let children;
     if (data != "") {
       children = data.map(data => {
-        return (
-          <Book data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />
-        );
+        return <Book data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />;
       });
     }
     return (
@@ -116,13 +157,11 @@ export class BookList extends React.Component {
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
-            {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
-            ) : null}
+            {this.props.handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span> : null}
           </div>
 
           <Dimmer active={active} page>
-            <BookForm
+            <TrialForm
               update={update}
               formData={formData}
               fetchData={fetchData}
@@ -132,13 +171,7 @@ export class BookList extends React.Component {
             />
           </Dimmer>
           <Dimmer active={rearrange} page>
-            <DragAndDropBox
-              data={data}
-              modelName="Book"
-              element={Book}
-              handleUpdate={handleUpdate}
-              handleDragHide={this.handleDragHide}
-            />
+            <DragAndDropBox data={data} modelName="Book" element={Book} handleUpdate={handleUpdate} handleDragHide={this.handleDragHide} />
           </Dimmer>
           {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
         </Segment>
