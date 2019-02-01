@@ -37,7 +37,7 @@ const creators = [
   }
 ];
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +76,8 @@ class App extends Component {
       axios
         .get("/api/student_profile/profile/")
         .then(response => {
-          this.setState({ theme: response.data[0].theme });
+          console.log(response.data);
+          if(response.data[0])this.setState({ theme: response.data[0].theme });
         })
         .catch(error => {
           console.log(error);
@@ -114,7 +115,6 @@ class App extends Component {
           />
           <Menu.Item
             color={theme || "blue"}
-            fitted="horizontally"
             name="Achievements"
             active={activeItem === "Achievements"}
             onClick={(e, target) => {
