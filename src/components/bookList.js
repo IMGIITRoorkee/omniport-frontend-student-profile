@@ -1,6 +1,5 @@
 import React from "react";
 import { Book } from "./book";
-import { BookForm } from "./bookForm";
 import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,27 +10,85 @@ import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
 const bookSpec = {
-  fields: {
-    field1: {
-      name: "Title",
+  fields:[ {
+  
+      name: "title",
       type: "input_field",
       const_props: {
-        name: "Title",
-        placeholder: "Enter the title of the book"
+        name: "title",
+        key:"Title",
+        placeholder: "Enter the title of the book",
+        label: "Title",
+        required: true
       },
-      user_props: ["onChange"]
+      user_props: ["handleChange"]
     },
-    field2: {
-      name: "Author",
+    {
+      name: "authors",
       type: "input_field",
       const_props: {
-        name: "Author",
-        placeholder: "Enter the authors of the book"
+        name: "authors",
+        key:"Author",
+        placeholder: "Enter the authors of the book",
+        label:"Authors",
+        required:true
       },
-      user_props: ["onChange"]
+      user_props: ["handleChange"]
+    },
+    {
+      name: "publisher",
+      type: "input_field",
+      const_props: {
+        name: "publisher",
+        key: "Publisher",
+        placeholder: "Enter the publisher of the book",
+        label: "Publisher",
+        required: true
+      },
+      user_props:["handleChange"]
+    },
+    {
+      name: "year",
+      type: "year_field",
+      const_props: {
+        name: "year",
+        key: "year",
+        placeholder: "Enter the year of writing the book",
+        label: "Year",
+        required: true
+      },
+      user_props:["handleChange"]
     }
-  },
-  group_fields: {},
+  ],  
+  group_fields: [{
+    widths:"equal",
+    fields: [
+      {
+        name: "pages",
+        type: "input_field",
+        const_props: {
+          name: "pages",
+          key: "Pages",
+          placeholder: "Number of pages",
+          label: "Pages",
+          required: false
+        },
+        user_props:["handleChange"]
+      },
+      {
+        name: "volumes",
+        type: "input_field",
+        const_props: {
+          name: "volumes",
+          key: "Volumes",
+          placeholder: "Number of volumes",
+          label: "Volumes",
+          required: false
+        },
+        user_props:["handleChange"]
+      }
+    ]
+  }],
 
   initial: {
     id: -1,
@@ -47,12 +104,11 @@ const bookSpec = {
     priority: 1,
     visibility: true
   },
-  url: "book"
+  url: "book",
+  name:"Book"
 };
 console.log(Book);
-const TrialForm = genericFormMaker(bookSpec);
-
-console.log(TrialForm);
+const BookForm = genericFormMaker(bookSpec);
 export class BookList extends React.Component {
   constructor(props) {
     super(props);
@@ -132,6 +188,7 @@ export class BookList extends React.Component {
 
   render() {
     const { active, update, formData, data, rearrange } = this.state;
+    console.log(active);
     let { theme } = this.props;
     if (theme == "zero") theme = null;
     console.log(theme);
@@ -161,7 +218,7 @@ export class BookList extends React.Component {
           </div>
 
           <Dimmer active={active} page>
-            <TrialForm
+            <BookForm
               update={update}
               formData={formData}
               fetchData={fetchData}

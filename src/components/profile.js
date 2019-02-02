@@ -7,8 +7,6 @@ import { ProfileForm } from "./profileForm";
 import { ResumeDownload } from "./resumeDownload";
 import { BrowserView, MobileView } from "react-device-detect";
 import style from "../styles.css";
-import defaultDp from "./../../../../../omniport/formula_one/src/components/default-dp";
-import DefaultDp from "./../../../../../omniport/formula_one/src/components/default-dp";
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,7 @@ export class Profile extends React.Component {
         customWebsite: false,
         resume: null,
         displayPicture: null,
-        theme: "teal"
+        theme: "blue"
       },
       person_data: "",
       active: false,
@@ -107,7 +105,7 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (person_data.displayPicture == null && data.student != "") {
-      imageView = <DefaultDp name={data.student} size={1} />;
+      imageView = null; //<DefaultDp name={data.student} size={1} />
     }
     if (data)
       return (

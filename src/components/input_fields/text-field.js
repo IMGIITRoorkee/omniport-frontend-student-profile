@@ -1,24 +1,25 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Input } from "semantic-ui-react";
 
 export default class TextField extends React.PureComponent {
   render() {
-    const { name, field, value, handleChange, error = { error } } = this.props;
-    const { required, label, maxLength } = field;
+    const { name, value, handleChange, required, label, placeholder } = this.props;
     return (
-      <Form.Field>
-        <label>{name}</label>
+      <Form.Field required={required}>
+        <label>{label}</label>
         <Input
           id={name}
-          error={error}
-          required={required}
-          onChange={(e, { name, value }) => handleChange(name, value)}
+          onChange={(e, { name, value }) => {
+            e.persist();
+            handleChange(name, value)}}
           value={value}
           name={name}
-          placeholder={label}
-          maxLength={maxLength || 100}
+          placeholder={placeholder}
         />
       </Form.Field>
     );
   }
 }
+
+
+//error needs to be added
