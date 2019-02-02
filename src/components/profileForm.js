@@ -255,7 +255,7 @@ export class ProfileForm extends React.Component {
     if (this.state.resumeLink) {
       res = (
         <Form.Field>
-          <Resume resume={this.state.resumeLink} handleDelete={this.handleDelete} />
+          <Resume handleDelete={this.handleDelete} />
         </Form.Field>
       );
     }

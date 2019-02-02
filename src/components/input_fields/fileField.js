@@ -6,12 +6,11 @@ import style from "./../../styles.css";
 export default class FileField extends React.PureComponent {
   render() {
     const { name,  handleFile,  required, label, link, handleDelete } = this.props;
-
     let res = (
         <Form.Field required={required}>
-          <input type="file" onChange={(e, { name, value }) => {
+          <input type="file" onChange={(e) => {
             e.persist();
-            handleFile(e, name, value)}}
+            handleFile(e, e.target.files[0], e.target.value,name)}}
           styleName="style.inputfile" 
           id="embedpollfileinput1" />
           <div styleName="style.inputLabel">

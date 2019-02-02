@@ -15,6 +15,7 @@ import ReadField from "./input_fields/read-field";
 import TextField from "./input_fields/text-field";
 import TextAreaField from "./input_fields/textarea-field";
 import YearField from "./input_fields/year-field";
+import FileField from "./input_fields/fileField";
 
 const FieldMap = {
   boolean_field: BooleanField,
@@ -25,7 +26,8 @@ const FieldMap = {
   read_field: ReadField,
   input_field: TextField,
   text_area_field: TextAreaField,
-  year_field: YearField
+  year_field: YearField,
+  file_field: FileField
 };
 
 export default function genericFormMaker(info) {
@@ -35,7 +37,6 @@ export default function genericFormMaker(info) {
       super(props);
       this.state = {
         data: props.formData,
-        fileData: props.fileData || -1 , //-1 in case of no file input fields present
         update: props.update,
         open: false,
         errors:[]
@@ -52,17 +53,21 @@ export default function genericFormMaker(info) {
         let properties = field.user_props;
         for (let index in properties) {
           //loop through each prop
-          console.log(properties[index]);
           props[properties[index]] = this[properties[index]];
         }
-        props["value"] = this.state.data[field.name];
+        if(field.type != "file_field")
+          {
+            props["value"] = this.state.data[field.name];
+          }
+          else{
+            props["link"] = this.state.data[field.name + "Link"];
+          }
         //combine user_props and const_props
 
         props = Object.assign(props, field.const_props);
 
         //create the JSX element with the props and push it to the form array
         let f = FieldMap[field.type];
-        console.log(props);
         formElements.push(React.createElement(f, props));
       }
 
@@ -83,10 +88,18 @@ export default function genericFormMaker(info) {
           let properties = field.user_props;
           for (let index in properties) {
             //loop through each prop
-            console.log(properties[index]);
             props[properties[index]] = this[properties[index]];
           }
-          props["value"] = this.state.data[field.name];
+          if(field.type != "file_field")
+          {
+            props["value"] = this.state.data[field.name];
+          }
+          else{
+            console.log(field.name);
+            console.log('here');
+            console.log(this.state.data);
+            props["link"] = this.state.data[field.name + "Link"];
+          }
           //combine user_props and const_props
   
           props = Object.assign(props, field.const_props);
@@ -105,13 +118,14 @@ export default function genericFormMaker(info) {
       return formElements;
     };
 
-    handleFile = (event, name) => {
+    handleFile = (event,file, value, name) => {
       let link = name + "Link";
+      console.log(name);
       this.setState({
-        fileData:{
-          ...this.state.fileData,
-          [name]: event.target.files[0],
-          [link]: event.target.value
+        data:{
+          ...this.state.data,
+          [name]: file,
+          [link]: value
       }
       });
       event.target.value = null;
@@ -186,14 +200,16 @@ export default function genericFormMaker(info) {
     };
 
     handleDelete = (name) => {
-      let link = name + "link";
+      let link = name + "Link";
+      console.log("reached here a " + name);
       this.setState({
-        fileData: {...this.state.fileData, [name]: null, [link]: null}
+        data: {...this.state.data, [name]: null, [link]: null}
+      },() => {
+        console.log(this.state);
       });
     };
     render() {
       const {update} = this.state;
-      console.log('reached render');
       let formElements = this.makeForm(info);
       return (
         <Segment basic>
