@@ -1,7 +1,6 @@
 import React from "react";
 
 import moment from "moment";
-<<<<<<< HEAD
 
 import axios from "axios";
 
@@ -9,53 +8,13 @@ import { Form, Input, Button, Icon, Checkbox, Segment, Confirm } from "semantic-
 
 import {capitalizeFirstLetter} from "./../utils";
 
-=======
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Checkbox,
-  Segment,
-  Confirm
-} from "semantic-ui-react";
->>>>>>> f21b3166cbf6f4f2b5e2a281a63fefde6f802f65
 import { getCookie } from "formula_one";
 
 import style from "../styles.css";
 
 import { ErrorTransition } from "./transition";
-<<<<<<< HEAD
 
 import {FieldMap} from "./../constants";
-=======
-
-import BooleanField from "./input_fields/boolean-field";
-import ChoiceField from "./input_fields/choice-field";
-import DateField from "./input_fields/date-field";
-import EmailField from "./input_fields/email-field";
-import IntegerField from "./input_fields/integer-field";
-import ReadField from "./input_fields/read-field";
-import TextField from "./input_fields/text-field";
-import TextAreaField from "./input_fields/textarea-field";
-import YearField from "./input_fields/year-field";
-import FileField from "./input_fields/fileField";
-
-import { capitalizeFirstLetter } from "./../utils";
-
-const FieldMap = {
-  boolean_field: BooleanField,
-  choice_field: ChoiceField,
-  date_field: DateField,
-  email_field: EmailField,
-  integer_field: IntegerField,
-  read_field: ReadField,
-  input_field: TextField,
-  text_area_field: TextAreaField,
-  year_field: YearField,
-  file_field: FileField
-};
->>>>>>> f21b3166cbf6f4f2b5e2a281a63fefde6f802f65
 
 export default function genericFormMaker(info) {
   let { initial, name, url } = info;
@@ -172,10 +131,6 @@ export default function genericFormMaker(info) {
     handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
-<<<<<<< HEAD
-      console.log(info);
-=======
->>>>>>> f21b3166cbf6f4f2b5e2a281a63fefde6f802f65
       for (let prop in info) {
         let link = prop + "Link";
         if (this.state.data.hasOwnProperty(link) === false) {
@@ -195,10 +150,6 @@ export default function genericFormMaker(info) {
           }
         }
       }
-<<<<<<< HEAD
-=======
-
->>>>>>> f21b3166cbf6f4f2b5e2a281a63fefde6f802f65
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
@@ -240,8 +191,6 @@ export default function genericFormMaker(info) {
       }
     };
 
-<<<<<<< HEAD
-=======
     handleUpdateDelete = option => {
       let headers = {
         "X-CSRFToken": getCookie("csrftoken")
@@ -258,7 +207,6 @@ export default function genericFormMaker(info) {
         });
       });
     };
->>>>>>> f21b3166cbf6f4f2b5e2a281a63fefde6f802f65
 
     handleChange = (name, value) => {
       console.log("called");
