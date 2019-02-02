@@ -7,19 +7,11 @@ import style from "../styles.css";
 import { YearInput } from "semantic-ui-calendar-react";
 import { ErrorTransition } from "./transition";
 
-const graduationOptions = [
-  { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
-  { text: "INTERMEDIATE", key: "INTERMEDIATE", value: "int" },
-  { text: "ASSOCIATE", key: "ASSOCIATE", value: "ass" },
-  { text: "GRADUATE", key: "GRADUATE", value: "gra" },
-  { text: "POSTGRADUATE", key: "POSTGRADUATE", value: "pos" },
-  { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
-  { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
-];
+
 export const initial = {
   update: false,
   data: {
-    semesterNumber: "",
+    semester_number: "",
     cgpa: "",
     sgpa: "",
     priority: 1,
@@ -68,12 +60,18 @@ export class CurrentEducationForm extends React.Component {
   };
   handleSubmit = () => {
     let headers = {
-      "X-CSRFToken": getCookie("csrftoken")
-    };
+      "X-CSRFToken": getCookie("csrftoken"),
+      "Content-type": "multipart/form-data"
+    }
+    let data = new FormData();
+    data.append("semester_number", 10);
+    data.append("cgpa", 10);
+    data.append("sgpa", 1);
+
     axios({
       method: "post",
       url: "/api/student_profile/current_education/",
-      data: this.state.data,
+      data: data,
       headers: headers
     }).then(response => {
       this.props.appendData(response.data);

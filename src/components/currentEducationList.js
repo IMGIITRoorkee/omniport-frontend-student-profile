@@ -1,16 +1,19 @@
 import React from "react";
 import { CurrentEducation } from "./currentEducation";
-import { CurrentEducationForm } from "./currentEducationForm";
 import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
-
 import { initial } from "./currentEducationForm";
 import { ComponentTransition } from "./transition";
+import {currentEducationSpecs} from "./../constants";
+import genericFormMaker from "./genericFormMaker";
+
+const CurrentEducationForm = genericFormMaker(currentEducationSpecs);
+
 export class CurrentEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
+    this.state = { update: false, active: false, formData: initial.data, data: [], empty: "" };
   }
   componentDidMount() {
     this.fetchData();

@@ -58,19 +58,6 @@ const bookSpec = {
         required: true
       },
       user_props:["handleChange"]
-    },
-    {
-  
-      name: "book",
-      type: "file_field",
-      const_props: {
-        name: "book",
-        key:"Book",
-        placeholder: "Upload the book",
-        label: "Book",
-        required: false
-      },
-      user_props: ["handleFile", "handleDelete"]
     }
   ],  
   group_fields: [{

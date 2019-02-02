@@ -4,6 +4,7 @@ import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
 export function Internship(props) {
+  console.log(props.data.endDate);
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -14,7 +15,7 @@ export function Internship(props) {
               {props.data.position} - <b>{props.data.organisation}</b>
               <p>
                 {props.data.startDate} to{" "}
-                {props.data.endData == "" ? props.data.endDate : "present"}
+                {props.data.endDate == null ?  "present": props.data.endDate }
               </p>
               <p>{props.data.description}</p>
             </List.Content>

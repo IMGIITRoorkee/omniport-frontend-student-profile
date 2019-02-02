@@ -4,10 +4,14 @@ import axios from "axios";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { Achievement } from "./achievement";
-import { AchievementForm } from "./achievementForm";
 import { initial } from "./achievementForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+import genericFormMaker from "./genericFormMaker";
+
+import {achievementSpecs} from "./../constants";
+
+const AchievementForm = genericFormMaker(achievementSpecs);
 
 export class AchievementList extends React.Component {
   constructor(props) {
@@ -15,7 +19,7 @@ export class AchievementList extends React.Component {
     this.state = {
       update: false,
       active: false,
-      formData: null,
+      formData: initial.formData,
       data: [],
       rearrange: false,
       empty: ""
