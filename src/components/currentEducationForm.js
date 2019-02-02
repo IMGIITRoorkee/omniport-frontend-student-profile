@@ -16,7 +16,8 @@ export const initial = {
     sgpa: "",
     priority: 1,
     visibility: true
-  }
+  },
+  links:[]
 };
 export class CurrentEducationForm extends React.Component {
   constructor(props) {

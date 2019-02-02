@@ -30,7 +30,8 @@ export const initial = {
     cgpa: "",
     percentage: "98",
     is_percentage: false
-  }
+  },
+  links:[]
 };
 export class PreviousEducationForm extends React.Component {
   constructor(props) {

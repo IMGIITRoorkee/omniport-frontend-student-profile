@@ -1,6 +1,5 @@
 import React from "react";
 import { Paper } from "./paper";
-import { PaperForm } from "./paperForm";
 import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +8,11 @@ import inline from "formula_one/src/css/inline.css";
 import { initial } from "./paperForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+
+import genericFormMaker from "./genericFormMaker";
+import { paperSpecs } from "../constants";
+
+const PaperForm = genericFormMaker(paperSpecs);
 
 export class PaperList extends React.Component {
   constructor(props) {
@@ -41,8 +45,17 @@ export class PaperList extends React.Component {
       });
   };
   manageData = id => {
+
+    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    console.log(formData);
+    for(let i in initial.links)
+    {
+      let name = initial.links[i];
+      formData[name + "Link"] = formData[name];
+      formData[name] = null;
+    }
     this.setState({
-      formData: this.state.data.find(x => x.id == id),
+      formData: formData,
       update: true,
       active: true
     });

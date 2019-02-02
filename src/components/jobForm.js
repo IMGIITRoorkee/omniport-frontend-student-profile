@@ -20,7 +20,8 @@ export const initial = {
     priority: 1,
     visibility: true,
     experienceType: "job"
-  }
+  },
+  links:[]
 };
 export class JobForm extends React.Component {
   constructor(props) {

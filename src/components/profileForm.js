@@ -125,23 +125,7 @@ export class ProfileForm extends React.Component {
       });
     }
   };
-  handleUpdateDelete = () => {
-    let headers = {
-      "X-CSRFToken": getCookie("csrftoken")
-    };
-    if (!this.state.createNew) {
-      axios({
-        method: "delete",
-        url: "/api/student_profile/profile/" + this.state.data.id + "/",
-        headers: headers
-      }).then(response => {
-        this.setState({
-          data: response.data,
-          resumeLink: response.data.resume
-        });
-      });
-    }
-  };
+ 
   handleFile = event => {
     this.setState({
       resume: event.target.files[0],
@@ -255,7 +239,7 @@ export class ProfileForm extends React.Component {
     if (this.state.resumeLink) {
       res = (
         <Form.Field>
-          <Resume handleDelete={this.handleDelete} />
+          <Resume name={"resume"} handleDelete={this.handleDelete} />
         </Form.Field>
       );
     }

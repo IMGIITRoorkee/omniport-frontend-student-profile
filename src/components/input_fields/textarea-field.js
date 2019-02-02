@@ -5,25 +5,23 @@ import Field from './field'
 
 export default class TextAreaField extends React.PureComponent {
   render () {
-    const { name, field, value, handleChange, error } = this.props
-    const { required, label } = field
+    const { name, value, handleChange, required, label, placeholder } = this.props;
     return (
-      <Field
-        field={
+      
+        <Form.Field required = {required}>
+          <label>{label}</label>
           <Form.TextArea
-            id={name}
-            name={name}
-            placeholder={label}
-            value={value}
-            onChange={e => handleChange(e.target.name, e.target.value)}
-            autoHeight
-            rows={2}
+          id={name}
+          onChange={(e, { name, value }) => {
+            e.persist();
+            handleChange(name, value)}}
+          value={value}
+          name={name}
+          placeholder={placeholder}
           />
-        }
-        label={label}
-        required={required}
-        error={error}
-      />
+        </Form.Field>
+          
+        
     )
   }
 }

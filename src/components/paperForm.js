@@ -21,8 +21,11 @@ export const initial = {
     publisher: "",
     year: "",
     pages: "",
-    volumes: ""
-  }
+    volumes: "",
+    paper:"",
+    paperLink:""
+  },
+  links:['paper']
 };
 export class PaperForm extends React.Component {
   constructor(props) {

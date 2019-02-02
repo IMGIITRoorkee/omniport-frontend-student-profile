@@ -9,106 +9,10 @@ import { initial } from "./bookForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
-const bookSpec = {
-  fields:[ {
-  
-      name: "title",
-      type: "input_field",
-      const_props: {
-        name: "title",
-        key:"Title",
-        placeholder: "Enter the title of the book",
-        label: "Title",
-        required: true
-      },
-      user_props: ["handleChange"]
-    },
-    {
-      name: "authors",
-      type: "input_field",
-      const_props: {
-        name: "authors",
-        key:"Author",
-        placeholder: "Enter the authors of the book",
-        label:"Authors",
-        required:true
-      },
-      user_props: ["handleChange"]
-    },
-    {
-      name: "publisher",
-      type: "input_field",
-      const_props: {
-        name: "publisher",
-        key: "Publisher",
-        placeholder: "Enter the publisher of the book",
-        label: "Publisher",
-        required: true
-      },
-      user_props:["handleChange"]
-    },
-    {
-      name: "year",
-      type: "year_field",
-      const_props: {
-        name: "year",
-        key: "year",
-        placeholder: "Enter the year of writing the book",
-        label: "Year",
-        required: true
-      },
-      user_props:["handleChange"]
-    }
-  ],  
-  group_fields: [{
-    widths:"equal",
-    fields: [
-      {
-        name: "pages",
-        type: "input_field",
-        const_props: {
-          name: "pages",
-          key: "Pages",
-          placeholder: "Number of pages",
-          label: "Pages",
-          required: false
-        },
-        user_props:["handleChange"]
-      },
-      {
-        name: "volumes",
-        type: "input_field",
-        const_props: {
-          name: "volumes",
-          key: "Volumes",
-          placeholder: "Number of volumes",
-          label: "Volumes",
-          required: false
-        },
-        user_props:["handleChange"]
-      }
-    ]
-  }],
+import {bookSpecs} from "./../constants";
 
-  initial: {
-    id: -1,
-    title: "",
-    authors: "",
-    publisher: "",
-    year: "",
-    pages: "",
-    volumes: "",
-    contribution: "",
-    editors: "",
-    isbnCode: "",
-    priority: 1,
-    visibility: true
-  },
-  url: "book",
-  name:"Book"
-};
 console.log(Book);
-const BookForm = genericFormMaker(bookSpec);
+const BookForm = genericFormMaker(bookSpecs);
 export class BookList extends React.Component {
   constructor(props) {
     super(props);
@@ -140,8 +44,17 @@ export class BookList extends React.Component {
       });
   };
   manageData = id => {
+
+    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    console.log(formData);
+    for(let i in initial.links)
+    {
+      let name = initial.links[i];
+      formData[name + "Link"] = formData[name];
+      formData[name] = null;
+    }
     this.setState({
-      formData: this.state.data.find(x => x.id == id),
+      formData: formData,
       update: true,
       active: true
     });

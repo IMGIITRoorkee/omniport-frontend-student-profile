@@ -35,7 +35,8 @@ export class ProjectForm extends React.Component {
       data: initial,
       errors: [],
       rearrange: false,
-      empty: ""
+      empty: "",
+      open:false
     };
   }
 

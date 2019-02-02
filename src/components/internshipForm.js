@@ -20,7 +20,8 @@ export const initial = {
     priority: 1,
     visibility: true,
     experienceType: "int"
-  }
+  },
+  links:[]
 };
 export class InternshipForm extends React.Component {
   constructor(props) {

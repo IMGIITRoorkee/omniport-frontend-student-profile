@@ -17,7 +17,8 @@ export const initial = {
     email: "",
     priority: 1,
     visibility: true
-  }
+  },
+  links:[]
 };
 export class RefereeForm extends React.Component {
   constructor(props) {

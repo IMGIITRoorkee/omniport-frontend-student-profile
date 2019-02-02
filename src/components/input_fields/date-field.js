@@ -1,10 +1,10 @@
 import React from "react";
-import { DateInput, Form } from "semantic-ui-calendar-react";
+import { DateInput } from "semantic-ui-calendar-react";
+import {Form} from "semantic-ui-react";
 
 export default class DateField extends React.PureComponent {
   render() {
-    const { name, field, value, handleChange, error } = this.props;
-    const { required, label, maxLength } = field;
+    const { name, value, handleChange, error , required, label, placeholder} = this.props;
     return (
       <Form.Field required={required}>
         <label>{label}</label>
@@ -13,13 +13,11 @@ export default class DateField extends React.PureComponent {
             name={name}
             placeholder={label}
             value={value}
-            maxLength={maxLength}
             onChange={(e, { name, value }) => {
             e.persist();
             handleChange(name, value);
             }}
             iconPosition="left"
-            error={error}
           />
        
       </Form.Field>

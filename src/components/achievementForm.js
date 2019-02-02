@@ -8,7 +8,8 @@ import { ErrorTransition } from "./transition";
 
 export const initial = {
   update: false,
-  data: { achievement: "", id: -1 }
+  data: { achievement: "", id: -1},
+  links:[] 
 };
 export class AchievementForm extends React.Component {
   constructor(props) {

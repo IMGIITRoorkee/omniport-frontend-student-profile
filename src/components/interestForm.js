@@ -8,7 +8,8 @@ import { ErrorTransition } from "./transition";
 
 export const initial = {
   update: false,
-  data: { topic: "", id: -1 }
+  data: { topic: "", id: -1 },
+  links:[]
 };
 export class InterestForm extends React.Component {
   constructor(props) {

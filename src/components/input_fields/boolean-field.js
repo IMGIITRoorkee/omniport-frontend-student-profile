@@ -1,19 +1,16 @@
 import React from "react";
-import { Checkbox } from "semantic-ui-react";
+import { Checkbox, Form } from "semantic-ui-react";
 
-import Field from "./field";
+
 
 export default class BooleanField extends React.PureComponent {
   render() {
-    const { name, field, checked, handleChange, error } = this.props;
-    const { required, label } = field;
+    const { name,  checked, handleChange, error, required, label, value, placeholder } = this.props;
     return (
-      <Field
-        field={<Checkbox id={name} name={name} checked={checked} onChange={(e, { name, checked }) => handleChange(name, checked)} toggle />}
-        label={label}
-        required={required}
-        error={error}
-      />
+      <Form.Field required = {required}>
+      <Checkbox name = {name} id = {name } label={label} onChange={() => handleChange(name, !value)} checked={value} />
+      </Form.Field>
+       
     );
-  }
+      }
 }

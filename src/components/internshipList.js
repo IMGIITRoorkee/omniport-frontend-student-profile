@@ -1,6 +1,6 @@
 import React from "react";
 import { Internship } from "./internship";
-import { InternshipForm } from "./internshipForm";
+
 import { Dimmer, Icon, Segment, Popup, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,10 @@ import style from "../styles.css";
 import { initial } from "./internshipForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+import genericFormMaker from "./genericFormMaker";
+import {internSpecs} from "./../constants";
+
+const InternshipForm = genericFormMaker(internSpecs);
 
 export class InternshipList extends React.Component {
   constructor(props) {
@@ -35,11 +39,19 @@ export class InternshipList extends React.Component {
       });
   };
   manageData = id => {
+
+    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    console.log(formData);
+    for(let i in initial.links)
+    {
+      let name = initial.links[i];
+      formData[name + "Link"] = formData[name];
+      formData[name] = null;
+    }
     this.setState({
-      formData: this.state.data.find(x => x.id == id),
+      formData: formData,
       update: true,
-      active: true,
-      rearrange: false
+      active: true
     });
   };
   appendData = item => {

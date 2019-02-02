@@ -36,8 +36,17 @@ export class CurrentEducationList extends React.Component {
       });
   };
   manageData = id => {
+
+    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    console.log(formData);
+    for(let i in initial.links)
+    {
+      let name = initial.links[i];
+      formData[name + "Link"] = formData[name];
+      formData[name] = null;
+    }
     this.setState({
-      formData: this.state.data.find(x => x.id == id),
+      formData: formData,
       update: true,
       active: true
     });

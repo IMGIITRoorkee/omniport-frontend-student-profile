@@ -51,7 +51,9 @@ export default function genericFormMaker(info) {
       let fields = info.fields;
       for (let index in fields) {
         let field = fields[index];
-        //loop through each field
+        if(field.group == false)
+        {
+          //loop through each field
 
         let props = {};
         let properties = field.user_props;
@@ -72,45 +74,47 @@ export default function genericFormMaker(info) {
         let f = FieldMap[field.type];
         formElements.push(React.createElement(f, props));
       }
-
-      let group_fields = info.group_fields;
-      for (let i in group_fields) {
-        let group = group_fields[i];
-        let fields = group.fields;
-        let groupElements = [];
-        for (let index in fields) {
-          let field = fields[index];
-          //loop through each field
-
-          let props = {};
-          let properties = field.user_props;
-          for (let index in properties) {
-            //loop through each prop
-            props[properties[index]] = this[properties[index]];
-          }
-          if (field.type != "file_field") {
-            props["value"] = this.state.data[field.name];
-          } else {
-            console.log(field.name);
-            console.log("here");
-            console.log(this.state.data);
-            props["link"] = this.state.data[field.name + "Link"];
-          }
-          //combine user_props and const_props
-
+      else{
+        let fields = field.fields;
+          let groupElements = [];
+          for (let index in fields) {
+            let field = fields[index];
+            //loop through each field
+  
+            let props = {};
+            let properties = field.user_props;
+            for (let index in properties) {
+              //loop through each prop
+              props[properties[index]] = this[properties[index]];
+            }
+            if (field.type != "file_field") {
+              props["value"] = this.state.data[field.name];
+            } else {
+              console.log(field.name);
+              console.log("here");
+              console.log(this.state.data);
+              props["link"] = this.state.data[field.name + "Link"];
+            }
+            //combine user_props and const_props
+  
           props = Object.assign(props, field.const_props);
-
-          //create the JSX element with the props and push it to the form array
-          let f = FieldMap[field.type];
-          console.log(props);
-          groupElements.push(React.createElement(f, props));
-        }
-        formElements.push(
-          <Form.Group key={i} widths={group.widths}>
-            {groupElements}
-          </Form.Group>
-        );
+  
+            //create the JSX element with the props and push it to the form array
+            let f = FieldMap[field.type];
+            console.log(props);
+            groupElements.push(React.createElement(f, props));
+          }
+          formElements.push(
+            <Form.Group key = {index} widths={field.widths}>
+              {groupElements}
+            </Form.Group>
+          );
+        
       }
+      }
+
+
+      
 
       return formElements;
     };
@@ -137,19 +141,23 @@ export default function genericFormMaker(info) {
           data.append(prop, info[prop]);
         } else {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
+            console.log('da ');
             data.append(prop, this.state.data[prop]);
           } else if (
             this.state.data[prop] == null &&
             this.state.data[link] != null
           ) {
+            console.log("no");
           } else if (
             this.state.data[prop] == null &&
             this.state.data[link] == null
           ) {
+            console.log('yes');
             data.append(prop, "");
           }
         }
       }
+      console.log(data);
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
@@ -162,6 +170,7 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
+            console.log(response.data);
             this.props.appendData(response.data);
             this.setState(initial, () => {
               this.props.handleHide();

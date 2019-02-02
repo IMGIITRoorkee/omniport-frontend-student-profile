@@ -25,7 +25,8 @@ export const initial = {
     priority: 1,
     visibility: true,
     book:"",
-    bookLink:""
+    bookLink:"",
+    links:[]
   }
 };
 export class BookForm extends React.Component {
