@@ -131,33 +131,34 @@ export default function genericFormMaker(info) {
       event.target.value = null;
     };
 
-    handleSubmit = e => {
+    handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
       for(let prop in info)
-      {
-        data.append(prop, info[prop]);
-      }
-      if(this.state.fileData !== -1)
-      {
-      let info = this.state.fileData;
-      for(let prop in info)
-      {
+      { 
         let link = prop + "Link";
-        if (this.state.fileData[link] != null && this.state.fileData[prop] != null) {
-          data.append(prop, this.state.fileData[prop]);
-        } else if (this.state.fileData[prop] == null && this.state.fileData[link] != null) {
-        } else if (this.state.fileData[prop] == null && this.state.fileData[link] == null) {
-          data.append(prop, "");
+        if(this.state.data.hasOwnProperty(link) === false)
+        {
+          data.append(prop, info[prop]);
+        }
+        else{
+          if (this.state.data[link] != null && this.state.data[prop] != null) {
+            data.append(prop, this.state.data[prop]);
+          } else if (this.state.data[prop] == null && this.state.data[link] != null) {
+          } else if (this.state.data[prop] == null && this.state.data[link] == null) {
+            data.append(prop, "");
+          }
         }
       }
-    }
+    
     
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
       };
-      axios({
+      if(this.state.update === false)
+      {
+        axios({
         method: "post",
         url: "/api/student_profile/" + url + "/",
         data: data,
@@ -172,7 +173,25 @@ export default function genericFormMaker(info) {
         .catch(error => {
           console.log(error);
         });
-    };
+    }
+    else{
+      axios({
+        method: option,
+        url: "/api/student_profile/" + url +"/"+ this.state.data.id +  "/",
+        data: data,
+        headers: headers
+      })
+        .then(response => {
+          this.props.updateDeleteData(this.state.data, option);
+          this.setState(initial, () => {
+            this.props.handleHide();
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 
     handleUpdateDelete = option => {
       let headers = {
@@ -225,7 +244,7 @@ export default function genericFormMaker(info) {
               header="Delete"
               open={this.state.open}
               content="Are you sure you want to delete?"
-              onConfirm={() => this.handleUpdateDelete("delete")}
+              onConfirm={() => this.handleSubmit("delete")}
               onCancel={() => {
                 this.setState({ open: false });
               }}
@@ -242,7 +261,7 @@ export default function genericFormMaker(info) {
               >
                 Delete
               </div>
-              <Button onClick={() => this.handleUpdateDelete("put")} color="blue">
+              <Button onClick={() => this.handleSubmit("put")} color="blue">
                 Save Changes
               </Button>
             </Segment>

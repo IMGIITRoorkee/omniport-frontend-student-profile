@@ -24,8 +24,8 @@ export const initial = {
     isbnCode: "",
     priority: 1,
     visibility: true,
-    book: "",
-    bookLink: ""
+    book:"",
+    bookLink:""
   }
 };
 export class BookForm extends React.Component {
