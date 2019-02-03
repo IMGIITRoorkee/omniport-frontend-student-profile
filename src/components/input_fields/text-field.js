@@ -3,11 +3,12 @@ import { Form, Input } from "semantic-ui-react";
 
 export default class TextField extends React.PureComponent {
   render() {
-    const { name, value, handleChange, required, label, placeholder } = this.props;
+    const { name, value, handleChange, required, label, placeholder, autoFocus } = this.props;
     return (
-      <Form.Field required={required}>
+      <Form.Field required={required} >
         <label>{label}</label>
         <Input
+        autoFocus = {autoFocus}
           id={name}
           onChange={(e, { name, value }) => {
             e.persist();

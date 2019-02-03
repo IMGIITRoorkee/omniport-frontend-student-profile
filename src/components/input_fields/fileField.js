@@ -6,7 +6,6 @@ import style from "./../../styles.css";
 export default class FileField extends React.PureComponent {
   render() {
     const { name,  handleFile,  required, label, link, handleDelete } = this.props;
-    console.log(this.props);
     let res = (
         <Form.Field required={required}>
           <input type="file" onChange={(e) => {

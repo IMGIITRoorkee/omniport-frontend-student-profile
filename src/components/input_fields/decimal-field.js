@@ -5,12 +5,13 @@ import Field from "./field";
 
 export default class DecimalField extends React.PureComponent {
   render() {
-    const { name, field, value, handleChange, error } = this.props;
+    const { name, field, value, handleChange, error, autoFocus } = this.props;
     const { required, label } = field;
     return (
       <Field
         field={
           <Form.Input
+           autoFocus = {autoFocus}
             type="number"
             step="any"
             id={name}

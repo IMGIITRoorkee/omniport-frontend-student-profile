@@ -5,7 +5,7 @@ import Field from './field'
 
 export default class IntegerField extends React.PureComponent {
   render () {
-    const { name, field, value, handleChange, error } = this.props
+    const { name, field, value, handleChange, error, autoFocus } = this.props
     const { required, label, maxValue, minValue } = field
     return (
       <Field

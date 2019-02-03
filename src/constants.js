@@ -9,7 +9,7 @@ import TextAreaField from "./components/input_fields/textarea-field";
 import YearField from "./components/input_fields/year-field";
 import FileField from "./components/input_fields/fileField";
 
-console.log(BooleanField);
+
 
 const graduationOptions = [
   { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
@@ -135,7 +135,7 @@ export const refereeSpecs = {
 export const interestSpecs = {
   fields:[ {
     group:false,
-    name: "topicd",
+    name: "topic",
     type: "input_field",
     const_props: {
       name: "topic",
@@ -536,8 +536,8 @@ export const previousEducationSpecs = {
     name: "graduation",
     type: "choice_field",
     const_props: {
-      name: "choice",
-      key: "Choice",
+      name: "graduation",
+      key: "Graduation",
       placeholder: "",
       label: "Graduation",
       required: true,

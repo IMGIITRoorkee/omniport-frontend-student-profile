@@ -64,7 +64,6 @@ export class PreviousEducationList extends React.Component {
         data.splice(i, 0, item);
         flag = true;
         this.setState({ data: data });
-        console.log(i);
         break;
       }
     }

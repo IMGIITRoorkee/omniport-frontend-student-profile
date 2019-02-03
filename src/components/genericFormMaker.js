@@ -61,6 +61,7 @@ export default function genericFormMaker(info) {
           //loop through each prop
           props[properties[index]] = this[properties[index]];
         }
+        props["autoFocus"] = index == 0 ? true:false;
         if (field.type != "file_field") {
           props["value"] = this.state.data[field.name];
         } else {
@@ -69,7 +70,6 @@ export default function genericFormMaker(info) {
         //combine user_props and const_props
 
         props = Object.assign(props, field.const_props);
-
         //create the JSX element with the props and push it to the form array
         let f = FieldMap[field.type];
         formElements.push(React.createElement(f, props));
@@ -77,8 +77,8 @@ export default function genericFormMaker(info) {
       else{
         let fields = field.fields;
           let groupElements = [];
-          for (let index in fields) {
-            let field = fields[index];
+          for (let i in fields) {
+            let field = fields[i];
             //loop through each field
   
             let props = {};
@@ -87,12 +87,10 @@ export default function genericFormMaker(info) {
               //loop through each prop
               props[properties[index]] = this[properties[index]];
             }
+            props["autoFocus"] = index == 0  && i == 0 ? true:false;
             if (field.type != "file_field") {
               props["value"] = this.state.data[field.name];
             } else {
-              console.log(field.name);
-              console.log("here");
-              console.log(this.state.data);
               props["link"] = this.state.data[field.name + "Link"];
             }
             //combine user_props and const_props
@@ -101,7 +99,6 @@ export default function genericFormMaker(info) {
   
             //create the JSX element with the props and push it to the form array
             let f = FieldMap[field.type];
-            console.log(props);
             groupElements.push(React.createElement(f, props));
           }
           formElements.push(
@@ -121,7 +118,6 @@ export default function genericFormMaker(info) {
 
     handleFile = (event, file, value, name) => {
       let link = name + "Link";
-      console.log(name);
       this.setState({
         data: {
           ...this.state.data,
@@ -135,30 +131,25 @@ export default function genericFormMaker(info) {
     handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
-      console.log(info);
       for (let prop in info) {
         let link = prop + "Link";
         if (this.state.data.hasOwnProperty(link) === false) {
           data.append(prop, info[prop]);
         } else {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
-            console.log('da ');
             data.append(prop, this.state.data[prop]);
           } else if (
             this.state.data[prop] == null &&
             this.state.data[link] != null
           ) {
-            console.log("no");
           } else if (
             this.state.data[prop] == null &&
             this.state.data[link] == null
           ) {
-            console.log('yes');
             data.append(prop, "");
           }
         }
       }
-      console.log(data);
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
@@ -171,14 +162,12 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            console.log(response.data);
             this.props.appendData(response.data);
             this.setState(initial, () => {
               this.props.handleHide();
             });
           })
           .catch(error => {
-            console.log(error);
             this.handleErrors(error.response.data);
           });
       } else {
@@ -189,13 +178,12 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            this.props.updateDeleteData(this.state.data, option);
+            this.props.updateDeleteData(response.data, option);
             this.setState(initial, () => {
               this.props.handleHide();
             });
           })
           .catch(error => {
-            console.log(error);
             this.handleErrors(error.response.data);
           });
       }
@@ -219,9 +207,7 @@ export default function genericFormMaker(info) {
     };
 
     handleChange = (name, value) => {
-      console.log("called");
       if (this.state.data.hasOwnProperty(name)) {
-        console.log("yes");
         this.setState({ data: { ...this.state.data, [name]: value } });
       }
     };
@@ -231,9 +217,6 @@ export default function genericFormMaker(info) {
       this.setState(
         {
           data: { ...this.state.data, [name]: null, [link]: null }
-        },
-        () => {
-          console.log(this.state);
         }
       );
     };

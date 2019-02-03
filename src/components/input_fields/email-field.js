@@ -5,12 +5,13 @@ import Field from "./field";
 
 export default class EmailField extends React.PureComponent {
   render() {
-    const { name, field, value, handleChange, error } = this.props;
+    const { name, field, value, handleChange, error, autoFocus } = this.props;
     const { required, label, maxLength } = field;
     return (
       <Field
         field={
           <Form.Input
+            autoFocus = {autoFocus}
             type="email"
             id={name}
             name={name}
