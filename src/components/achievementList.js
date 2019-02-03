@@ -109,7 +109,6 @@ export class AchievementList extends React.Component {
       updateDeleteData,
       handleHide,
       handleShow,
-
       handleDragHide,
       handleDragShow,
       handleUpdate

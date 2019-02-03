@@ -1,12 +1,15 @@
 import React from "react";
 import { Referee } from "./referee";
-import { RefereeForm } from "./refereeForm";
 import { Dimmer, Icon, Segment, Transition, Button, Popup } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./refereeForm";
 import { ComponentTransition } from "./transition";
 import { DragAndDropBox } from "./dragAndDropBox";
+import genericFormMaker from "./genericFormMaker";
+import { refereeSpecs } from "../constants";
+
+const RefereeForm = genericFormMaker(refereeSpecs);
 
 export class RefereeList extends React.Component {
   constructor(props) {

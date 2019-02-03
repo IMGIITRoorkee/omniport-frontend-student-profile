@@ -16,6 +16,7 @@ export function Referee(props) {
                 {props.data.designation}, {props.data.institute}
               </p>
               <p>{props.data.email}</p>
+              <p>{props.data.phone}</p>
             </List.Content>
           </List.Item>
         </List>

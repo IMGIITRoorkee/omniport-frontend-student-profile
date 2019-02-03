@@ -8,7 +8,18 @@ import TextField from "./components/input_fields/text-field";
 import TextAreaField from "./components/input_fields/textarea-field";
 import YearField from "./components/input_fields/year-field";
 import FileField from "./components/input_fields/fileField";
+
 console.log(BooleanField);
+
+const graduationOptions = [
+  { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
+  { text: "INTERMEDIATE", key: "INTERMEDIATE", value: "int" },
+  { text: "ASSOCIATE", key: "ASSOCIATE", value: "ass" },
+  { text: "GRADUATE", key: "GRADUATE", value: "gra" },
+  { text: "POSTGRADUATE", key: "POSTGRADUATE", value: "pos" },
+  { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
+  { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
+];
 
 export const FieldMap = {
     boolean_field: BooleanField,
@@ -20,7 +31,8 @@ export const FieldMap = {
     input_field: TextField,
     text_area_field: TextAreaField,
     year_field: YearField,
-    file_field: FileField
+    file_field: FileField,
+    choice_field: ChoiceField
   };
 
 export const achievementSpecs = {
@@ -42,6 +54,103 @@ export const achievementSpecs = {
   url: "achievement",
   name:"Achievement"
 };
+export const refereeSpecs = {
+  fields:[ 
+    {group:true,
+      widths:"equal",
+      fields: [
+        {
+   
+          name: "referee",
+          type: "input_field",
+          const_props: {
+            name: "referee",
+            key:"Referee",
+            placeholder: "",
+            label: "Referee",
+            required: true
+          },
+          user_props: ["handleChange"]
+        },
+        {
+      
+          name: "designation",
+          type: "input_field",
+          const_props: {
+            name: "designation",
+            key:"Designation",
+            placeholder: "",
+            label: "Designation",
+            required: true
+          },
+          user_props: ["handleChange"]
+        }]
+      }
+    ,
+  {
+    group:false,
+    name: "institute",
+    type: "input_field",
+    const_props: {
+      name: "institute",
+      key:"Institute",
+      placeholder: "",
+      label: "Institute",
+      required: true
+    },
+    user_props: ["handleChange"]
+  },
+  {
+    group:false,
+    name: "phone",
+    type: "input_field",
+    const_props: {
+      name: "phone",
+      key:"Phone",
+      placeholder: "",
+      label: "Phone",
+      required: false
+    },
+    user_props: ["handleChange"]
+  },
+  {
+    group:false,
+    name: "me",
+    type: "input_field",
+    const_props: {
+      name: "email",
+      key:"email",
+      placeholder: "",
+      label: "Email",
+      required: true
+    },
+    user_props: ["handleChange"]
+  }
+
+  ],
+
+  url: "referee",
+  name:"Reference"
+};
+export const interestSpecs = {
+  fields:[ {
+    group:false,
+    name: "topicd",
+    type: "input_field",
+    const_props: {
+      name: "topic",
+      key:"Topic",
+      placeholder: "",
+      label: "Topic",
+      required: true
+    },
+    user_props: ["handleChange"]
+  }
+  ],
+
+  url: "interest",
+  name:"Interest"
+};
 
 export const currentEducationSpecs = {
   fields:[
@@ -50,11 +159,11 @@ export const currentEducationSpecs = {
     widths:"equal",
     fields: [
       {
-        name: "semesterNumber",
+        name: "semester",
         type: "input_field",
         const_props: {
-          name: "semesterNumber",
-          key:"SemesterNumber",
+          name: "semester",
+          key:"Semester",
           placeholder: "",
           label: "Semester number",
           required: true
@@ -299,7 +408,7 @@ export const internSpecs = {
 };
 
 export const jobSpecs = Object.assign({}, internSpecs);
-jobSpecs.name = "Job";
+jobSpecs.name = "Job"
 
 export const bookSpecs = {
   fields:[ {
@@ -391,13 +500,94 @@ export const bookSpecs = {
   url: "book",
   name:"Book"
 };
-export const graduationOptions = [
-  { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
-  { text: "INTERMEDIATE", key: "INTERMEDIATE", value: "int" },
-  { text: "ASSOCIATE", key: "ASSOCIATE", value: "ass" },
-  { text: "GRADUATE", key: "GRADUATE", value: "gra" },
-  { text: "POSTGRADUATE", key: "POSTGRADUATE", value: "pos" },
-  { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
-  { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
-];
+export const previousEducationSpecs = {
+  fields:[{
+    group:true,
+    widths:"equal",
+    fields: [
+      {
+        name: "institute",
+        type: "input_field",
+        const_props: {
+          name: "institute",
+          key:"Institute",
+          placeholder: "",
+          label: "Institute",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        name: "degree",
+        type: "input_field",
+        const_props: {
+          name: "degree",
+          key:"Degree",
+          placeholder: "",
+          label: "Degree",
+          required: true
+        },
+        user_props: ["handleChange"]
+      }
+  ]
+  },
+  {
+    group:false,
+    name: "graduation",
+    type: "choice_field",
+    const_props: {
+      name: "choice",
+      key: "Choice",
+      placeholder: "",
+      label: "Graduation",
+      required: true,
+      options:graduationOptions
+    },
+    user_props:["handleChange"]
+  },
+  {
+    group:false,
+    name: "fieldOfStudy",
+    type: "input_field",
+    const_props: {
+      name: "fieldOfStudy",
+      key: "FieldOfStudy",
+      placeholder: "Enter the field you studied in Ex: Science, Commerce",
+      label: "Field of study",
+      required: false,
+    },
+    user_props:["handleChange"]
+  },
+  {
+    group:false,
+    name: "cgpa",
+    type: "input_field",
+    const_props: {
+      name: "cgpa",
+      key: "Cgpa",
+      placeholder: "",
+      label: "CGPA",
+      required: false,
+    },
+    user_props:["handleChange"]
+  } ,
+  {
+    group:false,
+    name: "year",
+    type: "year_field",
+    const_props: {
+      name: "year",
+      key: "Year",
+      placeholder: "",
+      label: "Year",
+      required: false,
+    },
+    user_props:["handleChange"]
+  }
+  ]
+  ,
+  url: "previous_education",
+  name:"Previous education"
+};
+
 

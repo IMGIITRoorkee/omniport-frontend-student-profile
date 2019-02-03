@@ -5,11 +5,13 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 import { Interest } from "./interest";
-import { InterestForm } from "./interestForm";
 import { initial } from "./interestForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+import genericFormMaker from "./genericFormMaker";
+import { interestSpecs } from "../constants";
 
+const InterestForm = genericFormMaker(interestSpecs);
 export class InterestList extends React.Component {
   constructor(props) {
     super(props);

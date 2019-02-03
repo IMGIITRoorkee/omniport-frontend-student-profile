@@ -11,7 +11,7 @@ export function CurrentEducation(props) {
           <List.Item>
             <List.Icon name="stop" color="blue" />
             <List.Content>
-              <p>Semester-{props.data.semesterNumber}</p>
+              <p>Semester - {props.data.semester}</p>
               <p>SGPA: {props.data.sgpa} </p>
               <p>CGPA: {props.data.cgpa} </p>
             </List.Content>

@@ -1,11 +1,14 @@
 import React from "react";
 import { PreviousEducation } from "./previousEducation";
-import { PreviousEducationForm } from "./previousEducationForm";
 import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./previousEducationForm";
 import { ComponentTransition } from "./transition";
+import genericFormMaker from "./genericFormMaker";
+import { previousEducationSpecs } from "../constants";
+
+const PreviousEducationForm = genericFormMaker(previousEducationSpecs);
 function compare(a, b) {
   return a.year < b.year;
 }
@@ -37,7 +40,6 @@ export class PreviousEducationList extends React.Component {
       });
   };
   manageData = id => {
-
     let formData = Object.assign({},this.state.data.find(x => x.id == id));
     console.log(formData);
     for(let i in initial.links)

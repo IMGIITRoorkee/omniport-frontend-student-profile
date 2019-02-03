@@ -135,6 +135,7 @@ export default function genericFormMaker(info) {
     handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
+      console.log(info);
       for (let prop in info) {
         let link = prop + "Link";
         if (this.state.data.hasOwnProperty(link) === false) {

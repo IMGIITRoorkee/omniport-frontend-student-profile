@@ -11,7 +11,7 @@ import { ErrorTransition } from "./transition";
 export const initial = {
   update: false,
   data: {
-    semester_number: "",
+    semester: "",
     cgpa: "",
     sgpa: "",
     priority: 1,
