@@ -1,13 +1,13 @@
-import BooleanField from "./components/input_fields/boolean-field";
-import ChoiceField from "./components/input_fields/choice-field";
-import DateField from "./components/input_fields/date-field";
-import EmailField from "./components/input_fields/email-field";
-import IntegerField from "./components/input_fields/integer-field";
-import ReadField from "./components/input_fields/read-field";
-import TextField from "./components/input_fields/text-field";
-import TextAreaField from "./components/input_fields/textarea-field";
-import YearField from "./components/input_fields/year-field";
-import FileField from "./components/input_fields/fileField";
+import BooleanField from "./../components/input_fields/boolean-field";
+import ChoiceField from "./../components/input_fields/choice-field";
+import DateField from "./../components/input_fields/date-field";
+import EmailField from "./../components/input_fields/email-field";
+import IntegerField from "./../components/input_fields/integer-field";
+import ReadField from "./../components/input_fields/read-field";
+import TextField from "./../components/input_fields/text-field";
+import TextAreaField from "./../components/input_fields/textarea-field";
+import YearField from "./../components/input_fields/year-field";
+import FileField from "./../components/input_fields/fileField";
 
 const graduationOptions = [
   { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },

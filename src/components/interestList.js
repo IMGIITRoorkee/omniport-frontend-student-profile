@@ -1,5 +1,12 @@
 import React from "react";
-import { Dimmer, Icon, Segment, Container, Header, Popup } from "semantic-ui-react";
+import {
+  Dimmer,
+  Icon,
+  Segment,
+  Container,
+  Header,
+  Popup
+} from "semantic-ui-react";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import style from "../styles.css";
@@ -9,7 +16,7 @@ import { initial } from "./interestForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
-import { interestSpecs } from "../constants";
+// import { interestSpecs } from "../constants";
 
 const InterestForm = genericFormMaker(interestSpecs);
 export class InterestList extends React.Component {
@@ -33,7 +40,8 @@ export class InterestList extends React.Component {
     axios
       .get("/api/student_profile/interest/" + url)
       .then(response => {
-        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No interests to show" });
+        if (response.data.length == 0 && handle != undefined)
+          this.setState({ empty: "No interests to show" });
         else {
           this.setState({ data: response.data });
         }
@@ -55,7 +63,9 @@ export class InterestList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -108,7 +118,12 @@ export class InterestList extends React.Component {
     if (data) {
       children = data.map(data => {
         return (
-          <Interest data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />
+          <Interest
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
         );
       });
     }
@@ -121,12 +136,19 @@ export class InterestList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                <Icon
+                  color="grey"
+                  name="sort"
+                  circular
+                  onClick={handleDragShow}
+                />
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
           <Dimmer active={active} page>

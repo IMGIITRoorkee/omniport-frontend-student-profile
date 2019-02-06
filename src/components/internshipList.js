@@ -9,14 +9,20 @@ import { initial } from "./internshipForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
-import {internSpecs} from "./../constants";
+// import {internSpecs} from "./../constants";
 
 const InternshipForm = genericFormMaker(internSpecs);
 
 export class InternshipList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
+    this.state = {
+      update: false,
+      active: false,
+      formData: null,
+      data: [],
+      empty: ""
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -28,7 +34,8 @@ export class InternshipList extends React.Component {
     axios
       .get("/api/student_profile/experience/" + url)
       .then(response => {
-        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No internships to show" });
+        if (response.data.length == 0 && handle != undefined)
+          this.setState({ empty: "No internships to show" });
         else {
           let data = response.data.filter(item => item.experienceType == "int");
           this.setState({ data: data });
@@ -39,10 +46,8 @@ export class InternshipList extends React.Component {
       });
   };
   manageData = id => {
-
-    let formData = Object.assign({},this.state.data.find(x => x.id == id));
-    for(let i in initial.links)
-    {
+    let formData = Object.assign({}, this.state.data.find(x => x.id == id));
+    for (let i in initial.links) {
       let name = initial.links[i];
       formData[name + "Link"] = formData[name];
       formData[name] = null;
@@ -59,7 +64,9 @@ export class InternshipList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -131,12 +138,19 @@ export class InternshipList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                <Icon
+                  color="grey"
+                  name="sort"
+                  circular
+                  onClick={handleDragShow}
+                />
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
           <Dimmer active={active} page>

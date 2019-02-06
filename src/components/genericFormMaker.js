@@ -4,9 +4,17 @@ import moment from "moment";
 
 import axios from "axios";
 
-import { Form, Input, Button, Icon, Checkbox, Segment, Confirm } from "semantic-ui-react";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Checkbox,
+  Segment,
+  Confirm
+} from "semantic-ui-react";
 
-import {capitalizeFirstLetter} from "./../utils";
+import { capitalizeFirstLetter } from "./../utils";
 
 import { getCookie } from "formula_one";
 
@@ -14,13 +22,13 @@ import style from "../styles.css";
 
 import { ErrorTransition } from "./transition";
 
-import {FieldMap} from "./../constants";
+import { FieldMap } from "./../constants/input";
 
-export default function genericFormMaker(info) {
+const genericFormMaker = info => {
   let { initial, name, url } = info;
   class Generic extends React.Component {
     constructor(props) {
-      super(props); 
+      super(props);
       this.state = {
         data: props.formData,
         update: props.update,
@@ -32,6 +40,7 @@ export default function genericFormMaker(info) {
       document.addEventListener("keydown", this.handleKeyPress, false);
     }
     componentWillUnmount() {
+      console.log("nooo");
       document.removeEventListener("keydown", this.handleKeyPress, false);
     }
     handleKeyPress = e => {
@@ -51,67 +60,62 @@ export default function genericFormMaker(info) {
       let fields = info.fields;
       for (let index in fields) {
         let field = fields[index];
-        if(field.group == false)
-        {
+        if (field.group == false) {
           //loop through each field
 
-        let props = {};
-        let properties = field.user_props;
-        for (let index in properties) {
-          //loop through each prop
-          props[properties[index]] = this[properties[index]];
-        }
-        props["autoFocus"] = index == 0 ? true:false;
-        if (field.type != "file_field") {
-          props["value"] = this.state.data[field.name];
-        } else {
-          props["link"] = this.state.data[field.name + "Link"];
-        }
-        //combine user_props and const_props
+          let props = {};
+          let properties = field.user_props;
+          for (let index in properties) {
+            //loop through each prop
+            props[properties[index]] = this[properties[index]];
+          }
+          props["autoFocus"] = index == 0 ? true : false;
+          if (field.type != "file_field") {
+            props["value"] = this.state.data[field.name];
+          } else {
+            props["link"] = this.state.data[field.name + "Link"];
+          }
+          //combine user_props and const_props
 
-        props = Object.assign(props, field.const_props);
-        //create the JSX element with the props and push it to the form array
-        let f = FieldMap[field.type];
-        formElements.push(React.createElement(f, props));
-      }
-      else{
-        let fields = field.fields;
+          props = Object.assign(props, field.const_props);
+          //create the JSX element with the props and push it to the form array
+          let self = this;
+          let f = FieldMap[field.type];
+          formElements.push(React.createElement(f, props));
+        } else {
+          let fields = field.fields;
           let groupElements = [];
           for (let i in fields) {
             let field = fields[i];
             //loop through each field
-  
+
             let props = {};
             let properties = field.user_props;
             for (let index in properties) {
               //loop through each prop
-              props[properties[index]] = this[properties[index]];
+              props[properties[index]] = self[properties[index]];
             }
-            props["autoFocus"] = index == 0  && i == 0 ? true:false;
+            props["autoFocus"] = index == 0 && i == 0 ? true : false;
             if (field.type != "file_field") {
-              props["value"] = this.state.data[field.name];
+              props["value"] = self.state.data[field.name];
             } else {
-              props["link"] = this.state.data[field.name + "Link"];
+              props["link"] = self.state.data[field.name + "Link"];
             }
             //combine user_props and const_props
-  
-          props = Object.assign(props, field.const_props);
-  
+
+            props = Object.assign(props, field.const_props);
+
             //create the JSX element with the props and push it to the form array
             let f = FieldMap[field.type];
             groupElements.push(React.createElement(f, props));
           }
           formElements.push(
-            <Form.Group key = {index} widths={field.widths}>
+            <Form.Group key={index} widths={field.widths}>
               {groupElements}
             </Form.Group>
           );
-        
+        }
       }
-      }
-
-
-      
 
       return formElements;
     };
@@ -178,13 +182,15 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            this.props.updateDeleteData(response.data, option);
+            let data = response.data;
+            if (option == "delete") data = this.state.data;
+            this.props.updateDeleteData(data, option);
             this.setState(initial, () => {
               this.props.handleHide();
             });
           })
           .catch(error => {
-            this.handleErrors(error.response.data);
+            console.log(error);
           });
       }
     };
@@ -214,11 +220,9 @@ export default function genericFormMaker(info) {
 
     handleDelete = name => {
       let link = name + "Link";
-      this.setState(
-        {
-          data: { ...this.state.data, [name]: null, [link]: null }
-        }
-      );
+      this.setState({
+        data: { ...this.state.data, [name]: null, [link]: null }
+      });
     };
     handleErrors = error_dict => {
       let dict = error_dict;
@@ -284,7 +288,8 @@ export default function genericFormMaker(info) {
     }
   }
   return Generic;
-}
+};
 
+export default genericFormMaker;
 //provision to add a group form object using a different prop;
 //user props is currently wrong will be changed after testing

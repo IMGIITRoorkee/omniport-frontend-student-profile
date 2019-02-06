@@ -6,7 +6,7 @@ import style from "../styles.css";
 import { initial } from "./previousEducationForm";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
-import { previousEducationSpecs } from "../constants";
+// import { previousEducationSpecs } from "../constants";
 
 const PreviousEducationForm = genericFormMaker(previousEducationSpecs);
 function compare(a, b) {
@@ -15,7 +15,13 @@ function compare(a, b) {
 export class PreviousEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
+    this.state = {
+      update: false,
+      active: false,
+      formData: null,
+      data: [],
+      empty: ""
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -40,10 +46,9 @@ export class PreviousEducationList extends React.Component {
       });
   };
   manageData = id => {
-    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    let formData = Object.assign({}, this.state.data.find(x => x.id == id));
     console.log(formData);
-    for(let i in initial.links)
-    {
+    for (let i in initial.links) {
       let name = initial.links[i];
       formData[name + "Link"] = formData[name];
       formData[name] = null;
@@ -75,7 +80,9 @@ export class PreviousEducationList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -98,7 +105,13 @@ export class PreviousEducationList extends React.Component {
     let { theme } = this.props;
     if (theme == "zero") theme = null;
 
-    const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
+    const {
+      fetchData,
+      appendData,
+      updateDeleteData,
+      handleHide,
+      handleShow
+    } = this;
 
     let data_array;
     let children;
@@ -121,9 +134,13 @@ export class PreviousEducationList extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="student" color={theme || "blue"} /> Previous education
             </h3>
-            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? null : (
+              <Icon color="grey" name="add" circular onClick={handleShow} />
+            )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
 

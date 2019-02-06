@@ -5,7 +5,7 @@ import axios from "axios";
 import style from "../styles.css";
 import { initial } from "./currentEducationForm";
 import { ComponentTransition } from "./transition";
-import {currentEducationSpecs} from "./../constants";
+// import {currentEducationSpecs} from "./../constants";
 import genericFormMaker from "./genericFormMaker";
 
 const CurrentEducationForm = genericFormMaker(currentEducationSpecs);
@@ -13,7 +13,13 @@ const CurrentEducationForm = genericFormMaker(currentEducationSpecs);
 export class CurrentEducationList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: initial.data, data: [], empty: "" };
+    this.state = {
+      update: false,
+      active: false,
+      formData: initial.data,
+      data: [],
+      empty: ""
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -36,11 +42,9 @@ export class CurrentEducationList extends React.Component {
       });
   };
   manageData = id => {
-
-    let formData = Object.assign({},this.state.data.find(x => x.id == id));
+    let formData = Object.assign({}, this.state.data.find(x => x.id == id));
     console.log(formData);
-    for(let i in initial.links)
-    {
+    for (let i in initial.links) {
       let name = initial.links[i];
       formData[name + "Link"] = formData[name];
       formData[name] = null;
@@ -72,7 +76,9 @@ export class CurrentEducationList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -95,7 +101,13 @@ export class CurrentEducationList extends React.Component {
     let { theme } = this.props;
     if (theme == "zero") theme = null;
 
-    const { fetchData, appendData, updateDeleteData, handleHide, handleShow } = this;
+    const {
+      fetchData,
+      appendData,
+      updateDeleteData,
+      handleHide,
+      handleShow
+    } = this;
 
     let data_array;
     let children;
@@ -118,9 +130,13 @@ export class CurrentEducationList extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="student" color={theme || "blue"} /> Current education
             </h3>
-            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? null : (
+              <Icon color="grey" name="add" circular onClick={handleShow} />
+            )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
 

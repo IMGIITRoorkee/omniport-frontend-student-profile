@@ -1,5 +1,13 @@
 import React from "react";
-import { Dimmer, Icon, Segment, Container, Header, Divider, Popup } from "semantic-ui-react";
+import {
+  Dimmer,
+  Icon,
+  Segment,
+  Container,
+  Header,
+  Divider,
+  Popup
+} from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
@@ -9,7 +17,7 @@ import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
 
-import {achievementSpecs} from "./../constants";
+// import {achievementSpecs} from "./../constants";
 
 const AchievementForm = genericFormMaker(achievementSpecs);
 
@@ -35,7 +43,8 @@ export class AchievementList extends React.Component {
     axios
       .get("/api/student_profile/achievement/" + url)
       .then(response => {
-        if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No achievements to show" });
+        if (response.data.length == 0 && handle != undefined)
+          this.setState({ empty: "No achievements to show" });
         else {
           this.setState({ data: response.data });
         }
@@ -45,10 +54,8 @@ export class AchievementList extends React.Component {
       });
   };
   manageData = id => {
-
-    let formData = Object.assign({},this.state.data.find(x => x.id == id));
-    for(let i in initial.links)
-    {
+    let formData = Object.assign({}, this.state.data.find(x => x.id == id));
+    for (let i in initial.links) {
       let name = initial.links[i];
       formData[name + "Link"] = formData[name];
       formData[name] = null;
@@ -65,7 +72,9 @@ export class AchievementList extends React.Component {
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -135,12 +144,19 @@ export class AchievementList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                <Icon
+                  color="grey"
+                  name="sort"
+                  circular
+                  onClick={handleDragShow}
+                />
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
           <Dimmer active={active} page>

@@ -9,13 +9,19 @@ import { initial } from "./jobForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import genericFormMaker from "./genericFormMaker";
-import { jobSpecs } from "../constants";
+// import { jobSpecs } from "../constants";
 
 const JobForm = genericFormMaker(jobSpecs);
 export class JobList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { update: false, active: false, formData: null, data: [], empty: "" };
+    this.state = {
+      update: false,
+      active: false,
+      formData: null,
+      data: [],
+      empty: ""
+    };
   }
   componentDidMount() {
     this.fetchData();
@@ -25,7 +31,8 @@ export class JobList extends React.Component {
     let { handle } = this.props;
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     axios.get("/api/student_profile/experience/" + url).then(response => {
-      if (response.data.length == 0 && handle != undefined) this.setState({ empty: "No jobs to show" });
+      if (response.data.length == 0 && handle != undefined)
+        this.setState({ empty: "No jobs to show" });
       else {
         let data = response.data.filter(item => item.experienceType == "job");
         this.setState({ data: data });
@@ -33,10 +40,8 @@ export class JobList extends React.Component {
     });
   };
   manageData = id => {
-
-    let formData = Object.assign({},this.state.data.find(x => x.id == id));
-    for(let i in initial.links)
-    {
+    let formData = Object.assign({}, this.state.data.find(x => x.id == id));
+    for (let i in initial.links) {
       let name = initial.links[i];
       formData[name + "Link"] = formData[name];
       formData[name] = null;
@@ -46,13 +51,16 @@ export class JobList extends React.Component {
       update: true,
       active: true
     });
-  };endData = item => {
+  };
+  endData = item => {
     this.setState({ data: [...this.state.data, item] });
   };
   updateDeleteData = (item, option) => {
     const data_array = this.state.data;
     if (option == "delete") {
-      const newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+      const newData = data_array.filter(obj =>
+        obj.id != item.id ? true : false
+      );
       this.setState({ data: newData });
     } else if (option == "put") {
       const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -106,7 +114,12 @@ export class JobList extends React.Component {
     if (data != []) {
       children = data.map(data => {
         return (
-          <Job data={data} key={data.id} manageData={this.manageData} rearrange={this.props.handle != undefined} />
+          <Job
+            data={data}
+            key={data.id}
+            manageData={this.manageData}
+            rearrange={this.props.handle != undefined}
+          />
         );
       });
     }
@@ -119,12 +132,19 @@ export class JobList extends React.Component {
             </h3>
             {this.props.handle != undefined ? null : (
               <div>
-                <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                <Icon
+                  color="grey"
+                  name="sort"
+                  circular
+                  onClick={handleDragShow}
+                />
                 <Icon color="grey" name="add" circular onClick={handleShow} />
               </div>
             )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
 
