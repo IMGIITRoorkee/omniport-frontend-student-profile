@@ -2,6 +2,7 @@ import React from "react";
 import "./../index.css";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
+
 const graduationOptions = {
   mat: "Matriculate",
   int: "Intermediate",
@@ -11,7 +12,8 @@ const graduationOptions = {
   doc: "Doctorate",
   pdo: "Postdoctorate"
 };
-export function PreviousEducation(props) {
+
+const PreviousEducation = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -23,7 +25,7 @@ export function PreviousEducation(props) {
                 <p>
                   {props.data.degree} -{" "}
                   {graduationOptions[props.data.graduation]} in{" "}
-                  <b>{props.data.fieldOfStudy}</b>
+                  <b>{props.data.field}</b>
                 </p>
                 <p>
                   {props.data.institute}-{props.data.year}
@@ -45,4 +47,5 @@ export function PreviousEducation(props) {
       </div>
     </Segment>
   );
-}
+};
+export default PreviousEducation;

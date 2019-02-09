@@ -3,7 +3,8 @@ import "./../index.css";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-const CurrentEducation = props => {
+const Position = props => {
+  console.log(props.data.endDate);
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -11,9 +12,12 @@ const CurrentEducation = props => {
           <List.Item>
             <List.Icon name="stop" color="blue" />
             <List.Content>
-              <p>Semester - {props.data.semester}</p>
-              <p>SGPA: {props.data.sgpa} </p>
-              <p>CGPA: {props.data.cgpa} </p>
+              {props.data.position} - <b>{props.data.organisation}</b>
+              <p>
+                {props.data.startDate} to{" "}
+                {props.data.endDate == null ? "present" : props.data.endDate}
+              </p>
+              <p>{props.data.description}</p>
             </List.Content>
           </List.Item>
         </List>
@@ -31,4 +35,4 @@ const CurrentEducation = props => {
     </Segment>
   );
 };
-export default CurrentEducation;
+export default Position;

@@ -6,7 +6,7 @@ export function ImagePreview(props) {
     <div>
       <img
         src={props.imagePreviewUrl}
-        style={{ border: "2px solid black", height: "15vh", width: "15vh" }}
+        style={{ height: "15vh", width: "15vh" }}
       />
       <Icon
         color="black"

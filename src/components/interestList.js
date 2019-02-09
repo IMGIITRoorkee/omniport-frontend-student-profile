@@ -11,7 +11,7 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
-import { Interest } from "./interest";
+import Interest from "./interest";
 import { initial } from "./interestForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";

@@ -17,6 +17,17 @@ export class DragAndDropBox extends Component {
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPress, false);
+  }
+  handleKeyPress = e => {
+    if (e.keyCode === 27) {
+      this.props.handleDragHide();
+    }
+  };
 
   getItemStyle = (isDragging, draggableStyle) => ({
     userSelect: "none",
@@ -43,7 +54,11 @@ export class DragAndDropBox extends Component {
       return;
     }
 
-    const items = this.reorder(this.state.items, result.source.index, result.destination.index);
+    const items = this.reorder(
+      this.state.items,
+      result.source.index,
+      result.destination.index
+    );
 
     this.setState({
       items
@@ -77,17 +92,32 @@ export class DragAndDropBox extends Component {
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
           <h3 styleName="style.heading">{heading}</h3>
-          <Icon color="grey" name="delete" onClick={this.props.handleDragHide} />
+          <Icon
+            color="grey"
+            name="delete"
+            onClick={this.props.handleDragHide}
+          />
         </Segment>
-        <Segment styleName="style.formStyle2" style={{ width: "40vw" }} attached>
+        <Segment
+          styleName="style.formStyle2"
+          style={{ width: "40vw" }}
+          attached
+        >
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable" styleName="style.skillForm">
               {(provided, snapshot) => (
-                <div ref={provided.innerRef} style={this.getListStyle(snapshot.isDraggingOver)}>
+                <div
+                  ref={provided.innerRef}
+                  style={this.getListStyle(snapshot.isDraggingOver)}
+                >
                   {this.state.items.map((item, index) => (
                     <Draggable key={index} draggableId={index} index={index}>
                       {(provided, snapshot) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
                           {React.createElement(
                             element,
                             {

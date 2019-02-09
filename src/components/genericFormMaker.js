@@ -24,8 +24,9 @@ import { ErrorTransition } from "./transition";
 
 import { FieldMap } from "./../constants/input";
 
-const genericFormMaker = info => {
+export default function genericFormMaker(info) {
   let { initial, name, url } = info;
+
   class Generic extends React.Component {
     constructor(props) {
       super(props);
@@ -40,7 +41,6 @@ const genericFormMaker = info => {
       document.addEventListener("keydown", this.handleKeyPress, false);
     }
     componentWillUnmount() {
-      console.log("nooo");
       document.removeEventListener("keydown", this.handleKeyPress, false);
     }
     handleKeyPress = e => {
@@ -79,7 +79,6 @@ const genericFormMaker = info => {
 
           props = Object.assign(props, field.const_props);
           //create the JSX element with the props and push it to the form array
-          let self = this;
           let f = FieldMap[field.type];
           formElements.push(React.createElement(f, props));
         } else {
@@ -93,13 +92,13 @@ const genericFormMaker = info => {
             let properties = field.user_props;
             for (let index in properties) {
               //loop through each prop
-              props[properties[index]] = self[properties[index]];
+              props[properties[index]] = this[properties[index]];
             }
             props["autoFocus"] = index == 0 && i == 0 ? true : false;
             if (field.type != "file_field") {
-              props["value"] = self.state.data[field.name];
+              props["value"] = this.state.data[field.name];
             } else {
-              props["link"] = self.state.data[field.name + "Link"];
+              props["link"] = this.state.data[field.name + "Link"];
             }
             //combine user_props and const_props
 
@@ -190,26 +189,9 @@ const genericFormMaker = info => {
             });
           })
           .catch(error => {
-            console.log(error);
+            this.handleErrors(error.response.data);
           });
       }
-    };
-
-    handleUpdateDelete = option => {
-      let headers = {
-        "X-CSRFToken": getCookie("csrftoken")
-      };
-      axios({
-        method: option,
-        url: "/api/student_profile/" + url + "/" + this.state.data.id + "/",
-        data: this.state.data,
-        headers: headers
-      }).then(response => {
-        this.props.updateDeleteData(this.state.data, option);
-        this.setState(initial, () => {
-          this.props.handleHide();
-        });
-      });
     };
 
     handleChange = (name, value) => {
@@ -288,8 +270,7 @@ const genericFormMaker = info => {
     }
   }
   return Generic;
-};
+}
 
-export default genericFormMaker;
 //provision to add a group form object using a different prop;
 //user props is currently wrong will be changed after testing

@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
-import { Achievement } from "./achievement";
+// import Achievement from "./achievement";
 import { initial } from "./achievementForm";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";

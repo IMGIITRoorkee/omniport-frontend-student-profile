@@ -2,8 +2,7 @@
 import React from "react";
 import { Dimmer, Icon, Segment } from "semantic-ui-react";
 import axios from "axios";
-import _ from "lodash";
-import changeCase from "change-case";
+import { upperFirst } from "lodash";
 
 // css imports
 import style from "../styles.css";
@@ -20,8 +19,7 @@ import { ComponentTransition } from "./transition";
 import { formComponents } from "./../constants/formComponents";
 import { displayComponents } from "./../constants/displayComponents";
 
-const genericListMaker = componentName => {
-  const FormComponent = formComponents[componentName];
+const genericListMaker = (componentName, FormComponent) => {
   const DisplayComponent = displayComponents[componentName];
   class GenericList extends React.Component {
     constructor(props) {
@@ -47,7 +45,7 @@ const genericListMaker = componentName => {
         url = this.props.handle + "/handle/";
       }
       axios
-        .get("/api/student_profile/interest/")
+        .get("/api/student_profile/" + specs[componentName].url + "/")
         .then(response => {
           console.log("res", response);
           if (response.data.length == 0 && handle != undefined)
@@ -65,8 +63,8 @@ const genericListMaker = componentName => {
     };
     manageData = id => {
       let formData = Object.assign({}, this.state.data.find(x => x.id == id));
-      for (let i in initial[`${componentName}`].links) {
-        let name = initial[`${componentName}`].links[i];
+      for (let i in initial[componentName].links) {
+        let name = initial[componentName].links[i];
         formData[name + "Link"] = formData[name];
         formData[name] = null;
       }
@@ -77,7 +75,30 @@ const genericListMaker = componentName => {
       });
     };
     appendData = item => {
-      this.setState({ data: [...this.state.data, item] });
+      let sortBy = specs[componentName].sortBy;
+      let ascending = specs[componentName].ascending;
+      console.log(ascending);
+      let data = this.state.data;
+
+      let n = data.length;
+      let i = 0;
+      let flag = false;
+      for (i = 0; i < n; i++) {
+        if (
+          ascending
+            ? data[i][sortBy] >= item[sortBy]
+            : data[i][sortBy] <= item[sortBy]
+        ) {
+          data.splice(i, 0, item);
+          this.setState({ data: data });
+          flag = true;
+          break;
+        }
+      }
+      if (flag == false) {
+        data.splice(i, n, item);
+        this.setState({ data: data });
+      }
     };
     updateDeleteData = (item, option) => {
       const data_array = this.state.data;
@@ -94,6 +115,7 @@ const genericListMaker = componentName => {
       }
     };
     handleShow = e => {
+      console.log(this.state.formData);
       this.setState({
         active: true,
         formData: initial[componentName].data,
@@ -121,7 +143,7 @@ const genericListMaker = componentName => {
     };
 
     render() {
-      const { active, update, formData, data } = this.state;
+      const { active, update, formData, data, rearrange } = this.state;
       let { theme } = this.props;
       if (theme == "zero") theme = null;
       const {
@@ -149,6 +171,7 @@ const genericListMaker = componentName => {
           );
         });
       }
+      console.log("d", specs[componentName].draggable);
       return (
         <ComponentTransition>
           <Segment padded color={theme}>
@@ -156,19 +179,23 @@ const genericListMaker = componentName => {
               <h3 styleName="style.heading">
                 {/* modify icon */}
                 <Icon name="paperclip" color={theme || "blue"} />{" "}
-                {_.capitalize(componentName) + "s"}
+                {specs[componentName].plural}
               </h3>
-              {this.props.handle != undefined ? null : (
-                <div>
+              <div>
+                {this.props.handle == undefined &&
+                specs[componentName].draggable == true ? (
                   <Icon
                     color="grey"
                     name="sort"
                     circular
                     onClick={handleDragShow}
                   />
+                ) : null}
+                {this.props.handle == undefined ? (
                   <Icon color="grey" name="add" circular onClick={handleShow} />
-                </div>
-              )}
+                ) : null}
+              </div>
+
               {this.props.handle != undefined ? (
                 <span style={{ color: "grey", textAlign: "right" }}>
                   {this.state.empty}
@@ -186,15 +213,18 @@ const genericListMaker = componentName => {
               />
             </Dimmer>
             {/* leaving rearrange part for now */}
-            {/* <Dimmer active={rearrange} page>
-              <DragAndDropBox
-                data={data}
-                modelName="Paper"
-                element={Paper}
-                handleUpdate={handleUpdate}
-                handleDragHide={this.handleDragHide}
-              />
-            </Dimmer> */}
+
+            {specs[componentName].draggable ? (
+              <Dimmer active={rearrange} page>
+                <DragAndDropBox
+                  data={data}
+                  modelName={upperFirst(componentName)}
+                  element={displayComponents[componentName]}
+                  handleUpdate={handleUpdate}
+                  handleDragHide={this.handleDragHide}
+                />
+              </Dimmer>
+            ) : null}
             {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
           </Segment>
         </ComponentTransition>

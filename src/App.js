@@ -18,6 +18,8 @@ import { Profile } from "./components/profile";
 import { NotFound } from "./components/notFound";
 import style from "./styles.css";
 import genericListMaker from "./components/genericListMaker";
+import { listComponents } from "./constants/components";
+import { previousEducationSpecs } from "./constants/input";
 
 const creators = [
   {
@@ -38,7 +40,12 @@ const creators = [
   }
 ];
 
-const InterestList = genericListMaker("interest");
+const InterestList = listComponents["interest"];
+const AchievementList = listComponents["achievement"];
+const CurrentEducationList = listComponents["currentEducation"];
+const PreviousEducationList = listComponents["previousEducation"];
+const PositionList = listComponents["position"];
+const PaperList = listComponents["paper"];
 
 export class App extends Component {
   constructor(props) {
@@ -87,10 +94,6 @@ export class App extends Component {
         });
     }
   }
-  handleToggle = () => {
-    const newtVisibility = !this.state.tVisibility;
-    this.setState({ tVisibility: newtVisibility });
-  };
   changeTheme = theme => {
     this.setState({ theme: theme }, () => {});
   };
@@ -304,7 +307,12 @@ export class App extends Component {
     // );
     const app = (
       <div>
-        <InterestList theme="blue" />
+        {/* <InterestList theme="blue" handle={handle} /> */}
+        {/* <AchievementList theme="blue" handle={handle} /> */}
+        {/* <PaperList theme="blue" handle={handle} /> */}
+        {/* <CurrentEducationList theme="blue" handle={handle} /> */}
+        <PreviousEducationList theme="blue" handle={handle} />
+        <PositionList theme="blue" handle={handle} />
       </div>
     );
     if (show) {

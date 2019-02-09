@@ -3,7 +3,7 @@ import "./../index.css";
 import { Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-export function Paper(props) {
+const Paper = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -42,4 +42,6 @@ export function Paper(props) {
       </div>
     </Segment>
   );
-}
+};
+
+export default Paper;

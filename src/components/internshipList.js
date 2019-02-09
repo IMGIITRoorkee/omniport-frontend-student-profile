@@ -165,9 +165,6 @@ export class InternshipList extends React.Component {
           </Dimmer>
           <Dimmer active={rearrange} page>
             <DragAndDropBox
-              data={data}
-              modelName="Experience"
-              element={Internship}
               handleUpdate={handleUpdate}
               handleDragHide={handleDragHide}
             />

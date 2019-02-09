@@ -21,7 +21,7 @@ export default class DateField extends React.PureComponent {
           autoFocus={autoFocus}
           id={name}
           name={name}
-          placeholder={label}
+          placeholder={placeholder}
           value={value}
           onChange={(e, { name, value }) => {
             e.persist();

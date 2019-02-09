@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-export const Interest = props => {
+const Interest = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -26,3 +26,5 @@ export const Interest = props => {
     </Segment>
   );
 };
+
+export default Interest;

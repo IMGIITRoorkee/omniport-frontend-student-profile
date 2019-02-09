@@ -12,13 +12,14 @@ export default class YearField extends React.PureComponent {
       label,
       placeholder
     } = this.props;
+    console.log(this.props);
     return (
       <Form.Field required={required}>
         <label>{label}</label>
         <YearInput
           name={name}
           placeholder={placeholder}
-          value={toString(value)}
+          value={value}
           iconPosition="left"
           onChange={(e, { name, value }) => {
             e.persist();

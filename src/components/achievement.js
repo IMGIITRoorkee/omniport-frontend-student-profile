@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-export function Achievement(props) {
+const Achievement = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -25,4 +25,6 @@ export function Achievement(props) {
       </div>
     </Segment>
   );
-}
+};
+
+export default Achievement;
