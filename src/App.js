@@ -14,7 +14,7 @@ import { AppHeader, AppFooter, AppMain } from "formula_one";
 // import { AchievementList } from "./components/achievementList";
 import { Profile } from "./components/profile";
 // import { ProjectForm } from "./components/projectForm";
-// import { Skill } from "./components/skill";
+import { Skill } from "./components/skill";
 import { NotFound } from "./components/notFound";
 import style from "./styles.css";
 import genericListMaker from "./components/genericListMaker";
@@ -311,17 +311,20 @@ export class App extends Component {
     // );
     const app = (
       <div>
-        <InterestList theme="blue" handle={handle} />
-        {/* <AchievementList theme="blue" handle={handle} /> */}
+        <Profile theme="blue" handle={handle} />
 
-        {/* <CurrentEducationList theme="blue" handle={handle} /> */}
-        {/* <PreviousEducationList theme="blue" handle={handle} /> */}
-        {/* <PositionList theme="blue" handle={handle} /> */}
+        <InterestList theme="blue" handle={handle} />
+        <AchievementList theme="blue" handle={handle} />
+        <CurrentEducationList theme="blue" handle={handle} />
+        <PreviousEducationList theme="blue" handle={handle} />
+        <PositionList theme="blue" handle={handle} />
         <ExperienceList theme="blue" handle={handle} />
         <ProjectList theme="blue" handle={handle} />
         <BookList theme="blue" handle={handle} />
-        {/* <PaperList theme="blue" handle={handle} /> */}
+        <PaperList theme="blue" handle={handle} />
         <RefereeList theme="blue" handle={handle} />
+
+        <Skill handle={handle} theme={theme} />
       </div>
     );
     if (show) {

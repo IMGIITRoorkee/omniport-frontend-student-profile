@@ -49,7 +49,7 @@ export const specs = {
   },
   currentEducation: {
     draggable: false,
-    sortBy: "semesterNumber",
+    sortBy: "semester",
     ascending: true,
     plural: "Current Education",
     fields: [
@@ -172,6 +172,19 @@ export const specs = {
           placeholder: "",
           label: "CGPA",
           required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "percentage",
+        type: "input_field",
+        const_props: {
+          name: "percentage",
+          key: "Percentage",
+          placeholder: "",
+          label: "Percentage",
+          required: true
         },
         user_props: ["handleChange"]
       },
@@ -786,7 +799,7 @@ export const specs = {
       },
       {
         group: false,
-        name: "me",
+        name: "email",
         type: "input_field",
         const_props: {
           name: "email",

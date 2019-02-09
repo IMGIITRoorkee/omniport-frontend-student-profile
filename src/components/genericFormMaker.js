@@ -51,7 +51,7 @@ export default function genericFormMaker(info) {
         if (this.state.update) {
           this.handleSubmit("put");
         } else {
-          this.handleSubmit();
+          this.handleSubmit("delete");
         }
       }
     };
@@ -157,6 +157,7 @@ export default function genericFormMaker(info) {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
       };
+      console.log("update", this.state.update);
       if (this.state.update === false) {
         axios({
           method: "post",
@@ -172,10 +173,10 @@ export default function genericFormMaker(info) {
           })
           .catch(error => {
             console.log(error);
-            if (error.response.status == 400) {
+            if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
-              this.handleHide();
+              this.props.handleHide();
             }
           });
       } else {
@@ -194,10 +195,11 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            if (error.response.status == 400) {
+		  console.log(error);
+            if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
-              this.handleHide();
+              this.props.handleHide();
             }
           });
       }

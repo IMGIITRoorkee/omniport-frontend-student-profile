@@ -16,8 +16,8 @@ import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 
 //temp
-import { formComponents } from "./../constants/formComponents";
 import { displayComponents } from "./../constants/displayComponents";
+import { compare } from "./../utils";
 
 const genericListMaker = (componentName, FormComponent) => {
   const DisplayComponent = displayComponents[componentName];
@@ -111,6 +111,18 @@ const genericListMaker = (componentName, FormComponent) => {
         this.setState({ data: newData });
       } else if (option == "put") {
         const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
+        const temp = specs[componentName];
+        newData.sort(function compare(a, b, sortBy, ascending) {
+          if (ascending == true) {
+            if (a[sortBy] < b[sortBy]) return -1;
+            if (a[sortBy] > b[sortBy]) return 1;
+            return 0;
+          } else {
+            if (a[sortBy] > b[sortBy]) return -1;
+            if (a[sortBy] < b[sortBy]) return 1;
+            return 0;
+          }
+        });
         this.setState({ data: newData });
       }
     };
