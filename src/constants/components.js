@@ -9,7 +9,11 @@ const components = [
   "currentEducation",
   "previousEducation",
   "position",
-  "paper"
+  "experience",
+  "project",
+  "book",
+  "paper",
+  "referee"
 ];
 
 const list = {};

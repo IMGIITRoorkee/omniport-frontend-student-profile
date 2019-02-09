@@ -3,7 +3,7 @@ import { Button, Segment, Icon, Image, List } from "semantic-ui-react";
 import style from "../styles.css";
 import { isMobile } from "react-device-detect";
 
-export function Project(props) {
+export const Project = props => {
   return (
     <Segment attached styleName="style.project">
       {isMobile ? (
@@ -23,7 +23,9 @@ export function Project(props) {
                 </div>
               </div>
 
-              {props.data.image ? <img src={props.data.image} styleName="style.mobPicture" /> : null}
+              {props.data.image ? (
+                <img src={props.data.image} styleName="style.mobPicture" />
+              ) : null}
             </List.Content>
           </List.Item>
         </List>
@@ -55,8 +57,14 @@ export function Project(props) {
         </div>
       )}
       {props.rearrange != true ? (
-        <Icon styleName="style.icon" name="edit" color="grey" onClick={() => props.update(props.data)} />
+        <Icon
+          styleName="style.icon"
+          name="edit"
+          color="grey"
+          onClick={() => props.update(props.data)}
+        />
       ) : null}
     </Segment>
   );
-}
+};
+export default Project;

@@ -52,6 +52,42 @@ export const initial = {
     },
     links: []
   },
+  experience: {
+    update: false,
+    data: {
+      id: -1,
+      startDate: "",
+      endDate: "",
+      isFullDate: true,
+      position: "",
+      organisation: "",
+      description: "",
+      priority: 1,
+      visibility: true,
+      experienceType: ""
+    },
+    links: []
+  },
+  book: {
+    update: false,
+    data: {
+      id: -1,
+      title: "",
+      authors: "",
+      publisher: "",
+      year: "",
+      pages: "",
+      volumes: "",
+      contribution: "",
+      editors: "",
+      isbnCode: "",
+      priority: 1,
+      visibility: true,
+      book: "",
+      bookLink: "",
+      links: []
+    }
+  },
   paper: {
     update: false,
     data: {
@@ -69,5 +105,32 @@ export const initial = {
       paperLink: ""
     },
     links: ["paper"]
+  },
+  referee: {
+    update: false,
+    data: {
+      referee: "",
+      designation: "",
+      institute: "",
+      phoneNumber: "",
+      email: "",
+      priority: 1,
+      visibility: true
+    },
+    links: []
+  },
+  project: {
+    update: false,
+    data: {
+      id: -1,
+      topic: "",
+      field: "",
+      description: "",
+      startDate: "",
+      endDate: "",
+      isFullDate: true,
+      file: "",
+      visibility: true
+    }
   }
 };

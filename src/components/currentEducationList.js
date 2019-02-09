@@ -1,5 +1,5 @@
 import React from "react";
-import { CurrentEducation } from "./currentEducation";
+// import { CurrentEducation } from "./currentEducation";
 import { Dimmer, Icon, Segment, Container, Header } from "semantic-ui-react";
 import axios from "axios";
 import style from "../styles.css";

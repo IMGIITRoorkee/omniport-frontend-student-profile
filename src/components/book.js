@@ -3,7 +3,7 @@ import "./../index.css";
 import { Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-export function Book(props) {
+const Book = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -45,4 +45,5 @@ export function Book(props) {
       </div>
     </Segment>
   );
-}
+};
+export default Book;

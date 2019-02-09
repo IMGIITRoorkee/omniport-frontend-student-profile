@@ -1,4 +1,4 @@
-import { graduationOptions } from "./choiceOptions";
+import { graduationOptions, experienceOptions } from "./choiceOptions";
 
 export const specs = {
   interest: {
@@ -18,7 +18,7 @@ export const specs = {
           label: "Topic",
           required: true
         },
-        user_pstartCaserops: ["handleChange"]
+        user_props: ["handleChange"]
       }
     ],
     url: "interest",
@@ -257,6 +257,20 @@ export const specs = {
       },
       {
         group: false,
+        name: "graduation",
+        type: "choice_field",
+        const_props: {
+          name: "graduation",
+          key: "Graduation",
+          placeholder: "",
+          label: "Graduation",
+          required: true,
+          options: graduationOptions
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
         name: "isFullDate",
         type: "boolean_field",
         const_props: {
@@ -285,7 +299,311 @@ export const specs = {
     url: "position",
     name: "Position"
   },
+  experience: {
+    draggable: false,
+    sortBy: "priority",
+    ascending: true,
+    plural: "Experience",
+    fields: [
+      {
+        group: false,
+        name: "position",
+        type: "input_field",
+        const_props: {
+          name: "position",
+          key: "Position",
+          placeholder: "",
+          label: "Position",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "organisation",
+        type: "input_field",
+        const_props: {
+          name: "organisation",
+          key: "Organisation",
+          placeholder: "Enter the organization",
+          label: "Organisation",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: true,
+        widths: "equal",
+        fields: [
+          {
+            name: "startDate",
+            type: "date_field",
+            const_props: {
+              name: "startDate",
+              key: "StartDate",
+              placeholder: "YYYY-MM-DD",
+              label: "Start date",
+              required: true
+            },
+            user_props: ["handleChange"]
+          },
+          {
+            name: "endDate",
+            type: "date_field",
+            const_props: {
+              name: "endDate",
+              key: "EndDate",
+              placeholder: "YYYY-MM-DD",
+              label: "End Date",
+              required: false
+            },
+            user_props: ["handleChange"]
+          }
+        ]
+      },
 
+      {
+        group: false,
+        name: "isFullDate",
+        type: "boolean_field",
+        const_props: {
+          name: "isFullDate",
+          key: "IsFullDate",
+          placeholder: "",
+          label: "I remember the exact date",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "experienceType",
+        type: "choice_field",
+        const_props: {
+          name: "experienceType",
+          key: "ExperienceType",
+          placeholder: "",
+          label: "ExperienceType",
+          required: true,
+          options: experienceOptions
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "description",
+        type: "text_area_field",
+        const_props: {
+          name: "description",
+          key: "Description",
+          placeholder: "Describe your experience",
+          label: "Description",
+          required: false
+        },
+        user_props: ["handleChange"]
+      }
+    ],
+    url: "experience",
+    name: "Experience"
+  },
+  project: {
+    draggable: false,
+    sortBy: "priority",
+    ascending: true,
+    plural: "Projects",
+    fields: [
+      {
+        group: false,
+        name: "topic",
+        type: "input_field",
+        const_props: {
+          name: "topic",
+          key: "Topic",
+          placeholder: "",
+          label: "Topic",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "field",
+        type: "input_field",
+        const_props: {
+          name: "field",
+          key: "Field",
+          placeholder: "Field of project",
+          label: "Field",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: true,
+        widths: "equal",
+        fields: [
+          {
+            name: "startDate",
+            type: "date_field",
+            const_props: {
+              name: "startDate",
+              key: "StartDate",
+              placeholder: "YYYY-MM-DD",
+              label: "Start date",
+              required: true
+            },
+            user_props: ["handleChange"]
+          },
+          {
+            name: "endDate",
+            type: "date_field",
+            const_props: {
+              name: "endDate",
+              key: "EndDate",
+              placeholder: "YYYY-MM-DD",
+              label: "End Date",
+              required: false
+            },
+            user_props: ["handleChange"]
+          }
+        ]
+      },
+      {
+        group: false,
+        name: "isFullDate",
+        type: "boolean_field",
+        const_props: {
+          name: "isFullDate",
+          key: "IsFullDate",
+          placeholder: "",
+          label: "I remember the exact date",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "description",
+        type: "text_area_field",
+        const_props: {
+          name: "description",
+          key: "Description",
+          placeholder: "Description",
+          label: "Description",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "image",
+        type: "file_field",
+        const_props: {
+          name: "image",
+          key: "Image",
+          placeholder: "",
+          label: "image",
+          required: false
+        },
+        user_props: ["handleFile", "handleDelete"]
+      }
+    ],
+    url: "project",
+    name: "Project"
+  },
+  book: {
+    draggable: true,
+    sortBy: "priority",
+    ascending: true,
+    plural: "Books",
+    fields: [
+      {
+        group: false,
+        name: "title",
+        type: "input_field",
+        const_props: {
+          name: "title",
+          key: "Title",
+          placeholder: "Enter the title of the book",
+          label: "Title",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "authors",
+        type: "input_field",
+        const_props: {
+          name: "authors",
+          key: "Author",
+          placeholder: "Enter the authors of the book",
+          label: "Authors",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "publisher",
+        type: "input_field",
+        const_props: {
+          name: "publisher",
+          key: "Publisher",
+          placeholder: "Enter the publisher of the book",
+          label: "Publisher",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "year",
+        type: "year_field",
+        const_props: {
+          name: "year",
+          key: "year",
+          placeholder: "Enter the year of writing the book",
+          label: "Year",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: true,
+        widths: "equal",
+        fields: [
+          {
+            name: "pages",
+            type: "input_field",
+            const_props: {
+              name: "pages",
+              key: "Pages",
+              placeholder: "Number of pages",
+              label: "Pages",
+              required: false
+            },
+            user_props: ["handleChange"]
+          },
+          {
+            name: "volumes",
+            type: "input_field",
+            const_props: {
+              name: "volumes",
+              key: "Volumes",
+              placeholder: "Number of volumes",
+              label: "Volumes",
+              required: false
+            },
+            user_props: ["handleChange"]
+          }
+        ]
+      }
+    ],
+
+    url: "book",
+    name: "Book"
+  },
   paper: {
     draggable: true,
     sortBy: "priority",
@@ -403,5 +721,85 @@ export const specs = {
     ],
     url: "paper",
     name: "Paper"
+  },
+  referee: {
+    draggable: true,
+    sortBy: "priority",
+    ascending: false,
+    plural: "Reference",
+    fields: [
+      {
+        group: true,
+        widths: "equal",
+        fields: [
+          {
+            name: "referee",
+            type: "input_field",
+            const_props: {
+              name: "referee",
+              key: "Referee",
+              placeholder: "",
+              label: "Referee",
+              required: true
+            },
+            user_props: ["handleChange"]
+          },
+          {
+            name: "designation",
+            type: "input_field",
+            const_props: {
+              name: "designation",
+              key: "Designation",
+              placeholder: "",
+              label: "Designation",
+              required: true
+            },
+            user_props: ["handleChange"]
+          }
+        ]
+      },
+      {
+        group: false,
+        name: "institute",
+        type: "input_field",
+        const_props: {
+          name: "institute",
+          key: "Institute",
+          placeholder: "",
+          label: "Institute",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "phone",
+        type: "input_field",
+        const_props: {
+          name: "phone",
+          key: "Phone",
+          placeholder: "",
+          label: "Phone",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "me",
+        type: "input_field",
+        const_props: {
+          name: "email",
+          key: "email",
+          placeholder: "",
+          label: "Email",
+          required: true
+        },
+        user_props: ["handleChange"]
+      }
+    ],
+
+    url: "referee",
+    name: "Reference"
   }
 };

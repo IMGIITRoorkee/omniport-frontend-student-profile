@@ -7,3 +7,8 @@ export const graduationOptions = [
   { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
   { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
 ];
+
+export const experienceOptions = [
+  { text: "INTERNSHIP", key: "INTERNSHIP", value: "int" },
+  { text: "JOB", key: "JOB", value: "job" }
+];

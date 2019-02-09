@@ -1,9 +1,6 @@
 import BooleanField from "./../components/input_fields/boolean-field";
 import ChoiceField from "./../components/input_fields/choice-field";
 import DateField from "./../components/input_fields/date-field";
-import EmailField from "./../components/input_fields/email-field";
-import IntegerField from "./../components/input_fields/integer-field";
-import ReadField from "./../components/input_fields/read-field";
 import TextField from "./../components/input_fields/text-field";
 import TextAreaField from "./../components/input_fields/textarea-field";
 import YearField from "./../components/input_fields/year-field";
@@ -23,9 +20,6 @@ export const FieldMap = {
   boolean_field: BooleanField,
   choice_field: ChoiceField,
   date_field: DateField,
-  email_field: EmailField,
-  integer_field: IntegerField,
-  read_field: ReadField,
   input_field: TextField,
   text_area_field: TextAreaField,
   year_field: YearField,

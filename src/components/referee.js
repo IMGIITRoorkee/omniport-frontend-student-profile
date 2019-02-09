@@ -3,7 +3,7 @@ import "./../index.css";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
 import style from "../styles.css";
 
-export function Referee(props) {
+const Referee = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -31,4 +31,5 @@ export function Referee(props) {
       </div>
     </Segment>
   );
-}
+};
+export default Referee;

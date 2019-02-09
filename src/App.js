@@ -45,7 +45,11 @@ const AchievementList = listComponents["achievement"];
 const CurrentEducationList = listComponents["currentEducation"];
 const PreviousEducationList = listComponents["previousEducation"];
 const PositionList = listComponents["position"];
+const ExperienceList = listComponents["experience"];
+const ProjectList = listComponents["project"];
+const BookList = listComponents["book"];
 const PaperList = listComponents["paper"];
+const RefereeList = listComponents["referee"];
 
 export class App extends Component {
   constructor(props) {
@@ -307,12 +311,17 @@ export class App extends Component {
     // );
     const app = (
       <div>
-        {/* <InterestList theme="blue" handle={handle} /> */}
+        <InterestList theme="blue" handle={handle} />
         {/* <AchievementList theme="blue" handle={handle} /> */}
-        {/* <PaperList theme="blue" handle={handle} /> */}
+
         {/* <CurrentEducationList theme="blue" handle={handle} /> */}
-        <PreviousEducationList theme="blue" handle={handle} />
-        <PositionList theme="blue" handle={handle} />
+        {/* <PreviousEducationList theme="blue" handle={handle} /> */}
+        {/* <PositionList theme="blue" handle={handle} /> */}
+        <ExperienceList theme="blue" handle={handle} />
+        <ProjectList theme="blue" handle={handle} />
+        <BookList theme="blue" handle={handle} />
+        {/* <PaperList theme="blue" handle={handle} /> */}
+        <RefereeList theme="blue" handle={handle} />
       </div>
     );
     if (show) {

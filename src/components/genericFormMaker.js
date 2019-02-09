@@ -80,7 +80,7 @@ export default function genericFormMaker(info) {
           props = Object.assign(props, field.const_props);
           //create the JSX element with the props and push it to the form array
           let f = FieldMap[field.type];
-          formElements.push(React.createElement(f, props));
+          formElements.push(f(props));
         } else {
           let fields = field.fields;
           let groupElements = [];
@@ -106,7 +106,7 @@ export default function genericFormMaker(info) {
 
             //create the JSX element with the props and push it to the form array
             let f = FieldMap[field.type];
-            groupElements.push(React.createElement(f, props));
+            groupElements.push(f(props));
           }
           formElements.push(
             <Form.Group key={index} widths={field.widths}>
@@ -171,7 +171,12 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            this.handleErrors(error.response.data);
+            console.log(error);
+            if (error.response.status == 400) {
+              this.handleErrors(error.response.data);
+            } else {
+              this.handleHide();
+            }
           });
       } else {
         axios({
@@ -189,7 +194,11 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            this.handleErrors(error.response.data);
+            if (error.response.status == 400) {
+              this.handleErrors(error.response.data);
+            } else {
+              this.handleHide();
+            }
           });
       }
     };
