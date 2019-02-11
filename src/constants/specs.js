@@ -530,7 +530,7 @@ export const specs = {
       {
         group: false,
         name: "image",
-        type: "file_field",
+        type: "image_field",
         const_props: {
           name: "image",
           key: "Image",
@@ -538,7 +538,7 @@ export const specs = {
           label: "Image",
           required: false
         },
-        user_props: ["handleFile", "handleDelete"]
+        user_props: ["handleImageChange", "removeImage"]
       }
     ],
     url: "project",

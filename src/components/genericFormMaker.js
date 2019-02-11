@@ -57,10 +57,20 @@ export default function genericFormMaker(info) {
             props[properties[index]] = this[properties[index]];
           }
           props["autoFocus"] = index == 0 ? true : false;
-          if (field.type != "file_field") {
-            props["value"] = this.state.data[field.name];
-          } else {
-            props["link"] = this.state.data[field.name + "Link"];
+          switch (field.type) {
+            case "file_field": {
+              props["value"] = this.state.data[field.name];
+              props["link"] = this.state.data[field.name + "Link"];
+              break;
+            }
+            case "image_field": {
+              props["value"] = this.state.data[field.name];
+              props["link"] = this.state.data[field.name + "ImageLink"];
+            }
+            default: {
+              props["value"] = this.state.data[field.name];
+              break;
+            }
           }
           //combine user_props and const_props
 
@@ -82,6 +92,21 @@ export default function genericFormMaker(info) {
               props[properties[index]] = this[properties[index]];
             }
             props["autoFocus"] = index == 0 && i == 0 ? true : false;
+            switch (field.type) {
+              case "file_field": {
+                props["value"] = this.state.data[field.name];
+                props["link"] = this.state.data[field.name + "Link"];
+                break;
+              }
+              case "image_field": {
+                props["value"] = this.state.data[field.name];
+                props["link"] = this.state.data[field.name + "ImageLink"];
+              }
+              default: {
+                props["value"] = this.state.data[field.name];
+                break;
+              }
+            }
             if (field.type != "file_field") {
               props["value"] = this.state.data[field.name];
             } else {
@@ -121,11 +146,15 @@ export default function genericFormMaker(info) {
     handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
+
       for (let prop in info) {
         let link = prop + "Link";
-        if (this.state.data.hasOwnProperty(link) === false) {
+        let imageLink = prop + "ImageLink";
+        let fileField = this.state.data.hasOwnProperty(link);
+        let imageField = this.state.data.hasOwnProperty(imageLink);
+        if (fileField == false && imageField == false) {
           data.append(snakeCase(prop), info[prop]);
-        } else {
+        } else if (fileField == true) {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
             data.append(snakeCase(prop), this.state.data[prop]);
           } else if (
@@ -136,6 +165,25 @@ export default function genericFormMaker(info) {
             this.state.data[prop] == null &&
             this.state.data[link] == null
           ) {
+            data.append(snakeCase(prop), "");
+          }
+        } else if (imageField == true) {
+          console.log("link", this.state.data[imageLink]);
+          console.log(this.state.data[prop]);
+          if (this.state.data[imageLink] != "" && this.state.data[prop] != "") {
+            //image uploaded
+
+            data.append(snakeCase(prop), this.state.data[prop]);
+          } else if (
+            this.state.data[imageLink] != "" &&
+            this.state.data[prop] == ""
+          ) {
+            //image not modfied
+          } else if (
+            this.state.date[imageLink] == "" &&
+            this.state.data[prop] == ""
+          ) {
+            //image removed
             data.append(snakeCase(prop), "");
           }
         }
@@ -213,6 +261,23 @@ export default function genericFormMaker(info) {
         }
       }
       this.setState({ errors: errors });
+    };
+    handleImageChange = (e, name) => {
+      e.preventDefault();
+
+      let reader = new FileReader();
+      let file = e.target.files[0];
+
+      reader.onloadend = () => {
+        const image = reader.result;
+        console.log(file);
+        const link = name + "ImageLink";
+        this.setState({
+          data: { ...this.state.data, [name]: file, [link]: image }
+        });
+      };
+
+      reader.readAsDataURL(file);
     };
     render() {
       const { update } = this.state;

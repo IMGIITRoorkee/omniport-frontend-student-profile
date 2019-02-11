@@ -130,7 +130,7 @@ export const initial = {
       endDate: "",
       isFullDate: true,
       image: "",
-      imageLink: "",
+      imageImageLink: "",
       visibility: true
     },
     links: ["image"]

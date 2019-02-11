@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 
-export function ImagePreview(props) {
+export default function ImagePreview(props) {
   return (
     <div>
       <img
