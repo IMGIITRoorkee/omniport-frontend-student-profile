@@ -1,9 +1,8 @@
 // package imports
 import React from "react";
-import { Dimmer, Icon, Segment, Popup } from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Popp } from "semantic-ui-react";
 import axios from "axios";
 import { upperFirst } from "lodash";
-import { isMobile, isBrowser } from "react-device-detect";
 
 // css imports
 import style from "../styles.css";
@@ -175,7 +174,6 @@ const genericListMaker = (componentName, FormComponent) => {
           );
         });
       }
-      console.log(isBrowser);
       return (
         <ComponentTransition>
           <Segment padded color={theme}>
@@ -186,38 +184,18 @@ const genericListMaker = (componentName, FormComponent) => {
                 {localSpecs.plural}
               </h3>
               <div>
-                {<h1>{isMobile}</h1>}
                 {handle == undefined &&
                 localSpecs.draggable == true &&
                 data.length > 1 ? (
-                  <Popup
-                    disabled={isMobile}
-                    trigger={
-                      <Icon
-                        color="grey"
-                        name="sort"
-                        circular
-                        onClick={handleDragShow}
-                      />
-                    }
-                    content="Rearrange"
-                    size="tiny"
+                  <Icon
+                    color="grey"
+                    name="sort"
+                    circular
+                    onClick={handleDragShow}
                   />
                 ) : null}
                 {handle == undefined ? (
-                  <Popup
-                    trigger={
-                      <Icon
-                        color="grey"
-                        name="add"
-                        circular
-                        onClick={handleShow}
-                      />
-                    }
-                    disabled={isMobile}
-                    content="Add new entry"
-                    size="tiny"
-                  />
+                  <Icon color="grey" name="add" circular onClick={handleShow} />
                 ) : null}
               </div>
 

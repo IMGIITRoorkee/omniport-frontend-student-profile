@@ -1,9 +1,8 @@
 import React from "react";
-import { isMobile } from "react-custom-scrollbars";
 import { snakeCase, startCase } from "lodash";
 import axios from "axios";
 
-import { Form, Button, Icon, Popup, Segment, Confirm } from "semantic-ui-react";
+import { Form, Button, Icon, Segment, Confirm } from "semantic-ui-react";
 
 import { getCookie } from "formula_one";
 
@@ -222,18 +221,7 @@ export default function genericFormMaker(info) {
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
-            <Popup
-              trigger={
-                <Icon
-                  color="grey"
-                  name="delete"
-                  onClick={this.props.handleHide}
-                />
-              }
-              disabled={isMobile}
-              size="tiny"
-              content="Close"
-            />
+            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
           </Segment>
 
           <Segment attached styleName="style.formStyle">

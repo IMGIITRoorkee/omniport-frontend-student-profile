@@ -1,6 +1,5 @@
 import React from "react";
-import { Dimmer, Icon, Segment, List, Popup } from "semantic-ui-react";
-import { isMobile } from "react-device-detect";
+import { Dimmer, Icon, Segment, List } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import style from "../styles.css";
@@ -145,14 +144,7 @@ export class Skill extends React.Component {
               <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
             {this.props.handle != undefined ? null : (
-              <Popup
-                trigger={
-                  <Icon color="grey" name="add" circular onClick={handleShow} />
-                }
-                disabled={isMobile}
-                size="tiny"
-                content="Edit"
-              />
+              <Icon color="grey" name="add" circular onClick={handleShow} />
             )}
             {this.props.handle != undefined ? (
               <span style={{ color: "grey", textAlign: "right" }}>
