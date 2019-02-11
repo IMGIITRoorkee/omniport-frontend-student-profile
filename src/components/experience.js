@@ -10,7 +10,11 @@ const Experience = props => {
       <div styleName="style.flex-box">
         <List>
           <List.Item>
-            {props.experienceType == "int" ? <p>Internship</p> : <p>Job</p>}
+            {props.data.experienceType == "int" ? (
+              <p>Internship</p>
+            ) : (
+              <p>Job</p>
+            )}
             <List.Icon name="stop" color="blue" />
             <List.Content>
               {props.data.position} - <b>{props.data.organisation}</b>
