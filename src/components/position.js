@@ -1,10 +1,9 @@
 import React from "react";
-import "./../index.css";
-import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { Icon, List, Segment } from "semantic-ui-react";
+import { EditIcon } from "./editIcon";
 import style from "../styles.css";
 
 const Position = props => {
-  console.log(props.data.endDate);
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -23,13 +22,10 @@ const Position = props => {
         </List>
 
         <div>
-          {!props.rearrange ? (
-            <Icon
-              name="edit"
-              color="grey"
-              onClick={() => props.manageData(props.data.id)}
-            />
-          ) : null}
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.data.id)}
+          />
         </div>
       </div>
     </Segment>

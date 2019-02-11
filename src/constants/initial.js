@@ -33,7 +33,7 @@ export const initial = {
       visibility: true,
       cgpa: "",
       percentage: "",
-      is_percentage: false
+      isPercentage: false
     },
     links: []
   },
@@ -129,8 +129,10 @@ export const initial = {
       startDate: "",
       endDate: "",
       isFullDate: true,
-      file: "",
+      image: "",
+      imageLink: "",
       visibility: true
-    }
+    },
+    links: ["image"]
   }
 };

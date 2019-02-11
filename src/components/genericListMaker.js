@@ -1,8 +1,9 @@
 // package imports
 import React from "react";
-import { Dimmer, Icon, Segment } from "semantic-ui-react";
+import { Dimmer, Icon, Segment, Popup } from "semantic-ui-react";
 import axios from "axios";
 import { upperFirst } from "lodash";
+import { isMobile, isBrowser } from "react-device-detect";
 
 // css imports
 import style from "../styles.css";
@@ -14,13 +15,14 @@ import { initial } from "./../constants/initial";
 import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
+import { displayComponents } from "./../constants/displayComponents";
 
 //temp
-import { displayComponents } from "./../constants/displayComponents";
-import { compare } from "./../utils";
 
 const genericListMaker = (componentName, FormComponent) => {
   const DisplayComponent = displayComponents[componentName];
+  // localSpecs will have all the info about the component.
+  const localSpecs = specs[componentName];
   class GenericList extends React.Component {
     constructor(props) {
       super(props);
@@ -35,23 +37,18 @@ const genericListMaker = (componentName, FormComponent) => {
     componentDidMount() {
       this.fetchData();
     }
-    componentDidUpdate() {
-      console.log("yaa");
-    }
     fetchData = e => {
       let url = "";
       let { handle } = this.props;
-      if (this.props.handle != undefined) {
-        url = this.props.handle + "/handle/";
+      if (handle != undefined) {
+        url = handle + "/handle/";
       }
       axios
-        .get("/api/student_profile/" + specs[componentName].url + "/")
+        .get("/api/student_profile/" + localSpecs.url + "/")
         .then(response => {
-          console.log("res", response);
           if (response.data.length == 0 && handle != undefined)
             this.setState({
-              empty:
-                "No " + changeCase.sentenceCase(componentName) + " data to show"
+              empty: "No data to show!"
             });
           else {
             this.setState({ data: response.data });
@@ -75,9 +72,8 @@ const genericListMaker = (componentName, FormComponent) => {
       });
     };
     appendData = item => {
-      let sortBy = specs[componentName].sortBy;
-      let ascending = specs[componentName].ascending;
-      console.log(ascending);
+      let sortBy = localSpecs.sortBy;
+      let ascending = localSpecs.ascending;
       let data = this.state.data;
 
       let n = data.length;
@@ -102,16 +98,13 @@ const genericListMaker = (componentName, FormComponent) => {
     };
     updateDeleteData = (item, option) => {
       const data_array = this.state.data;
-      console.log(option);
       if (option == "delete") {
         let newData = data_array.filter(obj =>
           obj.id != item.id ? true : false
         );
-        console.log("delete", newData);
         this.setState({ data: newData });
       } else if (option == "put") {
         const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
-        const temp = specs[componentName];
         newData.sort(function compare(a, b, sortBy, ascending) {
           if (ascending == true) {
             if (a[sortBy] < b[sortBy]) return -1;
@@ -127,7 +120,6 @@ const genericListMaker = (componentName, FormComponent) => {
       }
     };
     handleShow = e => {
-      console.log(this.state.formData);
       this.setState({
         active: true,
         formData: initial[componentName].data,
@@ -155,8 +147,8 @@ const genericListMaker = (componentName, FormComponent) => {
     };
 
     render() {
-      const { active, update, formData, data, rearrange } = this.state;
-      let { theme } = this.props;
+      const { active, update, formData, data, rearrange, empty } = this.state;
+      const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const {
         fetchData,
@@ -165,10 +157,10 @@ const genericListMaker = (componentName, FormComponent) => {
         handleHide,
         handleShow,
         handleDragShow,
+        handleDragHide,
         handleUpdate
       } = this;
 
-      let data_array;
       let children;
 
       if (data != "") {
@@ -178,39 +170,60 @@ const genericListMaker = (componentName, FormComponent) => {
               data={data}
               key={data.id}
               manageData={this.manageData}
-              rearrange={this.props.handle != undefined}
+              rearrange={handle != undefined}
             />
           );
         });
       }
-      console.log("d", specs[componentName].draggable);
+      console.log(isBrowser);
       return (
         <ComponentTransition>
           <Segment padded color={theme}>
             <div styleName="style.headingBox">
               <h3 styleName="style.heading">
                 {/* modify icon */}
-                <Icon name="paperclip" color={theme || "blue"} />{" "}
-                {specs[componentName].plural}
+                <Icon name={localSpecs.icon} color={theme || "blue"} />{" "}
+                {localSpecs.plural}
               </h3>
               <div>
-                {this.props.handle == undefined &&
-                specs[componentName].draggable == true ? (
-                  <Icon
-                    color="grey"
-                    name="sort"
-                    circular
-                    onClick={handleDragShow}
+                {<h1>{isMobile}</h1>}
+                {handle == undefined &&
+                localSpecs.draggable == true &&
+                data.length > 1 ? (
+                  <Popup
+                    disabled={isMobile}
+                    trigger={
+                      <Icon
+                        color="grey"
+                        name="sort"
+                        circular
+                        onClick={handleDragShow}
+                      />
+                    }
+                    content="Rearrange"
+                    size="tiny"
                   />
                 ) : null}
-                {this.props.handle == undefined ? (
-                  <Icon color="grey" name="add" circular onClick={handleShow} />
+                {handle == undefined ? (
+                  <Popup
+                    trigger={
+                      <Icon
+                        color="grey"
+                        name="add"
+                        circular
+                        onClick={handleShow}
+                      />
+                    }
+                    disabled={isMobile}
+                    content="Add new entry"
+                    size="tiny"
+                  />
                 ) : null}
               </div>
 
-              {this.props.handle != undefined ? (
+              {handle != undefined ? (
                 <span style={{ color: "grey", textAlign: "right" }}>
-                  {this.state.empty}
+                  {empty}
                 </span>
               ) : null}
             </div>
@@ -226,14 +239,14 @@ const genericListMaker = (componentName, FormComponent) => {
             </Dimmer>
             {/* leaving rearrange part for now */}
 
-            {specs[componentName].draggable ? (
+            {localSpecs.draggable ? (
               <Dimmer active={rearrange} page>
                 <DragAndDropBox
                   data={data}
                   modelName={upperFirst(componentName)}
                   element={displayComponents[componentName]}
                   handleUpdate={handleUpdate}
-                  handleDragHide={this.handleDragHide}
+                  handleDragHide={handleDragHide}
                 />
               </Dimmer>
             ) : null}

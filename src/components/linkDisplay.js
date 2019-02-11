@@ -38,24 +38,26 @@ export class LinkDisplay extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    axios
-      .options("/api/student_profile/social_link/" + url)
-      .then(response => {
-        let dict_array = [];
-        let options = response.data.actions.POST.site.choices;
-        for (let i = 0; i < options.length; i++) {
-          let dict = {};
-          let item = options[i];
-          dict.key = item.value;
-          dict.text = item.displayName;
-          dict.value = item.value;
-          dict_array[i] = dict;
-        }
-        this.setState({ linkOptions: dict_array });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (this.props.handle == undefined) {
+      axios
+        .options("/api/student_profile/social_link/" + url)
+        .then(response => {
+          let dict_array = [];
+          let options = response.data.actions.POST.site.choices;
+          for (let i = 0; i < options.length; i++) {
+            let dict = {};
+            let item = options[i];
+            dict.key = item.value;
+            dict.text = item.displayName;
+            dict.value = item.value;
+            dict_array[i] = dict;
+          }
+          this.setState({ linkOptions: dict_array });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
   handleShow = e => {
@@ -83,7 +85,13 @@ export class LinkDisplay extends React.Component {
         {this.props.handle === undefined ? (
           <div styleName="style.socialHeadingBox">
             <h4 styleName="style.heading">Social links</h4>
-            <Icon color="grey" name="add" circular circular onClick={this.handleShow} />
+            <Icon
+              color="grey"
+              name="add"
+              circular
+              circular
+              onClick={this.handleShow}
+            />
           </div>
         ) : null}
 
@@ -91,7 +99,11 @@ export class LinkDisplay extends React.Component {
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
-          <LinkForm data={data} handleUpdate={this.handleUpdate} options={this.state.linkOptions} />
+          <LinkForm
+            data={data}
+            handleUpdate={this.handleUpdate}
+            options={this.state.linkOptions}
+          />
         </Dimmer>
       </div>
     );

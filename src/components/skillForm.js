@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Input, Button, Icon, Confirm, Segment } from "semantic-ui-react";
+import { Form, Popup, Button, Icon, Confirm, Segment } from "semantic-ui-react";
+import { isMobile } from "react-custom-scrollbars";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -93,7 +94,18 @@ export class SkillForm extends React.Component {
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
           <h3 styleName="style.heading">Skill</h3>
-          <Icon color="grey" name="delete" onClick={this.props.handleHide} />
+          <Popup
+            trigger={
+              <Icon
+                color="grey"
+                name="delete"
+                onClick={this.props.handleHide}
+              />
+            }
+            disabled={isMobile}
+            size="tiny"
+            content="Close"
+          />
         </Segment>
         <Segment attached styleName="style.formStyle">
           <ErrorTransition errors={this.state.errors} />

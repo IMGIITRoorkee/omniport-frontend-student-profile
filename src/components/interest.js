@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { EditIcon } from "./editIcon";
+
 import style from "../styles.css";
 
 const Interest = props => {
@@ -13,15 +15,10 @@ const Interest = props => {
           </List.Item>
         </List>
 
-        {!props.rearrange ? (
-          <div>
-            <Icon
-              name="edit"
-              color="grey"
-              onClick={() => props.manageData(props.data.id)}
-            />
-          </div>
-        ) : null}
+        <EditIcon
+          rearrange={props.rearrange}
+          onClick={() => props.manageData(props.data.id)}
+        />
       </div>
     </Segment>
   );

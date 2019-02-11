@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Message, Button, Icon, Dropdown, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Message,
+  Button,
+  Icon,
+  Dropdown,
+  Segment
+} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
@@ -125,7 +132,7 @@ export class ProfileForm extends React.Component {
       });
     }
   };
- 
+
   handleFile = event => {
     this.setState({
       resume: event.target.files[0],
@@ -150,8 +157,6 @@ export class ProfileForm extends React.Component {
     };
     if (handle == "") {
       errors.push("Handle must be filled");
-    } else if (/^[a-zA-Z](-*_*[a-zA-Z0-9])*$/.test(handle) == false) {
-      errors.push("Enter valid handle (avoid spaces and special characters)");
     }
     if (description == "") {
       errors.push("Description must be filled");
@@ -207,7 +212,12 @@ export class ProfileForm extends React.Component {
   render() {
     let res = (
       <Form.Field>
-        <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
+        <input
+          type="file"
+          onChange={this.handleFile}
+          styleName="style.inputfile"
+          id="embedpollfileinput1"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput1" className="ui blue button">
             <i className="ui upload icon" />
@@ -218,7 +228,12 @@ export class ProfileForm extends React.Component {
     );
     let imagePreview = (
       <div>
-        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
+        <input
+          type="file"
+          onChange={this.handleImageChange}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
@@ -230,7 +245,10 @@ export class ProfileForm extends React.Component {
     if (this.state.image) {
       imagePreview = (
         <ProfileImagePreview
-          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
+          imagePreviewUrl={this.state.image.replace(
+            "http://localhost:3003/",
+            "http://192.168.121.228:60025/"
+          )}
           removeImage={this.removeImage}
         />
       );

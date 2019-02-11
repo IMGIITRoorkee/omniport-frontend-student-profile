@@ -1,6 +1,6 @@
 import React from "react";
-import "./../index.css";
-import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { Icon, List, Segment } from "semantic-ui-react";
+import { EditIcon } from "./editIcon";
 import style from "../styles.css";
 
 export function Internship(props) {
@@ -15,7 +15,7 @@ export function Internship(props) {
               {props.data.position} - <b>{props.data.organisation}</b>
               <p>
                 {props.data.startDate} to{" "}
-                {props.data.endDate == null ?  "present": props.data.endDate }
+                {props.data.endDate == null ? "present" : props.data.endDate}
               </p>
               <p>{props.data.description}</p>
             </List.Content>
@@ -23,13 +23,10 @@ export function Internship(props) {
         </List>
 
         <div>
-          {!props.rearrange ? (
-            <Icon
-              name="edit"
-              color="grey"
-              onClick={() => props.manageData(props.data.id)}
-            />
-          ) : null}
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.data.id)}
+          />
         </div>
       </div>
     </Segment>

@@ -1,6 +1,8 @@
 import React from "react";
 import "./../index.css";
 import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { EditIcon } from "./editIcon";
+
 import style from "../styles.css";
 
 export function Job(props) {
@@ -22,13 +24,10 @@ export function Job(props) {
         </List>
 
         <div>
-          {!props.rearrange ? (
-            <Icon
-              name="edit"
-              color="grey"
-              onClick={() => props.manageData(props.data.id)}
-            />
-          ) : null}
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.data.id)}
+          />
         </div>
       </div>
     </Segment>

@@ -1,33 +1,34 @@
 import React from "react";
-import "./../index.css";
-import { Button, Icon, List, Segment } from "semantic-ui-react";
+import { List, Segment } from "semantic-ui-react";
+import { EditIcon } from "./editIcon";
+
 import style from "../styles.css";
 
 const Referee = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
-          <List.Item>
-            <List.Icon name="stop" color="blue" />
-            <List.Content>
-              {props.data.referee}
-              <p>
-                {props.data.designation}, {props.data.institute}
-              </p>
-              <p>{props.data.email}</p>
-              <p>{props.data.phone}</p>
-            </List.Content>
-          </List.Item>
-        </List>
-
-        {!props.rearrange ? (
-          <Icon
-            name="edit"
-            color="grey"
+        <div>
+          <List>
+            <List.Item>
+              <List.Icon name="stop" color="blue" />
+              <List.Content>
+                {props.data.referee}
+                <p>
+                  {props.data.designation}, {props.data.institute}
+                </p>
+                <p>{props.data.email}</p>
+                {props.data.phone ? <p>{props.data.phone}</p> : null}
+              </List.Content>
+            </List.Item>
+          </List>
+        </div>
+        <div>
+          <EditIcon
+            rearrange={props.rearrange}
             onClick={() => props.manageData(props.data.id)}
           />
-        ) : null}
+        </div>
       </div>
     </Segment>
   );

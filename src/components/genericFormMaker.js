@@ -1,20 +1,9 @@
 import React from "react";
-
-import moment from "moment";
-
+import { isMobile } from "react-custom-scrollbars";
+import { snakeCase, startCase } from "lodash";
 import axios from "axios";
 
-import {
-  Form,
-  Input,
-  Button,
-  Icon,
-  Checkbox,
-  Segment,
-  Confirm
-} from "semantic-ui-react";
-
-import { capitalizeFirstLetter } from "./../utils";
+import { Form, Button, Icon, Popup, Segment, Confirm } from "semantic-ui-react";
 
 import { getCookie } from "formula_one";
 
@@ -23,7 +12,6 @@ import style from "../styles.css";
 import { ErrorTransition } from "./transition";
 
 import { FieldMap } from "./../constants/input";
-
 export default function genericFormMaker(info) {
   let { initial, name, url } = info;
 
@@ -137,10 +125,10 @@ export default function genericFormMaker(info) {
       for (let prop in info) {
         let link = prop + "Link";
         if (this.state.data.hasOwnProperty(link) === false) {
-          data.append(prop, info[prop]);
+          data.append(snakeCase(prop), info[prop]);
         } else {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
-            data.append(prop, this.state.data[prop]);
+            data.append(snakeCase(prop), this.state.data[prop]);
           } else if (
             this.state.data[prop] == null &&
             this.state.data[link] != null
@@ -149,7 +137,7 @@ export default function genericFormMaker(info) {
             this.state.data[prop] == null &&
             this.state.data[link] == null
           ) {
-            data.append(prop, "");
+            data.append(snakeCase(prop), "");
           }
         }
       }
@@ -157,7 +145,6 @@ export default function genericFormMaker(info) {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
       };
-      console.log("update", this.state.update);
       if (this.state.update === false) {
         axios({
           method: "post",
@@ -166,7 +153,8 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            this.props.appendData(response.data);
+            let data = response.data;
+            this.props.appendData(data);
             this.setState(initial, () => {
               this.props.handleHide();
             });
@@ -195,7 +183,7 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-		  console.log(error);
+            console.log(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
@@ -222,7 +210,7 @@ export default function genericFormMaker(info) {
       let errors = [];
       for (let key in dict) {
         for (let index in dict[key]) {
-          errors.push(capitalizeFirstLetter(key) + ": " + dict[key][index]);
+          errors.push(startCase(key) + ": " + dict[key][index]);
         }
       }
       this.setState({ errors: errors });
@@ -234,7 +222,18 @@ export default function genericFormMaker(info) {
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
-            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
+            <Popup
+              trigger={
+                <Icon
+                  color="grey"
+                  name="delete"
+                  onClick={this.props.handleHide}
+                />
+              }
+              disabled={isMobile}
+              size="tiny"
+              content="Close"
+            />
           </Segment>
 
           <Segment attached styleName="style.formStyle">

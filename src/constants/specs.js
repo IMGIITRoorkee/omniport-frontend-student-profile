@@ -2,6 +2,7 @@ import { graduationOptions, experienceOptions } from "./choiceOptions";
 
 export const specs = {
   interest: {
+    icon: "game",
     draggable: true,
     sortBy: "priority",
     ascending: true,
@@ -14,7 +15,7 @@ export const specs = {
         const_props: {
           name: "topic",
           key: "Topic",
-          placeholder: "",
+          placeholder: "Topic",
           label: "Topic",
           required: true
         },
@@ -25,6 +26,7 @@ export const specs = {
     name: "Interest"
   },
   achievement: {
+    icon: "winner",
     draggable: true,
     sortBy: "priority",
     ascending: true,
@@ -37,7 +39,7 @@ export const specs = {
         const_props: {
           name: "achievement",
           key: "Achievement",
-          placeholder: "",
+          placeholder: "Achievement",
           label: "Achievement",
           required: true
         },
@@ -48,6 +50,7 @@ export const specs = {
     name: "Achievement"
   },
   currentEducation: {
+    icon: "student",
     draggable: false,
     sortBy: "semester",
     ascending: true,
@@ -63,7 +66,7 @@ export const specs = {
             const_props: {
               name: "semester",
               key: "Semester",
-              placeholder: "",
+              placeholder: "semester",
               label: "Semester number",
               required: true
             },
@@ -75,7 +78,7 @@ export const specs = {
             const_props: {
               name: "cgpa",
               key: "CGPA",
-              placeholder: "",
+              placeholder: "CGPA",
               label: "CGPA",
               required: true
             },
@@ -87,7 +90,7 @@ export const specs = {
             const_props: {
               name: "sgpa",
               key: "SGPA",
-              placeholder: "",
+              placeholder: "SGPA",
               label: "SGPA",
               required: true
             },
@@ -100,6 +103,7 @@ export const specs = {
     name: "Current education"
   },
   previousEducation: {
+    icon: "student",
     draggable: false,
     sortBy: "year",
     ascending: true,
@@ -115,7 +119,7 @@ export const specs = {
             const_props: {
               name: "institute",
               key: "Institute",
-              placeholder: "",
+              placeholder: "Institute",
               label: "Institute",
               required: true
             },
@@ -127,7 +131,7 @@ export const specs = {
             const_props: {
               name: "degree",
               key: "Degree",
-              placeholder: "",
+              placeholder: "Degree",
               label: "Degree",
               required: true
             },
@@ -142,7 +146,7 @@ export const specs = {
         const_props: {
           name: "graduation",
           key: "Graduation",
-          placeholder: "",
+          placeholder: "Graduation",
           label: "Graduation",
           required: true,
           options: graduationOptions
@@ -169,7 +173,7 @@ export const specs = {
         const_props: {
           name: "cgpa",
           key: "Cgpa",
-          placeholder: "",
+          placeholder: "CGPA",
           label: "CGPA",
           required: false
         },
@@ -182,9 +186,22 @@ export const specs = {
         const_props: {
           name: "percentage",
           key: "Percentage",
-          placeholder: "",
+          placeholder: "Percentage",
           label: "Percentage",
           required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "isPercentage",
+        type: "boolean_field",
+        const_props: {
+          name: "isPercentage",
+          key: "IsPercentage",
+          placeholder: "",
+          label: "Consider priority of percentage greater than CGPA",
+          required: false
         },
         user_props: ["handleChange"]
       },
@@ -195,7 +212,7 @@ export const specs = {
         const_props: {
           name: "year",
           key: "Year",
-          placeholder: "",
+          placeholder: "Year",
           label: "Year",
           required: false
         },
@@ -207,10 +224,11 @@ export const specs = {
   },
 
   position: {
+    icon: "bookmark",
     draggable: false,
     sortBy: "priority",
     ascending: true,
-    plural: "Position",
+    plural: "Positions",
     fields: [
       {
         group: false,
@@ -219,7 +237,7 @@ export const specs = {
         const_props: {
           name: "position",
           key: "Position",
-          placeholder: "",
+          placeholder: "Position",
           label: "Position",
           required: true
         },
@@ -232,7 +250,7 @@ export const specs = {
         const_props: {
           name: "organisation",
           key: "Organisation",
-          placeholder: "",
+          placeholder: "Organisation",
           label: "Organisation",
           required: true
         },
@@ -275,7 +293,7 @@ export const specs = {
         const_props: {
           name: "graduation",
           key: "Graduation",
-          placeholder: "",
+          placeholder: "Graduation",
           label: "Graduation",
           required: true,
           options: graduationOptions
@@ -302,7 +320,7 @@ export const specs = {
         const_props: {
           name: "description",
           key: "Description",
-          placeholder: "Describe your experience",
+          placeholder: "Description",
           label: "Description",
           required: false
         },
@@ -313,10 +331,11 @@ export const specs = {
     name: "Position"
   },
   experience: {
+    icon: "suitcase",
     draggable: false,
     sortBy: "priority",
     ascending: true,
-    plural: "Experience",
+    plural: "Experiences",
     fields: [
       {
         group: false,
@@ -325,7 +344,7 @@ export const specs = {
         const_props: {
           name: "position",
           key: "Position",
-          placeholder: "",
+          placeholder: "Position",
           label: "Position",
           required: true
         },
@@ -338,7 +357,7 @@ export const specs = {
         const_props: {
           name: "organisation",
           key: "Organisation",
-          placeholder: "Enter the organization",
+          placeholder: "Organisation",
           label: "Organisation",
           required: true
         },
@@ -395,7 +414,7 @@ export const specs = {
         const_props: {
           name: "experienceType",
           key: "ExperienceType",
-          placeholder: "",
+          placeholder: "Job/Internship",
           label: "ExperienceType",
           required: true,
           options: experienceOptions
@@ -409,7 +428,7 @@ export const specs = {
         const_props: {
           name: "description",
           key: "Description",
-          placeholder: "Describe your experience",
+          placeholder: "Description",
           label: "Description",
           required: false
         },
@@ -420,6 +439,7 @@ export const specs = {
     name: "Experience"
   },
   project: {
+    icon: "folder",
     draggable: false,
     sortBy: "priority",
     ascending: true,
@@ -432,7 +452,7 @@ export const specs = {
         const_props: {
           name: "topic",
           key: "Topic",
-          placeholder: "",
+          placeholder: "Topic",
           label: "Topic",
           required: true
         },
@@ -515,7 +535,7 @@ export const specs = {
           name: "image",
           key: "Image",
           placeholder: "",
-          label: "image",
+          label: "Image",
           required: false
         },
         user_props: ["handleFile", "handleDelete"]
@@ -525,6 +545,7 @@ export const specs = {
     name: "Project"
   },
   book: {
+    icon: "book",
     draggable: true,
     sortBy: "priority",
     ascending: true,
@@ -537,7 +558,7 @@ export const specs = {
         const_props: {
           name: "title",
           key: "Title",
-          placeholder: "Enter the title of the book",
+          placeholder: "Title",
           label: "Title",
           required: true
         },
@@ -550,7 +571,7 @@ export const specs = {
         const_props: {
           name: "authors",
           key: "Author",
-          placeholder: "Enter the authors of the book",
+          placeholder: "Authors",
           label: "Authors",
           required: true
         },
@@ -563,7 +584,7 @@ export const specs = {
         const_props: {
           name: "publisher",
           key: "Publisher",
-          placeholder: "Enter the publisher of the book",
+          placeholder: "Publisher",
           label: "Publisher",
           required: true
         },
@@ -576,7 +597,7 @@ export const specs = {
         const_props: {
           name: "year",
           key: "year",
-          placeholder: "Enter the year of writing the book",
+          placeholder: "Year",
           label: "Year",
           required: true
         },
@@ -592,7 +613,7 @@ export const specs = {
             const_props: {
               name: "pages",
               key: "Pages",
-              placeholder: "Number of pages",
+              placeholder: "Pages",
               label: "Pages",
               required: false
             },
@@ -604,13 +625,39 @@ export const specs = {
             const_props: {
               name: "volumes",
               key: "Volumes",
-              placeholder: "Number of volumes",
+              placeholder: "Volumes",
               label: "Volumes",
               required: false
             },
             user_props: ["handleChange"]
           }
         ]
+      },
+      {
+        group: false,
+        name: "isbnCode",
+        type: "input_field",
+        const_props: {
+          name: "isbnCode",
+          key: "isbnCode",
+          placeholder: "ISBN Code",
+          label: "IsbnCode",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "editors",
+        type: "input_field",
+        const_props: {
+          name: "editors",
+          key: "editors",
+          placeholder: "",
+          label: "Editors",
+          required: true
+        },
+        user_props: ["handleChange"]
       }
     ],
 
@@ -618,6 +665,7 @@ export const specs = {
     name: "Book"
   },
   paper: {
+    icon: "paperclip",
     draggable: true,
     sortBy: "priority",
     ascending: false,
@@ -643,7 +691,7 @@ export const specs = {
         const_props: {
           name: "journal",
           key: "Journal",
-          placeholder: "Enter the name of the journal",
+          placeholder: "Name of the journal",
           label: "Journal",
           required: true
         },
@@ -656,7 +704,7 @@ export const specs = {
         const_props: {
           name: "authors",
           key: "Author",
-          placeholder: "Enter the authors of the book",
+          placeholder: "Authors",
           label: "Authors",
           required: true
         },
@@ -669,7 +717,7 @@ export const specs = {
         const_props: {
           name: "publisher",
           key: "Publisher",
-          placeholder: "Enter the publisher of the book",
+          placeholder: "Publisher",
           label: "Publisher",
           required: true
         },
@@ -682,7 +730,7 @@ export const specs = {
         const_props: {
           name: "year",
           key: "year",
-          placeholder: "Enter the year of writing the book",
+          placeholder: "Year",
           label: "Year",
           required: true
         },
@@ -736,10 +784,11 @@ export const specs = {
     name: "Paper"
   },
   referee: {
+    icon: "at",
     draggable: true,
     sortBy: "priority",
     ascending: false,
-    plural: "Reference",
+    plural: "References",
     fields: [
       {
         group: true,
@@ -751,7 +800,7 @@ export const specs = {
             const_props: {
               name: "referee",
               key: "Referee",
-              placeholder: "",
+              placeholder: "Name of the referee",
               label: "Referee",
               required: true
             },
@@ -763,7 +812,7 @@ export const specs = {
             const_props: {
               name: "designation",
               key: "Designation",
-              placeholder: "",
+              placeholder: "Designation",
               label: "Designation",
               required: true
             },
@@ -778,7 +827,7 @@ export const specs = {
         const_props: {
           name: "institute",
           key: "Institute",
-          placeholder: "",
+          placeholder: "Institute",
           label: "Institute",
           required: true
         },
@@ -791,7 +840,7 @@ export const specs = {
         const_props: {
           name: "phone",
           key: "Phone",
-          placeholder: "",
+          placeholder: "Phone number",
           label: "Phone",
           required: false
         },
@@ -804,7 +853,7 @@ export const specs = {
         const_props: {
           name: "email",
           key: "email",
-          placeholder: "",
+          placeholder: "Email",
           label: "Email",
           required: true
         },

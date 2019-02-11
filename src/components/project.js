@@ -3,6 +3,8 @@ import { Button, Segment, Icon, Image, List } from "semantic-ui-react";
 import style from "../styles.css";
 import { isMobile } from "react-device-detect";
 
+import { EditIcon } from "./editIcon";
+
 export const Project = props => {
   return (
     <Segment attached styleName="style.project">
@@ -20,6 +22,11 @@ export const Project = props => {
                     {props.endDate != "" ? " to " + props.data.endDate : null}
                   </p>
                   <p>{props.data.description}</p>
+                  {props.data.image ? (
+                    <a href={props.data.image} target="_blank">
+                      Image
+                    </a>
+                  ) : null}
                 </div>
               </div>
 
@@ -45,6 +52,11 @@ export const Project = props => {
                     {props.endDate != "" ? " to " + props.data.endDate : null}
                   </p>
                   <p>{props.data.description}</p>
+                  {props.data.image ? (
+                    <a href={props.data.image} target="_blank">
+                      Image
+                    </a>
+                  ) : null}
                 </List.Content>
               </List.Item>
             </List>
@@ -56,14 +68,10 @@ export const Project = props => {
           ) : null}
         </div>
       )}
-      {props.rearrange != true ? (
-        <Icon
-          styleName="style.icon"
-          name="edit"
-          color="grey"
-          onClick={() => props.update(props.data)}
-        />
-      ) : null}
+      <EditIcon
+        rearrange={props.rearrange}
+        onClick={() => props.manageData(props.data.id)}
+      />
     </Segment>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import { Dimmer, Icon, Segment, Header, List } from "semantic-ui-react";
+import { Dimmer, Icon, Segment, List, Popup } from "semantic-ui-react";
+import { isMobile } from "react-device-detect";
 import axios from "axios";
 import { getCookie } from "formula_one";
 import style from "../styles.css";
@@ -38,9 +39,10 @@ export class Skill extends React.Component {
       .get("/api/student_profile/skill/" + url)
       .then(response => {
         if (response.data.length == 0 && handle != undefined) {
-          this.setState({ empty: "No skills to show", createNew: true });
+          this.setState({ empty: "No data to show", createNew: true });
         } else {
-          if (response.data.length != 0) this.setState({ data: response.data[0], createNew: false });
+          if (response.data.length != 0)
+            this.setState({ data: response.data[0], createNew: false });
         }
       })
       .catch(function(error) {
@@ -142,9 +144,20 @@ export class Skill extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
-            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? null : (
+              <Popup
+                trigger={
+                  <Icon color="grey" name="add" circular onClick={handleShow} />
+                }
+                disabled={isMobile}
+                size="tiny"
+                content="Edit"
+              />
+            )}
             {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+              <span style={{ color: "grey", textAlign: "right" }}>
+                {this.state.empty}
+              </span>
             ) : null}
           </div>
           {this.state.data != initial ? (
