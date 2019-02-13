@@ -1,10 +1,11 @@
 import React from "react";
-import { Button, Segment, Icon, Image, List } from "semantic-ui-react";
+import { Modal, Segment, Icon, Image, List } from "semantic-ui-react";
 import style from "../styles.css";
 import { isMobile } from "react-device-detect";
+import { formatDate } from "./../utils";
 
 import { EditIcon } from "./editIcon";
-
+//css for mobile version is left
 export const Project = props => {
   return (
     <Segment attached styleName="style.project">
@@ -31,7 +32,7 @@ export const Project = props => {
               </div>
 
               {props.data.image ? (
-                <img src={props.data.image} styleName="style.mobPicture" />
+                <Image src={props.data.image} styleName="style.mobPicture" />
               ) : null}
             </List.Content>
           </List.Item>
@@ -43,27 +44,36 @@ export const Project = props => {
               <List.Item>
                 <List.Icon name="stop" color="blue" />
                 <List.Content>
-                  <b>{props.data.topic}</b>
-
-                  <br />
-                  <p>{props.data.field}</p>
-                  <p>
-                    {props.data.startDate}
-                    {props.endDate != "" ? " to " + props.data.endDate : null}
+                  {props.data.topic} in {props.data.field}
+                  <p styleName="style.gray1">
+                    {formatDate(props.data.startDate)} to{" "}
+                    {formatDate(props.data.endDate)}
+                    <br />
+                    {props.data.description}
                   </p>
-                  <p>{props.data.description}</p>
-                  {props.data.image ? (
-                    <a href={props.data.image} target="_blank">
-                      Image
-                    </a>
-                  ) : null}
                 </List.Content>
               </List.Item>
             </List>
           </div>
           {props.data.image ? (
             <div>
-              <img src={props.data.image} styleName="style.compPicture" />
+              <Modal
+                basic
+                trigger={
+                  <Image src={props.data.image} styleName="style.compPicture" />
+                }
+                basic
+                fluid
+              >
+                <Modal.Content image>
+                  <Image
+                    src={props.data.image}
+                    styleName="style.compPicture"
+                    wrapped
+                    size={"massive"}
+                  />
+                </Modal.Content>
+              </Modal>
             </div>
           ) : null}
         </div>

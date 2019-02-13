@@ -17,24 +17,22 @@ const PreviousEducation = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
-          <List.Item>
-            <List.Icon name="stop" color="blue" />
-            <List.Content>
-              <div>
-                <p>
-                  {props.data.degree} -{" "}
-                  {graduationOptions[props.data.graduation]} in{" "}
-                  <b>{props.data.field}</b>
-                </p>
-                <p>
-                  {props.data.institute}-{props.data.year}
-                </p>
-                <p>CGPA: {props.data.cgpa}</p>
-              </div>
-            </List.Content>
-          </List.Item>
-        </List>
+        <List.Item>
+          {/* <List.Icon name="stop" color="blue" /> */}
+          <List.Content>
+            <div>
+              {props.data.degree} - {graduationOptions[props.data.graduation]}{" "}
+              in {props.data.field}
+              <p styleName="style.gray1">
+                {props.data.institute + ", "}
+                {props.data.year}
+                <br />
+                CGPA {props.data.cgpa}
+              </p>
+            </div>
+          </List.Content>
+        </List.Item>
+
         <div>
           <EditIcon
             rearrange={props.rearrange}

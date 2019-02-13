@@ -1,9 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { LinkForm } from "./linkForm";
-import { Segment, Dimmer, Icon, Container } from "semantic-ui-react";
+import { Segment, Dimmer, Icon } from "semantic-ui-react";
 import style from "./../styles.css";
+
 let options = [];
+
 function myFunction(value, index, array, item) {
   let dict = {};
   dict.key = item.value;

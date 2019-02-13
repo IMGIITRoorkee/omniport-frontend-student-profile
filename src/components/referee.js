@@ -9,16 +9,18 @@ const Referee = props => {
     <Segment>
       <div styleName="style.flex-box">
         <div>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
                 {props.data.referee}
-                <p>
+                <p styleName="style.gray1">
                   {props.data.designation}, {props.data.institute}
+                  <br />
+                  {props.data.email}
+                  <br />
+                  {props.data.phone ? <span>{props.data.phone}</span> : null}
                 </p>
-                <p>{props.data.email}</p>
-                {props.data.phone ? <p>{props.data.phone}</p> : null}
               </List.Content>
             </List.Item>
           </List>

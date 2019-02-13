@@ -141,6 +141,19 @@ export const specs = {
       },
       {
         group: false,
+        name: "year",
+        type: "year_field",
+        const_props: {
+          name: "year",
+          key: "Year",
+          placeholder: "Year",
+          label: "Year",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
         name: "graduation",
         type: "choice_field",
         const_props: {
@@ -201,19 +214,6 @@ export const specs = {
           key: "IsPercentage",
           placeholder: "",
           label: "Consider priority of percentage greater than CGPA",
-          required: false
-        },
-        user_props: ["handleChange"]
-      },
-      {
-        group: false,
-        name: "year",
-        type: "year_field",
-        const_props: {
-          name: "year",
-          key: "Year",
-          placeholder: "Year",
-          label: "Year",
           required: false
         },
         user_props: ["handleChange"]
@@ -285,20 +285,6 @@ export const specs = {
             user_props: ["handleChange"]
           }
         ]
-      },
-      {
-        group: false,
-        name: "graduation",
-        type: "choice_field",
-        const_props: {
-          name: "graduation",
-          key: "Graduation",
-          placeholder: "Graduation",
-          label: "Graduation",
-          required: true,
-          options: graduationOptions
-        },
-        user_props: ["handleChange"]
       },
       {
         group: false,
@@ -573,6 +559,19 @@ export const specs = {
           key: "Author",
           placeholder: "Authors",
           label: "Authors",
+          required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "contribution",
+        type: "input_field",
+        const_props: {
+          name: "contribution",
+          key: "contribution",
+          placeholder: "Your contribution",
+          label: "Contribution",
           required: true
         },
         user_props: ["handleChange"]

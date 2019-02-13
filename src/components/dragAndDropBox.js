@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Segment, Button, Icon } from "semantic-ui-react";
 import axios from "axios";
+
 import { getCookie } from "formula_one";
+
 import style from "../styles.css";
+
 const grid = 8;
 
 export class DragAndDropBox extends Component {
@@ -17,12 +19,14 @@ export class DragAndDropBox extends Component {
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
+
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress, false);
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPress, false);
   }
+
   handleKeyPress = e => {
     if (e.keyCode === 27) {
       this.props.handleDragHide();
@@ -41,25 +45,24 @@ export class DragAndDropBox extends Component {
     color: "black",
     padding: grid
   });
+
   reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-
     return result;
   };
+
   onDragEnd(result) {
     // dropped outside the list
     if (!result.destination) {
       return;
     }
-
     const items = this.reorder(
       this.state.items,
       result.source.index,
       result.destination.index
     );
-
     this.setState({
       items
     });
@@ -84,6 +87,7 @@ export class DragAndDropBox extends Component {
       this.props.handleUpdate(response.data);
     });
   };
+
   render() {
     const { element } = this.state;
     let heading = this.state.modelName;

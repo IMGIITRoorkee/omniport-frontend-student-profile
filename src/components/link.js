@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Segment, Icon } from "semantic-ui-react";
+
 import style from "../styles.css";
 
 export class Link extends React.Component {

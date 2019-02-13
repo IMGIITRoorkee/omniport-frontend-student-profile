@@ -1,32 +1,15 @@
 import React, { Component } from "react";
-import { Segment, Container, Grid, Menu } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
-import { BrowserView, MobileView } from "react-device-detect";
 import axios from "axios";
+import { Segment, Container, Grid, Menu } from "semantic-ui-react";
+import { BrowserView, MobileView } from "react-device-detect";
+
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 import { Profile } from "./components/profile";
 import { Skill } from "./components/skill";
-import style from "./styles.css";
-import { listComponents } from "./constants/components";
+import { listComponents } from "./constants/listComponents";
+import { creators } from "./constants/creators";
 
-const creators = [
-  {
-    name: "Dhruv Bhanushali",
-    role: "Backend Mentor"
-  },
-  {
-    name: "Praduman Goyal",
-    role: "Frontend Mentor"
-  },
-  {
-    name: "Ajay Neethi Kannan",
-    role: "Developer"
-  },
-  {
-    name: "Shreyansh Jain",
-    role: "Developer"
-  }
-];
+import style from "./styles.css";
 
 const InterestList = listComponents["interest"];
 const AchievementList = listComponents["achievement"];
@@ -51,6 +34,7 @@ export class App extends Component {
       tVisibility: false
     };
   }
+
   componentDidMount() {
     const handle = this.props.match.params.handle;
     this.setState({ handle: handle });
@@ -86,14 +70,18 @@ export class App extends Component {
         });
     }
   }
+
   changeTheme = theme => {
     this.setState({ theme: theme }, () => {});
   };
+
   scroll = target => {
     let ele = document.getElementById(target);
     window.scrollTo({ top: ele.offsetTop + 30, behavior: "smooth" });
   };
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   render() {
     const { show, erroneous, handle, activeItem } = this.state;
     let { theme } = this.state;
@@ -293,9 +281,7 @@ export class App extends Component {
     } else if (erroneous == "no") {
       return app;
     } else if (erroneous === "yes") {
-      {
-        document.location = "/404";
-      }
+      document.location = "/404";
     } else if (erroneous === "don't know") {
       return null;
     } else return null;

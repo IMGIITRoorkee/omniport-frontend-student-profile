@@ -158,7 +158,9 @@
     display:flex;
     justify-content: space-between;
   }
-  
+  .mobStyle{
+      /* do not remove  */
+  }
  .compStyle{
     width:calc(100% - 10em);
     flex-grow:1;
@@ -198,3 +200,15 @@
      display: none;
  }
 
+/* display components */
+.gray1{
+color: #999999;
+font-size: 13px;
+}
+.gray2{
+    color:#7A7A7A;
+    font-size: 13px;
+}
+.list{
+    margin-bottom: 0 !important;
+}

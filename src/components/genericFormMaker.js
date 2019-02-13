@@ -1,16 +1,15 @@
 import React from "react";
+import { Form, Button, Icon, Segment, Confirm } from "semantic-ui-react";
 import { snakeCase, startCase } from "lodash";
 import axios from "axios";
 
-import { Form, Button, Icon, Segment, Confirm } from "semantic-ui-react";
-
 import { getCookie } from "formula_one";
+
+import { ErrorTransition } from "./transition";
+import { FieldMap } from "./../constants/input";
 
 import style from "../styles.css";
 
-import { ErrorTransition } from "./transition";
-
-import { FieldMap } from "./../constants/input";
 export default function genericFormMaker(info) {
   let { initial, name, url } = info;
 

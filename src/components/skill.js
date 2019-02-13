@@ -68,12 +68,14 @@ export class Skill extends React.Component {
     const additionalCourses =
       this.state.data.additionalCourses != "" ? (
         <Segment>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                <h4>Additional Courses</h4>
-                <p>{this.state.data.additionalCourses}</p>
+                <b>Additional Courses</b>
+                <p styleName="style.gray1">
+                  {this.state.data.additionalCourses}
+                </p>
               </List.Content>
             </List.Item>
           </List>
@@ -82,12 +84,14 @@ export class Skill extends React.Component {
     const softwarePackages =
       this.state.data.softwarePackages != "" ? (
         <Segment>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                <h4>Software Packages</h4>
-                <p>{this.state.data.softwarePackages}</p>
+                <b>Software Packages</b>
+                <p styleName="style.gray1">
+                  {this.state.data.softwarePackages}
+                </p>
               </List.Content>
             </List.Item>
           </List>
@@ -96,12 +100,14 @@ export class Skill extends React.Component {
     const computerLanguages =
       this.state.data.computerLanguages != "" ? (
         <Segment>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                <h4>Computer Languages</h4>
-                <p>{this.state.data.computerLanguages}</p>
+                <b>Computer Languages</b>
+                <p styleName="style.gray1">
+                  {this.state.data.computerLanguages}
+                </p>
               </List.Content>
             </List.Item>
           </List>
@@ -110,12 +116,12 @@ export class Skill extends React.Component {
     const minorCourses =
       this.state.data.minorCourses != "" ? (
         <Segment>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                <h4>Minor Courses</h4>
-                <p>{this.state.data.minorCourses}</p>
+                <b>Minor Courses</b>
+                <p styleName="style.gray1">{this.state.data.minorCourses}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -124,11 +130,11 @@ export class Skill extends React.Component {
     const languages =
       this.state.data.languages != "" ? (
         <Segment>
-          <List>
+          <List styleName="style.list">
             <List.Item>
               <List.Icon name="stop" color="blue" />
               <List.Content>
-                <h4>Languages</h4>
+                <b>Languages</b>
                 <p>{this.state.data.languages}</p>
               </List.Content>
             </List.Item>

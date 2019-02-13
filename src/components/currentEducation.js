@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, List, Segment } from "semantic-ui-react";
+import { List, Segment } from "semantic-ui-react";
 import { EditIcon } from "./editIcon";
 
 import style from "../styles.css";
@@ -8,13 +8,18 @@ const CurrentEducation = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
+        <List styleName="style.list">
           <List.Item>
             <List.Icon name="stop" color="blue" />
             <List.Content>
-              <p>Semester - {props.data.semester}</p>
-              <p>SGPA: {props.data.sgpa} </p>
-              <p>CGPA: {props.data.cgpa} </p>
+              <div>
+                Semester {props.data.semester}
+                <p styleName="style.gray1">
+                  SGPA: {props.data.sgpa}
+                  <br />
+                  CGPA: {props.data.cgpa}
+                </p>
+              </div>
             </List.Content>
           </List.Item>
         </List>

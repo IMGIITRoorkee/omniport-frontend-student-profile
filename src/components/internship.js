@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, List, Segment } from "semantic-ui-react";
+import { List, Segment } from "semantic-ui-react";
 import { EditIcon } from "./editIcon";
 import style from "../styles.css";
 
@@ -8,7 +8,7 @@ export function Internship(props) {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
+        <List styleName="style.list">
           <List.Item>
             <List.Icon name="stop" color="blue" />
             <List.Content>

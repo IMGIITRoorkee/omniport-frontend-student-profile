@@ -1,6 +1,7 @@
 import React from "react";
-import { Icon, List, Segment } from "semantic-ui-react";
+import { List, Segment } from "semantic-ui-react";
 import { EditIcon } from "./editIcon";
+import { formatDate } from "./../utils";
 
 import style from "../styles.css";
 
@@ -8,21 +9,22 @@ const Experience = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
+        <List styleName="style.list">
           <List.Item>
-            {props.data.experienceType == "int" ? (
-              <p>Internship</p>
-            ) : (
-              <p>Job</p>
-            )}
             <List.Icon name="stop" color="blue" />
             <List.Content>
+              {props.data.experienceType == "int" ? (
+                <div>Internship</div>
+              ) : (
+                <div>Job</div>
+              )}
               {props.data.position} - <b>{props.data.organisation}</b>
-              <p>
-                {props.data.startDate} to{" "}
-                {props.data.endDate == null ? "present" : props.data.endDate}
+              <p styleName="style.gray1">
+                {formatDate(props.data.startDate)} to{" "}
+                {formatDate(props.data.endDate)}
+                <br />
+                <span>{props.data.description}</span>
               </p>
-              <p>{props.data.description}</p>
             </List.Content>
           </List.Item>
         </List>

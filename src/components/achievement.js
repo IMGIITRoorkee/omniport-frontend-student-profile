@@ -8,7 +8,7 @@ const Achievement = props => {
   return (
     <Segment>
       <div styleName="style.flex-box">
-        <List>
+        <List styleName="style.list">
           <List.Item>
             <List.Icon name="stop" color="blue" />
             <List.Content>{props.data.achievement}</List.Content>
