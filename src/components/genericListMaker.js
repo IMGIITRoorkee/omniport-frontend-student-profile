@@ -79,11 +79,7 @@ const genericListMaker = (componentName, FormComponent) => {
       let i = 0;
       let flag = false;
       for (i = 0; i < n; i++) {
-        if (
-          ascending
-            ? data[i][sortBy] >= item[sortBy]
-            : data[i][sortBy] <= item[sortBy]
-        ) {
+        if (ascending ? data[i][sortBy] >= item[sortBy] : data[i][sortBy] <= item[sortBy]) {
           data.splice(i, 0, item);
           this.setState({ data: data });
           flag = true;
@@ -98,9 +94,7 @@ const genericListMaker = (componentName, FormComponent) => {
     updateDeleteData = (item, option) => {
       const data_array = this.state.data;
       if (option == "delete") {
-        let newData = data_array.filter(obj =>
-          obj.id != item.id ? true : false
-        );
+        let newData = data_array.filter(obj => (obj.id != item.id ? true : false));
         this.setState({ data: newData });
       } else if (option == "put") {
         const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
@@ -149,29 +143,13 @@ const genericListMaker = (componentName, FormComponent) => {
       const { active, update, formData, data, rearrange, empty } = this.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
-      const {
-        fetchData,
-        appendData,
-        updateDeleteData,
-        handleHide,
-        handleShow,
-        handleDragShow,
-        handleDragHide,
-        handleUpdate
-      } = this;
+      const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleDragHide, handleUpdate } = this;
 
       let children;
 
       if (data != "") {
         children = data.map(data => {
-          return (
-            <DisplayComponent
-              data={data}
-              key={data.id}
-              manageData={this.manageData}
-              rearrange={handle != undefined}
-            />
-          );
+          return <DisplayComponent data={data} key={data.id} manageData={this.manageData} rearrange={handle != undefined} />;
         });
       }
       return (
@@ -180,30 +158,16 @@ const genericListMaker = (componentName, FormComponent) => {
             <div styleName="style.headingBox">
               <h3 styleName="style.heading">
                 {/* modify icon */}
-                <Icon name={localSpecs.icon} color={theme || "blue"} />{" "}
-                {localSpecs.plural}
+                <Icon name={localSpecs.icon} color={theme || "blue"} /> {localSpecs.plural}
               </h3>
               <div>
-                {handle == undefined &&
-                localSpecs.draggable == true &&
-                data.length > 1 ? (
-                  <Icon
-                    color="grey"
-                    name="sort"
-                    circular
-                    onClick={handleDragShow}
-                  />
+                {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
+                  <Icon color="grey" name="sort" circular onClick={handleDragShow} />
                 ) : null}
-                {handle == undefined ? (
-                  <Icon color="grey" name="add" circular onClick={handleShow} />
-                ) : null}
+                {handle == undefined ? <Icon color="grey" name="add" circular onClick={handleShow} /> : null}
               </div>
 
-              {handle != undefined ? (
-                <span style={{ color: "grey", textAlign: "right" }}>
-                  {empty}
-                </span>
-              ) : null}
+              {handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{empty}</span> : null}
             </div>
             <Dimmer active={active} page>
               <FormComponent

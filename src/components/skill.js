@@ -40,8 +40,7 @@ export class Skill extends React.Component {
         if (response.data.length == 0 && handle != undefined) {
           this.setState({ empty: "No data to show", createNew: true });
         } else {
-          if (response.data.length != 0)
-            this.setState({ data: response.data[0], createNew: false });
+          if (response.data.length != 0) this.setState({ data: response.data[0], createNew: false });
         }
       })
       .catch(function(error) {
@@ -70,12 +69,9 @@ export class Skill extends React.Component {
         <Segment>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <b>Additional Courses</b>
-                <p styleName="style.gray1">
-                  {this.state.data.additionalCourses}
-                </p>
+                <p styleName="style.gray">{this.state.data.additionalCourses}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -86,12 +82,9 @@ export class Skill extends React.Component {
         <Segment>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <b>Software Packages</b>
-                <p styleName="style.gray1">
-                  {this.state.data.softwarePackages}
-                </p>
+                <p styleName="style.gray">{this.state.data.softwarePackages}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -102,12 +95,9 @@ export class Skill extends React.Component {
         <Segment>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <b>Computer Languages</b>
-                <p styleName="style.gray1">
-                  {this.state.data.computerLanguages}
-                </p>
+                <p styleName="style.gray">{this.state.data.computerLanguages}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -118,10 +108,9 @@ export class Skill extends React.Component {
         <Segment>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <b>Minor Courses</b>
-                <p styleName="style.gray1">{this.state.data.minorCourses}</p>
+                <p styleName="style.gray">{this.state.data.minorCourses}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -132,10 +121,9 @@ export class Skill extends React.Component {
         <Segment>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
-                <b>Languages</b>
-                <p>{this.state.data.languages}</p>
+                <b>Spoken Languages</b>
+                <p styleName="style.gray">{this.state.data.languages}</p>
               </List.Content>
             </List.Item>
           </List>
@@ -149,31 +137,20 @@ export class Skill extends React.Component {
             <h3 styleName="style.heading">
               <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
-            {this.props.handle != undefined ? null : (
-              <Icon color="grey" name="add" circular onClick={handleShow} />
-            )}
-            {this.props.handle != undefined ? (
-              <span style={{ color: "grey", textAlign: "right" }}>
-                {this.state.empty}
-              </span>
-            ) : null}
+            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
+            {this.props.handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span> : null}
           </div>
           {this.state.data != initial ? (
             <Segment.Group>
-              {additionalCourses}
-              {minorCourses}
               {computerLanguages}
               {softwarePackages}
+              {additionalCourses}
+              {minorCourses}
               {languages}
             </Segment.Group>
           ) : null}
           <Dimmer active={this.state.active} page>
-            <SkillForm
-              data={this.state.data}
-              createNew={this.state.createNew}
-              handleHide={this.handleHide}
-              handleUpdate={this.handleUpdate}
-            />
+            <SkillForm data={this.state.data} createNew={this.state.createNew} handleHide={this.handleHide} handleUpdate={this.handleUpdate} />
           </Dimmer>
         </Segment>
       </ComponentTransition>

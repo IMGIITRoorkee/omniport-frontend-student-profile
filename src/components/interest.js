@@ -10,15 +10,11 @@ const Interest = props => {
       <div styleName="style.flex-box">
         <List styleName="style.list">
           <List.Item>
-            <List.Icon name="stop" color="blue" />
             <List.Content>{props.data.topic}</List.Content>
           </List.Item>
         </List>
 
-        <EditIcon
-          rearrange={props.rearrange}
-          onClick={() => props.manageData(props.data.id)}
-        />
+        <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
       </div>
     </Segment>
   );

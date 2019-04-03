@@ -201,14 +201,16 @@
  }
 
 /* display components */
-.gray1{
-color: #999999;
-font-size: 13px;
+.gray{
+    color:gray;
 }
-.gray2{
-    color:#7A7A7A;
-    font-size: 13px;
+.description{
+    margin-top:1em;
 }
 .list{
     margin-bottom: 0 !important;
+}
+
+.handle_error{
+    color:red;
 }

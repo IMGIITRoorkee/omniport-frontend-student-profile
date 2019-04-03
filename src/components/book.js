@@ -11,47 +11,23 @@ const Book = props => {
         <div>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <div>
                   {props.data.title} by {props.data.authors} <br />
-                  <p styleName="style.gray1">
+                  <p styleName="style.gray ">
                     Published by {props.data.publisher}, {props.data.year}
                   </p>
-                  {props.data.contribution ? (
-                    <span styleName="style.gray2">
-                      Contribution: {props.data.contribution}
-                      <br />
-                    </span>
-                  ) : null}
-                  {props.data.pages ? (
-                    <span styleName="style.gray2">
-                      Pages: {props.data.pages}
-                      <br />
-                    </span>
-                  ) : null}
-                  {props.data.volumes ? (
-                    <span styleName="style.gray2">
-                      Volumes: {props.data.volumes}
-                      <br />
-                    </span>
-                  ) : null}
-                  {props.data.editors ? (
-                    <span styleName="style.gray2">
-                      ISBN Code: {props.data.editors}
-                      <br />
-                    </span>
-                  ) : null}
+                  {props.data.contribution ? <div styleName="style.gray">Contribution: {props.data.contribution}</div> : null}
+                  {props.data.pages ? <div styleName="style.gray">Pages: {props.data.pages}</div> : null}
+                  {props.data.volumes ? <div styleName="style.gray">Volumes: {props.data.volumes}</div> : null}
+                  {props.data.editors ? <div styleName="style.gray">ISBN Code: {props.data.editors}</div> : null}
                 </div>
               </List.Content>
             </List.Item>
           </List>
         </div>
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

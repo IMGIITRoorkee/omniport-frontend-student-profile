@@ -12,7 +12,6 @@ export const Project = props => {
       {isMobile ? (
         <List>
           <List.Item>
-            <List.Icon name="stop" color="blue" />
             <List.Content>
               <div styleName="style.textBox">
                 <b>{props.data.topic}</b>
@@ -31,9 +30,7 @@ export const Project = props => {
                 </div>
               </div>
 
-              {props.data.image ? (
-                <Image src={props.data.image} styleName="style.mobPicture" />
-              ) : null}
+              {props.data.image ? <Image src={props.data.image} styleName="style.mobPicture" /> : null}
             </List.Content>
           </List.Item>
         </List>
@@ -42,46 +39,28 @@ export const Project = props => {
           <div styleName="style.compStyle">
             <List>
               <List.Item>
-                <List.Icon name="stop" color="blue" />
                 <List.Content>
                   {props.data.topic} in {props.data.field}
-                  <p styleName="style.gray1">
-                    {formatDate(props.data.startDate)} to{" "}
-                    {formatDate(props.data.endDate)}
-                    <br />
-                    {props.data.description}
-                  </p>
+                  <div styleName="style.gray">
+                    {formatDate(props.data.startDate)} to {formatDate(props.data.endDate)}
+                  </div>
+                  <p styleName="style.gray style.description"> {props.data.description}</p>
                 </List.Content>
               </List.Item>
             </List>
           </div>
           {props.data.image ? (
             <div>
-              <Modal
-                basic
-                trigger={
-                  <Image src={props.data.image} styleName="style.compPicture" />
-                }
-                basic
-                fluid
-              >
+              <Modal basic trigger={<Image src={props.data.image} styleName="style.compPicture" />} basic fluid>
                 <Modal.Content image>
-                  <Image
-                    src={props.data.image}
-                    styleName="style.compPicture"
-                    wrapped
-                    size={"massive"}
-                  />
+                  <Image src={props.data.image} styleName="style.compPicture" wrapped size={"massive"} />
                 </Modal.Content>
               </Modal>
             </div>
           ) : null}
         </div>
       )}
-      <EditIcon
-        rearrange={props.rearrange}
-        onClick={() => props.manageData(props.data.id)}
-      />
+      <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
     </Segment>
   );
 };

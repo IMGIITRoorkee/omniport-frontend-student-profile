@@ -10,11 +10,10 @@ const CurrentEducation = props => {
       <div styleName="style.flex-box">
         <List styleName="style.list">
           <List.Item>
-            <List.Icon name="stop" color="blue" />
             <List.Content>
               <div>
                 Semester {props.data.semester}
-                <p styleName="style.gray1">
+                <p styleName="style.gray">
                   SGPA: {props.data.sgpa}
                   <br />
                   CGPA: {props.data.cgpa}
@@ -25,10 +24,7 @@ const CurrentEducation = props => {
         </List>
 
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

@@ -11,44 +11,42 @@ const Paper = props => {
         <div>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 <div>
                   {props.data.title} by {props.data.authors} <br />
-                  <p styleName="style.gray1">
+                  <p styleName="style.gray">
                     Published by {props.data.publisher}, {props.data.year}
                   </p>
                   {props.data.pages ? (
-                    <span styleName="style.gray2">
+                    <span styleName="style.gray">
                       Pages: {props.data.pages}
                       <br />
                     </span>
                   ) : null}
                   {props.data.volumes ? (
-                    <span styleName="style.gray2">
+                    <span styleName="style.gray">
                       Volumes: {props.data.volumes}
                       <br />
                     </span>
                   ) : null}
                   {props.data.journal ? (
-                    <span styleName="style.gray2">
+                    <span styleName="style.gray">
                       Journal: {props.data.journal}
                       <br />
                     </span>
                   ) : null}
-                  <a href={props.data.paper} target="_blank">
-                    Source Papers
-                  </a>
+                  {props.data.paper ? (
+                    <a href={props.data.paper} target="_blank">
+                      Source Papers
+                    </a>
+                  ) : null}
                 </div>
               </List.Content>
             </List.Item>
           </List>
         </div>
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

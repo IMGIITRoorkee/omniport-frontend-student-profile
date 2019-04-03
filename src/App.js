@@ -4,6 +4,7 @@ import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
+
 import { Profile } from "./components/profile";
 import { Skill } from "./components/skill";
 import { listComponents } from "./constants/listComponents";
@@ -62,8 +63,7 @@ export class App extends Component {
       axios
         .get("/api/student_profile/profile/")
         .then(response => {
-          if (response.data[0])
-            this.setState({ theme: response.data[0].theme });
+          if (response.data[0]) this.setState({ theme: response.data[0].theme });
         })
         .catch(error => {
           console.log(error);
@@ -96,16 +96,7 @@ export class App extends Component {
         }}
       >
         <BrowserView>
-          <Menu
-            pointing
-            secondary
-            size="small"
-            fluid
-            icon="labeled"
-            borderless
-            stackable
-            widths={8}
-          >
+          <Menu size="small" fluid icon="labeled" stackable widths={8}>
             <Menu.Item
               color={theme || "blue"}
               name="Interests"
@@ -124,6 +115,16 @@ export class App extends Component {
                 this.handleItemClick;
                 this.setState({ activeItem: "Achievements" });
                 this.scroll("achievement");
+              }}
+            />
+            <Menu.Item
+              color={theme || "blue"}
+              name="Education"
+              active={activeItem === "Education"}
+              onClick={(e, target) => {
+                this.handleItemClick;
+                this.setState({ activeItem: "Education" });
+                this.scroll("currentEducation");
               }}
             />
             <Menu.Item
@@ -166,16 +167,7 @@ export class App extends Component {
                 this.scroll("book");
               }}
             />
-            <Menu.Item
-              color={theme || "blue"}
-              name="Education"
-              active={activeItem === "Education"}
-              onClick={(e, target) => {
-                this.handleItemClick;
-                this.setState({ activeItem: "Education" });
-                this.scroll("currentEducation");
-              }}
-            />
+
             <Menu.Item
               color={theme || "blue"}
               name="References"
@@ -222,28 +214,18 @@ export class App extends Component {
         <div id="referee">
           <RefereeList handle={handle} theme={theme} />
         </div>
-        {/* skill along with profile are different from the rest */}
+        {/* Skill component along with Profile component are different from the rest */}
         <div id="skill">
           <Skill handle={handle} theme={theme} />
         </div>
       </div>
     );
 
-    const profile = (
-      <Profile
-        handle={handle}
-        theme={this.state.theme}
-        changeTheme={this.changeTheme}
-      />
-    );
+    const profile = <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />;
+
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader
-          appName="student_profile"
-          appLogo={false}
-          appLink={`http://${window.location.host}`}
-          userDropdown
-        />
+        <AppHeader appName="student_profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
         <AppMain>
           {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>

@@ -11,10 +11,9 @@ const Referee = props => {
         <div>
           <List styleName="style.list">
             <List.Item>
-              <List.Icon name="stop" color="blue" />
               <List.Content>
                 {props.data.referee}
-                <p styleName="style.gray1">
+                <p styleName="style.gray">
                   {props.data.designation}, {props.data.institute}
                   <br />
                   {props.data.email}
@@ -26,10 +25,7 @@ const Referee = props => {
           </List>
         </div>
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

@@ -10,12 +10,10 @@ export function Internship(props) {
       <div styleName="style.flex-box">
         <List styleName="style.list">
           <List.Item>
-            <List.Icon name="stop" color="blue" />
             <List.Content>
               {props.data.position} - <b>{props.data.organisation}</b>
               <p>
-                {props.data.startDate} to{" "}
-                {props.data.endDate == null ? "present" : props.data.endDate}
+                {props.data.startDate} to {props.data.endDate == null ? "present" : props.data.endDate}
               </p>
               <p>{props.data.description}</p>
             </List.Content>
@@ -23,10 +21,7 @@ export function Internship(props) {
         </List>
 
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

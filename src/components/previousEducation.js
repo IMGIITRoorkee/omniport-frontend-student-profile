@@ -18,12 +18,11 @@ const PreviousEducation = props => {
     <Segment>
       <div styleName="style.flex-box">
         <List.Item>
-          {/* <List.Icon name="stop" color="blue" /> */}
+          {/*  */}
           <List.Content>
             <div>
-              {props.data.degree} - {graduationOptions[props.data.graduation]}{" "}
-              in {props.data.field}
-              <p styleName="style.gray1">
+              {props.data.degree} - {graduationOptions[props.data.graduation]} in {props.data.field}
+              <p styleName="style.gray">
                 {props.data.institute + ", "}
                 {props.data.year}
                 <br />
@@ -34,10 +33,7 @@ const PreviousEducation = props => {
         </List.Item>
 
         <div>
-          <EditIcon
-            rearrange={props.rearrange}
-            onClick={() => props.manageData(props.data.id)}
-          />
+          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
         </div>
       </div>
     </Segment>

@@ -127,14 +127,8 @@ export default function genericFormMaker(info) {
         } else {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
             data.append(snakeCase(prop), this.state.data[prop]);
-          } else if (
-            this.state.data[prop] == null &&
-            this.state.data[link] != null
-          ) {
-          } else if (
-            this.state.data[prop] == null &&
-            this.state.data[link] == null
-          ) {
+          } else if (this.state.data[prop] == null && this.state.data[link] != null) {
+          } else if (this.state.data[prop] == null && this.state.data[link] == null) {
             data.append(snakeCase(prop), "");
           }
         }
@@ -234,6 +228,7 @@ export default function genericFormMaker(info) {
               onCancel={() => {
                 this.setState({ open: false });
               }}
+              size="tiny"
             />
           </Segment>
 
@@ -253,11 +248,7 @@ export default function genericFormMaker(info) {
             </Segment>
           ) : (
             <Segment attached="bottom" styleName="style.buttonBox">
-              <Button
-                onClick={() => this.handleSubmit()}
-                color="blue"
-                type="submit"
-              >
+              <Button onClick={() => this.handleSubmit()} color="blue" type="submit">
                 Submit
               </Button>
             </Segment>

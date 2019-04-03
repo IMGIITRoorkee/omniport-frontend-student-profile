@@ -1,19 +1,13 @@
 import React from "react";
-import {
-  Form,
-  Message,
-  Button,
-  Icon,
-  Dropdown,
-  Segment
-} from "semantic-ui-react";
-import { getCookie } from "formula_one";
+import { Form, Input, Button, Icon, Dropdown, Segment } from "semantic-ui-react";
 import axios from "axios";
 
 import { Resume } from "./resume";
 import style from "../styles.css";
 import { ComponentTransition } from "./transition";
 import { ErrorTransition } from "./transition";
+
+import { headers } from "../constants/requestHeaders";
 
 const themeOptions = [
   { text: "Luscious Red", key: "red", value: "red" },
@@ -55,7 +49,8 @@ export class ProfileForm extends React.Component {
       errors: [],
       image: props.person_data.displayPicture,
       img_file: "",
-      initial_handle: props.data.handle
+      initial_handle: props.data.handle,
+      handleFieldProperties: { loading: false, color: null, name: null }
     };
   }
   componentDidMount() {
@@ -77,6 +72,32 @@ export class ProfileForm extends React.Component {
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
+    if (name == "handle") {
+      console.log("handle field");
+      const oldProperties = this.state.handleFieldProperties;
+      this.setState({ handleFieldProperties: { loading: true, color: "green", name: null } });
+      axios
+        .get("/api/student_profile/profile/" + value + "/handle/")
+        .then(response => {
+          if (value == this.props.data.handle) {
+            console.log("user not found");
+            this.setState({ handleAvailable: true });
+            this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+          } else {
+            console.log("user found");
+            this.setState({ handleAvailable: false });
+            this.setState({ handleFieldProperties: { loading: false, color: "red", name: "times" } });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (error.response.status == 404) {
+            this.setState({ handleAvailable: true });
+            console.log("user not found");
+            this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+          }
+        });
+    }
   };
   handleSubmit = e => {
     let data = new FormData();
@@ -95,10 +116,7 @@ export class ProfileForm extends React.Component {
     } else if (this.state.img_file == "" && this.state.image == "") {
       data.append("image", null);
     }
-    let headers = {
-      "X-CSRFToken": getCookie("csrftoken"),
-      "Content-type": "multipart/form-data"
-    };
+
     let request_type = "patch";
     if (this.state.createNew) request_type = "post";
     if (this.state.createNew) {
@@ -151,10 +169,6 @@ export class ProfileForm extends React.Component {
     const { handle, description, theme, student } = this.state.data;
     const { createNew } = this.state;
 
-    let headers = {
-      "X-CSRFToken": getCookie("csrftoken"),
-      "Content-type": "multipart/form-data"
-    };
     if (handle == "") {
       errors.push("Handle must be filled");
     }
@@ -210,14 +224,11 @@ export class ProfileForm extends React.Component {
     this.setState({ image: "", img_file: "" });
   };
   render() {
+    const { name, color, loading } = this.state.handleFieldProperties;
+
     let res = (
       <Form.Field>
-        <input
-          type="file"
-          onChange={this.handleFile}
-          styleName="style.inputfile"
-          id="embedpollfileinput1"
-        />
+        <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput1" className="ui blue button">
             <i className="ui upload icon" />
@@ -228,12 +239,7 @@ export class ProfileForm extends React.Component {
     );
     let imagePreview = (
       <div>
-        <input
-          type="file"
-          onChange={this.handleImageChange}
-          styleName="style.inputfile"
-          id="embedpollfileinput"
-        />
+        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className="ui blue button">
             <i className="ui upload icon" />
@@ -245,10 +251,7 @@ export class ProfileForm extends React.Component {
     if (this.state.image) {
       imagePreview = (
         <ProfileImagePreview
-          imagePreviewUrl={this.state.image.replace(
-            "http://localhost:3003/",
-            "http://192.168.121.228:60025/"
-          )}
+          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
           removeImage={this.removeImage}
         />
       );
@@ -275,12 +278,17 @@ export class ProfileForm extends React.Component {
               <Form.Field>
                 <Form.Input
                   required
+                  icon
                   label="Handle"
                   onChange={this.handleChange}
                   value={this.state.data.handle}
                   name="handle"
                   placeholder="Change your handle"
-                />
+                  loading={loading}
+                >
+                  <Icon name={name} color={color} />
+                  <input />
+                </Form.Input>
               </Form.Field>
               <Form.Field required styleName="style.themeField">
                 <label>Theme</label>

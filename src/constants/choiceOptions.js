@@ -1,14 +1,11 @@
 export const graduationOptions = [
-  { text: "MATRICULATE", key: "MATRICULATE", value: "mat" },
-  { text: "INTERMEDIATE", key: "INTERMEDIATE", value: "int" },
-  { text: "ASSOCIATE", key: "ASSOCIATE", value: "ass" },
-  { text: "GRADUATE", key: "GRADUATE", value: "gra" },
-  { text: "POSTGRADUATE", key: "POSTGRADUATE", value: "pos" },
-  { text: "DOCTORATE", key: "DOCTORATE", value: "doc" },
-  { text: "POSTDOCTORATE", key: "POSTDOCTORATE", value: "pdo" }
+  { text: "Matriculate", key: "MATRICULATE", value: "mat" },
+  { text: "Intermediate", key: "INTERMEDIATE", value: "int" },
+  { text: "Associate", key: "ASSOCIATE", value: "ass" },
+  { text: "Graduate", key: "GRADUATE", value: "gra" },
+  { text: "Postgraduate", key: "POSTGRADUATE", value: "pos" },
+  { text: "Doctorate", key: "DOCTORATE", value: "doc" },
+  { text: "Postdoctorate", key: "POSTDOCTORATE", value: "pdo" }
 ];
 
-export const experienceOptions = [
-  { text: "INTERNSHIP", key: "INTERNSHIP", value: "int" },
-  { text: "JOB", key: "JOB", value: "job" }
-];
+export const experienceOptions = [{ text: "Internship", key: "INTERNSHIP", value: "int" }, { text: "Job", key: "JOB", value: "job" }];
