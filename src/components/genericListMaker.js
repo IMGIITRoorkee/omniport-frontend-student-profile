@@ -16,8 +16,6 @@ import { DragAndDropBox } from "./dragAndDropBox";
 import { ComponentTransition } from "./transition";
 import { displayComponents } from "./../constants/displayComponents";
 
-//temp
-
 const genericListMaker = (componentName, FormComponent) => {
   const DisplayComponent = displayComponents[componentName];
   // localSpecs will have all the info about the component.

@@ -225,7 +225,7 @@ export class App extends Component {
 
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader appName="student_profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
+        <AppHeader appName="Student Profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
         <AppMain>
           {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>

@@ -7,7 +7,6 @@ import style from "../styles.css";
 export function ResumeDownload(props) {
   const url = props.url;
   const preview_url = "/student_profile/" + props.ownHandle + "/";
-  console.log("adsf");
   if (props.preview == false) {
     return (
       <div>
