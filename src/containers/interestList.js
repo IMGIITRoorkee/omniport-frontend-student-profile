@@ -1,11 +1,25 @@
 import { connect } from "react-redux";
-import { fetchInterests, manageData, appendData, handleShow } from "../actions/interest";
+
+import {
+  fetchData,
+  manageData,
+  appendData,
+  handleShow,
+  handleHide,
+  updateDeleteData,
+  handleDragHide,
+  handleDragShow,
+  handleUpdate
+} from "../actions/genericActions";
+
 // import { toggleTodo } from "../actions";
 // import TodoList from "../components/TodoList";
 // import { VisibilityFilters } from "../actions";
+
 import { listComponents } from "./../constants/listComponents";
 
 const InterestList = listComponents["interest"];
+// const AchievementList = listComponents["achievement"];
 
 const mapStateToProps = state => ({
   state: state.interest,
@@ -14,11 +28,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  //   toggleTodo: id => dispatch(toggleTodo(id))
-  fetchInterests: () => dispatch(fetchInterests()),
-  manageData: (id, data) => dispatch(manageData(id, data)),
-  appendData: (item, data) => dispatch(appendData(item, data)),
-  handleShow: () => dispatch(handleShow())
+  fetchData: componentName => dispatch(fetchData(componentName)),
+  manageData: (id, data, componentName) => dispatch(manageData(id, data, componentName)),
+  appendData: (item, data, componentName) => dispatch(appendData(item, data, componentName)),
+  handleShow: componentName => dispatch(handleShow(componentName)),
+  handleHide: componentName => dispatch(handleHide(componentName)),
+  updateDeleteData: (item, option, data, componentName) => dispatch(updateDeleteData(item, option, data, componentName)),
+  handleDragShow: componentName => dispatch(handleDragShow(componentName)),
+  handleDragHide: componentName => dispatch(handleDragHide(componentName)),
+  handleUpdate: (data, componentName) => dispatch(handleUpdate(data, componentName))
 });
 
 const InterestListContainer = connect(
@@ -26,4 +44,4 @@ const InterestListContainer = connect(
   mapDispatchToProps
 )(InterestList);
 
-export default InterestListContainer;
+export { InterestListContainer };

@@ -12,7 +12,7 @@ import { creators } from "./constants/creators";
 
 import style from "./styles.css";
 
-import InterestListContainer from "./containers/interestList";
+import { InterestListContainer } from "./containers/interestList";
 
 export const AchievementList = listComponents["achievement"];
 export const CurrentEducationList = listComponents["currentEducation"];

@@ -31,7 +31,7 @@ export default function genericFormMaker(info) {
     }
     handleKeyPress = e => {
       if (e.keyCode === 27) {
-        this.props.handleHide();
+        this.props.handleHide(this.props.componentName);
       }
       if (e.keyCode === 13) {
         if (this.state.update) {
@@ -133,6 +133,7 @@ export default function genericFormMaker(info) {
           }
         }
       }
+      console.log("data before sending", data);
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
@@ -145,10 +146,10 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            let responseData = response.data;
-            this.props.appendData(responseData, props.data);
+            let data = response.data;
+            this.props.appendData(data, this.props.data, this.props.this.props.componentName);
             this.setState(initial, () => {
-              this.props.handleHide();
+              this.props.handleHide(this.props.componentName);
             });
           })
           .catch(error => {
@@ -156,7 +157,7 @@ export default function genericFormMaker(info) {
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
-              this.props.handleHide();
+              this.props.handleHide(this.props.componentName);
             }
           });
       } else {
@@ -169,9 +170,10 @@ export default function genericFormMaker(info) {
           .then(response => {
             let data = response.data;
             if (option == "delete") data = this.state.data;
-            this.props.updateDeleteData(data, option);
+            console.log(this.props);
+            this.props.updateDeleteData(data, option, this.props.data);
             this.setState(initial, () => {
-              this.props.handleHide();
+              this.props.handleHide(this.props.componentName);
             });
           })
           .catch(error => {
@@ -179,16 +181,17 @@ export default function genericFormMaker(info) {
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
-              this.props.handleHide();
+              this.props.handleHide(this.props.componentName);
             }
           });
       }
     };
 
     handleChange = (name, value) => {
-      if (this.state.data.hasOwnProperty(name)) {
+      if (this.state.data.hasOwnProperty(name) || true) {
         this.setState({ data: { ...this.state.data, [name]: value } });
       }
+      console.log(this.state.data, name, value);
     };
 
     handleDelete = name => {
@@ -197,6 +200,7 @@ export default function genericFormMaker(info) {
         data: { ...this.state.data, [name]: null, [link]: null }
       });
     };
+
     handleErrors = error_dict => {
       let dict = error_dict;
       let errors = [];

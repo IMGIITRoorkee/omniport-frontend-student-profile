@@ -15,7 +15,7 @@ const Interest = props => {
           </List.Item>
         </List>
 
-        <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.item.id, props.data)} />
+        <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.item.id, props.data, props.componentName)} />
       </div>
     </Segment>
   );

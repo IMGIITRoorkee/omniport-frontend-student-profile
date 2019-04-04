@@ -13,13 +13,24 @@ const interest = (state = initialState, action) => {
 
     case "APPEND_DATA":
       return { ...state, data: action.newData };
+
+    case "UPDATE_DELETE_DATA":
+      return { ...state, data: action.newData };
+
     case "HANDLE_SHOW":
       return { ...state, active: action.active, formData: action.formData, update: action.update };
-    case "REMOVE_INTEREST":
-      return state;
 
-    case "UPDATE_INTEREST":
-      return state;
+    case "HANDLE_HIDE":
+      return { ...state, active: action.active, update: action.update };
+
+    case "HANDLE_DRAG_SHOW":
+      return { ...state, rearrange: action.rearrange };
+
+    case "HANDLE_DRAG_HIDE":
+      return { ...state, rearrange: action.rearrange };
+
+    case "HANDLE_UPDATE":
+      return { ...state, data: action.newData, rearrange: action.rearrange };
 
     default:
       return state;
