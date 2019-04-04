@@ -141,7 +141,7 @@ const genericListMaker = (componentName, FormComponent) => {
       const { active, update, data, formData, rearrange, empty } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
-      const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleDragHide, handleUpdate } = this;
+      const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleDragHide, handleUpdate } = this.props;
 
       let children;
 
@@ -172,6 +172,7 @@ const genericListMaker = (componentName, FormComponent) => {
                 update={update}
                 formData={formData}
                 fetchData={fetchData}
+                data={data}
                 appendData={appendData}
                 updateDeleteData={updateDeleteData}
                 handleHide={handleHide}

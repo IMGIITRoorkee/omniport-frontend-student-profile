@@ -41,3 +41,37 @@ export function manageData(id, data) {
     active: true
   };
 }
+
+export function appendData(item, data) {
+  let sortBy = initial["interest"].sortBy;
+  let ascending = initial["interest"].ascending;
+
+  let n = data.length;
+  let i = 0;
+  let flag = false;
+  for (i = 0; i < n; i++) {
+    if (ascending ? data[i][sortBy] >= item[sortBy] : data[i][sortBy] <= item[sortBy]) {
+      data.splice(i, 0, item);
+      return {
+        type: "APPEND_DATA",
+        newData: data
+      };
+    }
+  }
+  if (flag == false) {
+    data.splice(i, n, item);
+    return {
+      type: "APPEND_DATA",
+      newData: data
+    };
+  }
+}
+
+export function handleShow() {
+  return {
+    type: "HANDLE_SHOW",
+    active: true,
+    formData: initial["interest"],
+    update: false
+  };
+}

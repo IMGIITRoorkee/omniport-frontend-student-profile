@@ -145,8 +145,8 @@ export default function genericFormMaker(info) {
           headers: headers
         })
           .then(response => {
-            let data = response.data;
-            this.props.appendData(data);
+            let responseData = response.data;
+            this.props.appendData(responseData, props.data);
             this.setState(initial, () => {
               this.props.handleHide();
             });

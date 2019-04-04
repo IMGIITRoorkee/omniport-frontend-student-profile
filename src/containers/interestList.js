@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchInterests, manageData } from "../actions/interest";
+import { fetchInterests, manageData, appendData, handleShow } from "../actions/interest";
 // import { toggleTodo } from "../actions";
 // import TodoList from "../components/TodoList";
 // import { VisibilityFilters } from "../actions";
@@ -16,7 +16,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   //   toggleTodo: id => dispatch(toggleTodo(id))
   fetchInterests: () => dispatch(fetchInterests()),
-  manageData: (id, state) => dispatch(manageData(id, state))
+  manageData: (id, data) => dispatch(manageData(id, data)),
+  appendData: (item, data) => dispatch(appendData(item, data)),
+  handleShow: () => dispatch(handleShow())
 });
 
 const InterestListContainer = connect(

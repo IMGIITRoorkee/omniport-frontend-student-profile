@@ -11,6 +11,10 @@ const interest = (state = initialState, action) => {
     case "MANAGE_DATA":
       return { ...state, formData: action.formData, update: action.update, active: action.active };
 
+    case "APPEND_DATA":
+      return { ...state, data: action.newData };
+    case "HANDLE_SHOW":
+      return { ...state, active: action.active, formData: action.formData, update: action.update };
     case "REMOVE_INTEREST":
       return state;
 
