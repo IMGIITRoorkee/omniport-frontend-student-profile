@@ -1,15 +1,22 @@
-const initialState = { data: [] };
+import { initial } from "./../constants/initial";
+
+const initialState = { update: false, active: false, formData: initial["interest"].data, data: [], empty: "" };
 
 const interest = (state = initialState, action) => {
   switch (action.type) {
-    case "RECEIVE_INTERESTS":
+    //adding the response of first GET request to the state to get the initial list of items
+    case "FETCH_INTERESTS":
       return { ...state, data: action.responseData };
-    case "ADD_INTEREST":
-      return { ...state, data: [...state.data, action.item] };
+
+    case "MANAGE_DATA":
+      return { ...state, formData: action.formData, update: action.update, active: action.active };
+
     case "REMOVE_INTEREST":
       return state;
+
     case "UPDATE_INTEREST":
       return state;
+
     default:
       return state;
   }

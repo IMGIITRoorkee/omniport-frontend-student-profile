@@ -12,16 +12,17 @@ import { creators } from "./constants/creators";
 
 import style from "./styles.css";
 
-const InterestList = listComponents["interest"];
-const AchievementList = listComponents["achievement"];
-const CurrentEducationList = listComponents["currentEducation"];
-const PreviousEducationList = listComponents["previousEducation"];
-const PositionList = listComponents["position"];
-const ExperienceList = listComponents["experience"];
-const ProjectList = listComponents["project"];
-const BookList = listComponents["book"];
-const PaperList = listComponents["paper"];
-const RefereeList = listComponents["referee"];
+import InterestListContainer from "./containers/interestList";
+
+export const AchievementList = listComponents["achievement"];
+export const CurrentEducationList = listComponents["currentEducation"];
+export const PreviousEducationList = listComponents["previousEducation"];
+export const PositionList = listComponents["position"];
+export const ExperienceList = listComponents["experience"];
+export const ProjectList = listComponents["project"];
+export const BookList = listComponents["book"];
+export const PaperList = listComponents["paper"];
+export const RefereeList = listComponents["referee"];
 
 export class App extends Component {
   constructor(props) {
@@ -185,9 +186,10 @@ export class App extends Component {
     const componentList = (
       <div>
         <div id="interest">
-          <InterestList handle={handle} theme={theme} />
+          <InterestListContainer />
         </div>
-        <div id="achievement">
+
+        {/* <div id="achievement">
           <AchievementList handle={handle} theme={theme} />
         </div>
         <div id="currentEducation">
@@ -213,11 +215,13 @@ export class App extends Component {
         </div>
         <div id="referee">
           <RefereeList handle={handle} theme={theme} />
-        </div>
+        </div> */}
+
         {/* Skill component along with Profile component are different from the rest */}
+        {/*     
         <div id="skill">
           <Skill handle={handle} theme={theme} />
-        </div>
+        </div> */}
       </div>
     );
 

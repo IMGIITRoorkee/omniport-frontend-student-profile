@@ -1,6 +1,6 @@
 // package imports
 import React from "react";
-import { Dimmer, Icon, Segment, Popp } from "semantic-ui-react";
+import { Dimmer, Icon, Segment } from "semantic-ui-react";
 import axios from "axios";
 import { upperFirst } from "lodash";
 
@@ -32,113 +32,113 @@ const genericListMaker = (componentName, FormComponent) => {
       };
     }
     componentDidMount() {
-      this.fetchData();
+      this.props.fetchInterests();
     }
-    fetchData = e => {
-      let url = "";
-      let { handle } = this.props;
-      if (handle != undefined) {
-        url = handle + "/handle/";
-      }
-      axios
-        .get("/api/student_profile/" + localSpecs.url + "/")
-        .then(response => {
-          if (response.data.length == 0 && handle != undefined)
-            this.setState({
-              empty: "No data to show!"
-            });
-          else {
-            this.setState({ data: response.data });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    };
-    manageData = id => {
-      let formData = Object.assign({}, this.state.data.find(x => x.id == id));
-      for (let i in initial[componentName].links) {
-        let name = initial[componentName].links[i];
-        formData[name + "Link"] = formData[name];
-        formData[name] = null;
-      }
-      this.setState({
-        formData: formData,
-        update: true,
-        active: true
-      });
-    };
-    appendData = item => {
-      let sortBy = localSpecs.sortBy;
-      let ascending = localSpecs.ascending;
-      let data = this.state.data;
+    // fetchData = e => {
+    //   let url = "";
+    //   let { handle } = this.props;
+    //   if (handle != undefined) {
+    //     url = handle + "/handle/";
+    //   }
+    //   axios
+    //     .get("/api/student_profile/" + localSpecs.url + "/")
+    //     .then(response => {
+    //       if (response.data.length == 0 && handle != undefined)
+    //         this.setState({
+    //           empty: "No data to show!"
+    //         });
+    //       else {
+    //         this.setState({ data: response.data });
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // };
+    // manageData = id => {
+    //   let formData = Object.assign({}, this.state.data.find(x => x.id == id));
+    //   for (let i in initial[componentName].links) {
+    //     let name = initial[componentName].links[i];
+    //     formData[name + "Link"] = formData[name];
+    //     formData[name] = null;
+    //   }
+    //   this.setState({
+    //     formData: formData,
+    //     update: true,
+    //     active: true
+    //   });
+    // };
+    // appendData = item => {
+    //   let sortBy = localSpecs.sortBy;
+    //   let ascending = localSpecs.ascending;
+    //   let data = this.state.data;
 
-      let n = data.length;
-      let i = 0;
-      let flag = false;
-      for (i = 0; i < n; i++) {
-        if (ascending ? data[i][sortBy] >= item[sortBy] : data[i][sortBy] <= item[sortBy]) {
-          data.splice(i, 0, item);
-          this.setState({ data: data });
-          flag = true;
-          break;
-        }
-      }
-      if (flag == false) {
-        data.splice(i, n, item);
-        this.setState({ data: data });
-      }
-    };
-    updateDeleteData = (item, option) => {
-      const data_array = this.state.data;
-      if (option == "delete") {
-        let newData = data_array.filter(obj => (obj.id != item.id ? true : false));
-        this.setState({ data: newData });
-      } else if (option == "put") {
-        const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
-        newData.sort(function compare(a, b, sortBy, ascending) {
-          if (ascending == true) {
-            if (a[sortBy] < b[sortBy]) return -1;
-            if (a[sortBy] > b[sortBy]) return 1;
-            return 0;
-          } else {
-            if (a[sortBy] > b[sortBy]) return -1;
-            if (a[sortBy] < b[sortBy]) return 1;
-            return 0;
-          }
-        });
-        this.setState({ data: newData });
-      }
-    };
-    handleShow = e => {
-      this.setState({
-        active: true,
-        formData: initial[componentName].data,
-        update: false
-      });
-    };
-    handleDragShow = () => {
-      this.setState({
-        rearrange: true
-      });
-    };
-    handleDragHide = () => {
-      this.setState({
-        rearrange: false
-      });
-    };
-    handleUpdate = data => {
-      this.setState({
-        data: data,
-        rearrange: false
-      });
-    };
-    handleHide = e => {
-      this.setState({ active: false, update: false });
-    };
+    //   let n = data.length;
+    //   let i = 0;
+    //   let flag = false;
+    //   for (i = 0; i < n; i++) {
+    //     if (ascending ? data[i][sortBy] >= item[sortBy] : data[i][sortBy] <= item[sortBy]) {
+    //       data.splice(i, 0, item);
+    //       this.setState({ data: data });
+    //       flag = true;
+    //       break;
+    //     }
+    //   }
+    //   if (flag == false) {
+    //     data.splice(i, n, item);
+    //     this.setState({ data: data });
+    //   }
+    // };
+    // updateDeleteData = (item, option) => {
+    //   const data_array = this.state.data;
+    //   if (option == "delete") {
+    //     let newData = data_array.filter(obj => (obj.id != item.id ? true : false));
+    //     this.setState({ data: newData });
+    //   } else if (option == "put") {
+    //     const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
+    //     newData.sort(function compare(a, b, sortBy, ascending) {
+    //       if (ascending == true) {
+    //         if (a[sortBy] < b[sortBy]) return -1;
+    //         if (a[sortBy] > b[sortBy]) return 1;
+    //         return 0;
+    //       } else {
+    //         if (a[sortBy] > b[sortBy]) return -1;
+    //         if (a[sortBy] < b[sortBy]) return 1;
+    //         return 0;
+    //       }
+    //     });
+    //     this.setState({ data: newData });
+    //   }
+    // };
+    // handleShow = e => {
+    //   this.setState({
+    //     active: true,
+    //     formData: initial[componentName].data,
+    //     update: false
+    //   });
+    // };
+    // handleDragShow = () => {
+    //   this.setState({
+    //     rearrange: true
+    //   });
+    // };
+    // handleDragHide = () => {
+    //   this.setState({
+    //     rearrange: false
+    //   });
+    // };
+    // handleUpdate = data => {
+    //   this.setState({
+    //     data: data,
+    //     rearrange: false
+    //   });
+    // };
+    // handleHide = e => {
+    //   this.setState({ active: false, update: false });
+    // };
 
     render() {
-      const { active, update, formData, data, rearrange, empty } = this.state;
+      const { active, update, data, formData, rearrange, empty } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleDragHide, handleUpdate } = this;
@@ -146,8 +146,8 @@ const genericListMaker = (componentName, FormComponent) => {
       let children;
 
       if (data != "") {
-        children = data.map(data => {
-          return <DisplayComponent data={data} key={data.id} manageData={this.manageData} rearrange={handle != undefined} />;
+        children = data.map(item => {
+          return <DisplayComponent item={item} data={data} key={item.id} manageData={this.props.manageData} rearrange={handle != undefined} />;
         });
       }
       return (

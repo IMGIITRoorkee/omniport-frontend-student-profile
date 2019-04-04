@@ -1,9 +1,10 @@
 import axios from "axios";
+import { initial } from "../constants/initial";
 // import { headers } from "./../constants/requestHeaders";
 
 function receiveInterests(responseData) {
   return {
-    type: "RECEIVE_INTERESTS",
+    type: "FETCH_INTERESTS",
     responseData: responseData
   };
 }
@@ -22,5 +23,21 @@ export function fetchInterests() {
       .catch(error => {
         console.log(error);
       });
+  };
+}
+
+export function manageData(id, data) {
+  let formData = Object.assign({}, data.find(x => x.id == id));
+  for (let i in initial["interest"].links) {
+    let name = initial["interest"].links[i];
+    formData[name + "Link"] = formData[name];
+    formData[name] = null;
+  }
+
+  return {
+    type: "MANAGE_DATA",
+    formData: formData,
+    update: true,
+    active: true
   };
 }

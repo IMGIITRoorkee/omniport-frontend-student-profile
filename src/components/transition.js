@@ -28,7 +28,7 @@ export class ComponentTransition extends React.Component {
   render() {
     return (
       <div style={{ marginTop: "14px", marginBottom: "14px" }}>
-        <Transition visible={this.state.tvisibility} animation="fade" duration={5000}>
+        <Transition visible={this.state.tvisibility} animation="fade" duration={200}>
           {this.props.children}
         </Transition>
       </div>
