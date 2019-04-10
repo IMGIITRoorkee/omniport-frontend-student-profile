@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import interest from "./interest";
+import interestReducer from "./genericReducerMaker";
 
 export default combineReducers({
-  interest
+  interest:interestReducer
 });

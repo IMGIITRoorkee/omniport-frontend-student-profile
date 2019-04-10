@@ -40,4 +40,4 @@ const genericReducerMaker = componentName => {
   return genericReducer;
 };
 
-export default interest;
+export default genericReducerMaker("interest");

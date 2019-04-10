@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Segment, Button, Icon } from "semantic-ui-react";
+import { upperFirst } from "lodash";
 import axios from "axios";
 
 import { getCookie } from "formula_one";
@@ -15,7 +16,7 @@ export class DragAndDropBox extends Component {
     this.state = {
       items: props.data,
       element: props.element,
-      modelName: props.modelName
+      modelName: upperFirst(props.componentName)
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -29,7 +30,7 @@ export class DragAndDropBox extends Component {
 
   handleKeyPress = e => {
     if (e.keyCode === 27) {
-      this.props.handleDragHide();
+      this.props.handleDragHide(this.props.componentName);
     }
   };
 
@@ -80,19 +81,20 @@ export class DragAndDropBox extends Component {
       data: data,
       headers: headers
     }).then(response => {
-      this.props.handleUpdate(response.data);
+      this.props.handleUpdate(response.data,this.props.componentName);
     });
   };
 
   render() {
     const { element } = this.state;
+    const {componentName}= this.props;
     let heading = this.state.modelName;
     if (this.state.modelName == "Experience") heading = "Internship";
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
           <h3 styleName="style.heading">{heading}</h3>
-          <Icon color="grey" name="delete" onClick={this.props.handleDragHide} />
+          <Icon color="grey" name="delete" onClick={()=>this.props.handleDragHide(componentName)} />
         </Segment>
         <Segment styleName="style.formStyle2" style={{ width: "40vw" }} attached>
           <DragDropContext onDragEnd={this.onDragEnd}>

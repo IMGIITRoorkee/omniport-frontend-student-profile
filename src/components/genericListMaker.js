@@ -2,7 +2,6 @@
 import React from "react";
 import { Dimmer, Icon, Segment } from "semantic-ui-react";
 import axios from "axios";
-import { upperFirst } from "lodash";
 
 // css imports
 import style from "../styles.css";
@@ -11,6 +10,7 @@ import inline from "formula_one/src/css/inline.css";
 // other
 import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
+//check transition working or not
 import { ComponentTransition } from "./transition";
 import { displayComponents } from "./../constants/displayComponents";
 
@@ -47,15 +47,14 @@ const genericListMaker = (componentName, FormComponent) => {
       }
       return (
         <ComponentTransition>
-          <Segment padded color={theme}>
+          <Segment padded color={theme || "blue"}>
             <div styleName="style.headingBox">
               <h3 styleName="style.heading">
-                {/* modify icon */}
                 <Icon name={localSpecs.icon} color={theme || "blue"} /> {localSpecs.plural}
               </h3>
               <div>
                 {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                  <Icon color="grey" name="sort" circular onClick={handleDragShow} />
+                  <Icon color="grey" name="sort" circular onClick={()=>handleDragShow(componentName)} />
                 ) : null}
                 {handle == undefined ? (
                   <Icon
@@ -74,8 +73,7 @@ const genericListMaker = (componentName, FormComponent) => {
             <Dimmer active={active} page>
               <FormComponent
                 update={update}
-                formData={formData}
-                fetchData={fetchData}
+                formData={formData}            
                 data={data}
                 appendData={appendData}
                 updateDeleteData={updateDeleteData}
@@ -83,13 +81,12 @@ const genericListMaker = (componentName, FormComponent) => {
                 componentName={componentName}
               />
             </Dimmer>
-            {/* leaving rearrange part for now */}
-
+{/* rearrange word not clear */}
             {localSpecs.draggable ? (
               <Dimmer active={rearrange} page>
                 <DragAndDropBox
                   data={data}
-                  modelName={upperFirst(componentName)}
+                  componentName={componentName}
                   element={displayComponents[componentName]}
                   handleUpdate={handleUpdate}
                   handleDragHide={handleDragHide}

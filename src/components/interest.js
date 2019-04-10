@@ -5,7 +5,6 @@ import { EditIcon } from "./editIcon";
 import style from "../styles.css";
 
 const Interest = props => {
-  console.log("int", props);
   return (
     <Segment>
       <div styleName="style.flex-box">

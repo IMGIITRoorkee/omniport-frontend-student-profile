@@ -133,7 +133,6 @@ export default function genericFormMaker(info) {
           }
         }
       }
-      console.log("data before sending", data);
       let headers = {
         "X-CSRFToken": getCookie("csrftoken"),
         "Content-type": "multipart/form-data"
@@ -147,7 +146,7 @@ export default function genericFormMaker(info) {
         })
           .then(response => {
             let data = response.data;
-            this.props.appendData(data, this.props.data, this.props.this.props.componentName);
+            this.props.appendData(data, this.props.data, this.props.componentName);
             this.setState(initial, () => {
               this.props.handleHide(this.props.componentName);
             });
@@ -170,8 +169,7 @@ export default function genericFormMaker(info) {
           .then(response => {
             let data = response.data;
             if (option == "delete") data = this.state.data;
-            console.log(this.props);
-            this.props.updateDeleteData(data, option, this.props.data);
+            this.props.updateDeleteData(data, option, this.props.data,this.props.componentName);
             this.setState(initial, () => {
               this.props.handleHide(this.props.componentName);
             });
@@ -191,7 +189,6 @@ export default function genericFormMaker(info) {
       if (this.state.data.hasOwnProperty(name) || true) {
         this.setState({ data: { ...this.state.data, [name]: value } });
       }
-      console.log(this.state.data, name, value);
     };
 
     handleDelete = name => {
@@ -218,7 +215,7 @@ export default function genericFormMaker(info) {
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
-            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
+            <Icon color="grey" name="delete" onClick={()=>this.props.handleHide("interest")} />
           </Segment>
 
           <Segment attached styleName="style.formStyle">

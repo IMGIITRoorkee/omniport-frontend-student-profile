@@ -12,22 +12,18 @@ import {
   handleUpdate
 } from "../actions/genericActions";
 
-// import { toggleTodo } from "../actions";
-// import TodoList from "../components/TodoList";
-// import { VisibilityFilters } from "../actions";
-
 import { listComponents } from "./../constants/listComponents";
 
 const InterestList = listComponents["interest"];
 // const AchievementList = listComponents["achievement"];
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   state: state.interest,
   //state.handle thing is left
   handle: state.handle
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: componentName => dispatch(fetchData(componentName)),
   manageData: (id, data, componentName) => dispatch(manageData(id, data, componentName)),
   appendData: (item, data, componentName) => dispatch(appendData(item, data, componentName)),
