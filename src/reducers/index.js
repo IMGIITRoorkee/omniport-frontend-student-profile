@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-
-import interestReducer from "./genericReducerMaker";
+import { genericReducerMaker } from "./genericReducerMaker";
 
 export default combineReducers({
-  interest:interestReducer
+  interest: genericReducerMaker("interest")
+  // achievement: genericReducerMaker("achievement")
 });

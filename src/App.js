@@ -8,11 +8,17 @@ import { AppHeader, AppFooter, AppMain } from "formula_one";
 import { Profile } from "./components/profile";
 import { Skill } from "./components/skill";
 import { listComponents } from "./constants/listComponents";
+
+import { listContainers } from "./constants/listContainers";
+
 import { creators } from "./constants/creators";
 
 import style from "./styles.css";
 
-import { InterestListContainer } from "./containers/interestList";
+// import { InterestListContainer } from "./containers/interestList";
+
+const InterestListContainer = listContainers["interest"];
+const AchievementListContainer = listContainers["achievement"];
 
 export const AchievementList = listComponents["achievement"];
 export const CurrentEducationList = listComponents["currentEducation"];
@@ -188,10 +194,8 @@ export class App extends Component {
         <div id="interest">
           <InterestListContainer />
         </div>
-
-        {/* <div id="achievement">
-          <AchievementList handle={handle} theme={theme} />
-        </div>
+        <div id="achievement">{/* <AchievementListContainer />{" "} */}</div>
+        {/* 
         <div id="currentEducation">
           <CurrentEducationList handle={handle} theme={theme} />
         </div>

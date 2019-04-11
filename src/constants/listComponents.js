@@ -1,4 +1,3 @@
-import { List } from "semantic-ui-react";
 import genericListMaker from "../components/genericListMaker";
 import genericFormMaker from "../components/genericFormMaker";
 import { components } from "./components";

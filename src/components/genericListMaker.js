@@ -21,13 +21,24 @@ const genericListMaker = (componentName, FormComponent) => {
 
   class GenericList extends React.Component {
     componentDidMount() {
-      this.props.fetchData(componentName);
+      console.log("list", this.props);
+      // this.props.fetchData(componentName);
     }
     render() {
+      console.log(this.props);
       const { active, update, data, formData, rearrange, empty } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
-      const { fetchData, appendData, updateDeleteData, handleHide, handleShow, handleDragShow, handleDragHide, handleUpdate } = this.props;
+      const {
+        fetchData,
+        appendData,
+        updateDeleteData,
+        handleHide,
+        handleShow,
+        handleDragShow,
+        handleDragHide,
+        handleUpdate
+      } = this.props;
 
       let children;
 
@@ -54,7 +65,7 @@ const genericListMaker = (componentName, FormComponent) => {
               </h3>
               <div>
                 {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                  <Icon color="grey" name="sort" circular onClick={()=>handleDragShow(componentName)} />
+                  <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
                 ) : null}
                 {handle == undefined ? (
                   <Icon
@@ -73,7 +84,7 @@ const genericListMaker = (componentName, FormComponent) => {
             <Dimmer active={active} page>
               <FormComponent
                 update={update}
-                formData={formData}            
+                formData={formData}
                 data={data}
                 appendData={appendData}
                 updateDeleteData={updateDeleteData}
@@ -81,7 +92,7 @@ const genericListMaker = (componentName, FormComponent) => {
                 componentName={componentName}
               />
             </Dimmer>
-{/* rearrange word not clear */}
+            {/* rearrange word not clear */}
             {localSpecs.draggable ? (
               <Dimmer active={rearrange} page>
                 <DragAndDropBox

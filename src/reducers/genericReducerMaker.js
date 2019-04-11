@@ -1,6 +1,6 @@
 import { initial } from "../constants/initial";
 
-const genericReducerMaker = componentName => {
+export const genericReducerMaker = componentName => {
   const initialState = { update: false, active: false, formData: initial[componentName].data, data: [], empty: "" };
 
   const genericReducer = (state = initialState, action) => {
@@ -39,5 +39,3 @@ const genericReducerMaker = componentName => {
   };
   return genericReducer;
 };
-
-export default genericReducerMaker("interest");

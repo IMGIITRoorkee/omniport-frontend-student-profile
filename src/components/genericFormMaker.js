@@ -169,7 +169,7 @@ export default function genericFormMaker(info) {
           .then(response => {
             let data = response.data;
             if (option == "delete") data = this.state.data;
-            this.props.updateDeleteData(data, option, this.props.data,this.props.componentName);
+            this.props.updateDeleteData(data, option, this.props.data, this.props.componentName);
             this.setState(initial, () => {
               this.props.handleHide(this.props.componentName);
             });
@@ -215,7 +215,7 @@ export default function genericFormMaker(info) {
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
-            <Icon color="grey" name="delete" onClick={()=>this.props.handleHide("interest")} />
+            <Icon color="grey" name="delete" onClick={() => this.props.handleHide(this.props.componentName)} />
           </Segment>
 
           <Segment attached styleName="style.formStyle">
