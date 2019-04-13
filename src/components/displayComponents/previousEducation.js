@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Segment } from "semantic-ui-react";
 import { EditIcon } from "../editIcon";
-import { graduationOptions } from "../../constants/graduationOptions";
+import { graduationOptionsMap } from "../../constants/graduationOptions";
 
 import style from "../../styles.css";
 
@@ -13,7 +13,7 @@ const PreviousEducation = props => {
           {/*  */}
           <List.Content>
             <div>
-              {props.item.degree} - {graduationOptions[props.item.graduation]} in {props.item.field}
+              {props.item.degree} - {graduationOptionsMap[props.item.graduation]} in {props.item.field}
               <p styleName="style.gray">
                 {props.item.institute + ", "}
                 {props.item.year}

@@ -10,16 +10,7 @@ import { headers } from "../../constants/formPostRequestHeaders";
 import { themeOptions } from "../../constants/themeOptions";
 
 import { ProfileImagePreview } from "./profileImagePreview";
-const initial = {
-  data: {
-    handle: "",
-    student: "",
-    description: "",
-    theme: "",
-    customWebsite: false,
-    resume: null
-  }
-};
+
 //default handle must be there
 export class ProfileForm extends React.Component {
   constructor(props) {

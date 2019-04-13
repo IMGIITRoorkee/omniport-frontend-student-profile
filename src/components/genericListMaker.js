@@ -1,6 +1,7 @@
 // package imports
 import React from "react";
 import { Dimmer, Icon, Segment } from "semantic-ui-react";
+import axios from "axios";
 
 // local imports
 import { specs } from "./../constants/specs";
@@ -62,12 +63,13 @@ const genericListMaker = (componentName, FormComponent) => {
               </h3>
               <div>
                 {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                  <Icon color="grey" name="sort" onClick={() => handleDragShow(componentName)} />
+                  <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
                 ) : null}
                 {handle == undefined ? (
                   <Icon
                     color="grey"
                     name="add"
+                    circular
                     onClick={() => {
                       handleShow(componentName);
                     }}

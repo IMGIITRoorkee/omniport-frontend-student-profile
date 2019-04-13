@@ -1,4 +1,5 @@
-import { graduationOptions, experienceOptions } from "./choiceOptions";
+import { graduationOptions } from "./graduationOptions";
+import { experienceOptions } from "./experienceOptions";
 
 export const specs = {
   interest: {

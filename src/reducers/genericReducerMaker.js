@@ -1,13 +1,12 @@
-import { initial } from "../constants/initial";
-
 export const genericReducerMaker = componentName => {
   const initialState = { update: false, active: false, data: [] };
 
   const genericReducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
       //adding the response of first GET request to the state to get the initial list of items
       case "FETCH_DATA" + "--" + componentName:
-        return { ...state, data: action.responseData };
+        return { ...state, data: action.responseData, isEmpty: action.isEmpty };
 
       case "MANAGE_DATA" + "--" + componentName:
         return { ...state, formData: action.formData, update: action.update, active: action.active };
