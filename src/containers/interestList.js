@@ -12,9 +12,16 @@ import {
   handleUpdate
 } from "../actions/genericActions";
 
-export const mapStatetoProps = state => ({
-  state: state
-});
+export const _mapStateToProps = componentName => {
+  return function(state) {
+    return {
+      state: state[componentName]
+    };
+  };
+};
+// export const mapStateToProps = (state, componentName) => ({
+//   state: state[componentName]
+// });
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: componentName => dispatch(fetchData(componentName)),

@@ -194,7 +194,9 @@ export class App extends Component {
         <div id="interest">
           <InterestListContainer />
         </div>
-        <div id="achievement">{/* <AchievementListContainer />{" "} */}</div>
+        <div id="achievement">
+          <AchievementListContainer />
+        </div>
         {/* 
         <div id="currentEducation">
           <CurrentEducationList handle={handle} theme={theme} />

@@ -21,11 +21,12 @@ const genericListMaker = (componentName, FormComponent) => {
 
   class GenericList extends React.Component {
     componentDidMount() {
-      console.log("list", this.props);
-      // this.props.fetchData(componentName);
+      // console.log("list", this.props);
+      this.props.fetchData(componentName);
     }
     render() {
       console.log(this.props);
+      //here state is globalState[componentName]
       const { active, update, data, formData, rearrange, empty } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;

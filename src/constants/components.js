@@ -1,6 +1,6 @@
 export const components = [
-  "interest"
-  //   "achievement"
+  "interest",
+  "achievement"
   // "currentEducation",
   // "previousEducation",
   // "position",

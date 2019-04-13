@@ -8,21 +8,7 @@ import { ComponentTransition } from "./transition";
 import { ErrorTransition } from "./transition";
 
 import { headers } from "../constants/requestHeaders";
-
-const themeOptions = [
-  { text: "Luscious Red", key: "red", value: "red" },
-  { text: "Maverick Orange", key: "orange", value: "orange" },
-  { text: "Sunkissed Yellow", key: "yellow", value: "yellow" },
-  { text: "Disgusting Olive", key: "olive", value: "olive" },
-  { text: "Earthly Green", key: "green", value: "green" },
-  { text: "Aqua Teal", key: "teal", value: "teal" },
-  { text: "Default Blue", key: "blue", value: "blue" },
-  { text: "Rich Lavender", key: "violet", value: "violet" },
-  { text: "Lightning Purple", key: "purple", value: "purple" },
-  { text: "Proud Pink", key: "pink", value: "pink" },
-  { text: "Wicked Black", key: "black", value: "black" },
-  { text: "No color", key: "zero", value: "zero" }
-];
+import { themeOptions } from "./../constants/themeOptions";
 
 import { ProfileImagePreview } from "./profileImagePreview";
 const initial = {
@@ -67,6 +53,15 @@ export class ProfileForm extends React.Component {
       this.handleErrors();
     }
   };
+  isHandleAllowed = allowed => {
+    if (allowed == true) {
+      this.setState({ handleAvailable: true });
+      this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+    } else {
+      this.setState({ handleAvailable: false });
+      this.setState({ handleFieldProperties: { loading: false, color: "red", name: "times" } });
+    }
+  };
   handleChange = (event, { name = undefined, value }) => {
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
@@ -76,25 +71,22 @@ export class ProfileForm extends React.Component {
       console.log("handle field");
       const oldProperties = this.state.handleFieldProperties;
       this.setState({ handleFieldProperties: { loading: true, color: "green", name: null } });
+      console.log("value", value, typeof value);
       axios
         .get("/api/student_profile/profile/" + value + "/handle/")
         .then(response => {
           if (value == this.props.data.handle) {
-            console.log("user not found");
-            this.setState({ handleAvailable: true });
-            this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+            this.isHandleAllowed(true);
           } else {
-            console.log("user found");
-            this.setState({ handleAvailable: false });
-            this.setState({ handleFieldProperties: { loading: false, color: "red", name: "times" } });
+            this.isHandleAllowed(false);
           }
         })
         .catch(error => {
           console.log(error);
-          if (error.response.status == 404) {
-            this.setState({ handleAvailable: true });
-            console.log("user not found");
-            this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+          if (error.response.status == 404 && value != "") {
+            this.isHandleAllowed(true);
+          } else {
+            this.isHandleAllowed(false);
           }
         });
     }
