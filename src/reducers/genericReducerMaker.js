@@ -1,7 +1,7 @@
 import { initial } from "../constants/initial";
 
 export const genericReducerMaker = componentName => {
-  const initialState = { update: false, active: false, formData: initial[componentName].data, data: [], empty: "" };
+  const initialState = { update: false, active: false, data: [] };
 
   const genericReducer = (state = initialState, action) => {
     switch (action.type) {

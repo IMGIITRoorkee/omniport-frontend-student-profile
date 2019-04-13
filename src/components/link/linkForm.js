@@ -2,9 +2,9 @@ import React from "react";
 import { Form, Input, Button, Icon, Message, Dropdown, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
-import style from "../styles.css";
+import style from "../../styles.css";
 import { LinkList } from "./linkList";
-import { ErrorTransition } from "./transition";
+import { ErrorTransition } from "../transition";
 
 const initial = {
   data: { site: "git", url: "" }

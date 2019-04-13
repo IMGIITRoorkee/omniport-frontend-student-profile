@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, Segment, Icon, Image, List } from "semantic-ui-react";
-import style from "../styles.css";
+import style from "../../styles.css";
 import { isMobile } from "react-device-detect";
-import { formatDate } from "./../utils";
+import { formatDate } from "../../utils/formatDate";
 
-import { EditIcon } from "./editIcon";
+import { EditIcon } from "../editIcon";
 //css for mobile version is left
 export const Project = props => {
   return (
@@ -60,7 +60,10 @@ export const Project = props => {
           ) : null}
         </div>
       )}
-      <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
+      <EditIcon
+        rearrange={props.rearrange}
+        onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+      />
     </Segment>
   );
 };

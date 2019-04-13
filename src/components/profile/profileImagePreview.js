@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon, Image, Segment } from "semantic-ui-react";
-import style from "../styles.css";
+import style from "../../styles.css";
 export function ProfileImagePreview(props) {
   return (
     <Segment basic styleName="style.headingBox">

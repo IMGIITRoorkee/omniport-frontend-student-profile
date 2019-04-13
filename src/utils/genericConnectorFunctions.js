@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-
 import {
   fetchData,
   manageData,
@@ -19,9 +17,6 @@ export const _mapStateToProps = componentName => {
     };
   };
 };
-// export const mapStateToProps = (state, componentName) => ({
-//   state: state[componentName]
-// });
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: componentName => dispatch(fetchData(componentName)),

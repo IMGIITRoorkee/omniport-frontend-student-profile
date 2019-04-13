@@ -1,11 +1,7 @@
 export const creators = [
   {
     name: "Dhruv Bhanushali",
-    role: "Backend Mentor"
-  },
-  {
-    name: "Praduman Goyal",
-    role: "Frontend Mentor"
+    role: "Mentor"
   },
   {
     name: "Ajay Neethi Kannan",

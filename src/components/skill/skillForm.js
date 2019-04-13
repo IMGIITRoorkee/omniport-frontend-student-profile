@@ -3,10 +3,9 @@ import { Form, Button, Icon, Confirm, Segment } from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 
-import { Resume } from "./resume";
-import style from "../styles.css";
-import { ComponentTransition } from "./transition";
-import { ErrorTransition } from "./transition";
+import { Resume } from "../profile/resume";
+import style from "../../styles.css";
+import { ComponentTransition, ErrorTransition } from "../transition";
 
 const initial = {
   data: {

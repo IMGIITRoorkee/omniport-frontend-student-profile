@@ -1,9 +1,9 @@
 import React from "react";
 import { Icon, List, Segment } from "semantic-ui-react";
-import { EditIcon } from "./editIcon";
-import { formatDate } from "./../utils";
+import { EditIcon } from "../editIcon";
+import { formatDate } from "../../utils/formatDate";
 
-import style from "../styles.css";
+import style from "../../styles.css";
 
 const Position = props => {
   return (
@@ -22,7 +22,10 @@ const Position = props => {
         </List.Item>
 
         <div>
-          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+          />
         </div>
       </div>
     </Segment>

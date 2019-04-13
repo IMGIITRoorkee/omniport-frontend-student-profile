@@ -2,11 +2,11 @@ import React from "react";
 import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
-import { LinkDisplay } from "./linkDisplay";
+import { LinkDisplay } from "../link/linkDisplay";
 import { ProfileForm } from "./profileForm";
 import { ResumeDownload } from "./resumeDownload";
 import { BrowserView, MobileView } from "react-device-detect";
-import style from "../styles.css";
+import style from "../../styles.css";
 export class Profile extends React.Component {
   constructor(props) {
     super(props);

@@ -1,18 +1,17 @@
 // package imports
 import React from "react";
 import { Dimmer, Icon, Segment } from "semantic-ui-react";
-import axios from "axios";
 
-// css imports
-import style from "../styles.css";
-import inline from "formula_one/src/css/inline.css";
-
-// other
+// local imports
 import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
 //check transition working or not
 import { ComponentTransition } from "./transition";
 import { displayComponents } from "./../constants/displayComponents";
+
+// css imports
+import style from "../styles.css";
+import inline from "formula_one/src/css/inline.css";
 
 const genericListMaker = (componentName, FormComponent) => {
   const DisplayComponent = displayComponents[componentName];
@@ -21,17 +20,14 @@ const genericListMaker = (componentName, FormComponent) => {
 
   class GenericList extends React.Component {
     componentDidMount() {
-      // console.log("list", this.props);
       this.props.fetchData(componentName);
     }
     render() {
-      console.log(this.props);
       //here state is globalState[componentName]
       const { active, update, data, formData, rearrange, empty } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const {
-        fetchData,
         appendData,
         updateDeleteData,
         handleHide,
@@ -66,13 +62,12 @@ const genericListMaker = (componentName, FormComponent) => {
               </h3>
               <div>
                 {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                  <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
+                  <Icon color="grey" name="sort" onClick={() => handleDragShow(componentName)} />
                 ) : null}
                 {handle == undefined ? (
                   <Icon
                     color="grey"
                     name="add"
-                    circular
                     onClick={() => {
                       handleShow(componentName);
                     }}

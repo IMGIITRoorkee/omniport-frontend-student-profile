@@ -1,5 +1,6 @@
 import axios from "axios";
 import { initial } from "../constants/initial";
+import { specs } from "../constants/specs";
 
 function receiveFetchedResults(responseData, componentName) {
   return {
@@ -11,7 +12,7 @@ function receiveFetchedResults(responseData, componentName) {
 export function fetchData(componentName) {
   return function(dispatch) {
     axios
-      .get("/api/student_profile/" + componentName + "/")
+      .get("/api/student_profile/" + specs[componentName]["url"] + "/")
       .then(response => {
         dispatch(receiveFetchedResults(response.data, componentName));
       })

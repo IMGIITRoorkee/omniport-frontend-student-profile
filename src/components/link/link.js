@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Segment, Icon } from "semantic-ui-react";
 
-import style from "../styles.css";
+import style from "../../styles.css";
 
 export class Link extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export class Link extends React.Component {
     this.props.handleUpdateDelete(this.props.data.id);
   };
   render() {
+    console.log(this.props.data);
     return (
       <Segment styleName="style.headingBox">
         <div styleName="style.socialBox">

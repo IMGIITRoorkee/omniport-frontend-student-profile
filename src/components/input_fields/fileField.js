@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
-import { Resume } from "./../resume";
+import { Resume } from "./../profile/resume";
 import style from "./../../styles.css";
 
 export default function FileField(props) {
@@ -27,11 +27,7 @@ export default function FileField(props) {
   if (link) {
     res = (
       <Form.Field>
-        <Resume
-          resume={link}
-          name={name}
-          handleDelete={() => handleDelete(name)}
-        />
+        <Resume resume={link} name={name} handleDelete={() => handleDelete(name)} />
       </Form.Field>
     );
   }

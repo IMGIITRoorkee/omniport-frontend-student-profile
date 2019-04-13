@@ -1,8 +1,8 @@
 import React from "react";
 import { Icon, List, Segment } from "semantic-ui-react";
-import { EditIcon } from "./editIcon";
+import { EditIcon } from "../editIcon";
 
-import style from "../styles.css";
+import style from "../../styles.css";
 
 const Paper = props => {
   return (
@@ -46,7 +46,10 @@ const Paper = props => {
           </List>
         </div>
         <div>
-          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+          />
         </div>
       </div>
     </Segment>

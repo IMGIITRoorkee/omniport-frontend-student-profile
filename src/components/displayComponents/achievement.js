@@ -1,8 +1,8 @@
 import React from "react";
 import { Icon, List, Segment } from "semantic-ui-react";
-import { EditIcon } from "./editIcon";
+import { EditIcon } from "../editIcon";
 
-import style from "../styles.css";
+import style from "../../styles.css";
 
 const Achievement = props => {
   return (

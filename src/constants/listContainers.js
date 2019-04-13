@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { mapDispatchToProps, _mapStateToProps } from "./../containers/interestList";
+import { mapDispatchToProps, _mapStateToProps } from "../utils/genericConnectorFunctions";
 import { listComponents } from "./listComponents";
-import { components } from "./components";
+import { components } from "./genericComponents";
 
 let list = {};
 for (let index in components) {

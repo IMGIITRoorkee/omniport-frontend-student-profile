@@ -1,6 +1,6 @@
 import genericListMaker from "../components/genericListMaker";
 import genericFormMaker from "../components/genericFormMaker";
-import { components } from "./components";
+import { components } from "./genericComponents";
 import { specs } from "./specs";
 
 const list = {};

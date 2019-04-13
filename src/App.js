@@ -5,8 +5,8 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 
-import { Profile } from "./components/profile";
-import { Skill } from "./components/skill";
+import { Profile } from "./components/profile/profile";
+import { Skill } from "./components/skill/skill";
 import { listComponents } from "./constants/listComponents";
 
 import { listContainers } from "./constants/listContainers";
@@ -19,16 +19,18 @@ import style from "./styles.css";
 
 const InterestListContainer = listContainers["interest"];
 const AchievementListContainer = listContainers["achievement"];
+const CurrentEducationListContainer = listContainers["currentEducation"];
+const PreviousEducationListContainer = listContainers["previousEducation"];
 
-export const AchievementList = listComponents["achievement"];
-export const CurrentEducationList = listComponents["currentEducation"];
-export const PreviousEducationList = listComponents["previousEducation"];
-export const PositionList = listComponents["position"];
-export const ExperienceList = listComponents["experience"];
-export const ProjectList = listComponents["project"];
-export const BookList = listComponents["book"];
-export const PaperList = listComponents["paper"];
-export const RefereeList = listComponents["referee"];
+const AchievementList = listComponents["achievement"];
+const CurrentEducationList = listComponents["currentEducation"];
+const PreviousEducationList = listComponents["previousEducation"];
+const PositionList = listComponents["position"];
+const ExperienceList = listComponents["experience"];
+const ProjectList = listComponents["project"];
+const BookList = listComponents["book"];
+const PaperList = listComponents["paper"];
+const RefereeList = listComponents["referee"];
 
 export class App extends Component {
   constructor(props) {
@@ -197,13 +199,14 @@ export class App extends Component {
         <div id="achievement">
           <AchievementListContainer />
         </div>
-        {/* 
         <div id="currentEducation">
-          <CurrentEducationList handle={handle} theme={theme} />
+          <CurrentEducationListContainer />
         </div>
         <div id="previousEducation">
-          <PreviousEducationList handle={handle} theme={theme} />
+          <PreviousEducationListContainer />
         </div>
+        {/* 
+     
         <div id="position">
           <PositionList handle={handle} theme={theme} />
         </div>

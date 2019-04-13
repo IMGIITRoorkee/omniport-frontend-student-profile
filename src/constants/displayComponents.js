@@ -1,13 +1,13 @@
-import Interest from "../components/interest";
-import Achievement from "../components/achievement";
-import CurrentEducation from "../components/currentEducation";
-import PreviousEducation from "../components/previousEducation";
-import Position from "../components/position";
-import Experience from "../components/experience";
-import Project from "../components/project";
-import Book from "../components/book";
-import Paper from "../components/paper";
-import Referee from "../components/referee";
+import Interest from "../components/displayComponents/interest";
+import Achievement from "../components/displayComponents/achievement";
+import CurrentEducation from "../components/displayComponents/currentEducation";
+import PreviousEducation from "../components/displayComponents/previousEducation";
+import Position from "../components/displayComponents/position";
+import Experience from "../components/displayComponents/experience";
+import Project from "../components/displayComponents/project";
+import Book from "../components/displayComponents/book";
+import Paper from "../components/displayComponents/paper";
+import Referee from "../components/displayComponents/referee";
 
 export const displayComponents = {
   interest: Interest,

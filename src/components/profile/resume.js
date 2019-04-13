@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Segment, Icon } from "semantic-ui-react";
-import style from "../styles.css";
+import style from "../../styles.css";
 
 export class Resume extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export class Resume extends React.Component {
   }
 
   render() {
-    const {name} = this.props;
+    const { name } = this.props;
     return (
       <Segment styleName="style.headingBox">
         <h5 styleName="style.heading">Remove {name}</h5>

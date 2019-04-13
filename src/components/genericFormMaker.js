@@ -7,7 +7,7 @@ import { getCookie } from "formula_one";
 
 import { ErrorTransition } from "./transition";
 import { FieldMap } from "./../constants/input";
-
+import { headers } from "../constants/formPostRequestHeaders";
 import style from "../styles.css";
 
 export default function genericFormMaker(info) {
@@ -133,10 +133,7 @@ export default function genericFormMaker(info) {
           }
         }
       }
-      let headers = {
-        "X-CSRFToken": getCookie("csrftoken"),
-        "Content-type": "multipart/form-data"
-      };
+
       if (this.state.update === false) {
         axios({
           method: "post",

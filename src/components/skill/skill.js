@@ -2,9 +2,9 @@ import React from "react";
 import { Dimmer, Icon, Segment, List } from "semantic-ui-react";
 import axios from "axios";
 import { getCookie } from "formula_one";
-import style from "../styles.css";
+import style from "../../styles.css";
 import { SkillForm } from "./skillForm";
-import { ComponentTransition } from "./transition";
+import { ComponentTransition } from "../transition";
 
 const initial = {
   computerLanguages: "",
@@ -138,7 +138,9 @@ export class Skill extends React.Component {
               <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
             {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
-            {this.props.handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span> : null}
+            {this.props.handle != undefined ? (
+              <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
+            ) : null}
           </div>
           {this.state.data != initial ? (
             <Segment.Group>
@@ -150,7 +152,12 @@ export class Skill extends React.Component {
             </Segment.Group>
           ) : null}
           <Dimmer active={this.state.active} page>
-            <SkillForm data={this.state.data} createNew={this.state.createNew} handleHide={this.handleHide} handleUpdate={this.handleUpdate} />
+            <SkillForm
+              data={this.state.data}
+              createNew={this.state.createNew}
+              handleHide={this.handleHide}
+              handleUpdate={this.handleUpdate}
+            />
           </Dimmer>
         </Segment>
       </ComponentTransition>

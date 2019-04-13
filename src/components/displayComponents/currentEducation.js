@@ -1,8 +1,8 @@
 import React from "react";
 import { List, Segment } from "semantic-ui-react";
-import { EditIcon } from "./editIcon";
+import { EditIcon } from "../editIcon";
 
-import style from "../styles.css";
+import style from "../../styles.css";
 
 const CurrentEducation = props => {
   return (
@@ -12,11 +12,11 @@ const CurrentEducation = props => {
           <List.Item>
             <List.Content>
               <div>
-                Semester {props.data.semester}
+                Semester {props.item.semester}
                 <p styleName="style.gray">
-                  SGPA: {props.data.sgpa}
+                  SGPA: {props.item.sgpa}
                   <br />
-                  CGPA: {props.data.cgpa}
+                  CGPA: {props.item.cgpa}
                 </p>
               </div>
             </List.Content>
@@ -24,7 +24,10 @@ const CurrentEducation = props => {
         </List>
 
         <div>
-          <EditIcon rearrange={props.rearrange} onClick={() => props.manageData(props.data.id)} />
+          <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+          />
         </div>
       </div>
     </Segment>

@@ -3,12 +3,11 @@ import { Form, Input, Button, Icon, Dropdown, Segment } from "semantic-ui-react"
 import axios from "axios";
 
 import { Resume } from "./resume";
-import style from "../styles.css";
-import { ComponentTransition } from "./transition";
-import { ErrorTransition } from "./transition";
+import style from "../../styles.css";
+import { ComponentTransition, ErrorTransition } from "../transition";
 
-import { headers } from "../constants/requestHeaders";
-import { themeOptions } from "./../constants/themeOptions";
+import { headers } from "../../constants/formPostRequestHeaders";
+import { themeOptions } from "../../constants/themeOptions";
 
 import { ProfileImagePreview } from "./profileImagePreview";
 const initial = {

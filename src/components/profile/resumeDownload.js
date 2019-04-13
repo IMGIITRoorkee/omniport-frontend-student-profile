@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { Card, Icon, Popup, Segment, Label, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import style from "../styles.css";
+import style from "../../styles.css";
 
 export function ResumeDownload(props) {
   const url = props.url;
