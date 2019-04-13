@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import axios from "axios";
 import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -12,6 +14,7 @@ import { listComponents } from "./constants/listComponents";
 import { listContainers } from "./constants/listContainers";
 
 import { creators } from "./constants/creators";
+import { fetchAppDetails } from "./actions/appDetails";
 
 import style from "./styles.css";
 
@@ -32,7 +35,7 @@ const BookList = listComponents["book"];
 const PaperList = listComponents["paper"];
 const RefereeList = listComponents["referee"];
 
-export class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,6 +49,8 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchAppDetails(this.props.match.params.handle);
+    console.log("app", this.props.setDetails);
     const handle = this.props.match.params.handle;
     this.setState({ handle: handle });
     let show;
@@ -93,6 +98,7 @@ export class App extends Component {
 
   render() {
     const { show, erroneous, handle, activeItem } = this.state;
+    const { loading } = this.props.appDetails;
     let { theme } = this.state;
     if (theme == "zero") theme = null;
     const app_menu = (
@@ -271,16 +277,25 @@ export class App extends Component {
       </div>
     );
 
-    if (show) {
-      return app;
-    } else if (erroneous == "no") {
-      return app;
-    } else if (erroneous === "yes") {
-      document.location = "/404";
-    } else if (erroneous === "don't know") {
-      return null;
-    } else return null;
+    if (loading) {
+      return <p>loading pls wait</p>;
+    } else return app;
   }
 }
 
-export default App;
+//modify state
+const mapStateToProps = state => {
+  return { appDetails: state.appDetails };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAppDetails: handleParam => {
+      dispatch(fetchAppDetails(handleParam));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -2,7 +2,6 @@ export const genericReducerMaker = componentName => {
   const initialState = { update: false, active: false, data: [] };
 
   const genericReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
       //adding the response of first GET request to the state to get the initial list of items
       case "FETCH_DATA" + "--" + componentName:
