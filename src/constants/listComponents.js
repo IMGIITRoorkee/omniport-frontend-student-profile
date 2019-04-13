@@ -4,8 +4,8 @@ import { components } from "./genericComponents";
 import { specs } from "./specs";
 
 const list = {};
-for (let i in components) {
-  let componentName = components[i];
+for (let index in components) {
+  let componentName = components[index];
   let formComponent = genericFormMaker(specs[componentName]);
   list[componentName] = genericListMaker(componentName, formComponent);
 }

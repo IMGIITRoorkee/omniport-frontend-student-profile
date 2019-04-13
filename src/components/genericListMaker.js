@@ -9,6 +9,7 @@ import { DragAndDropBox } from "./dragAndDropBox";
 //check transition working or not
 import { ComponentTransition } from "./transition";
 import { displayComponents } from "./../constants/displayComponents";
+import { SegmentPlaceholder } from "./placeholders/segmentPlaceholder";
 
 // css imports
 import style from "../styles.css";
@@ -20,12 +21,9 @@ const genericListMaker = (componentName, FormComponent) => {
   const localSpecs = specs[componentName];
 
   class GenericList extends React.Component {
-    componentDidMount() {
-      this.props.fetchData(componentName);
-    }
     render() {
       //here state is globalState[componentName]
-      const { active, update, data, formData, rearrange, empty } = this.props.state;
+      const { active, update, data, formData, rearrange, empty, loading } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const {
@@ -54,58 +52,60 @@ const genericListMaker = (componentName, FormComponent) => {
           );
         });
       }
-      return (
-        <ComponentTransition>
-          <Segment padded color={theme || "blue"}>
-            <div styleName="style.headingBox">
-              <h3 styleName="style.heading">
-                <Icon name={localSpecs.icon} color={theme || "blue"} /> {localSpecs.plural}
-              </h3>
-              <div>
-                {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                  <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
-                ) : null}
-                {handle == undefined ? (
-                  <Icon
-                    color="grey"
-                    name="add"
-                    circular
-                    onClick={() => {
-                      handleShow(componentName);
-                    }}
-                  />
-                ) : null}
-              </div>
+      if (loading) return <SegmentPlaceholder />;
+      else
+        return (
+          <ComponentTransition>
+            <Segment padded color={theme || "blue"}>
+              <div styleName="style.headingBox">
+                <h3 styleName="style.heading">
+                  <Icon name={localSpecs.icon} color={theme || "blue"} /> {localSpecs.plural}
+                </h3>
+                <div>
+                  {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
+                    <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
+                  ) : null}
+                  {handle == undefined ? (
+                    <Icon
+                      color="grey"
+                      name="add"
+                      circular
+                      onClick={() => {
+                        handleShow(componentName);
+                      }}
+                    />
+                  ) : null}
+                </div>
 
-              {handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{empty}</span> : null}
-            </div>
-            <Dimmer active={active} page>
-              <FormComponent
-                update={update}
-                formData={formData}
-                data={data}
-                appendData={appendData}
-                updateDeleteData={updateDeleteData}
-                handleHide={handleHide}
-                componentName={componentName}
-              />
-            </Dimmer>
-            {/* rearrange word not clear */}
-            {localSpecs.draggable ? (
-              <Dimmer active={rearrange} page>
-                <DragAndDropBox
+                {handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{empty}</span> : null}
+              </div>
+              <Dimmer active={active} page>
+                <FormComponent
+                  update={update}
+                  formData={formData}
                   data={data}
+                  appendData={appendData}
+                  updateDeleteData={updateDeleteData}
+                  handleHide={handleHide}
                   componentName={componentName}
-                  element={displayComponents[componentName]}
-                  handleUpdate={handleUpdate}
-                  handleDragHide={handleDragHide}
                 />
               </Dimmer>
-            ) : null}
-            {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
-          </Segment>
-        </ComponentTransition>
-      );
+              {/* rearrange word not clear */}
+              {localSpecs.draggable ? (
+                <Dimmer active={rearrange} page>
+                  <DragAndDropBox
+                    data={data}
+                    componentName={componentName}
+                    element={displayComponents[componentName]}
+                    handleUpdate={handleUpdate}
+                    handleDragHide={handleDragHide}
+                  />
+                </Dimmer>
+              ) : null}
+              {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
+            </Segment>
+          </ComponentTransition>
+        );
     }
   }
   return GenericList;

@@ -13,7 +13,8 @@ import {
 export const _mapStateToProps = componentName => {
   return function(state) {
     return {
-      state: state[componentName]
+      state: state[componentName],
+      editMode: state.appDetails.editMode
     };
   };
 };

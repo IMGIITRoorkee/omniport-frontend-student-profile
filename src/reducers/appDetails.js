@@ -1,4 +1,4 @@
-export const appDetailsReducer = (state = { editMode: false, loading: true }, action) => {
+export const appDetailsReducer = (state = { editMode: false, loading: true, theme: null }, action) => {
   switch (action.type) {
     case "SET_APP_DETAILS":
       return {

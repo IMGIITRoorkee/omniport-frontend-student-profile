@@ -8,14 +8,18 @@ function receiveFetchedResults(responseData, componentName) {
   return {
     type: "FETCH_DATA" + "--" + componentName,
     responseData: responseData,
-    isEmpty: isEmpty
+    isEmpty: isEmpty,
+    loading: false
   };
 }
 
-export function fetchData(componentName) {
+export function fetchData(componentName, editMode, handleParam) {
   return function(dispatch) {
+    let url = "/api/student_profile/" + specs[componentName]["url"] + "/";
+    if (!editMode) url += handleParam + "/handle/";
+    console.log("url", url);
     axios
-      .get("/api/student_profile/" + specs[componentName]["url"] + "/")
+      .get(url)
       .then(response => {
         dispatch(receiveFetchedResults(response.data, componentName));
       })

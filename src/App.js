@@ -9,12 +9,15 @@ import { AppHeader, AppFooter, AppMain } from "formula_one";
 
 import { Profile } from "./components/profile/profile";
 import { Skill } from "./components/skill/skill";
+import { components } from "./constants/genericComponents";
 import { listComponents } from "./constants/listComponents";
 
 import { listContainers } from "./constants/listContainers";
+import { AppPlaceholder } from "./components/placeholders/appPlaceholder";
 
 import { creators } from "./constants/creators";
 import { fetchAppDetails } from "./actions/appDetails";
+import { fetchData } from "./actions/genericActions";
 
 import style from "./styles.css";
 
@@ -49,9 +52,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAppDetails(this.props.match.params.handle);
-    console.log("app", this.props.setDetails);
-    const handle = this.props.match.params.handle;
+    let handleParam = this.props.match.params.handle;
+    let editMode = false;
+    if (handleParam == undefined) editMode = true;
+    this.props.fetchAppDetails(handleParam);
+    setInterval(console.log("0"), 9000);
+    for (let index in components) {
+      let componentName = components[index];
+      console.log("EM", this.props.appDetails);
+      this.props.fetchData(componentName, editMode, handleParam);
+    }
+    const handle = handleParam;
     this.setState({ handle: handle });
     let show;
     if (handle != undefined) {
@@ -276,10 +287,8 @@ class App extends Component {
         <AppFooter creators={creators} />
       </div>
     );
-
-    if (loading) {
-      return <p>loading pls wait</p>;
-    } else return app;
+    if (loading) return <AppPlaceholder />;
+    else return app;
   }
 }
 
@@ -291,7 +300,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchAppDetails: handleParam => {
       dispatch(fetchAppDetails(handleParam));
-    }
+    },
+    fetchData: (componentName, editMode, handleParam) => dispatch(fetchData(componentName, editMode, handleParam))
   };
 };
 

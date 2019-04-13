@@ -1,11 +1,11 @@
 export const genericReducerMaker = componentName => {
-  const initialState = { update: false, active: false, data: [] };
+  const initialState = { update: false, active: false, loading: true, data: [] };
 
   const genericReducer = (state = initialState, action) => {
     switch (action.type) {
       //adding the response of first GET request to the state to get the initial list of items
       case "FETCH_DATA" + "--" + componentName:
-        return { ...state, data: action.responseData, isEmpty: action.isEmpty };
+        return { ...state, data: action.responseData, isEmpty: action.isEmpty, loading: action.loading };
 
       case "MANAGE_DATA" + "--" + componentName:
         return { ...state, formData: action.formData, update: action.update, active: action.active };
