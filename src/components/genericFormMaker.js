@@ -22,6 +22,7 @@ export default function genericFormMaker(info) {
         open: false,
         errors: []
       };
+      console.log("gf", this.state);
     }
     componentDidMount() {
       document.addEventListener("keydown", this.handleKeyPress, false);

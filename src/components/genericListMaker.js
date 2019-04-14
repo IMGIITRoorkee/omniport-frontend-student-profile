@@ -8,7 +8,7 @@ import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
 //check transition working or not
 import { ComponentTransition } from "./transition";
-import { displayComponents } from "./../constants/displayComponents";
+import { displayContainers } from "../constants/displayContainers";
 import { SegmentPlaceholder } from "./placeholders/segmentPlaceholder";
 
 // css imports
@@ -16,13 +16,15 @@ import style from "../styles.css";
 import inline from "formula_one/src/css/inline.css";
 
 const genericListMaker = (componentName, FormComponent) => {
-  const DisplayComponent = displayComponents[componentName];
+  const DisplayComponent = displayContainers[componentName];
   // localSpecs will have all the info about the component.
   const localSpecs = specs[componentName];
 
   class GenericList extends React.Component {
     render() {
       //here state is globalState[componentName]
+      console.log("gl", this.props.state.formData);
+      // formdata and rearrange are not present
       const { active, update, data, formData, rearrange, empty, loading } = this.props.state;
       const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
@@ -96,7 +98,7 @@ const genericListMaker = (componentName, FormComponent) => {
                   <DragAndDropBox
                     data={data}
                     componentName={componentName}
-                    element={displayComponents[componentName]}
+                    element={displayContainers[componentName]}
                     handleUpdate={handleUpdate}
                     handleDragHide={handleDragHide}
                   />
