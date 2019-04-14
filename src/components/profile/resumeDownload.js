@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import style from "../../styles.css";
 
 export function ResumeDownload(props) {
-  const url = props.url;
+  const { url, theme } = props;
+
   const preview_url = "/student_profile/" + props.ownHandle + "/";
   if (props.preview == false) {
     return (
@@ -21,7 +22,7 @@ export function ResumeDownload(props) {
           >
             {url != null ? (
               <a href={url} target="_blank">
-                <Label size="large" color="blue">
+                <Label size="large" color={theme}>
                   <Icon name="download" />
                   Resume
                 </Label>
@@ -29,7 +30,7 @@ export function ResumeDownload(props) {
             ) : (
               <Popup
                 trigger={
-                  <Label size="large" color="blue">
+                  <Label size="large" color={theme}>
                     <Icon name="download" />
                     Resume
                   </Label>
@@ -38,7 +39,7 @@ export function ResumeDownload(props) {
               />
             )}
             <Link to={preview_url} target="_blank">
-              <Label size="large" color="blue">
+              <Label size="large" color={theme}>
                 <Icon name="eye" />
                 Preview
               </Label>
@@ -56,7 +57,7 @@ export function ResumeDownload(props) {
           >
             {url != null ? (
               <a href={url} target="_blank">
-                <Button icon color="blue">
+                <Button icon color={theme}>
                   <Icon name="download" />
                   Resume
                 </Button>
@@ -64,7 +65,7 @@ export function ResumeDownload(props) {
             ) : (
               <Popup
                 trigger={
-                  <Button icon color="blue">
+                  <Button icon color={theme}>
                     <Icon name="download" />
                     Resume
                   </Button>
@@ -73,7 +74,7 @@ export function ResumeDownload(props) {
               />
             )}
             <Link to={preview_url} target="_blank">
-              <Button icon color="blue">
+              <Button icon color={theme}>
                 <Icon name="print" />
                 Preview
               </Button>
@@ -88,10 +89,10 @@ export function ResumeDownload(props) {
         <h4 styleName="style.heading">Download resume</h4>
         {url != null ? (
           <a href={url} target="_blank">
-            <Icon name="download" color="blue" />
+            <Icon name="download" color={theme} />
           </a>
         ) : (
-          <Popup trigger={<Icon name="download" color="blue" />} content="Resume not uploaded" />
+          <Popup trigger={<Icon name="download" color={theme} />} content="Resume not uploaded" />
         )}
       </Segment>
     );

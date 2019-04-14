@@ -75,10 +75,11 @@ export class LinkDisplay extends React.Component {
   };
   render() {
     const data = this.state.data;
+    const { theme } = this.props;
     const children = Array.from(data).map(function(child, index) {
       return (
         <a href={child.url} target="_blank" key={index} title={child.siteLogo}>
-          <Icon size="large" key={index} name={child.siteLogo} />
+          <Icon size="large" key={index} name={child.siteLogo} color={theme} />
         </a>
       );
     });

@@ -9,6 +9,7 @@ import { ErrorTransition } from "./transition";
 import { FieldMap } from "./../constants/input";
 import { headers } from "../constants/formPostRequestHeaders";
 import style from "../styles.css";
+import { appDetailsReducer } from "../reducers/appDetails";
 
 export default function genericFormMaker(info) {
   let { initial, name, url } = info;
@@ -208,6 +209,7 @@ export default function genericFormMaker(info) {
     };
     render() {
       const { update } = this.state;
+      const { appDetails } = this.props;
       let formElements = this.makeForm(info);
       return (
         <Segment basic>
@@ -241,13 +243,13 @@ export default function genericFormMaker(info) {
               >
                 Delete
               </div>
-              <Button onClick={() => this.handleSubmit("put")} color="blue">
+              <Button onClick={() => this.handleSubmit("put")} color={appDetails.theme}>
                 Save Changes
               </Button>
             </Segment>
           ) : (
             <Segment attached="bottom" styleName="style.buttonBox">
-              <Button onClick={() => this.handleSubmit()} color="blue" type="submit">
+              <Button onClick={() => this.handleSubmit()} color={appDetails.theme} type="submit">
                 Submit
               </Button>
             </Segment>

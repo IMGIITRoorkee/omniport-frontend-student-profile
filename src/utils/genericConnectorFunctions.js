@@ -14,7 +14,7 @@ export const _mapStateToProps = componentName => {
   return function(state) {
     return {
       state: state[componentName],
-      editMode: state.appDetails.editMode
+      appDetails: state.appDetails
     };
   };
 };

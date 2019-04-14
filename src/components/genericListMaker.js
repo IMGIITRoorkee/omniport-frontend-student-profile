@@ -25,8 +25,10 @@ const genericListMaker = (componentName, FormComponent) => {
       //here state is globalState[componentName]
       console.log("gl", this.props.state.formData);
       // formdata and rearrange are not present
+      const { appDetails } = this.props;
+      const { theme, handle } = appDetails;
+
       const { active, update, data, formData, rearrange, empty, loading } = this.props.state;
-      const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const {
         appendData,
@@ -58,10 +60,10 @@ const genericListMaker = (componentName, FormComponent) => {
       else
         return (
           <ComponentTransition>
-            <Segment padded color={theme || "blue"}>
+            <Segment padded color={theme}>
               <div styleName="style.headingBox">
                 <h3 styleName="style.heading">
-                  <Icon name={localSpecs.icon} color={theme || "blue"} /> {localSpecs.plural}
+                  <Icon name={localSpecs.icon} color={theme} /> {localSpecs.plural}
                 </h3>
                 <div>
                   {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
@@ -83,6 +85,7 @@ const genericListMaker = (componentName, FormComponent) => {
               </div>
               <Dimmer active={active} page>
                 <FormComponent
+                  appDetails={this.props.appDetails}
                   update={update}
                   formData={formData}
                   data={data}
@@ -96,6 +99,7 @@ const genericListMaker = (componentName, FormComponent) => {
               {localSpecs.draggable ? (
                 <Dimmer active={rearrange} page>
                   <DragAndDropBox
+                    appDetails={appDetails}
                     data={data}
                     componentName={componentName}
                     element={displayContainers[componentName]}

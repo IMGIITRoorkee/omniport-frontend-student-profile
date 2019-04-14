@@ -14,23 +14,23 @@ export const Project = props => {
           <List.Item>
             <List.Content>
               <div styleName="style.textBox">
-                <b>{props.data.topic}</b>
+                <b>{props.item.topic}</b>
                 <div>
-                  <p>{props.data.field}</p>
+                  <p>{props.item.field}</p>
                   <p>
-                    {props.data.startDate}
-                    {props.endDate != "" ? " to " + props.data.endDate : null}
+                    {props.item.startDate}
+                    {props.endDate != "" ? " to " + props.item.endDate : null}
                   </p>
-                  <p>{props.data.description}</p>
-                  {props.data.image ? (
-                    <a href={props.data.image} target="_blank">
+                  <p>{props.item.description}</p>
+                  {props.item.image ? (
+                    <a href={props.item.image} target="_blank">
                       Image
                     </a>
                   ) : null}
                 </div>
               </div>
 
-              {props.data.image ? <Image src={props.data.image} styleName="style.mobPicture" /> : null}
+              {props.item.image ? <Image src={props.item.image} styleName="style.mobPicture" /> : null}
             </List.Content>
           </List.Item>
         </List>
@@ -40,20 +40,20 @@ export const Project = props => {
             <List>
               <List.Item>
                 <List.Content>
-                  {props.data.topic} in {props.data.field}
+                  {props.item.topic} in {props.item.field}
                   <div styleName="style.gray">
-                    {formatDate(props.data.startDate)} to {formatDate(props.data.endDate)}
+                    {formatDate(props.item.startDate)} to {formatDate(props.item.endDate)}
                   </div>
-                  <p styleName="style.gray style.description"> {props.data.description}</p>
+                  <p styleName="style.gray style.description"> {props.item.description}</p>
                 </List.Content>
               </List.Item>
             </List>
           </div>
-          {props.data.image ? (
+          {props.item.image ? (
             <div>
-              <Modal basic trigger={<Image src={props.data.image} styleName="style.compPicture" />} basic fluid>
+              <Modal basic trigger={<Image src={props.item.image} styleName="style.compPicture" />} basic fluid>
                 <Modal.Content image>
-                  <Image src={props.data.image} styleName="style.compPicture" wrapped size={"massive"} />
+                  <Image src={props.item.image} styleName="style.compPicture" wrapped size={"massive"} />
                 </Modal.Content>
               </Modal>
             </div>

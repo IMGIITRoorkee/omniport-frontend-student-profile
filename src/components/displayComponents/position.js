@@ -12,12 +12,12 @@ const Position = props => {
         <List.Item>
           {/*  */}
           <List.Content>
-            {props.data.position}, <b>{props.data.organisation}</b>
+            {props.item.position}, <b>{props.item.organisation}</b>
             <br />
             <span styleName="style.gray">
-              {formatDate(props.data.startDate)} to {formatDate(props.data.endDate)}
+              {formatDate(props.item.startDate)} to {formatDate(props.item.endDate)}
             </span>
-            <p styleName="style.gray style.description">{props.data.description}</p>
+            <p styleName="style.gray style.description">{props.item.description}</p>
           </List.Content>
         </List.Item>
 

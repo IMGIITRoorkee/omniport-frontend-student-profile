@@ -12,14 +12,14 @@ const Experience = props => {
         <List styleName="style.list">
           <List.Item>
             <List.Content>
-              <div>{props.data.experienceType == "int" ? "Internship" : "Job"}</div>
+              <div>{props.item.experienceType == "int" ? "Internship" : "Job"}</div>
               <div>
-                {props.data.position} at <b>{props.data.organisation}</b>
+                {props.item.position} at <b>{props.item.organisation}</b>
               </div>
               <div styleName="style.gray">
-                {formatDate(props.data.startDate)} to {formatDate(props.data.endDate)}
+                {formatDate(props.item.startDate)} to {formatDate(props.item.endDate)}
               </div>
-              <p styleName="style.gray style.description">{props.data.description}</p>
+              <p styleName="style.gray style.description">{props.item.description}</p>
             </List.Content>
           </List.Item>
         </List>

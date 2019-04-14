@@ -131,10 +131,11 @@ export class Profile extends React.Component {
               <Card.Description textAlign="center"> {desc}</Card.Description>
             </div>
             <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
-              <LinkDisplay handle={this.props.handle} />
+              <LinkDisplay handle={this.props.handle} theme={this.props.theme} />
             </div>
             <Dimmer active={this.state.active} page>
               <ProfileForm
+                theme={this.props.theme}
                 data={this.state.data}
                 person_data={this.state.person_data}
                 createNew={this.state.createNew}
@@ -145,7 +146,7 @@ export class Profile extends React.Component {
             </Dimmer>
           </Card>
 
-          <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} />
+          <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} theme={theme} />
         </div>
       );
   }

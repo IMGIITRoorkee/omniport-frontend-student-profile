@@ -13,30 +13,30 @@ const Paper = props => {
             <List.Item>
               <List.Content>
                 <div>
-                  {props.data.title} by {props.data.authors} <br />
+                  {props.item.title} by {props.item.authors} <br />
                   <p styleName="style.gray">
-                    Published by {props.data.publisher}, {props.data.year}
+                    Published by {props.item.publisher}, {props.item.year}
                   </p>
-                  {props.data.pages ? (
+                  {props.item.pages ? (
                     <span styleName="style.gray">
-                      Pages: {props.data.pages}
+                      Pages: {props.item.pages}
                       <br />
                     </span>
                   ) : null}
-                  {props.data.volumes ? (
+                  {props.item.volumes ? (
                     <span styleName="style.gray">
-                      Volumes: {props.data.volumes}
+                      Volumes: {props.item.volumes}
                       <br />
                     </span>
                   ) : null}
-                  {props.data.journal ? (
+                  {props.item.journal ? (
                     <span styleName="style.gray">
-                      Journal: {props.data.journal}
+                      Journal: {props.item.journal}
                       <br />
                     </span>
                   ) : null}
-                  {props.data.paper ? (
-                    <a href={props.data.paper} target="_blank">
+                  {props.item.paper ? (
+                    <a href={props.item.paper} target="_blank">
                       Source Papers
                     </a>
                   ) : null}

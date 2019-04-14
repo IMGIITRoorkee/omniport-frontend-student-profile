@@ -28,15 +28,12 @@ const AchievementListContainer = listContainers["achievement"];
 const CurrentEducationListContainer = listContainers["currentEducation"];
 const PreviousEducationListContainer = listContainers["previousEducation"];
 
-const AchievementList = listComponents["achievement"];
-const CurrentEducationList = listComponents["currentEducation"];
-const PreviousEducationList = listComponents["previousEducation"];
-const PositionList = listComponents["position"];
-const ExperienceList = listComponents["experience"];
-const ProjectList = listComponents["project"];
-const BookList = listComponents["book"];
-const PaperList = listComponents["paper"];
-const RefereeList = listComponents["referee"];
+const PositionListContainer = listContainers["position"];
+const ExperienceListContainer = listContainers["experience"];
+const ProjectListContainer = listContainers["project"];
+const BookListContainer = listContainers["book"];
+const PaperListContainer = listContainers["paper"];
+const RefereeListContainer = listContainers["referee"];
 
 class App extends Component {
   constructor(props) {
@@ -59,7 +56,7 @@ class App extends Component {
     setInterval(console.log("0"), 9000);
     for (let index in components) {
       let componentName = components[index];
-      console.log("EM", this.props.appDetails);
+      console.log("EM", this.props.state.appDetails);
       this.props.fetchData(componentName, editMode, handleParam);
     }
     const handle = handleParam;
@@ -109,9 +106,10 @@ class App extends Component {
 
   render() {
     const { show, erroneous, handle, activeItem } = this.state;
-    const { loading } = this.props.appDetails;
-    let { theme } = this.state;
-    if (theme == "zero") theme = null;
+    const { loading } = this.props.state.appDetails;
+    let { theme } = this.props.state.appDetails;
+
+    //make menu generic
     const app_menu = (
       <div
         style={{
@@ -124,7 +122,7 @@ class App extends Component {
         <BrowserView>
           <Menu size="small" fluid icon="labeled" stackable widths={8}>
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Interests"
               active={activeItem === "Interests"}
               onClick={(e, target) => {
@@ -134,7 +132,7 @@ class App extends Component {
               }}
             />
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Achievements"
               active={activeItem === "Achievements"}
               onClick={(e, target) => {
@@ -144,7 +142,7 @@ class App extends Component {
               }}
             />
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Education"
               active={activeItem === "Education"}
               onClick={(e, target) => {
@@ -154,7 +152,7 @@ class App extends Component {
               }}
             />
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Experience"
               active={activeItem === "Experience"}
               onClick={(e, target) => {
@@ -164,7 +162,7 @@ class App extends Component {
               }}
             />
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Projects"
               active={activeItem === "Projects"}
               onClick={(e, target) => {
@@ -173,18 +171,9 @@ class App extends Component {
                 this.scroll("project");
               }}
             />
+
             <Menu.Item
-              color={theme || "blue"}
-              name="Skills"
-              active={activeItem === "Skills"}
-              onClick={(e, target) => {
-                this.handleItemClick;
-                this.setState({ activeItem: "Skills" });
-                this.scroll("skill");
-              }}
-            />
-            <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="Publications"
               active={activeItem === "Publications"}
               onClick={(e, target) => {
@@ -195,13 +184,23 @@ class App extends Component {
             />
 
             <Menu.Item
-              color={theme || "blue"}
+              color={theme}
               name="References"
               active={activeItem === "References"}
               onClick={(e, target) => {
                 this.handleItemClick;
                 this.setState({ activeItem: "References" });
                 this.scroll("referee");
+              }}
+            />
+            <Menu.Item
+              color={theme}
+              name="Skills"
+              active={activeItem === "Skills"}
+              onClick={(e, target) => {
+                this.handleItemClick;
+                this.setState({ activeItem: "Skills" });
+                this.scroll("skill");
               }}
             />
           </Menu>
@@ -222,36 +221,39 @@ class App extends Component {
         <div id="previousEducation">
           <PreviousEducationListContainer />
         </div>
-        {/* 
-     
         <div id="position">
-          <PositionList handle={handle} theme={theme} />
+          <PositionListContainer />
         </div>
         <div id="experience">
-          <ExperienceList handle={handle} theme={theme} />
+          <ExperienceListContainer />
         </div>
         <div id="project">
-          <ProjectList handle={handle} theme={theme} />
+          <ProjectListContainer />
         </div>
         <div id="book">
-          <BookList handle={handle} theme={theme} />
+          <BookListContainer />
         </div>
         <div id="paper">
-          <PaperList handle={handle} theme={theme} />
+          <PaperListContainer />
         </div>
         <div id="referee">
-          <RefereeList handle={handle} theme={theme} />
-        </div> */}
+          <RefereeListContainer />
+        </div>
 
         {/* Skill component along with Profile component are different from the rest */}
-        {/*     
         <div id="skill">
-          <Skill handle={handle} theme={theme} />
-        </div> */}
+          <Skill handle={this.props.state.appDetails.handleParam} theme={this.props.state.appDetails.theme} />
+        </div>
       </div>
     );
 
-    const profile = <Profile handle={handle} theme={this.state.theme} changeTheme={this.changeTheme} />;
+    const profile = (
+      <Profile
+        handle={this.props.state.appDetails.handleParam}
+        theme={this.props.state.appDetails.theme}
+        changeTheme={this.changeTheme}
+      />
+    );
 
     const app = (
       <div styleName="style.wrapper">
@@ -294,7 +296,7 @@ class App extends Component {
 
 //modify state
 const mapStateToProps = state => {
-  return { appDetails: state.appDetails };
+  return { state: state };
 };
 const mapDispatchToProps = dispatch => {
   return {

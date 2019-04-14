@@ -81,20 +81,20 @@ export class DragAndDropBox extends Component {
       data: data,
       headers: headers
     }).then(response => {
-      this.props.handleUpdate(response.data,this.props.componentName);
+      this.props.handleUpdate(response.data, this.props.componentName);
     });
   };
 
   render() {
     const { element } = this.state;
-    const {componentName}= this.props;
+    const { componentName, appDetails } = this.props;
     let heading = this.state.modelName;
     if (this.state.modelName == "Experience") heading = "Internship";
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
           <h3 styleName="style.heading">{heading}</h3>
-          <Icon color="grey" name="delete" onClick={()=>this.props.handleDragHide(componentName)} />
+          <Icon color="grey" name="delete" onClick={() => this.props.handleDragHide(componentName)} />
         </Segment>
         <Segment styleName="style.formStyle2" style={{ width: "40vw" }} attached>
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -126,7 +126,7 @@ export class DragAndDropBox extends Component {
           </DragDropContext>
         </Segment>
         <Segment attached="bottom" styleName="style.buttonBox">
-          <Button color="blue" onClick={this.onSubmit}>
+          <Button color={appDetails.theme} onClick={this.onSubmit}>
             Confirm order
           </Button>
         </Segment>

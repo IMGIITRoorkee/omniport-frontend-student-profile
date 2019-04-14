@@ -148,6 +148,7 @@ export class ProfileForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
+    //need lots of code refactoring, why theme is in data also? pass theme using mapstatetoprops, create a change theme function
     const { handle, description, theme, student } = this.state.data;
     const { createNew } = this.state;
 
@@ -206,6 +207,8 @@ export class ProfileForm extends React.Component {
     this.setState({ image: "", img_file: "" });
   };
   render() {
+    const appTheme = this.props.theme;
+
     const { name, color, loading } = this.state.handleFieldProperties;
 
     let res = (
@@ -298,7 +301,7 @@ export class ProfileForm extends React.Component {
           </Segment>
 
           <Segment attached="bottom" styleName="style.buttonBox">
-            <Button onClick={this.handleErrors} color="blue" type="submit">
+            <Button onClick={this.handleErrors} color={appTheme} type="submit">
               Submit
             </Button>
           </Segment>
