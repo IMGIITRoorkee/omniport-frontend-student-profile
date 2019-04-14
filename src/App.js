@@ -111,14 +111,7 @@ class App extends Component {
 
     //make menu generic
     const app_menu = (
-      <div
-        style={{
-          zIndex: "5",
-          position: "sticky",
-          top: 0,
-          backgroundColor: "white"
-        }}
-      >
+      <div styleName="style.appMenu">
         <BrowserView>
           <Menu size="small" fluid icon="labeled" stackable widths={8}>
             <Menu.Item

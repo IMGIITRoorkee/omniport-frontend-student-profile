@@ -94,11 +94,12 @@ export class LinkForm extends React.Component {
     }
   };
   render() {
+    const { theme } = this.props;
+    console.log(this.state.links);
     return (
       <Segment basic styleName="style.linkBox">
         <Segment attached="top" styleName="style.headingBox">
           <span>
-            <Icon color="blue" name="stop" />
             <h3 styleName="style.heading">Social media links</h3>
           </span>
 
@@ -128,13 +129,14 @@ export class LinkForm extends React.Component {
             </Form.Field>
 
             <Form.Field>
-              <Button color="blue" onClick={this.handleErrors}>
+              <Button color={theme} onClick={this.handleErrors}>
                 Add
               </Button>
             </Form.Field>
           </Form>
-
-          <LinkList data={this.state.links} handleUpdateDelete={this.handleUpdateDelete} />
+          {this.state.links.length > 0 ? (
+            <LinkList data={this.state.links} handleUpdateDelete={this.handleUpdateDelete} />
+          ) : null}
         </Segment>
       </Segment>
     );

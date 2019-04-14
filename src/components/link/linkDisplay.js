@@ -96,7 +96,12 @@ export class LinkDisplay extends React.Component {
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
-          <LinkForm data={data} handleUpdate={this.handleUpdate} options={this.state.linkOptions} />
+          <LinkForm
+            data={data}
+            handleUpdate={this.handleUpdate}
+            options={this.state.linkOptions}
+            theme={this.props.theme}
+          />
         </Dimmer>
       </div>
     );

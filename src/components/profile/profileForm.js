@@ -210,12 +210,12 @@ export class ProfileForm extends React.Component {
     const appTheme = this.props.theme;
 
     const { name, color, loading } = this.state.handleFieldProperties;
-
+    const buttonClass = "ui " + appTheme + " button";
     let res = (
       <Form.Field>
         <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
         <div styleName="style.inputLabel">
-          <label htmlFor="embedpollfileinput1" className="ui blue button">
+          <label htmlFor="embedpollfileinput1" className={buttonClass}>
             <i className="ui upload icon" />
             Upload Resume
           </label>
@@ -226,7 +226,7 @@ export class ProfileForm extends React.Component {
       <div>
         <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
         <div styleName="style.inputLabel">
-          <label htmlFor="embedpollfileinput" className="ui blue button">
+          <label htmlFor="embedpollfileinput" className={buttonClass}>
             <i className="ui upload icon" />
             Upload profile image
           </label>
