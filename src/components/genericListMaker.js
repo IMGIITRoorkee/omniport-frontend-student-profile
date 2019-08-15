@@ -23,12 +23,17 @@ const genericListMaker = (componentName, FormComponent) => {
   class GenericList extends React.Component {
     render() {
       //here state is globalState[componentName]
-      console.log("gl", this.props.state.formData);
       // formdata and rearrange are not present
-      const { appDetails } = this.props;
-      const { theme, handle } = appDetails;
-
-      const { active, update, data, formData, rearrange, empty, loading } = this.props.state;
+      const {
+        active,
+        update,
+        data,
+        formData,
+        rearrange,
+        empty,
+        loading
+      } = this.props.state;
+      const { theme, handle } = this.props;
       if (theme == "zero") theme = null;
       const {
         appendData,
@@ -63,11 +68,19 @@ const genericListMaker = (componentName, FormComponent) => {
             <Segment padded color={theme}>
               <div styleName="style.headingBox">
                 <h3 styleName="style.heading">
-                  <Icon name={localSpecs.icon} color={theme} /> {localSpecs.plural}
+                  <Icon name={localSpecs.icon} color={theme || "blue"} />{" "}
+                  {localSpecs.plural}
                 </h3>
                 <div>
-                  {handle == undefined && localSpecs.draggable == true && data.length > 1 ? (
-                    <Icon color="grey" name="sort" circular onClick={() => handleDragShow(componentName)} />
+                  {handle == undefined &&
+                  localSpecs.draggable == true &&
+                  data.length > 1 ? (
+                    <Icon
+                      color="grey"
+                      name="sort"
+                      circular
+                      onClick={() => handleDragShow(componentName)}
+                    />
                   ) : null}
                   {handle == undefined ? (
                     <Icon
@@ -81,7 +94,11 @@ const genericListMaker = (componentName, FormComponent) => {
                   ) : null}
                 </div>
 
-                {handle != undefined ? <span style={{ color: "grey", textAlign: "right" }}>{empty}</span> : null}
+                {handle != undefined ? (
+                  <span style={{ color: "grey", textAlign: "right" }}>
+                    {empty}
+                  </span>
+                ) : null}
               </div>
               <Dimmer active={active} page>
                 <FormComponent
@@ -99,7 +116,7 @@ const genericListMaker = (componentName, FormComponent) => {
               {localSpecs.draggable ? (
                 <Dimmer active={rearrange} page>
                   <DragAndDropBox
-                    appDetails={appDetails}
+                    appDetails={this.props.appDetails}
                     data={data}
                     componentName={componentName}
                     element={displayContainers[componentName]}

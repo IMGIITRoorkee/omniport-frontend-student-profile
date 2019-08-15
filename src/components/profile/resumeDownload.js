@@ -92,7 +92,10 @@ export function ResumeDownload(props) {
             <Icon name="download" color={theme} />
           </a>
         ) : (
-          <Popup trigger={<Icon name="download" color={theme} />} content="Resume not uploaded" />
+          <Popup
+            trigger={<Icon name="download" color={theme} />}
+            content="Resume not uploaded"
+          />
         )}
       </Segment>
     );

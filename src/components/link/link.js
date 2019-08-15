@@ -12,7 +12,6 @@ export class Link extends React.Component {
     this.props.handleUpdateDelete(this.props.data.id);
   };
   render() {
-    console.log(this.props.data);
     return (
       <Segment styleName="style.headingBox">
         <div styleName="style.socialBox">

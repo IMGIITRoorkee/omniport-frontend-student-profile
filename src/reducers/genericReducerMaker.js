@@ -13,10 +13,20 @@ export const genericReducerMaker = componentName => {
     switch (action.type) {
       //adding the response of first GET request to the state to get the initial list of items
       case "FETCH_DATA" + "--" + componentName:
-        return { ...state, data: action.responseData, isEmpty: action.isEmpty, loading: action.loading };
+        return {
+          ...state,
+          data: action.responseData,
+          isEmpty: action.isEmpty,
+          loading: action.loading
+        };
 
       case "MANAGE_DATA" + "--" + componentName:
-        return { ...state, formData: action.formData, update: action.update, active: action.active };
+        return {
+          ...state,
+          formData: action.formData,
+          update: action.update,
+          active: action.active
+        };
 
       case "APPEND_DATA" + "--" + componentName:
         return { ...state, data: action.newData };
@@ -25,7 +35,12 @@ export const genericReducerMaker = componentName => {
         return { ...state, data: action.newData };
 
       case "HANDLE_SHOW" + "--" + componentName:
-        return { ...state, active: action.active, formData: action.formData, update: action.update };
+        return {
+          ...state,
+          active: action.active,
+          formData: action.formData,
+          update: action.update
+        };
 
       case "HANDLE_HIDE" + "--" + componentName:
         return { ...state, active: action.active, update: action.update };

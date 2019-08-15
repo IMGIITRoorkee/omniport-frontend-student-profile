@@ -1,5 +1,13 @@
 import React from "react";
-import { Form, Input, Button, Icon, Message, Dropdown, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Message,
+  Dropdown,
+  Segment
+} from "semantic-ui-react";
 import { getCookie } from "formula_one";
 import axios from "axios";
 import style from "../../styles.css";
@@ -21,7 +29,6 @@ export class LinkForm extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("prop", this.props.options);
     document.addEventListener("keydown", this.handleEscape, false);
   }
   componentWillUnmount() {
@@ -135,7 +142,10 @@ export class LinkForm extends React.Component {
             </Form.Field>
           </Form>
           {this.state.links.length > 0 ? (
-            <LinkList data={this.state.links} handleUpdateDelete={this.handleUpdateDelete} />
+            <LinkList
+              data={this.state.links}
+              handleUpdateDelete={this.handleUpdateDelete}
+            />
           ) : null}
         </Segment>
       </Segment>

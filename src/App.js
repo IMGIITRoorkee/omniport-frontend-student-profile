@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import axios from "axios";
 import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -22,27 +21,48 @@ import { fetchData } from "./actions/genericActions";
 
 import style from "./styles.css";
 
+// import { InterestListContainer } from "./containers/interestList";
+
+const InterestListContainer = listContainers["interest"];
+const AchievementListContainer = listContainers["achievement"];
+// const CurrentEducationListContainer = listContainers["currentEducation"];
+// const PreviousEducationListContainer = listContainers["previousEducation"];
+
+// const AchievementList = listComponents["achievement"];
+// const CurrentEducationList = listComponents["currentEducation"];
+// const PreviousEducationList = listComponents["previousEducation"];
+// const PositionList = listComponents["position"];
+// const ExperienceList = listComponents["experience"];
+// const ProjectList = listComponents["project"];
+// const BookList = listComponents["book"];
+// const PaperList = listComponents["paper"];
+// const RefereeList = listComponents["referee"];
+
 class App extends Component {
   constructor(props) {
     super(props);
+    //activeItem is used setting the current compenent under focus
+    this.state = {
+      activeItem: "Interests"
+    };
   }
 
   componentDidMount() {
-    //fetching all components' data
-    let handleParam = this.props.match.params.handle;
+    //getting handle from url
+    let handle = this.props.match.params.handle;
+
     let editMode = false;
-    if (handleParam == undefined) editMode = true;
-    this.props.fetchAppDetails(handleParam);
+    if (handle == undefined) editMode = true;
+
+    //fetchAppDetails will dispatch
+    this.props.fetchAppDetails(handle);
+
+    //fetching data for all components
     for (let index in components) {
       let componentName = components[index];
-      this.props.fetchData(componentName, editMode, handleParam);
+      this.props.fetchData(componentName, editMode, handle);
     }
   }
-
-  //needs to be removed
-  changeTheme = theme => {
-    this.setState({ theme: theme });
-  };
 
   scroll = target => {
     let ele = document.getElementById(target);
@@ -54,36 +74,45 @@ class App extends Component {
   };
 
   render() {
-    const { loading } = this.props.state.appDetails;
-    let { theme, editMode } = this.props.state.appDetails;
-    const { appDetails } = this.props.state;
-    console.log(editMode);
     const { state } = this.props;
+    const { handle, theme, editMode, loading } = state;
 
     let genericComponentList = [];
     for (let index in components) {
       let componentName = components[index];
       if (editMode || !state[componentName].isEmpty)
         genericComponentList.push(
-          <div id={componentName}>{React.createElement(listContainers[componentName], {})}</div>
+          <div id={componentName}>
+            {React.createElement(listContainers[componentName], {})}
+          </div>
         );
     }
+
+    const profile = (
+      <Profile handle={handle} theme={theme} changeTheme={this.changeTheme} />
+    );
+
     const skill = (
       <div id="skill">
-        <Skill handle={appDetails.handleParam} theme={appDetails.theme} />
+        <Skill handle={handle} theme={theme} />
       </div>
     );
+
     const allComponents = (
       <div>
         {genericComponentList}
-        {skill}
+        {/* {skill} */}
       </div>
     );
-    const profile = <Profile handle={appDetails.handleParam} theme={appDetails.theme} changeTheme={this.changeTheme} />;
 
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader appName="Student Profile" appLogo={false} appLink={`http://${window.location.host}`} userDropdown />
+        <AppHeader
+          appName="Student Profile"
+          appLogo={false}
+          appLink={`http://${window.location.host}`}
+          userDropdown
+        />
         <AppMain>
           {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
@@ -114,10 +143,11 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    fetchAppDetails: handleParam => {
-      dispatch(fetchAppDetails(handleParam));
+    fetchAppDetails: handle => {
+      dispatch(fetchAppDetails(handle));
     },
-    fetchData: (componentName, editMode, handleParam) => dispatch(fetchData(componentName, editMode, handleParam))
+    fetchData: (componentName, editMode, handle) =>
+      dispatch(fetchData(componentName, editMode, handle))
   };
 };
 

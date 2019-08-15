@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const fetchAppDetails = handleParam => {
+//Tip: In general action generator returns object but this function thing is possible because of redux thunk.
+export const fetchAppDetails = handle => {
   return function(dispatch) {
-    let theme;
-    let editMode;
-    if (handleParam == undefined) {
+    let theme, editMode;
+    if (handle == undefined) {
       editMode = true;
     } else {
       editMode = false;
@@ -14,7 +14,7 @@ export const fetchAppDetails = handleParam => {
         .get("/api/student_profile/profile/")
         .then(response => {
           theme = response.data[0].theme;
-          dispatch(setAppDetails(editMode, theme, handleParam));
+          dispatch(setAppDetails(editMode, theme, handle));
         })
         .catch(error => {
           console.log(error);
@@ -24,10 +24,10 @@ export const fetchAppDetails = handleParam => {
         });
     } else {
       axios
-        .get("/api/student_profile/profile/" + handleParam + "/handle/")
+        .get("/api/student_profile/profile/" + handle + "/handle/")
         .then(response => {
           theme = response.data.theme;
-          dispatch(setAppDetails(editMode, theme, handleParam));
+          dispatch(setAppDetails(editMode, theme, handle));
         })
         .catch(error => {
           console.log(error);
@@ -39,12 +39,12 @@ export const fetchAppDetails = handleParam => {
   };
 };
 
-export const setAppDetails = (editMode, theme, handleParam) => {
+export const setAppDetails = (editMode, theme, handle) => {
   return {
     type: "SET_APP_DETAILS",
     editMode: editMode,
     theme: theme,
-    handleParam: handleParam,
+    handle: handle,
     loading: false
   };
 };

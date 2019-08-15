@@ -1,12 +1,12 @@
 export const components = [
-  "interest",
-  "achievement",
-  "currentEducation",
-  "previousEducation",
-  "position",
-  "experience",
-  "project",
-  "book",
-  "paper",
-  "referee"
+  "interest"
+  // "achievement",
+  // "currentEducation",
+  // "previousEducation"
+  // "position",
+  // "experience",
+  // "project",
+  // "book",
+  // "paper",
+  // "referee"
 ];

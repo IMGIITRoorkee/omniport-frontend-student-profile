@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
-import { mapDispatchToProps, _mapStateToProps } from "../utils/genericConnectorFunctions";
+import {
+  mapDispatchToProps,
+  _mapStateToProps
+} from "../utils/genericConnectorFunctions";
 import { listComponents } from "./listComponents";
 import { components } from "./genericComponents";
 

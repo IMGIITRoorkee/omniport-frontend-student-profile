@@ -1,5 +1,12 @@
 import React from "react";
-import { Form, Input, Button, Icon, Dropdown, Segment } from "semantic-ui-react";
+import {
+  Form,
+  Input,
+  Button,
+  Icon,
+  Dropdown,
+  Segment
+} from "semantic-ui-react";
 import axios from "axios";
 
 import { Resume } from "./resume";
@@ -46,10 +53,14 @@ export class ProfileForm extends React.Component {
   isHandleAllowed = allowed => {
     if (allowed == true) {
       this.setState({ handleAvailable: true });
-      this.setState({ handleFieldProperties: { loading: false, color: "green", name: "check" } });
+      this.setState({
+        handleFieldProperties: { loading: false, color: "green", name: "check" }
+      });
     } else {
       this.setState({ handleAvailable: false });
-      this.setState({ handleFieldProperties: { loading: false, color: "red", name: "times" } });
+      this.setState({
+        handleFieldProperties: { loading: false, color: "red", name: "times" }
+      });
     }
   };
   handleChange = (event, { name = undefined, value }) => {
@@ -58,10 +69,10 @@ export class ProfileForm extends React.Component {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
     if (name == "handle") {
-      console.log("handle field");
       const oldProperties = this.state.handleFieldProperties;
-      this.setState({ handleFieldProperties: { loading: true, color: "green", name: null } });
-      console.log("value", value, typeof value);
+      this.setState({
+        handleFieldProperties: { loading: true, color: "green", name: null }
+      });
       axios
         .get("/api/student_profile/profile/" + value + "/handle/")
         .then(response => {
@@ -213,7 +224,12 @@ export class ProfileForm extends React.Component {
     const buttonClass = "ui " + appTheme + " button";
     let res = (
       <Form.Field>
-        <input type="file" onChange={this.handleFile} styleName="style.inputfile" id="embedpollfileinput1" />
+        <input
+          type="file"
+          onChange={this.handleFile}
+          styleName="style.inputfile"
+          id="embedpollfileinput1"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput1" className={buttonClass}>
             <i className="ui upload icon" />
@@ -224,7 +240,12 @@ export class ProfileForm extends React.Component {
     );
     let imagePreview = (
       <div>
-        <input type="file" onChange={this.handleImageChange} styleName="style.inputfile" id="embedpollfileinput" />
+        <input
+          type="file"
+          onChange={this.handleImageChange}
+          styleName="style.inputfile"
+          id="embedpollfileinput"
+        />
         <div styleName="style.inputLabel">
           <label htmlFor="embedpollfileinput" className={buttonClass}>
             <i className="ui upload icon" />
@@ -236,7 +257,10 @@ export class ProfileForm extends React.Component {
     if (this.state.image) {
       imagePreview = (
         <ProfileImagePreview
-          imagePreviewUrl={this.state.image.replace("http://localhost:3003/", "http://192.168.121.228:60025/")}
+          imagePreviewUrl={this.state.image.replace(
+            "http://localhost:3003/",
+            "http://192.168.121.228:60025/"
+          )}
           removeImage={this.removeImage}
         />
       );

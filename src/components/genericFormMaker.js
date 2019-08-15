@@ -129,8 +129,14 @@ export default function genericFormMaker(info) {
         } else {
           if (this.state.data[link] != null && this.state.data[prop] != null) {
             data.append(snakeCase(prop), this.state.data[prop]);
-          } else if (this.state.data[prop] == null && this.state.data[link] != null) {
-          } else if (this.state.data[prop] == null && this.state.data[link] == null) {
+          } else if (
+            this.state.data[prop] == null &&
+            this.state.data[link] != null
+          ) {
+          } else if (
+            this.state.data[prop] == null &&
+            this.state.data[link] == null
+          ) {
             data.append(snakeCase(prop), "");
           }
         }
@@ -145,7 +151,11 @@ export default function genericFormMaker(info) {
         })
           .then(response => {
             let data = response.data;
-            this.props.appendData(data, this.props.data, this.props.componentName);
+            this.props.appendData(
+              data,
+              this.props.data,
+              this.props.componentName
+            );
             this.setState(initial, () => {
               this.props.handleHide(this.props.componentName);
             });
@@ -168,7 +178,12 @@ export default function genericFormMaker(info) {
           .then(response => {
             let data = response.data;
             if (option == "delete") data = this.state.data;
-            this.props.updateDeleteData(data, option, this.props.data, this.props.componentName);
+            this.props.updateDeleteData(
+              data,
+              option,
+              this.props.data,
+              this.props.componentName
+            );
             this.setState(initial, () => {
               this.props.handleHide(this.props.componentName);
             });
@@ -215,7 +230,11 @@ export default function genericFormMaker(info) {
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
-            <Icon color="grey" name="delete" onClick={() => this.props.handleHide(this.props.componentName)} />
+            <Icon
+              color="grey"
+              name="delete"
+              onClick={() => this.props.handleHide(this.props.componentName)}
+            />
           </Segment>
 
           <Segment attached styleName="style.formStyle">
@@ -243,13 +262,20 @@ export default function genericFormMaker(info) {
               >
                 Delete
               </div>
-              <Button onClick={() => this.handleSubmit("put")} color={appDetails.theme}>
+              <Button
+                onClick={() => this.handleSubmit("put")}
+                color={appDetails.theme}
+              >
                 Save Changes
               </Button>
             </Segment>
           ) : (
             <Segment attached="bottom" styleName="style.buttonBox">
-              <Button onClick={() => this.handleSubmit()} color={appDetails.theme} type="submit">
+              <Button
+                onClick={() => this.handleSubmit()}
+                color="blue"
+                type="submit"
+              >
                 Submit
               </Button>
             </Segment>

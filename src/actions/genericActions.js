@@ -13,11 +13,10 @@ function receiveFetchedResults(responseData, componentName) {
   };
 }
 
-export function fetchData(componentName, editMode, handleParam) {
+export function fetchData(componentName, editMode, handle) {
   return function(dispatch) {
     let url = "/api/student_profile/" + specs[componentName]["url"] + "/";
-    if (!editMode) url += handleParam + "/handle/";
-    console.log("url", url);
+    if (!editMode) url += handle + "/handle/";
     axios
       .get(url)
       .then(response => {
@@ -53,7 +52,11 @@ export function appendData(item, data, componentName) {
   let i = 0;
   let flag = false;
   for (i = 0; i < n; i++) {
-    if (ascending ? data[i][sortBy] >= item[sortBy] : data[i][sortBy] <= item[sortBy]) {
+    if (
+      ascending
+        ? data[i][sortBy] >= item[sortBy]
+        : data[i][sortBy] <= item[sortBy]
+    ) {
       data.splice(i, 0, item);
       return {
         type: "APPEND_DATA" + "--" + componentName,
