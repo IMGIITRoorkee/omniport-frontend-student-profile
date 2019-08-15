@@ -23,7 +23,6 @@ export default function genericFormMaker(info) {
         open: false,
         errors: []
       };
-      console.log("gf", this.state);
     }
     componentDidMount() {
       document.addEventListener("keydown", this.handleKeyPress, false);
@@ -224,7 +223,7 @@ export default function genericFormMaker(info) {
     };
     render() {
       const { update } = this.state;
-      const { appDetails } = this.props;
+      const { theme } = this.props.appDetails;
       let formElements = this.makeForm(info);
       return (
         <Segment basic>
@@ -262,10 +261,7 @@ export default function genericFormMaker(info) {
               >
                 Delete
               </div>
-              <Button
-                onClick={() => this.handleSubmit("put")}
-                color={appDetails.theme}
-              >
+              <Button onClick={() => this.handleSubmit("put")} color={theme}>
                 Save Changes
               </Button>
             </Segment>

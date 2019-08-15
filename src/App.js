@@ -25,6 +25,7 @@ import style from "./styles.css";
 
 const InterestListContainer = listContainers["interest"];
 const AchievementListContainer = listContainers["achievement"];
+const PositionListContainer = listComponents["position"];
 // const CurrentEducationListContainer = listContainers["currentEducation"];
 // const PreviousEducationListContainer = listContainers["previousEducation"];
 
@@ -80,6 +81,7 @@ class App extends Component {
     let genericComponentList = [];
     for (let index in components) {
       let componentName = components[index];
+      console.log(componentName);
       if (editMode || !state[componentName].isEmpty)
         genericComponentList.push(
           <div id={componentName}>

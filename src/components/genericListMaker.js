@@ -30,11 +30,10 @@ const genericListMaker = (componentName, FormComponent) => {
         data,
         formData,
         rearrange,
-        empty,
         loading
       } = this.props.state;
-      const { theme, handle } = this.props;
-      if (theme == "zero") theme = null;
+      console.log("props", this.props);
+      const { theme, handle, editMode } = this.props.appDetails;
       const {
         appendData,
         updateDeleteData,
@@ -68,11 +67,11 @@ const genericListMaker = (componentName, FormComponent) => {
             <Segment padded color={theme}>
               <div styleName="style.headingBox">
                 <h3 styleName="style.heading">
-                  <Icon name={localSpecs.icon} color={theme || "blue"} />{" "}
+                  <Icon name={localSpecs.icon} color={theme} />{" "}
                   {localSpecs.plural}
                 </h3>
                 <div>
-                  {handle == undefined &&
+                  {editMode &&
                   localSpecs.draggable == true &&
                   data.length > 1 ? (
                     <Icon
@@ -82,7 +81,7 @@ const genericListMaker = (componentName, FormComponent) => {
                       onClick={() => handleDragShow(componentName)}
                     />
                   ) : null}
-                  {handle == undefined ? (
+                  {editMode ? (
                     <Icon
                       color="grey"
                       name="add"
@@ -93,12 +92,12 @@ const genericListMaker = (componentName, FormComponent) => {
                     />
                   ) : null}
                 </div>
-
-                {handle != undefined ? (
+                {/* What is this?? */}
+                {/* {handle != undefined ? (
                   <span style={{ color: "grey", textAlign: "right" }}>
                     {empty}
                   </span>
-                ) : null}
+                ) : null} */}
               </div>
               <Dimmer active={active} page>
                 <FormComponent

@@ -5,6 +5,7 @@ export const genericReducerMaker = componentName => {
     update: false,
     active: false,
     loading: true,
+    isEmpty: true,
     data: [],
     formData: initial[componentName].formData
   };

@@ -21,13 +21,16 @@ export const _mapStateToProps = componentName => {
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: componentName => dispatch(fetchData(componentName)),
-  manageData: (id, data, componentName) => dispatch(manageData(id, data, componentName)),
-  appendData: (item, data, componentName) => dispatch(appendData(item, data, componentName)),
+  manageData: (id, data, componentName) =>
+    dispatch(manageData(id, data, componentName)),
+  appendData: (item, data, componentName) =>
+    dispatch(appendData(item, data, componentName)),
   handleShow: componentName => dispatch(handleShow(componentName)),
   handleHide: componentName => dispatch(handleHide(componentName)),
   updateDeleteData: (item, option, data, componentName) =>
     dispatch(updateDeleteData(item, option, data, componentName)),
   handleDragShow: componentName => dispatch(handleDragShow(componentName)),
   handleDragHide: componentName => dispatch(handleDragHide(componentName)),
-  handleUpdate: (data, componentName) => dispatch(handleUpdate(data, componentName))
+  handleUpdate: (data, componentName) =>
+    dispatch(handleUpdate(data, componentName))
 });
