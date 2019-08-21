@@ -119,7 +119,6 @@ export function handleHide(componentName) {
 }
 
 export function handleDragShow(componentName) {
-  console.log("handleDragShow is called");
   return {
     type: "HANDLE_DRAG_SHOW" + "--" + componentName,
     rearrange: true

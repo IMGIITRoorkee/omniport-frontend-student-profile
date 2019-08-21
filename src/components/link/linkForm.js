@@ -102,7 +102,6 @@ export class LinkForm extends React.Component {
   };
   render() {
     const { theme } = this.props;
-    console.log(this.state.links);
     return (
       <Segment basic styleName="style.linkBox">
         <Segment attached="top" styleName="style.headingBox">

@@ -15,6 +15,12 @@ export const appDetailsReducer = (state = initialState, action) => {
         loading: action.loading
       };
 
+    case "SET_THEME":
+      return {
+        ...state,
+        theme: action.theme
+      };
+
     default:
       return state;
   }

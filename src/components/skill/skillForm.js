@@ -91,7 +91,7 @@ export class SkillForm extends React.Component {
     return (
       <Segment basic>
         <Segment attached="top" styleName="style.headingBox">
-          <h3 styleName="style.heading">Skill</h3>
+          <h3 styleName="style.heading">Skills</h3>
           <Icon color="grey" name="delete" onClick={this.props.handleHide} />
         </Segment>
         <Segment attached styleName="style.formStyle">

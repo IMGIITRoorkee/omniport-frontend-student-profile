@@ -32,7 +32,6 @@ const genericListMaker = (componentName, FormComponent) => {
         rearrange,
         loading
       } = this.props.state;
-      console.log("props", this.props);
       const { theme, handle, editMode } = this.props.appDetails;
       const {
         appendData,

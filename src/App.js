@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import { Segment, Container, Grid, Menu } from "semantic-ui-react";
 import { BrowserView, MobileView } from "react-device-detect";
 
@@ -10,7 +9,6 @@ import { Profile } from "./components/profile/profile";
 import { Skill } from "./components/skill/skill";
 import { AppMenu } from "./components/appMenu";
 import { components } from "./constants/genericComponents";
-import { listComponents } from "./constants/listComponents";
 
 import { listContainers } from "./constants/listContainers";
 import { AppPlaceholder } from "./components/placeholders/appPlaceholder";
@@ -20,24 +18,6 @@ import { fetchAppDetails } from "./actions/appDetails";
 import { fetchData } from "./actions/genericActions";
 
 import style from "./styles.css";
-
-// import { InterestListContainer } from "./containers/interestList";
-
-const InterestListContainer = listContainers["interest"];
-const AchievementListContainer = listContainers["achievement"];
-const PositionListContainer = listComponents["position"];
-// const CurrentEducationListContainer = listContainers["currentEducation"];
-// const PreviousEducationListContainer = listContainers["previousEducation"];
-
-// const AchievementList = listComponents["achievement"];
-// const CurrentEducationList = listComponents["currentEducation"];
-// const PreviousEducationList = listComponents["previousEducation"];
-// const PositionList = listComponents["position"];
-// const ExperienceList = listComponents["experience"];
-// const ProjectList = listComponents["project"];
-// const BookList = listComponents["book"];
-// const PaperList = listComponents["paper"];
-// const RefereeList = listComponents["referee"];
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +35,7 @@ class App extends Component {
     let editMode = false;
     if (handle == undefined) editMode = true;
 
-    //fetchAppDetails will dispatch
+    //fetchAppDetails will dispatch SET_APP_DETAILS
     this.props.fetchAppDetails(handle);
 
     //fetching data for all components
@@ -76,12 +56,11 @@ class App extends Component {
 
   render() {
     const { state } = this.props;
-    const { handle, theme, editMode, loading } = state;
+    const { handle, theme, editMode, loading } = this.props.state.appDetails;
 
     let genericComponentList = [];
     for (let index in components) {
       let componentName = components[index];
-      console.log(componentName);
       if (editMode || !state[componentName].isEmpty)
         genericComponentList.push(
           <div id={componentName}>
@@ -103,7 +82,7 @@ class App extends Component {
     const allComponents = (
       <div>
         {genericComponentList}
-        {/* {skill} */}
+        {skill}
       </div>
     );
 
@@ -116,7 +95,6 @@ class App extends Component {
           userDropdown
         />
         <AppMain>
-          {/* to be verified */}
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <Container as={Segment} basic>
               <Grid stackable>

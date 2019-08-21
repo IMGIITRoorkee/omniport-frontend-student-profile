@@ -269,7 +269,7 @@ export default function genericFormMaker(info) {
             <Segment attached="bottom" styleName="style.buttonBox">
               <Button
                 onClick={() => this.handleSubmit()}
-                color="blue"
+                color={theme}
                 type="submit"
               >
                 Submit

@@ -15,7 +15,7 @@ const Paper = props => {
                 <div>
                   {props.item.title} by {props.item.authors} <br />
                   <p styleName="style.gray">
-                    Published by {props.item.publisher}, {props.item.year}
+                    Published by {props.item.publisher} in {props.item.year}
                   </p>
                   {props.item.pages ? (
                     <span styleName="style.gray">
@@ -48,7 +48,9 @@ const Paper = props => {
         <div>
           <EditIcon
             rearrange={props.rearrange}
-            onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+            onClick={() =>
+              props.manageData(props.item.id, props.data, props.componentName)
+            }
           />
         </div>
       </div>

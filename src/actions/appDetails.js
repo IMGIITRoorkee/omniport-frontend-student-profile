@@ -48,3 +48,10 @@ export const setAppDetails = (editMode, theme, handle) => {
     loading: false
   };
 };
+
+export const setTheme = theme => {
+  return {
+    type: "SET_THEME",
+    theme: theme
+  };
+};

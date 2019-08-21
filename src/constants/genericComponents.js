@@ -3,10 +3,10 @@ export const components = [
   "achievement",
   "currentEducation",
   "previousEducation",
-  "position"
-  // "experience",
-  // "project",
-  // "book",
-  // "paper",
-  // "referee"
+  "position",
+  "experience",
+  "project",
+  "book",
+  "paper",
+  "referee"
 ];
