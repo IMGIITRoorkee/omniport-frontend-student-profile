@@ -96,7 +96,7 @@ export class SkillForm extends React.Component {
         </Segment>
         <Segment attached styleName="style.formStyle">
           <ErrorTransition errors={this.state.errors} />
-          <Form styleName="style.skillForm">
+          <Form styleName="style.formStyle3">
             <Form.Field>
               <Form.TextArea
                 autoFocus

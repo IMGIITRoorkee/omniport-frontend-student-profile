@@ -110,7 +110,7 @@ export class DragAndDropBox extends Component {
           attached
         >
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable" styleName="style.skillForm">
+            <Droppable droppableId="droppable" styleName="style.formStyle3">
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}

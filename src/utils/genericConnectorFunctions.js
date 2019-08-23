@@ -11,7 +11,7 @@ import {
 } from "../actions/genericActions";
 
 export const _mapStateToProps = componentName => {
-  return function(state) {
+  return (state) => {
     return {
       state: state[componentName],
       appDetails: state.appDetails
