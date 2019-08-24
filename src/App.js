@@ -32,17 +32,8 @@ class App extends Component {
     //getting handle from url
     let handle = this.props.match.params.handle;
 
-    let editMode = false;
-    if (handle == undefined) editMode = true;
-
     //fetchAppDetails will dispatch SET_APP_DETAILS
     this.props.fetchAppDetails(handle);
-
-    //fetching data for all components
-    // for (let index in components) {
-    //   let componentName = components[index];
-    //   this.props.fetchData(componentName, editMode, handle);
-    // }
   }
 
   scroll = target => {
@@ -55,13 +46,11 @@ class App extends Component {
   };
 
   render() {
-    const { state } = this.props;
-    const { handle, theme, editMode, loading } = this.props.state.appDetails;
+    const { handle, theme, loading } = this.props.state.appDetails;
 
     let genericComponentList = [];
     for (let index in components) {
       let componentName = components[index];
-      if (editMode || !state[componentName].isEmpty)
         genericComponentList.push(
           <div id={componentName}>
             {React.createElement(listContainers[componentName], {})}

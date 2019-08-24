@@ -3,12 +3,8 @@ import axios from "axios";
 //Tip: In general action generator returns object but this function thing is possible because of redux thunk.
 export const fetchAppDetails = handle => {
   return function(dispatch) {
-    let theme, editMode;
-    if (handle == undefined) {
-      editMode = true;
-    } else {
-      editMode = false;
-    }
+    let theme;
+    let editMode = (!handle) ? true : false;
     if (editMode) {
       axios
         .get("/api/student_profile/profile/")

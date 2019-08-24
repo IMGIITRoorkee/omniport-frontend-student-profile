@@ -3,7 +3,8 @@ import { initial } from "../constants/initial";
 import { specs } from "../constants/specs";
 
 function receiveFetchedResults(responseData, componentName) {
-  let isEmpty = (responseData.length) ? true : false;
+  console.log(responseData);
+  let isEmpty = (responseData.length) ? false : true; // check if the response is empty or not
   return {
     type: "FETCH_DATA" + "--" + componentName,
     responseData: responseData,

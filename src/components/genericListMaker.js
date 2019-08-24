@@ -34,7 +34,8 @@ const genericListMaker = (componentName, FormComponent) => {
         data,
         formData,
         rearrange,
-        loading
+        loading,
+        isEmpty
       } = this.props.state;
       const { theme, handle, editMode } = this.props.appDetails;
       const {
@@ -48,7 +49,7 @@ const genericListMaker = (componentName, FormComponent) => {
       } = this.props;
 
       let children;
-
+      if(!editMode && isEmpty) return null; // in case of display mode, we should not render anything if there are no elements to display
       if (data != "") {
         children = data.map(item => {
           return (
