@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 
 import { Resume } from "./resume";
+import { EditUpload } from "../input_fields/editUpload";
 import style from "../../styles.css";
 import { ComponentTransition, ErrorTransition } from "../transition";
 
@@ -182,7 +183,7 @@ export class ProfileForm extends React.Component {
           this.setState({ errors: errors });
         } else {
           this.setState({ errors: [] }, () => {
-            this.props.changeTheme(theme);
+            //this.props.changeTheme(theme);
             if (this.state.update == false) this.handleSubmit();
             else this.handleSubmit();
           });
@@ -193,7 +194,7 @@ export class ProfileForm extends React.Component {
           this.setState({ errors: errors });
         } else {
           this.setState({ errors: [] }, () => {
-            this.props.changeTheme(theme);
+            //this.props.changeTheme(theme);
             if (this.state.update == false) this.handleSubmit();
             else this.handleSubmit();
           });
@@ -269,7 +270,7 @@ export class ProfileForm extends React.Component {
     if (this.state.resumeLink) {
       res = (
         <Form.Field>
-          <Resume name={"resume"} handleDelete={this.handleDelete} />
+          <EditUpload name={"resume"} handleDelete={this.handleDelete} />
         </Form.Field>
       );
     }
