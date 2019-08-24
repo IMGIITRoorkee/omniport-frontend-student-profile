@@ -210,15 +210,16 @@ export class ProfileForm extends React.Component {
     this.setState({ image: "", img_file: "" });
   };
   render() {
-    const appTheme = this.props.theme;
-
+    const { handleFile, handleImageChange, handleDelete, removeImage, handleChange, handleErrors} = this;
+    const {image, resumeLink, errors, data} = this.state;
+    const {handleHide, theme} = this.props;
     const { name, color, loading } = this.state.handleFieldProperties;
-    const buttonClass = "ui " + appTheme + " button";
+    const buttonClass = "ui " + theme + " button";
     let res = (
       <Form.Field>
         <input
           type="file"
-          onChange={this.handleFile}
+          onChange={handleFile}
           styleName="style.inputfile"
           id="embedpollfileinput1"
         />
@@ -234,7 +235,7 @@ export class ProfileForm extends React.Component {
       <div>
         <input
           type="file"
-          onChange={this.handleImageChange}
+          onChange={handleImageChange}
           styleName="style.inputfile"
           id="embedpollfileinput"
         />
@@ -246,22 +247,22 @@ export class ProfileForm extends React.Component {
         </div>
       </div>
     );
-    if (this.state.image) {
+    if (image) {
       imagePreview = (
         <ProfileImagePreview
-          imagePreviewUrl={this.state.image.replace(
+          imagePreviewUrl={image.replace(
             "http://localhost:3003/",
             "http://192.168.121.228:60025/"
           )}
-          removeImage={this.removeImage}
+          removeImage={removeImage}
         />
       );
     }
 
-    if (this.state.resumeLink) {
+    if (resumeLink) {
       res = (
         <Form.Field>
-          <EditUpload name={"resume"} handleDelete={this.handleDelete} />
+          <EditUpload name={"resume"} handleDelete={handleDelete} />
         </Form.Field>
       );
     }
@@ -270,10 +271,10 @@ export class ProfileForm extends React.Component {
         <div style={{ minWidth: "350px" }}>
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">Profile</h3>
-            <Icon color="grey" name="delete" onClick={this.props.handleHide} />
+            <Icon color="grey" name="delete" onClick={handleHide} />
           </Segment>
           <Segment attached styleName="style.formStyle">
-            <ErrorTransition errors={this.state.errors} />
+            <ErrorTransition errors={errors} />
             <Form autoComplete="off">
               <Form.Field>{imagePreview}</Form.Field>
               <Form.Field>
@@ -281,8 +282,8 @@ export class ProfileForm extends React.Component {
                   required
                   icon
                   label="Handle"
-                  onChange={this.handleChange}
-                  value={this.state.data.handle}
+                  onChange={handleChange}
+                  value={data.handle}
                   name="handle"
                   placeholder="Change your handle"
                   loading={loading}
@@ -294,19 +295,19 @@ export class ProfileForm extends React.Component {
               <Form.Field required styleName="style.themeField">
                 <label>Theme</label>
                 <Dropdown
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                   name="theme"
                   options={themeOptions}
                   placeholder="Choose theme options"
                   selection
-                  value={this.state.data.theme}
+                  value={data.theme}
                 />
               </Form.Field>
               <Form.Field>
                 <Form.TextArea
                   label="Description"
-                  onChange={this.handleChange}
-                  value={this.state.data.description}
+                  onChange={handleChange}
+                  value={data.description}
                   name="description"
                   placeholder="Describe yourself"
                 />
@@ -317,7 +318,7 @@ export class ProfileForm extends React.Component {
           </Segment>
 
           <Segment attached="bottom" styleName="style.buttonBox">
-            <Button onClick={this.handleErrors} color={appTheme} type="submit">
+            <Button onClick={handleErrors} color={theme} type="submit">
               Submit
             </Button>
           </Segment>
