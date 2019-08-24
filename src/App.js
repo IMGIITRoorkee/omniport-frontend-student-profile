@@ -39,10 +39,10 @@ class App extends Component {
     this.props.fetchAppDetails(handle);
 
     //fetching data for all components
-    for (let index in components) {
-      let componentName = components[index];
-      this.props.fetchData(componentName, editMode, handle);
-    }
+    // for (let index in components) {
+    //   let componentName = components[index];
+    //   this.props.fetchData(componentName, editMode, handle);
+    // }
   }
 
   scroll = target => {

@@ -20,7 +20,7 @@ export const _mapStateToProps = componentName => {
 };
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: componentName => dispatch(fetchData(componentName)),
+  fetchData: (componentName, editMode, handle) => dispatch(fetchData(componentName, editMode, handle)),
   manageData: (id, data, componentName) =>
     dispatch(manageData(id, data, componentName)),
   appendData: (item, data, componentName) =>

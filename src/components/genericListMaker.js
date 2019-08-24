@@ -21,6 +21,10 @@ const genericListMaker = (componentName, FormComponent) => {
   const localSpecs = specs[componentName];
 
   class GenericList extends React.Component {
+    componentDidMount() {
+      let {editMode, handle} = this.props.appDetails;
+      this.props.fetchData(componentName, editMode, handle);
+    }
     render() {
       //here state is globalState[componentName]
       // formdata and rearrange are not present
