@@ -18,7 +18,7 @@ import { fetchAppDetails } from "./actions/appDetails";
 import { fetchData } from "./actions/genericActions";
 
 import style from "./styles.css";
-
+let count = 0;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +46,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(count++);
     const { handle, theme, loading } = this.props.state.appDetails;
 
     let genericComponentList = [];

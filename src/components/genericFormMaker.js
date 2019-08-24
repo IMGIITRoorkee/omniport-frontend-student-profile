@@ -12,7 +12,7 @@ import style from "../styles.css";
 import { appDetailsReducer } from "../reducers/appDetails";
 
 export default function genericFormMaker(info) {
-  let { initial, name, url } = info;
+  let { initial, name, url, fields} = info; // creating a closure for the necessary attributes
 
   class Generic extends React.Component {
     constructor(props) {
@@ -42,9 +42,8 @@ export default function genericFormMaker(info) {
         }
       }
     };
-    makeForm = info => {
+    makeForm = () => {
       let formElements = [];
-      let fields = info.fields;
       for (let index in fields) {
         let field = fields[index];
         if (field.group == false) {
@@ -52,49 +51,43 @@ export default function genericFormMaker(info) {
 
           let props = {};
           let properties = field.user_props;
-          for (let index in properties) {
-            //loop through each prop
-            props[properties[index]] = this[properties[index]];
+          for (let index in properties) { // loop through each property for every field
+            props[properties[index]] = this[properties[index]]; // attach the different functions which are passed as call backs
           }
-          props["autoFocus"] = index == 0 ? true : false;
+          props["autoFocus"] = index == 0 ? true : false; // to put the focus on the first field of the form
           if (field.type != "file_field") {
             props["value"] = this.state.data[field.name];
           } else {
             props["link"] = this.state.data[field.name + "Link"];
           }
-          //combine user_props and const_props
+          // combine user_props and const_props
 
-          props = Object.assign(props, field.const_props);
-          //create the JSX element with the props and push it to the form array
-          let f = FieldMap[field.type];
-          formElements.push(f(props));
+          props = {...props, ...field.const_props}; // combine the constant properties and the form properties
+          let elementClass = FieldMap[field.type];
+          let element = elementClass(props);
+          formElements.push(element);
         } else {
-          let fields = field.fields;
+          let field_arr = field.fields;
           let groupElements = [];
-          for (let i in fields) {
-            let field = fields[i];
-            //loop through each field
-
-            let props = {};
+          for (let i in field_arr) { // in case of a group field, loop through each field separately
+            let field = field_arr[i];
+            let props = {}; // create an object for setting the field element's properties
             let properties = field.user_props;
-            for (let index in properties) {
-              //loop through each prop
+            for (let index in properties) { // loop through each property
               props[properties[index]] = this[properties[index]];
             }
-            props["autoFocus"] = index == 0 && i == 0 ? true : false;
+            props["autoFocus"] = index == 0 && i == 0 ? true : false; // in case of group field, auto focus should be there only for first field of first group.
             if (field.type != "file_field") {
               props["value"] = this.state.data[field.name];
             } else {
               props["link"] = this.state.data[field.name + "Link"];
             }
-            //combine user_props and const_props
-
-            props = Object.assign(props, field.const_props);
-
-            //create the JSX element with the props and push it to the form array
-            let f = FieldMap[field.type];
-            groupElements.push(f(props));
+            props = { ...props, ...field.const_props}; // combine form properties and constant properties
+            let elementClass = FieldMap[field.type];
+            let element = elementClass(props);
+            groupElements.push(element);
           }
+          // push the fields to form a single group field element
           formElements.push(
             <Form.Group key={index} widths={field.widths}>
               {groupElements}
@@ -222,7 +215,9 @@ export default function genericFormMaker(info) {
       this.setState({ errors: errors });
     };
     render() {
-      const { update } = this.state;
+      const { update, errors } = this.state;
+      const { handleHide, componentName } = this.props;
+      const { handleSubmit } = this;
       const { theme } = this.props.appDetails;
       let formElements = this.makeForm(info);
       return (
@@ -232,18 +227,18 @@ export default function genericFormMaker(info) {
             <Icon
               color="grey"
               name="delete"
-              onClick={() => this.props.handleHide(this.props.componentName)}
+              onClick={() => handleHide(componentName)}
             />
           </Segment>
 
           <Segment attached styleName="style.formStyle">
-            <ErrorTransition errors={this.state.errors} />
+            <ErrorTransition errors={errors} />
             <Form autoComplete="off">{formElements}</Form>
             <Confirm
               header="Delete"
               open={this.state.open}
               content="Are you sure you want to delete?"
-              onConfirm={() => this.handleSubmit("delete")}
+              onConfirm={() => handleSubmit("delete")}
               onCancel={() => {
                 this.setState({ open: false });
               }}
@@ -284,4 +279,3 @@ export default function genericFormMaker(info) {
 }
 
 //provision to add a group form object using a different prop;
-//user props is currently wrong will be changed after testing
