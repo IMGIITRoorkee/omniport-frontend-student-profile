@@ -1,12 +1,14 @@
 import React from "react";
 import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
 import axios from "axios";
+import DefaultDP  from "../../../../../formula_one/src/components/default-dp";
 import { getCookie } from "formula_one";
 import { LinkDisplay } from "../link/linkDisplay";
 import { ProfileForm } from "./profileForm";
 import { ResumeDownload } from "./resumeDownload";
 import { BrowserView, MobileView } from "react-device-detect";
 import style from "../../styles.css";
+
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +31,7 @@ export class Profile extends React.Component {
   }
   componentDidMount() {
     this.fetchData();
+    console.log("default", DefaultDP);
   }
   fetchData = e => {
     const self = this;
@@ -104,8 +107,9 @@ export class Profile extends React.Component {
       boxShadow: "0 0 0 1px #d4d4d5,0 2px 0 0 #d4d4d5,0 1px 3px 0 #d4d4d5"
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
-    if (person_data.displayPicture == null && data.student != "") {
-      imageView = null; //<DefaultDp name={data.student} size={1} />
+    if (data.student != "" && person_data.displayPicture == null) {
+      console.log(data);
+      imageView = <DefaultDP name={data.student} size={"2em"}/>
     }
     if (data)
       return (
@@ -119,10 +123,12 @@ export class Profile extends React.Component {
                 </div>
               </Card.Content>
             ) : null}
-            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
+            <div className="center aligned content"
+                 style={{ border: "0", textAlign: "center" }}>
               {imageView}
             </div>
-            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
+            <div className="center aligned content"
+                 style={{ border: "0", textAlign: "center" }}>
               <Card.Header textAlign="center">{data.student}</Card.Header>
               <Card.Meta textAlign="center">
                 {this.state.data.handle ? "@" : null}

@@ -9,7 +9,6 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 
-import { Resume } from "./resume";
 import { EditUpload } from "../input_fields/editUpload";
 import style from "../../styles.css";
 import { ComponentTransition, ErrorTransition } from "../transition";
@@ -19,7 +18,6 @@ import { themeOptions } from "../../constants/themeOptions";
 
 import { ProfileImagePreview } from "./profileImagePreview";
 
-//default handle must be there
 export class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
@@ -64,85 +62,78 @@ export class ProfileForm extends React.Component {
       });
     }
   };
-  handleChange = (event, { name = undefined, value }) => {
+  checkHandle = () => {
+    this.setState({
+      handleFieldProperties: { loading: true, color: "green", name: null }
+    });
+    axios
+      .get("/api/student_profile/profile/" + value + "/handle/")
+      .then(response => {
+        if (value == this.props.data.handle) {
+          this.isHandleAllowed(true);
+        } else {
+          this.isHandleAllowed(false);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.response.status == 404 && value != "") {
+          this.isHandleAllowed(true);
+        } else {
+          this.isHandleAllowed(false);
+        }
+      });
+
+  }
+  handleChange = (event, { name, value }) => {
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
     if (name == "handle") {
-      const oldProperties = this.state.handleFieldProperties;
-      this.setState({
-        handleFieldProperties: { loading: true, color: "green", name: null }
-      });
-      axios
-        .get("/api/student_profile/profile/" + value + "/handle/")
-        .then(response => {
-          if (value == this.props.data.handle) {
-            this.isHandleAllowed(true);
-          } else {
-            this.isHandleAllowed(false);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (error.response.status == 404 && value != "") {
-            this.isHandleAllowed(true);
-          } else {
-            this.isHandleAllowed(false);
-          }
-        });
+      this.checkHandle();
     }
   };
   handleSubmit = e => {
-    let data = new FormData();
-    data.append("handle", this.state.data.handle);
-    data.append("theme", this.state.data.theme);
-    data.append("description", this.state.data.description);
-    if (this.state.resumeLink != null && this.state.resume != null) {
-      data.append("resume", this.state.resume);
-    } else if (this.state.resume == null && this.state.resumeLink != null) {
-    } else if (this.state.resume == null && this.state.resumeLink == null) {
-      data.append("resume", "");
+    let {data, createNew, resume, resumeLink, image, img_file} = this.state;
+    let {handleUpdate} = this.props;
+    let request = new FormData(); // create a form object to attach the image data and the other profile information
+    
+    request.append("handle", data.handle);
+    request.append("theme", data.theme);
+    request.append("description", data.description);
+
+    if (resumeLink != null && resume != null) {
+      request.append("resume", this.state.resume);
+    } else if (resume == null && resumeLink != null) {
+    } else if (resume == null && resumeLink == null) {
+     request.append("resume", "");
     }
-    if (this.state.image != "" && this.state.img_file != "") {
-      data.append("image", this.state.img_file);
-    } else if (this.state.img_file == "" && this.state.image != "") {
-    } else if (this.state.img_file == "" && this.state.image == "") {
-      data.append("image", null);
+    
+    if (image != "" && img_file != "") {
+      request.append("image", img_file);
+    } else if (img_file == "" && image != "") {
+    } else if (img_file == "" && image == "") {
+      request.append("image", null);
     }
 
-    let request_type = "patch";
-    if (this.state.createNew) request_type = "post";
-    if (this.state.createNew) {
-      axios({
-        method: request_type,
-        url: "/api/student_profile/profile/",
-        data: data,
-        headers: headers
-      }).then(response => {
-        let data = response.data;
-        let displayPicture = data.displayPicture;
-        if (displayPicture != null) {
-          displayPicture = displayPicture;
-        }
-
-        this.props.handleUpdate(data, false, displayPicture);
-      });
-    } else {
-      axios({
-        method: request_type,
-        url: "/api/student_profile/profile/" + this.state.data.id + "/",
-        data: data,
-        headers: headers
-      }).then(response => {
-        let data = response.data;
-        let displayPicture = data.displayPicture;
-        if (displayPicture != null) {
-          displayPicture = displayPicture;
-        }
-        this.props.handleUpdate(data, false, displayPicture);
-      });
-    }
+    let request_type = (createNew)? "post":"patch";
+    let url = "/api/student_profile/profile/";
+    if(!createNew) url += this.state.data.id + "/";
+    
+    axios({
+      method: request_type,
+      data: request,
+      url,
+      headers
+    }).then(response => {
+      let data = response.data;
+      let displayPicture = data.displayPicture;
+      if (displayPicture != null) {
+        displayPicture = displayPicture;
+      }
+      handleUpdate(data, false, displayPicture);
+    });
   };
 
   handleFile = event => {
@@ -160,8 +151,8 @@ export class ProfileForm extends React.Component {
   };
   handleErrors = () => {
     let errors = [];
-    //need lots of code refactoring, why theme is in data also? pass theme using mapstatetoprops, create a change theme function
-    const { handle, description, theme, student } = this.state.data;
+    // need lots of code refactoring, why theme is in data also? pass theme using mapstatetoprops, create a change theme function
+    const { handle, description, student } = this.state.data;
     const { createNew } = this.state;
 
     if (handle == "") {
@@ -183,7 +174,7 @@ export class ProfileForm extends React.Component {
           this.setState({ errors: errors });
         } else {
           this.setState({ errors: [] }, () => {
-            //this.props.changeTheme(theme);
+            // this.props.changeTheme(theme);
             if (this.state.update == false) this.handleSubmit();
             else this.handleSubmit();
           });
@@ -194,7 +185,7 @@ export class ProfileForm extends React.Component {
           this.setState({ errors: errors });
         } else {
           this.setState({ errors: [] }, () => {
-            //this.props.changeTheme(theme);
+            // this.props.changeTheme(theme);
             if (this.state.update == false) this.handleSubmit();
             else this.handleSubmit();
           });
