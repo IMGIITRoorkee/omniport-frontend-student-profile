@@ -114,26 +114,31 @@ export default function genericFormMaker(info) {
     handleSubmit = option => {
       let data = new FormData();
       let info = this.state.data;
+      console.log(info);
       for (let prop in info) {
         let link = prop + "Link";
-        if (this.state.data.hasOwnProperty(link) === false) {
-          data.append(snakeCase(prop), info[prop]);
+        console.log(prop, info[prop]);
+        if (info.hasOwnProperty(link) === false) {
+          let val = info[prop];
+          if(info[prop] == null) val = "";
+          data.append(snakeCase(prop), val);
+          console.log(data);
         } else {
-          if (this.state.data[link] != null && this.state.data[prop] != null) {
-            data.append(snakeCase(prop), this.state.data[prop]);
+          if (info[link] != null && info[prop] != null) {
+            data.append(snakeCase(prop), info[prop]);
           } else if (
-            this.state.data[prop] == null &&
-            this.state.data[link] != null
+            info[prop] == null &&
+            info[link] != null
           ) {
           } else if (
-            this.state.data[prop] == null &&
-            this.state.data[link] == null
+            info[prop] == null &&
+            info[link] == null
           ) {
             data.append(snakeCase(prop), "");
           }
         }
       }
-
+      console.log(data);
       if (this.state.update === false) {
         axios({
           method: "post",

@@ -42,7 +42,7 @@ export const initial = {
     data: {
       id: -1,
       startDate: "",
-      endDate: null,
+      endDate: "",
       isFullDate: true,
       position: "",
       organisation: "",
@@ -57,7 +57,7 @@ export const initial = {
     data: {
       id: -1,
       startDate: "",
-      endDate: null,
+      endDate: "",
       isFullDate: true,
       position: "",
       organisation: "",
@@ -127,7 +127,7 @@ export const initial = {
       field: "",
       description: "",
       startDate: "",
-      endDate: null,
+      endDate: "",
       isFullDate: true,
       image: "",
       imageLink: "",
