@@ -114,15 +114,12 @@ export default function genericFormMaker(info) {
       // loop through each field which is to be sent in the request
       let data = new FormData();
       let info = this.state.data;
-      console.log(info);
       for (let prop in info) {
-        let link = prop + "Link";
-        console.log(prop, info[prop]);
+        let link = prop + "Link"
         if (info.hasOwnProperty(link) === false) {
           let val = info[prop];
           if(info[prop] == null) val = "";
           data.append(snakeCase(prop), val);
-          console.log(data);
         } else {
           if (info[link] != null && info[prop] != null) {
             data.append(snakeCase(prop), info[prop]);
@@ -138,7 +135,6 @@ export default function genericFormMaker(info) {
           }
         }
       }
-      console.log(data);
       if (this.state.update === false) {
         axios({
           method: "post",
@@ -180,10 +176,10 @@ export default function genericFormMaker(info) {
               data,
               option,
               this.props.data,
-              this.props.componentName
+              componentName
             );
             this.setState(initial, () => {
-              handleHide(this.props.componentName);
+              handleHide(componentName);
             });
           })
           .catch(error => {

@@ -45,26 +45,33 @@ export function manageData(id, data, componentName) {
 }
 
 export function appendData(item, data, componentName) {
-  let sortBy = initial[componentName].sortBy;
-  let ascending = initial[componentName].ascending;
-
+  const sortBy = specs[componentName].sortBy;
+  const ascending = specs[componentName].ascending;
+  console.log(sortBy);
   let n = data.length;
   let i = 0;
   let flag = false;
+  let index = 0;
   for (i = 0; i < n; i++) {
+    console.log(data[i][sortBy], item[sortBy]);
     if (
       ascending
         ? data[i][sortBy] >= item[sortBy]
         : data[i][sortBy] <= item[sortBy]
     ) {
-      data.splice(i, 0, item);
-      return {
-        type: "APPEND_DATA" + "--" + componentName,
-        newData: data
-      };
+        index = i;
+        flag = true;
+        break;    
     }
   }
-  if (flag == false) {
+  if(flag == true) {
+    data.splice(index, 0, item);
+    return {
+      type: "APPEND_DATA" + "--" + componentName,
+      newData: data
+    };
+  }
+  else {
     data.splice(i, n, item);
     return {
       type: "APPEND_DATA" + "--" + componentName,
@@ -74,7 +81,11 @@ export function appendData(item, data, componentName) {
 }
 
 export function updateDeleteData(item, option, data, componentName) {
+  console.log('called'); 
   const data_array = data;
+  const sortBy = specs[componentName].sortBy;
+  const ascending = specs[componentName].ascending;
+  console.log(sortBy, ascending);
   if (option == "delete") {
     let newData = data_array.filter(obj => (obj.id != item.id ? true : false));
     return {
@@ -83,7 +94,7 @@ export function updateDeleteData(item, option, data, componentName) {
     };
   } else if (option == "put") {
     const newData = data_array.map(obj => (obj.id == item.id ? item : obj));
-    newData.sort(function compare(a, b, sortBy, ascending) {
+    newData.sort(function compare(a, b) {
       if (ascending == true) {
         if (a[sortBy] < b[sortBy]) return -1;
         if (a[sortBy] > b[sortBy]) return 1;
