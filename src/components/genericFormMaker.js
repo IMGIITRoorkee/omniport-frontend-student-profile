@@ -9,7 +9,6 @@ import { ErrorTransition } from "./transition";
 import { FieldMap } from "./../constants/input";
 import { headers } from "../constants/formPostRequestHeaders";
 import style from "../styles.css";
-import { appDetailsReducer } from "../reducers/appDetails";
 
 export default function genericFormMaker(info) {
   let { initial, name, url, fields} = info; // creating a closure for the necessary attributes
@@ -112,6 +111,7 @@ export default function genericFormMaker(info) {
     };
 
     handleSubmit = option => {
+      // loop through each field which is to be sent in the request
       let data = new FormData();
       let info = this.state.data;
       console.log(info);
@@ -175,14 +175,15 @@ export default function genericFormMaker(info) {
           .then(response => {
             let data = response.data;
             if (option == "delete") data = this.state.data;
-            this.props.updateDeleteData(
+            const {updateDeleteData, handleHide, componentName} = this.props;
+            updateDeleteData(
               data,
               option,
               this.props.data,
               this.props.componentName
             );
             this.setState(initial, () => {
-              this.props.handleHide(this.props.componentName);
+              handleHide(this.props.componentName);
             });
           })
           .catch(error => {
@@ -190,7 +191,7 @@ export default function genericFormMaker(info) {
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
-              this.props.handleHide(this.props.componentName);
+                handleHide(componentName);
             }
           });
       }
@@ -222,9 +223,9 @@ export default function genericFormMaker(info) {
     render() {
       const { update, errors } = this.state;
       const { handleHide, componentName } = this.props;
-      const { handleSubmit } = this;
+      const { handleSubmit, makeForm } = this;
       const { theme } = this.props.appDetails;
-      let formElements = this.makeForm(info);
+      let formElements = makeForm(info);
       return (
         <Segment basic>
           <Segment attached="top" styleName="style.headingBox">
@@ -261,14 +262,14 @@ export default function genericFormMaker(info) {
               >
                 Delete
               </div>
-              <Button onClick={() => this.handleSubmit("put")} color={theme}>
+              <Button onClick={() => handleSubmit("put")} color={theme}>
                 Save Changes
               </Button>
             </Segment>
           ) : (
             <Segment attached="bottom" styleName="style.buttonBox">
               <Button
-                onClick={() => this.handleSubmit()}
+                onClick={() => handleSubmit()}
                 color={theme}
                 type="submit"
               >
@@ -282,5 +283,3 @@ export default function genericFormMaker(info) {
   }
   return Generic;
 }
-
-//provision to add a group form object using a different prop;
