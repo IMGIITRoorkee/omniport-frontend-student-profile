@@ -7,6 +7,10 @@ import { formatDate } from "../../utils/formatDate";
 import { EditIcon } from "../editIcon";
 //css for mobile version is left
 export const Project = props => {
+  const {startDate, endDate, isFullDate} = props.item;
+  const date = formatDate(startDate, endDate, isFullDate); 
+  let duration = date.startDate;
+  if(date.startDate != date.endDate) duration += " to " + date.endDate;
   return (
     <Segment attached styleName="style.project">
       {isMobile ? (
@@ -42,7 +46,7 @@ export const Project = props => {
                 <List.Content>
                   {props.item.topic} in {props.item.field}
                   <div styleName="style.gray">
-                    {formatDate(props.item.startDate)} to {formatDate(props.item.endDate)}
+                    {duration}
                   </div>
                   <p styleName="style.gray style.description"> {props.item.description}</p>
                 </List.Content>
