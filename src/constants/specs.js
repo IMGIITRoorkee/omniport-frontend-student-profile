@@ -21,6 +21,18 @@ export const specs = {
           required: true
         },
         user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
     url: "interest",
@@ -43,6 +55,18 @@ export const specs = {
           placeholder: "Achievement",
           label: "Achievement",
           required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
         },
         user_props: ["handleChange"]
       }
@@ -218,6 +242,18 @@ export const specs = {
           required: false
         },
         user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
     url: "previous_education",
@@ -309,6 +345,18 @@ export const specs = {
           key: "Description",
           placeholder: "Description",
           label: "Description",
+          required: false
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
           required: false
         },
         user_props: ["handleChange"]
@@ -420,6 +468,18 @@ export const specs = {
           required: false
         },
         user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
     url: "experience",
@@ -526,6 +586,18 @@ export const specs = {
           required: false
         },
         user_props: ["handleFile", "handleDelete"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
     url: "project",
@@ -658,6 +730,18 @@ export const specs = {
           required: true
         },
         user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
 
@@ -778,6 +862,18 @@ export const specs = {
           required: false
         },
         user_props: ["handleFile", "handleDelete"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
+        },
+        user_props: ["handleChange"]
       }
     ],
     url: "paper",
@@ -856,6 +952,18 @@ export const specs = {
           placeholder: "Email",
           label: "Email",
           required: true
+        },
+        user_props: ["handleChange"]
+      },
+      {
+        group: false,
+        name: "visibility",
+        type: "boolean_field",
+        const_props: {
+          name: "visibility",
+          key: "Visibility",
+          label: "Visible to others",
+          required: false
         },
         user_props: ["handleChange"]
       }
