@@ -6,6 +6,10 @@ import { formatDate } from "../../utils/formatDate";
 import style from "../../styles.css";
 
 const Experience = props => {
+  const {startDate, endDate, isFullDate} = props.item;
+  const date = formatDate(startDate, endDate, isFullDate); 
+  let duration = date.startDate;
+  if(date.startDate != date.endDate) duration += " to " + date.endDate;
   return (
     <Segment>
       <div styleName="style.flex-box">
@@ -17,7 +21,7 @@ const Experience = props => {
                 {props.item.position} at <b>{props.item.organisation}</b>
               </div>
               <div styleName="style.gray">
-                {formatDate(props.item.startDate)} to {formatDate(props.item.endDate)}
+              {duration}
               </div>
               <p styleName="style.gray style.description">{props.item.description}</p>
             </List.Content>
