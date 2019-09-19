@@ -64,85 +64,90 @@ export class Skill extends React.Component {
     const { handleShow } = this;
     let { theme } = this.props;
     if (theme == "zero") theme = null;
+    const {data} = this.state;
     const additionalCourses =
-      this.state.data.additionalCourses != "" ? (
+      data.additionalCourses != "" ? (
         <Segment>
           <List styleName="style.list">
             <List.Item>
               <List.Content>
                 <b>Additional Courses</b>
-                <p styleName="style.gray">{this.state.data.additionalCourses}</p>
+                <p styleName="style.gray">{data.additionalCourses}</p>
               </List.Content>
             </List.Item>
           </List>
         </Segment>
       ) : null;
     const softwarePackages =
-      this.state.data.softwarePackages != "" ? (
+      data.softwarePackages != "" ? (
         <Segment>
           <List styleName="style.list">
             <List.Item>
               <List.Content>
                 <b>Software Packages</b>
-                <p styleName="style.gray">{this.state.data.softwarePackages}</p>
+                <p styleName="style.gray">{data.softwarePackages}</p>
               </List.Content>
             </List.Item>
           </List>
         </Segment>
       ) : null;
     const computerLanguages =
-      this.state.data.computerLanguages != "" ? (
+      data.computerLanguages != "" ? (
         <Segment>
           <List styleName="style.list">
             <List.Item>
               <List.Content>
                 <b>Computer Languages</b>
-                <p styleName="style.gray">{this.state.data.computerLanguages}</p>
+                <p styleName="style.gray">{data.computerLanguages}</p>
               </List.Content>
             </List.Item>
           </List>
         </Segment>
       ) : null;
     const minorCourses =
-      this.state.data.minorCourses != "" ? (
+      data.minorCourses != "" ? (
         <Segment>
           <List styleName="style.list">
             <List.Item>
               <List.Content>
                 <b>Minor Courses</b>
-                <p styleName="style.gray">{this.state.data.minorCourses}</p>
+                <p styleName="style.gray">{data.minorCourses}</p>
               </List.Content>
             </List.Item>
           </List>
         </Segment>
       ) : null;
     const languages =
-      this.state.data.languages != "" ? (
+      data.languages != "" ? (
         <Segment>
           <List styleName="style.list">
             <List.Item>
               <List.Content>
                 <b>Spoken Languages</b>
-                <p styleName="style.gray">{this.state.data.languages}</p>
+                <p styleName="style.gray">{data.languages}</p>
               </List.Content>
             </List.Item>
           </List>
         </Segment>
       ) : null;
-
+    const editMode = (this.props.handle == undefined);
+    console.log("editMode", editMode);
+    const show =  editMode || additionalCourses || computerLanguages || minorCourses || languages ;
+    console.log("show", show);
     return (
+      show ?
       <ComponentTransition>
         <Segment padded color={theme}>
           <div styleName="style.headingBox">
             <h3 styleName="style.heading">
               <Icon name="star" color={theme || "blue"} /> Skills
             </h3>
-            {this.props.handle != undefined ? null : <Icon color="grey" name="add" circular onClick={handleShow} />}
-            {this.props.handle != undefined ? (
+            {editMode ? <Icon color="grey" name="add" circular onClick={handleShow} /> : null}
+            {editMode ? null : (
               <span style={{ color: "grey", textAlign: "right" }}>{this.state.empty}</span>
-            ) : null}
+            ) }
           </div>
-          {this.state.data != initial ? (
+          {data != initial ? (
             <Segment.Group>
               {computerLanguages}
               {softwarePackages}
@@ -153,14 +158,14 @@ export class Skill extends React.Component {
           ) : null}
           <Dimmer active={this.state.active} page>
             <SkillForm
-              data={this.state.data}
+              data={data}
               createNew={this.state.createNew}
               handleHide={this.handleHide}
               handleUpdate={this.handleUpdate}
             />
           </Dimmer>
         </Segment>
-      </ComponentTransition>
+      </ComponentTransition> : null
     );
   }
 }
