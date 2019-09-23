@@ -27,6 +27,7 @@ export class Profile extends React.Component {
         displayPicture: null,
         theme: "blue"
       },
+      loading: true,
       person_data: "",
       active: false,
       createNew: true,
@@ -45,18 +46,18 @@ export class Profile extends React.Component {
     };
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
-
+    const person_promise = Promise.resolve(1);
     if (this.props.handle == undefined) {
-      axios
-        .get("/kernel/who_am_i/")
-        .then(function(response) {
-          self.setState({ person_data: response.data });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    person_promise = axios
+                      .get("/kernel/who_am_i/")
+                      .then(function(response) {
+                        self.setState({ person_data: response.data });
+                      })
+                      .catch(function(error) {
+                        console.log(error);
+                      });
     }
-    axios
+    const faculty_promise = axios
       .get("/api/student_profile/profile/" + url)
       .then(response => {
         if (response.data.length != 0) {
@@ -82,6 +83,7 @@ export class Profile extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
+  Promises.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
   };
 
   handleShow = e => {
@@ -105,14 +107,14 @@ export class Profile extends React.Component {
     const desc = this.state.data.description;
     let { theme } = this.props;
     if (theme == "zero") theme = null;
-    const { data, handle, person_data } = this.state;
+    const { data, handle, person_data, loading } = this.state;
     const preview = handle == undefined ? false : true;
     const ownHandle = data.handle;
     const style = {
       boxShadow: "0 0 0 1px #d4d4d5,0 2px 0 0 #d4d4d5,0 1px 3px 0 #d4d4d5"
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
-    if (data.student != "" && person_data.displayPicture == null) {
+    if (!loading && data.student != "" && person_data.displayPicture == null) {
       console.log(data);
       imageView = <DefaultDP name={data.student} size={"2em"}/>
     }
