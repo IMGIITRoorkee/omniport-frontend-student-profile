@@ -46,7 +46,7 @@ export class Profile extends React.Component {
     };
     let url = "";
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
-    const person_promise = Promise.resolve(1);
+    let person_promise = Promise.resolve(1);
     if (this.props.handle == undefined) {
     person_promise = axios
                       .get("/kernel/who_am_i/")
@@ -57,7 +57,7 @@ export class Profile extends React.Component {
                         console.log(error);
                       });
     }
-    const faculty_promise = axios
+    let faculty_promise = axios
       .get("/api/student_profile/profile/" + url)
       .then(response => {
         if (response.data.length != 0) {
@@ -83,7 +83,7 @@ export class Profile extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-  Promises.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
+  Promise.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
   };
 
   handleShow = e => {
