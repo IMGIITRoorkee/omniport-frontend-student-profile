@@ -154,7 +154,7 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            console.log(error);
+            console.error(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
@@ -183,7 +183,7 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            console.log(error);
+            console.error(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {

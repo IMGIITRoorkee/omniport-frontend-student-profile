@@ -44,7 +44,7 @@ export class Skill extends React.Component {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -131,9 +131,7 @@ export class Skill extends React.Component {
         </Segment>
       ) : null;
     const editMode = (this.props.handle == undefined);
-    console.log("editMode", editMode);
     const show =  editMode || additionalCourses || computerLanguages || minorCourses || languages ;
-    console.log("show", show);
     return (
       show ?
       <ComponentTransition>

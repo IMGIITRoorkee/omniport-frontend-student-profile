@@ -13,7 +13,7 @@ export const fetchAppDetails = handle => {
           dispatch(setAppDetails(editMode, theme, handle));
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
           if (error.response.status == 401) {
             document.location = "/auth/login?next=/student_profile";
           }
@@ -26,7 +26,7 @@ export const fetchAppDetails = handle => {
           dispatch(setAppDetails(editMode, theme, handle));
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
           if (error.response.status == 404) {
             document.location = "/404";
           }

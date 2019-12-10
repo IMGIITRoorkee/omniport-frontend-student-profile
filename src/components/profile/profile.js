@@ -37,7 +37,6 @@ export class Profile extends React.Component {
   }
   componentDidMount() {
     this.fetchData();
-    console.log("default", DefaultDP);
   }
   fetchData = e => {
     const self = this;
@@ -54,7 +53,7 @@ export class Profile extends React.Component {
                         self.setState({ person_data: response.data });
                       })
                       .catch(function(error) {
-                        console.log(error);
+                        console.error(error);
                       });
     }
     let faculty_promise = axios
@@ -81,7 +80,7 @@ export class Profile extends React.Component {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   Promise.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
   };
@@ -115,7 +114,6 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (!loading && data.student != "" && person_data.displayPicture == null) {
-      console.log(data);
       imageView = <DefaultDP name={data.student} size={"2em"}/>
     }
     if (data)

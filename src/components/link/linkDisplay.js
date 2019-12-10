@@ -38,7 +38,7 @@ export class LinkDisplay extends React.Component {
         this.setState({ data: response.data });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
     if (this.props.handle == undefined) {
       axios
@@ -57,7 +57,7 @@ export class LinkDisplay extends React.Component {
           this.setState({ linkOptions: dict_array });
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     }
   };

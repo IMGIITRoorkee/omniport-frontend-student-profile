@@ -3,7 +3,6 @@ import { initial } from "../constants/initial";
 import { specs } from "../constants/specs";
 
 function receiveFetchedResults(responseData, componentName) {
-  console.log(responseData);
   let isEmpty = (responseData.length) ? false : true; // check if the response is empty or not
   return {
     type: "FETCH_DATA" + "--" + componentName,
@@ -23,7 +22,7 @@ export function fetchData(componentName, editMode, handle) {
         dispatch(receiveFetchedResults(response.data, componentName));
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
 }
@@ -47,13 +46,11 @@ export function manageData(id, data, componentName) {
 export function appendData(item, data, componentName) {
   const sortBy = specs[componentName].sortBy;
   const ascending = specs[componentName].ascending;
-  console.log(sortBy);
   let n = data.length;
   let i = 0;
   let flag = false;
   let index = 0;
   for (i = 0; i < n; i++) {
-    console.log(data[i][sortBy], item[sortBy]);
     if (
       ascending
         ? data[i][sortBy] >= item[sortBy]
@@ -81,11 +78,9 @@ export function appendData(item, data, componentName) {
 }
 
 export function updateDeleteData(item, option, data, componentName) {
-  console.log('called'); 
   const data_array = data;
   const sortBy = specs[componentName].sortBy;
   const ascending = specs[componentName].ascending;
-  console.log(sortBy, ascending);
   if (option == "delete") {
     let newData = data_array.filter(obj => (obj.id != item.id ? true : false));
     return {
