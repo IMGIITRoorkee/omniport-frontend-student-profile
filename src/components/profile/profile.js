@@ -3,7 +3,7 @@ import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-r
 
 import axios from "axios";
 
-import DefaultDP  from "../../../../../formula_one/src/components/default-dp";
+import DefaultDP from "../../../../../formula_one/src/components/default-dp";
 import { getCookie } from "formula_one";
 
 import { LinkDisplay } from "../link/linkDisplay";
@@ -47,14 +47,14 @@ export class Profile extends React.Component {
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     let person_promise = Promise.resolve(1);
     if (this.props.handle == undefined) {
-    person_promise = axios
-                      .get("/kernel/who_am_i/")
-                      .then(function(response) {
-                        self.setState({ person_data: response.data });
-                      })
-                      .catch(function(error) {
-                        console.error(error);
-                      });
+      person_promise = axios
+        .get("/kernel/who_am_i/")
+        .then(function (response) {
+          self.setState({ person_data: response.data });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
     }
     let faculty_promise = axios
       .get("/api/student_profile/profile/" + url)
@@ -79,10 +79,10 @@ export class Profile extends React.Component {
           self.setState({ createNew: true });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error(error);
       });
-  Promise.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
+    Promise.all([person_promise, faculty_promise]).then(() => this.setState({ loading: false }));
   };
 
   handleShow = e => {
@@ -114,7 +114,7 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (!loading && data.student != "" && person_data.displayPicture == null) {
-      imageView = <DefaultDP name={data.student} size={"2em"}/>
+      imageView = <DefaultDP name={data.student} size={"7em"} />
     }
     if (data)
       return (
@@ -129,11 +129,11 @@ export class Profile extends React.Component {
               </Card.Content>
             ) : null}
             <div className="center aligned content"
-                 style={{ border: "0", textAlign: "center" }}>
+              style={{ border: "0", textAlign: "center" }}>
               {imageView}
             </div>
             <div className="center aligned content"
-                 style={{ border: "0", textAlign: "center" }}>
+              style={{ border: "0", textAlign: "center" }}>
               <Card.Header textAlign="center">{data.student}</Card.Header>
               <Card.Meta textAlign="center">
                 {this.state.data.handle ? "@" : null}
