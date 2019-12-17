@@ -206,3 +206,12 @@
   top: 0;
   backgroundcolor: "white";
 }
+
+.scrollToTopBtn {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+}
+.scrollToTopBtn:hover {
+  cursor: pointer;
+}
