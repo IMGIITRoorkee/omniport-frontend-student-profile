@@ -12,6 +12,7 @@ import { components } from "./constants/genericComponents";
 
 import { listContainers } from "./constants/listContainers";
 import { AppPlaceholder } from "./components/placeholders/appPlaceholder";
+import { ScrollToTop } from "./components/scrollToTop";
 
 import { creators } from "./constants/creators";
 import { fetchAppDetails } from "./actions/appDetails";
@@ -96,6 +97,7 @@ class App extends Component {
                 </Grid.Row>
               </Grid>
             </Container>
+            <ScrollToTop />
           </div>
         </AppMain>
         <AppFooter creators={creators} />
