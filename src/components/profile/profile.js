@@ -47,14 +47,14 @@ export class Profile extends React.Component {
     if (this.props.handle != undefined) url = this.props.handle + "/handle/";
     let person_promise = Promise.resolve(1);
     if (this.props.handle == undefined) {
-    person_promise = axios
-                      .get("/kernel/who_am_i/")
-                      .then(function(response) {
-                        self.setState({ person_data: response.data });
-                      })
-                      .catch(function(error) {
-                        console.error(error);
-                      });
+      person_promise = axios
+        .get("/kernel/who_am_i/")
+        .then(function (response) {
+          self.setState({ person_data: response.data });
+        })
+        .catch(function (error) {
+          // console.error(error);
+        });
     }
     let faculty_promise = axios
       .get("/api/student_profile/profile/" + url)
@@ -79,8 +79,8 @@ export class Profile extends React.Component {
           self.setState({ createNew: true });
         }
       })
-      .catch(function(error) {
-        console.error(error);
+      .catch(function (error) {
+        // console.error(error);
       });
   Promise.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
   };

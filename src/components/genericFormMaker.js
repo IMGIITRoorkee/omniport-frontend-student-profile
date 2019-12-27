@@ -154,11 +154,18 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            console.error(error);
+            // console.error(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
               this.props.handleHide(this.props.componentName);
+              toast({
+                type: 'error',
+                title: 'Error',
+                icon: 'delete',
+                description: <p>Some error has occurred. Try refilling the form</p>,
+                time: 2000
+              });
             }
           });
       } else {
@@ -183,7 +190,7 @@ export default function genericFormMaker(info) {
             });
           })
           .catch(error => {
-            console.error(error);
+            // console.error(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
             } else {
