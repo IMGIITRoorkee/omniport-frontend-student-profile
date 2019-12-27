@@ -3,7 +3,7 @@ import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-r
 
 import axios from "axios";
 
-import DefaultDP  from "../../../../../formula_one/src/components/default-dp";
+import DefaultDP from "../../../../../formula_one/src/components/default-dp";
 import { getCookie } from "formula_one";
 
 import { LinkDisplay } from "../link/linkDisplay";
@@ -82,7 +82,7 @@ export class Profile extends React.Component {
       .catch(function (error) {
         // console.error(error);
       });
-  Promise.all([person_promise, faculty_promise]).then(() => this.setState({loading: false}));
+    Promise.all([person_promise, faculty_promise]).then(() => this.setState({ loading: false }));
   };
 
   handleShow = e => {
@@ -130,11 +130,11 @@ export class Profile extends React.Component {
               </Card.Content>
             ) : null}
             <div className="center aligned content"
-                 style={{ border: "0", textAlign: "center" }}>
+              style={{ border: "0", textAlign: "center" }}>
               {imageView}
             </div>
             <div className="center aligned content"
-                 style={{ border: "0", textAlign: "center" }}>
+              style={{ border: "0", textAlign: "center" }}>
               <Card.Header textAlign="center">{data.student}</Card.Header>
               <Card.Meta textAlign="center">
                 {this.state.data.handle ? "@" : null}
