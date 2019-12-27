@@ -103,6 +103,7 @@ export class Profile extends React.Component {
   };
 
   render() {
+
     const desc = this.state.data.description;
     let { theme } = this.props;
     if (theme == "zero") theme = null;
@@ -114,7 +115,7 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (!loading && data.student != "" && person_data.displayPicture == null) {
-      imageView = <DefaultDP name={data.student} size={"2em"}/>
+      imageView = <DefaultDP gravatarHash={person_data.gravatarHash} name={data.student} size={"5em"}/>
     }
     if (data)
       return (
