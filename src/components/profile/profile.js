@@ -115,7 +115,7 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (!loading && data.student != "" && person_data.displayPicture == null) {
-      imageView = <DefaultDP gravatarHash={person_data.gravatarHash} name={data.student} size={"5em"}/>
+      imageView = <DefaultDP gravatarHash={person_data.gravatarHash} name={data.student} size={"7em"}/>
     }
     if (data)
       return (
