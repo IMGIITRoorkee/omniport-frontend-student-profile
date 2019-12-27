@@ -53,7 +53,7 @@ export class Profile extends React.Component {
           self.setState({ person_data: response.data });
         })
         .catch(function (error) {
-          console.error(error);
+          // console.error(error);
         });
     }
     let faculty_promise = axios
@@ -80,7 +80,7 @@ export class Profile extends React.Component {
         }
       })
       .catch(function (error) {
-        console.error(error);
+        // console.error(error);
       });
     Promise.all([person_promise, faculty_promise]).then(() => this.setState({ loading: false }));
   };

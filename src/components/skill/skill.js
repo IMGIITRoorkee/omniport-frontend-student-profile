@@ -44,7 +44,7 @@ export class Skill extends React.Component {
         }
       })
       .catch(function(error) {
-        console.error(error);
+        // console.error(error);
       });
   };
 

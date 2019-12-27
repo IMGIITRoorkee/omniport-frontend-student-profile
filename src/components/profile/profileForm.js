@@ -77,7 +77,7 @@ export class ProfileForm extends React.Component {
         else this.isHandleAllowed(false);
       })
       .catch(error => {
-        console.error(error);
+        // console.error(error);
         this.isHandleAllowed(true);
       });
 

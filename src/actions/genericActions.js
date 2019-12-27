@@ -22,7 +22,7 @@ export function fetchData(componentName, editMode, handle) {
         dispatch(receiveFetchedResults(response.data, componentName));
       })
       .catch(error => {
-        console.error(error);
+        // console.error(error);
       });
   };
 }
