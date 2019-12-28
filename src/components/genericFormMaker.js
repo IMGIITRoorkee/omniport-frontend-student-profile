@@ -193,8 +193,15 @@ export default function genericFormMaker(info) {
             // console.error(error);
             if (error.response.status == "400") {
               this.handleErrors(error.response.data);
-            } else {
-                handleHide(componentName);
+            } else if (error.response.status == "403") {
+              toast({
+                type: 'error',
+                title: 'Error',
+                icon: 'delete',
+                description: <p>You cannot delete verified information!</p>,
+                time: 2000
+              });
+              handleHide(componentName);
             }
           });
       }
