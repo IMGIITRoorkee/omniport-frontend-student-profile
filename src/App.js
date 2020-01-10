@@ -75,7 +75,7 @@ class App extends Component {
         {skill}
       </div>
     );
-
+    
     const app = (
       <div styleName="style.wrapper">
         <AppHeader

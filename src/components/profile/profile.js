@@ -53,7 +53,7 @@ export class Profile extends React.Component {
           self.setState({ person_data: response.data });
         })
         .catch(function (error) {
-          console.error(error);
+          // console.error(error);
         });
     }
     let faculty_promise = axios
@@ -80,7 +80,7 @@ export class Profile extends React.Component {
         }
       })
       .catch(function (error) {
-        console.error(error);
+        // console.error(error);
       });
     Promise.all([person_promise, faculty_promise]).then(() => this.setState({ loading: false }));
   };
@@ -103,6 +103,7 @@ export class Profile extends React.Component {
   };
 
   render() {
+
     const desc = this.state.data.description;
     let { theme } = this.props;
     if (theme == "zero") theme = null;
@@ -114,7 +115,7 @@ export class Profile extends React.Component {
     };
     let imageView = <Image centered src={person_data.displayPicture} size="small" circular />;
     if (!loading && data.student != "" && person_data.displayPicture == null) {
-      imageView = <DefaultDP name={data.student} size={"7em"} />
+      imageView = <DefaultDP gravatarHash={person_data.gravatarHash} name={data.student} size={"7em"}/>
     }
     if (data)
       return (

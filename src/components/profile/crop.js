@@ -10,6 +10,11 @@ import {
 
 
 const description_style = {color: 'black'};
+const imageStyle = {
+	'max-height':'100%',
+	'max-width':'100%'
+};
+
 export class Crop extends React.Component {
 	constructor(props) {
 	  super(props);
@@ -115,7 +120,8 @@ export class Crop extends React.Component {
 		  <ReactCrop
             src={src}
             crop={crop}
-            ruleOfThirds
+			ruleOfThirds
+			imageStyle={imageStyle}
             onImageLoaded={this.onImageLoaded}
             onComplete={this.onCropComplete}
             onChange={this.onCropChange}
