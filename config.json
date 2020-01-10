@@ -1,7 +1,7 @@
 {
   "nomenclature":{
 		"name": "student_profile",
-		"verboseName": "Student profile"
+		"verboseName": "Student Profile"
 	},
   "baseUrl": "/student_profile",
   "source": "student_profile/src/index"
