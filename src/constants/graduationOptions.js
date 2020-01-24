@@ -1,11 +1,11 @@
 export const graduationOptions = [
-  { text: "Matriculate", key: "MATRICULATE", value: "mat" },
-  { text: "Intermediate", key: "INTERMEDIATE", value: "int" },
+  { text: "Matriculate (Class X)", key: "MATRICULATE", value: "mat" },
+  { text: "Intermediate (Class XII)", key: "INTERMEDIATE", value: "int" },
   { text: "Associate", key: "ASSOCIATE", value: "ass" },
-  { text: "Graduate", key: "GRADUATE", value: "gra" },
-  { text: "Postgraduate", key: "POSTGRADUATE", value: "pos" },
-  { text: "Doctorate", key: "DOCTORATE", value: "doc" },
-  { text: "Postdoctorate", key: "POSTDOCTORATE", value: "pdo" }
+  { text: "Graduate (UG)", key: "GRADUATE", value: "gra" },
+  { text: "Postgraduate (PG)", key: "POSTGRADUATE", value: "pos" },
+  { text: "Doctorate (PhD)", key: "DOCTORATE", value: "doc" },
+  { text: "Postdoctorate (Postdoc)", key: "POSTDOCTORATE", value: "pdo" }
 ];
 
 let list = {};
