@@ -4,96 +4,49 @@ import { Menu } from "semantic-ui-react";
 
 import style from "./../styles.css";
 
+import NavItems from "../constants/navItems";
+
 export class AppMenu extends Component {
   constructor(props) {
     super(props);
     this.state = { activeItem: "Interests" };
   }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.updateNavbar);
+    this.updateNavbar();
+  }
+
+  updateNavbar = () => {
+    for (const item of NavItems) {
+      const element = document.getElementById(item.id);
+      if (window.scrollY >= element.offsetTop + 30) {
+        this.setState({ activeItem: item.label });
+      }
+    }
+  }
+
   render() {
     const { activeItem } = this.state;
     const { theme } = this.props;
-    const menu = (
+    return (
       <div styleName="style.appMenu">
         <BrowserView>
           <Menu size="small" fluid icon="labeled" stackable widths={8}>
-            <Menu.Item
-              color={theme}
-              name="Interests"
-              active={activeItem === "Interests"}
-              onClick={() => {
-                this.props.onMenuClick("interest");
-                this.setState({ activeItem: "Interests" });
-              }}
-            />
-            <Menu.Item
-              color={theme}
-              name="Achievements"
-              active={activeItem === "Achievements"}
-              onClick={() => {
-                this.props.onMenuClick("achievement");
-                this.setState({ activeItem: "Achievements" });
-              }}
-            />
-            <Menu.Item
-              color={theme}
-              name="Education"
-              active={activeItem === "Education"}
-              onClick={() => {
-                this.props.onMenuClick("currentEducation");
-                this.setState({ activeItem: "Education" });
-              }}
-            />
-            <Menu.Item
-              color={theme}
-              name="Experience"
-              active={activeItem === "Experience"}
-              onClick={() => {
-                this.props.onMenuClick("experience");
-                this.setState({ activeItem: "Experience" });
-              }}
-            />
-            <Menu.Item
-              color={theme}
-              name="Projects"
-              active={activeItem === "Projects"}
-              onClick={() => {
-                this.props.onMenuClick("project");
-                this.setState({ activeItem: "Projects" });
-              }}
-            />
-
-            <Menu.Item
-              color={theme}
-              name="Publications"
-              active={activeItem === "Publications"}
-              onClick={() => {
-                this.props.onMenuClick("book");
-                this.setState({ activeItem: "Publications" });
-              }}
-            />
-
-            <Menu.Item
-              color={theme}
-              name="References"
-              active={activeItem === "References"}
-              onClick={() => {
-                this.props.onMenuClick("referee");
-                this.setState({ activeItem: "References" });
-              }}
-            />
-            <Menu.Item
-              color={theme}
-              name="Skills"
-              active={activeItem === "Skills"}
-              onClick={() => {
-                this.props.onMenuClick("skill");
-                this.setState({ activeItem: "Skills" });
-              }}
-            />
+            {NavItems.map(item => (
+              <Menu.Item
+                color={theme}
+                name={item.label}
+                active={activeItem === item.label}
+                onClick={() => {
+                  this.props.onMenuClick(item.id);
+                  this.setState({ activeItem: item.label });
+                }}
+              />
+            ))}
           </Menu>
         </BrowserView>
       </div>
     );
-    return <div> {menu} </div>;
   }
 }
