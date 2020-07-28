@@ -17,7 +17,7 @@ export default function genericFormMaker(info) {
     constructor(props) {
       super(props);
       this.state = {
-        data: props.formData,
+        data: props.update ? props.formData : props.formData.data,
         update: props.update,
         open: false,
         errors: []

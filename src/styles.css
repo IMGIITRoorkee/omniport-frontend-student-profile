@@ -201,10 +201,9 @@
 }
 
 .appMenu {
-  z-index: "5";
-  position: "sticky";
+  z-index: 5;
+  position: sticky;
   top: 0;
-  backgroundcolor: "white";
 }
 
 .scrollToTopBtn {
