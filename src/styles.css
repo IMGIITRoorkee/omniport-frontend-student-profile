@@ -22,6 +22,10 @@
   max-height: 80vh;
 }
 
+.formMinWidth {
+  min-width: 475px;
+}
+
 .linkFormStyle {
   overflow-y: scroll;
   text-align: left;

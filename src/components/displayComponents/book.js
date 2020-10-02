@@ -14,15 +14,27 @@ const Book = props => {
               <List.Content>
                 <div>
                   {props.item.title} by {props.item.authors} <br />
-                  <p styleName="style.gray ">
+                  <p styleName="style.gray">
                     Published by {props.item.publisher}, {props.item.year}
                   </p>
-                  {props.item.contribution ? (
-                    <div styleName="style.gray">Contribution: {props.item.contribution}</div>
-                  ) : null}
-                  {props.item.pages ? <div styleName="style.gray">Pages: {props.item.pages}</div> : null}
-                  {props.item.volumes ? <div styleName="style.gray">Volumes: {props.item.volumes}</div> : null}
-                  {props.item.editors ? <div styleName="style.gray">ISBN Code: {props.item.editors}</div> : null}
+                  {props.item.contribution && (
+                    <div styleName="style.gray">
+                      Contribution: {props.item.contribution}
+                    </div>
+                  )}
+                  {props.item.pages && (
+                    <div styleName="style.gray">Pages: {props.item.pages}</div>
+                  )}
+                  {props.item.volumes && (
+                    <div styleName="style.gray">
+                      Volumes: {props.item.volumes}
+                    </div>
+                  )}
+                  {props.item.editors && (
+                    <div styleName="style.gray">
+                      ISBN Code: {props.item.isbnCode}
+                    </div>
+                  )}
                 </div>
               </List.Content>
             </List.Item>

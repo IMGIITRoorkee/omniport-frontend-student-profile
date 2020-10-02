@@ -9,10 +9,11 @@ export default function TextField(props) {
     required,
     label,
     placeholder,
-    autoFocus
+    autoFocus,
+    width
   } = props;
   return (
-    <Form.Field key={name} required={required}>
+    <Form.Field key={name} width={width} required={required}>
       <label>{label}</label>
       <Input
         autoFocus={autoFocus}

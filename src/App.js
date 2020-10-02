@@ -53,7 +53,7 @@ class App extends Component {
     for (let index in components) {
       let componentName = components[index];
         genericComponentList.push(
-          <div id={componentName}>
+          <div id={componentName} key={componentName}>
             {React.createElement(listContainers[componentName], {})}
           </div>
         );
