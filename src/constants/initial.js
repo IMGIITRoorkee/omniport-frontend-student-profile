@@ -2,12 +2,22 @@
 export const initial = {
   interest: {
     update: false,
-    data: { topic: "", id: -1, visibility: true },
+    data: {
+      topic: "",
+      id: -1,
+      priority: 1,
+      visibility: true
+    },
     links: []
   },
   achievement: {
     update: false,
-    data: { achievement: "", id: -1, visibility: true },
+    data: {
+      achievement: "",
+      id: -1,
+      priority: 1,
+      visibility: true
+    },
     links: []
   },
   currentEducation: {
@@ -131,6 +141,7 @@ export const initial = {
       isFullDate: true,
       image: "",
       imageLink: "",
+      priority: 1,
       visibility: true
     },
     links: ["image"]

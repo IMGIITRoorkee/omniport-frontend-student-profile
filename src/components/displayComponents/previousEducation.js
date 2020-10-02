@@ -20,14 +20,15 @@ const PreviousEducation = props => {
                 {props.item.institute + ', '}
                 {props.item.year}
                 <br />
-                {props.item.isPercentage ? (
-                  (props.item.percentage &&
-                  <div styleName="style.gray">
-                    Percentage: {props.item.percentage}%
-                  </div>
-                )) : ((props.item.cgpa &&
-                  <div styleName="style.gray">CGPA: {props.item.cgpa}</div>
-                ))}
+                {
+                  props.item.isPercentage
+                    ? props.item.percentage && (
+                        <div styleName="style.gray">Percentage: {props.item.percentage}%</div>
+                      )
+                    : props.item.cgpa && (
+                        <div styleName="style.gray">CGPA: {props.item.cgpa}</div>
+                      )
+                }
               </div>
             </div>
           </List.Content>

@@ -8,6 +8,7 @@ import { getCookie } from "formula_one";
 import { ErrorTransition } from "./transition";
 import { FieldMap } from "./../constants/input";
 import { headers } from "../constants/formPostRequestHeaders";
+import commonSpecs from "../constants/commonSpecs";
 import style from "../styles.css";
 
 export default function genericFormMaker(info) {
@@ -43,6 +44,11 @@ export default function genericFormMaker(info) {
     };
     makeForm = () => {
       let formElements = [];
+      let set = new Set(fields);
+      for (let index in commonSpecs) {
+        set.add(commonSpecs[index]);
+      }
+      fields = [...set];
       for (let index in fields) {
         let field = fields[index];
         if (field.group == false) {
@@ -237,7 +243,7 @@ export default function genericFormMaker(info) {
       const { theme } = this.props.appDetails;
       let formElements = makeForm(info);
       return (
-        <Segment basic>
+        <Segment basic styleName="style.formMinWidth">
           <Segment attached="top" styleName="style.headingBox">
             <h3 styleName="style.heading">{name}</h3>
             <Icon
