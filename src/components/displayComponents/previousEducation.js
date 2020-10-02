@@ -13,13 +13,22 @@ const PreviousEducation = props => {
           {/*  */}
           <List.Content>
             <div>
-              {props.item.degree} - {graduationOptionsMap[props.item.graduation]} in {props.item.field}
-              <p styleName="style.gray">
-                {props.item.institute + ", "}
+              {props.item.degree} -{' '}
+              {graduationOptionsMap[props.item.graduation]} in{' '}
+              {props.item.field}
+              <div styleName="style.gray">
+                {props.item.institute + ', '}
                 {props.item.year}
                 <br />
-                CGPA {props.item.cgpa}
-              </p>
+                {props.item.isPercentage ? (
+                  (props.item.percentage &&
+                  <div styleName="style.gray">
+                    Percentage: {props.item.percentage}%
+                  </div>
+                )) : ((props.item.cgpa &&
+                  <div styleName="style.gray">CGPA: {props.item.cgpa}</div>
+                ))}
+              </div>
             </div>
           </List.Content>
         </List.Item>
