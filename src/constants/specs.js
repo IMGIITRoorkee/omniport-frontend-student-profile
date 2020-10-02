@@ -226,7 +226,7 @@ export const specs = {
           key: "Percentage",
           placeholder: "Percentage",
           label: "Percentage",
-          required: true
+          required: false
         },
         user_props: ["handleChange"]
       },

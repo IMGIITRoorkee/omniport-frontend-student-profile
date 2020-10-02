@@ -80,7 +80,7 @@ class App extends Component {
       <div styleName="style.wrapper">
         <AppHeader
           appName="student_profile"
-          userDropdown
+          userDropdown={handle ? false : true}
           mode="app"
         />
         <AppMain>
