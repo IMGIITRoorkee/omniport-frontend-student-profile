@@ -4,11 +4,12 @@ import { EditUpload } from "./editUpload";
 import style from "./../../styles.css";
 
 export default function FileField(props) {
-  const { name, handleFile, required, label, link, handleDelete } = props;
+  const { name, handleFile, required, label, link, handleDelete, disabled} = props;
   let res = (
     <Form.Field key={name} required={required}>
       <input
         type="file"
+        disabled={disabled}
         onChange={e => {
           e.persist();
           handleFile(e, e.target.files[0], e.target.value, name);
@@ -27,7 +28,7 @@ export default function FileField(props) {
   if (link) {
     res = (
       <Form.Field>
-        <EditUpload resume={link} name={name} handleDelete={() => handleDelete(name)} />
+        <EditUpload resume={link} name={name} disabled={disabled} handleDelete={() => handleDelete(name)} />
       </Form.Field>
     );
   }
