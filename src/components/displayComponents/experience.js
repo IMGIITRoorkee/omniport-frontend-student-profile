@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Segment } from "semantic-ui-react";
+import { Icon, List, Segment } from "semantic-ui-react";
 import { EditIcon } from "../editIcon";
 import { formatDate } from "../../utils/formatDate";
 
@@ -33,6 +33,7 @@ const Experience = props => {
             rearrange={props.rearrange}
             onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
           />
+          {props.item.verified && <Icon color="grey" name="check circle" />}
         </div>
       </div>
     </Segment>

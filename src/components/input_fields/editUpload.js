@@ -9,7 +9,7 @@ export class EditUpload extends React.Component {
   }
 
   render() {
-    const { name , disabled} = this.props;
+    const { name , disabled } = this.props;
     return (
       <Segment styleName="style.headingBox">
         <h5 styleName="style.heading">Remove {name}</h5>

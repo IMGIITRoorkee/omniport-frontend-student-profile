@@ -4,7 +4,7 @@ import { EditUpload } from "./editUpload";
 import style from "./../../styles.css";
 
 export default function FileField(props) {
-  const { name, handleFile, required, label, link, handleDelete, disabled} = props;
+  const { name, handleFile, required, label, link, handleDelete, disabled } = props;
   let res = (
     <Form.Field key={name} required={required}>
       <input

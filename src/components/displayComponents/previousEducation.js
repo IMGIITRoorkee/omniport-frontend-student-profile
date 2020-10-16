@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Segment } from "semantic-ui-react";
+import { Icon, List, Segment } from "semantic-ui-react";
 import { EditIcon } from "../editIcon";
 import { graduationOptionsMap } from "../../constants/graduationOptions";
 
@@ -39,6 +39,7 @@ const PreviousEducation = props => {
             rearrange={props.rearrange}
             onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
           />
+          {props.item.verified && <Icon color="grey" name="check circle" />}
         </div>
       </div>
     </Segment>

@@ -67,14 +67,13 @@ export default function genericFormMaker(info) {
           }
           // combine user_props and const_props
           props = {...props, ...field.const_props}; // combine the constant properties and the form properties
-          props["disabled"]=this.state.data.verified;
-          if(field.const_props.key == "Description"){
-            props["disabled"]=false
+          props["disabled"] = this.state.data.verified;
+          if(field.const_props.key === "Description"){
+            props["disabled"] = false
           }
           let elementClass = FieldMap[field.type];
           let element = elementClass(props);
-          formElements.push(element);
-	
+          formElements.push(element);	
         } else {
           let field_arr = field.fields;
           let groupElements = [];
@@ -92,9 +91,9 @@ export default function genericFormMaker(info) {
               props["link"] = this.state.data[field.name + "Link"];
             }
             props = { ...props, ...field.const_props}; // combine form properties and constant properties
-            props["disabled"]=this.state.data.verified;
-            if(field.const_props.key == "Description"){
-              props["disabled"]=false
+            props["disabled"] = this.state.data.verified;
+            if(field.const_props.key === "Description"){
+              props["disabled"] = false
             }
             let elementClass = FieldMap[field.type];
             let element = elementClass(props);
@@ -260,8 +259,8 @@ export default function genericFormMaker(info) {
               onClick={() => handleHide(componentName)}
             />
           </Segment>
-
           <Segment attached styleName="style.formStyle">
+            {this.state.data.verified && <p style={{color:'#696969'}}>Verified components cannot be edited</p>}
             <ErrorTransition errors={errors} />
             <Form autoComplete="off">{formElements}</Form>
             <Confirm

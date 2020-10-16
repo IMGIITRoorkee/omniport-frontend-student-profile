@@ -39,7 +39,7 @@ export const achievementSpecs = {
         placeholder: "",
         label: "Achievement",
         required: true,
-	disabled: false
+        disabled: false
       },
       user_props: ["handleChange"]
     }
@@ -338,7 +338,7 @@ export const internSpecs = {
         placeholder: "",
         label: "Position",
         required: true,
-	disabled: false
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -352,7 +352,7 @@ export const internSpecs = {
         placeholder: "Enter the organization of your intern",
         label: "Organisation",
         required: true,
-	disabled : false
+        disabled : false
       },
       user_props: ["handleChange"]
     },
@@ -369,7 +369,7 @@ export const internSpecs = {
             placeholder: "YYYY-MM-DD",
             label: "Start date",
             required: true,
-	    disabled: false
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -382,7 +382,7 @@ export const internSpecs = {
             placeholder: "YYYY-MM-DD",
             label: "End Date",
             required: false,
-	    disabled: false
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -399,7 +399,7 @@ export const internSpecs = {
         placeholder: "",
         label: "I remember the exact date",
         required: false,
-	disabled: false
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -414,7 +414,7 @@ export const internSpecs = {
         placeholder: "Describe your experience",
         label: "Description",
         required: false,
-	disabled: false
+        disabled: false
       },
       user_props: ["handleChange"]
     }
