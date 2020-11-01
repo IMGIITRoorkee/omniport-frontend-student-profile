@@ -84,7 +84,7 @@ class App extends Component {
           mode="app"
         />
         <AppMain>
-          <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
+          <div id="main_component" style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <Container as={Segment} basic>
               <Grid stackable>
                 <Grid.Row>
