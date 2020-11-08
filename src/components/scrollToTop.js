@@ -6,6 +6,7 @@ import style from "../styles.css";
 export const ScrollToTop = props => {
   return (
     <Icon
+      id="scrollToTop"
       styleName="scrollToTopBtn"
       name="arrow up"
       size="big"
