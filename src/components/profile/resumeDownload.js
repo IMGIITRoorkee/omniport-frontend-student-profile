@@ -84,20 +84,13 @@ export function ResumeDownload(props) {
       </div>
     );
   } else {
-    return (
-      <Segment styleName="style.headingBox">
-        <h4 styleName="style.heading">Download resume</h4>
-        {url != null ? (
-          <a href={url} target="_blank">
-            <Icon name="download" color={theme} />
-          </a>
-        ) : (
-          <Popup
-            trigger={<Icon name="download" color={theme} />}
-            content="Resume not uploaded"
-          />
-        )}
+    return url != null ? (
+      <Segment styleName='style.headingBox'>
+        <h4 styleName='style.heading'>Download resume</h4>
+        <a href={url} target='_blank'>
+          <Icon name='download' color={theme} />
+        </a>
       </Segment>
-    );
+    ) : null
   }
 }

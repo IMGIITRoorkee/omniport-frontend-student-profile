@@ -35,7 +35,9 @@ export class AppMenu extends Component {
           <Menu size="small" fluid icon="labeled" stackable widths={8}>
             {NavItems.map(item => (
               <Menu.Item
+                id={item.label}
                 key={item.id}
+                href={`#${item.id}`}
                 color={theme}
                 name={item.label}
                 active={activeItem === item.label}
