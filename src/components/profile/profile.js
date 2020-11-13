@@ -158,7 +158,12 @@ export class Profile extends React.Component {
             </Dimmer>
           </Card>
 
-          <ResumeDownload preview={preview} url={data.resume} ownHandle={ownHandle} theme={theme} />
+          <ResumeDownload
+            preview={preview}
+            url={data.resume}
+            ownHandle={ownHandle}
+            theme={theme}
+          />
         </div>
       );
   }

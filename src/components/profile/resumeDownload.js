@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { Card, Icon, Popup, Segment, Label, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+
+import PublishButton from "./publishButton";
+
 import style from "../../styles.css";
 
 export function ResumeDownload(props) {
@@ -44,6 +47,7 @@ export function ResumeDownload(props) {
                 Preview
               </Label>
             </Link>
+            <PublishButton handle={props.ownHandle} isMobile={false} />
           </Segment>
         </BrowserView>
         <MobileView>
@@ -79,6 +83,7 @@ export function ResumeDownload(props) {
                 Preview
               </Button>
             </Link>
+            <PublishButton handle={props.ownHandle} isMobile={true} />
           </Segment>
         </MobileView>
       </div>
