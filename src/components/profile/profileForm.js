@@ -240,7 +240,7 @@ export class ProfileForm extends React.Component {
     const { handleFile, handleImageChange, cropImageChange, handleDelete, removeImage, handleChange, handleErrors, cancelCrop, setImage} = this;
     const {image, resumeLink, errors, data, crop, crop_image} = this.state;
     const {handleHide, theme} = this.props;
-    const { name, color, loading } = this.state.handleFieldProperties;
+    const { name, color, loading } = this.state.handleFieldProperties;	 
     const buttonClass = "ui " + theme + " button";
     let res = (
       <Form.Field>

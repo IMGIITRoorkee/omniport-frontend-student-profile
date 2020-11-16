@@ -10,7 +10,8 @@ export default function DateField(props) {
     required,
     label,
     placeholder,
-    autoFocus
+    autoFocus,
+    disabled
   } = props;
   return (
     <Form.Field key={name} required={required}>
@@ -21,6 +22,7 @@ export default function DateField(props) {
         name={name}
         placeholder={placeholder}
         value={value}
+        disabled={disabled}
         onChange={(e, { name, value }) => {
           e.persist();
           handleChange(name, value);

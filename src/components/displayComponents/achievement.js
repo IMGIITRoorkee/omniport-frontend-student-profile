@@ -13,11 +13,13 @@ const Achievement = props => {
             <List.Content>{props.item.achievement}</List.Content>
           </List.Item>
         </List>
-
-        <EditIcon
-          rearrange={props.rearrange}
-          onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
-        />
+        <div>	
+	  <EditIcon
+            rearrange={props.rearrange}
+            onClick={() => props.manageData(props.item.id, props.data, props.componentName)}
+          />
+          {props.item.verified && <Icon color="grey" name="check circle" />}
+        </div>
       </div>
     </Segment>
   );

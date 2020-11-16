@@ -38,7 +38,8 @@ export const achievementSpecs = {
         key: "Achievement",
         placeholder: "",
         label: "Achievement",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     }
@@ -61,7 +62,8 @@ export const refereeSpecs = {
             key: "Referee",
             placeholder: "",
             label: "Referee",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -73,7 +75,8 @@ export const refereeSpecs = {
             key: "Designation",
             placeholder: "",
             label: "Designation",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -88,7 +91,8 @@ export const refereeSpecs = {
         key: "Institute",
         placeholder: "",
         label: "Institute",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -101,7 +105,8 @@ export const refereeSpecs = {
         key: "Phone",
         placeholder: "",
         label: "Phone",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -114,7 +119,8 @@ export const refereeSpecs = {
         key: "email",
         placeholder: "",
         label: "Email",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     }
@@ -134,7 +140,8 @@ export const interestSpecs = {
         key: "Topic",
         placeholder: "",
         label: "Topic",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     }
@@ -158,7 +165,8 @@ export const currentEducationSpecs = {
             key: "Semester",
             placeholder: "",
             label: "Semester number",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -170,7 +178,8 @@ export const currentEducationSpecs = {
             key: "CGPA",
             placeholder: "",
             label: "CGPA",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -182,7 +191,8 @@ export const currentEducationSpecs = {
             key: "SGPA",
             placeholder: "",
             label: "SGPA",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -204,7 +214,8 @@ export const paperSpecs = {
         key: "Title",
         placeholder: "Enter the title of the book",
         label: "Title",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -217,7 +228,8 @@ export const paperSpecs = {
         key: "Journal",
         placeholder: "Enter the name of the journal",
         label: "Journal",
-        required: true
+        required: true,
+        disabled:false
       },
       user_props: ["handleChange"]
     },
@@ -230,7 +242,8 @@ export const paperSpecs = {
         key: "Author",
         placeholder: "Enter the authors of the book",
         label: "Authors",
-        required: true
+        required: true,
+        disabled:false
       },
       user_props: ["handleChange"]
     },
@@ -243,7 +256,8 @@ export const paperSpecs = {
         key: "Publisher",
         placeholder: "Enter the publisher of the book",
         label: "Publisher",
-        required: true
+        required: true,
+        disabled:false
       },
       user_props: ["handleChange"]
     },
@@ -256,7 +270,8 @@ export const paperSpecs = {
         key: "year",
         placeholder: "Enter the year of writing the book",
         label: "Year",
-        required: true
+        required: true,
+        disabled:false
       },
       user_props: ["handleChange"]
     },
@@ -272,7 +287,8 @@ export const paperSpecs = {
             key: "Pages",
             placeholder: "Number of pages",
             label: "Pages",
-            required: false
+            required: false,
+            disabled:false
           },
           user_props: ["handleChange"]
         },
@@ -284,7 +300,8 @@ export const paperSpecs = {
             key: "Volumes",
             placeholder: "Number of volumes",
             label: "Volumes",
-            required: false
+            required: false,
+            disabled:false
           },
           user_props: ["handleChange"]
         }
@@ -299,7 +316,8 @@ export const paperSpecs = {
         key: "Paper",
         placeholder: "",
         label: "paper",
-        required: false
+        required: false,
+        disabled:false
       },
       user_props: ["handleFile", "handleDelete"]
     }
@@ -319,7 +337,8 @@ export const internSpecs = {
         key: "Position",
         placeholder: "",
         label: "Position",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -332,7 +351,8 @@ export const internSpecs = {
         key: "Organisation",
         placeholder: "Enter the organization of your intern",
         label: "Organisation",
-        required: true
+        required: true,
+        disabled : false
       },
       user_props: ["handleChange"]
     },
@@ -348,7 +368,8 @@ export const internSpecs = {
             key: "StartDate",
             placeholder: "YYYY-MM-DD",
             label: "Start date",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -360,7 +381,8 @@ export const internSpecs = {
             key: "EndDate",
             placeholder: "YYYY-MM-DD",
             label: "End Date",
-            required: false
+            required: false,
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -376,7 +398,8 @@ export const internSpecs = {
         key: "IsFullDate",
         placeholder: "",
         label: "I remember the exact date",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -390,7 +413,8 @@ export const internSpecs = {
         key: "Description",
         placeholder: "Describe your experience",
         label: "Description",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     }
@@ -413,7 +437,8 @@ export const bookSpecs = {
         key: "Title",
         placeholder: "Enter the title of the book",
         label: "Title",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -426,7 +451,8 @@ export const bookSpecs = {
         key: "Author",
         placeholder: "Enter the authors of the book",
         label: "Authors",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -439,7 +465,8 @@ export const bookSpecs = {
         key: "Publisher",
         placeholder: "Enter the publisher of the book",
         label: "Publisher",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -452,7 +479,8 @@ export const bookSpecs = {
         key: "year",
         placeholder: "Enter the year of writing the book",
         label: "Year",
-        required: true
+        required: true,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -468,7 +496,8 @@ export const bookSpecs = {
             key: "Pages",
             placeholder: "Number of pages",
             label: "Pages",
-            required: false
+            required: false,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -480,7 +509,8 @@ export const bookSpecs = {
             key: "Volumes",
             placeholder: "Number of volumes",
             label: "Volumes",
-            required: false
+            required: false,
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -505,7 +535,8 @@ export const previousEducationSpecs = {
             key: "Institute",
             placeholder: "",
             label: "Institute",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         },
@@ -517,7 +548,8 @@ export const previousEducationSpecs = {
             key: "Degree",
             placeholder: "",
             label: "Degree",
-            required: true
+            required: true,
+            disabled: false
           },
           user_props: ["handleChange"]
         }
@@ -533,6 +565,7 @@ export const previousEducationSpecs = {
         placeholder: "",
         label: "Graduation",
         required: true,
+        disabled: false,
         options: graduationOptions
       },
       user_props: ["handleChange"]
@@ -546,7 +579,8 @@ export const previousEducationSpecs = {
         key: "Field",
         placeholder: "Enter the field you studied in Ex: Science, Commerce",
         label: "Field",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -559,7 +593,8 @@ export const previousEducationSpecs = {
         key: "Cgpa",
         placeholder: "",
         label: "CGPA",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     },
@@ -572,7 +607,8 @@ export const previousEducationSpecs = {
         key: "Year",
         placeholder: "",
         label: "Year",
-        required: false
+        required: false,
+        disabled: false
       },
       user_props: ["handleChange"]
     }

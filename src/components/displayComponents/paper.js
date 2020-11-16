@@ -52,6 +52,7 @@ const Paper = props => {
               props.manageData(props.item.id, props.data, props.componentName)
             }
           />
+          {props.item.verified && <Icon color="grey" name="check circle" />}
         </div>
       </div>
     </Segment>

@@ -9,7 +9,8 @@ export default function TextAreaField(props) {
     required,
     label,
     placeholder,
-    autoFocus
+    autoFocus,
+    disabled
   } = props;
   return (
     <Form.Field key={name} required={required}>
@@ -24,6 +25,7 @@ export default function TextAreaField(props) {
         value={value}
         name={name}
         placeholder={placeholder}
+        disabled = {disabled}
       />
     </Form.Field>
   );

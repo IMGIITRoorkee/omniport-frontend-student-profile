@@ -10,7 +10,8 @@ export default function TextField(props) {
     label,
     placeholder,
     autoFocus,
-    width
+    width,
+    disabled
   } = props;
   return (
     <Form.Field key={name} width={width} required={required}>
@@ -25,6 +26,7 @@ export default function TextField(props) {
         value={value}
         name={name}
         placeholder={placeholder}
+        disabled={disabled}
       />
     </Form.Field>
   );

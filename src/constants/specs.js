@@ -446,7 +446,8 @@ export const specs = {
           key: "Topic",
           placeholder: "Topic",
           label: "Topic",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -459,7 +460,8 @@ export const specs = {
           key: "Field",
           placeholder: "Field of project",
           label: "Field",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -475,7 +477,8 @@ export const specs = {
               key: "StartDate",
               placeholder: "YYYY-MM-DD",
               label: "Start date",
-              required: true
+              required: true,
+              disabled: false
             },
             user_props: ["handleChange"]
           },
@@ -487,7 +490,8 @@ export const specs = {
               key: "EndDate",
               placeholder: "YYYY-MM-DD",
               label: "End Date",
-              required: false
+              required: false,
+              disabled: false
             },
             user_props: ["handleChange"]
           }
@@ -502,7 +506,8 @@ export const specs = {
           key: "IsFullDate",
           placeholder: "",
           label: "I remember the exact date",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -515,7 +520,8 @@ export const specs = {
           key: "Description",
           placeholder: "Description",
           label: "Description",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -528,7 +534,8 @@ export const specs = {
           key: "Image",
           placeholder: "",
           label: "Image",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleFile", "handleDelete"]
       },
@@ -553,7 +560,8 @@ export const specs = {
           key: "Title",
           placeholder: "Title",
           label: "Title",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -566,7 +574,8 @@ export const specs = {
           key: "Author",
           placeholder: "Authors",
           label: "Authors",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -579,7 +588,8 @@ export const specs = {
           key: "contribution",
           placeholder: "Your contribution",
           label: "Contribution",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -592,7 +602,8 @@ export const specs = {
           key: "Publisher",
           placeholder: "Publisher",
           label: "Publisher",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -605,7 +616,8 @@ export const specs = {
           key: "year",
           placeholder: "Year",
           label: "Year",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -621,7 +633,8 @@ export const specs = {
               key: "Pages",
               placeholder: "Pages",
               label: "Pages",
-              required: false
+              required: false,
+              disabled: false
             },
             user_props: ["handleChange"]
           },
@@ -633,7 +646,8 @@ export const specs = {
               key: "Volumes",
               placeholder: "Volumes",
               label: "Volumes",
-              required: false
+              required: false,
+              disabled: false
             },
             user_props: ["handleChange"]
           }
@@ -648,7 +662,8 @@ export const specs = {
           key: "isbnCode",
           placeholder: "ISBN Code",
           label: "IsbnCode",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -661,7 +676,8 @@ export const specs = {
           key: "editors",
           placeholder: "",
           label: "Editors",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -687,7 +703,8 @@ export const specs = {
           key: "Title",
           placeholder: "Enter the title of the book",
           label: "Title",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -700,7 +717,8 @@ export const specs = {
           key: "Journal",
           placeholder: "Name of the journal",
           label: "Journal",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -713,7 +731,8 @@ export const specs = {
           key: "Author",
           placeholder: "Authors",
           label: "Authors",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -726,7 +745,8 @@ export const specs = {
           key: "Publisher",
           placeholder: "Publisher",
           label: "Publisher",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -739,7 +759,8 @@ export const specs = {
           key: "year",
           placeholder: "Year",
           label: "Year",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -755,7 +776,8 @@ export const specs = {
               key: "Pages",
               placeholder: "Number of pages",
               label: "Pages",
-              required: false
+              required: false,
+              disabled: false
             },
             user_props: ["handleChange"]
           },
@@ -767,7 +789,8 @@ export const specs = {
               key: "Volumes",
               placeholder: "Number of volumes",
               label: "Volumes",
-              required: false
+              required: false,
+              disabled: false
             },
             user_props: ["handleChange"]
           }
@@ -782,7 +805,8 @@ export const specs = {
           key: "Paper",
           placeholder: "",
           label: "paper",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleFile", "handleDelete"]
       },
@@ -810,7 +834,8 @@ export const specs = {
               key: "Referee",
               placeholder: "Name of the referee",
               label: "Referee",
-              required: true
+              required: true,
+              disabled: false
             },
             user_props: ["handleChange"]
           },
@@ -822,7 +847,8 @@ export const specs = {
               key: "Designation",
               placeholder: "Designation",
               label: "Designation",
-              required: true
+              required: true,
+              disabled: false
             },
             user_props: ["handleChange"]
           }
@@ -837,7 +863,8 @@ export const specs = {
           key: "Institute",
           placeholder: "Institute",
           label: "Institute",
-          required: true
+          required: true,
+          diabled: false
         },
         user_props: ["handleChange"]
       },
@@ -850,7 +877,8 @@ export const specs = {
           key: "Phone",
           placeholder: "Phone number",
           label: "Phone",
-          required: false
+          required: false,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
@@ -863,7 +891,8 @@ export const specs = {
           key: "email",
           placeholder: "Email",
           label: "Email",
-          required: true
+          required: true,
+          disabled: false
         },
         user_props: ["handleChange"]
       },
