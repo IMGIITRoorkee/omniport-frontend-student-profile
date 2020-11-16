@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Icon, Image, Dimmer, Segment, Label, Button } from "semantic-ui-react";
+import Helmet from "react-helmet";
 
 import axios from "axios";
 
@@ -22,6 +23,7 @@ export class Profile extends React.Component {
         handle: "",
         description: "",
         student: "",
+        enrolmentNumber: null,
         customWebsite: false,
         resume: null,
         displayPicture: null,
@@ -67,7 +69,9 @@ export class Profile extends React.Component {
             let data = response.data;
             let person_data = {
               displayPicture: data.displayPicture,
-              fullName: data.fullName
+              fullName: data.fullName,
+              enrolmentNumber: data.enrolmentNumber,
+              description: data.description
             };
             self.setState({
               data: data,
@@ -104,7 +108,6 @@ export class Profile extends React.Component {
 
   render() {
 
-    const desc = this.state.data.description;
     let { theme } = this.props;
     if (theme == "zero") theme = null;
     const { data, handle, person_data, loading } = this.state;
@@ -120,6 +123,50 @@ export class Profile extends React.Component {
     if (data)
       return (
         <div style={{ position: "sticky", top: 0 }}>
+          {preview && (
+            <Helmet>
+              <title>{person_data.fullName}</title>
+
+              {/* Google  */}
+              <meta name="author" content={person_data.fullName} />
+              <meta name="description" content={person_data.description} />
+              <meta
+                name="keywords"
+                content={`${person_data.fullName}, IIT Roorkee, IITR`}
+              />
+
+              {/* Open graph */}
+              <meta property="og:title" content={person_data.fullName} />
+              <meta property="og:type" content="portfolio" />
+              {person_data.displayPicture && (
+                <meta
+                  property="og:image"
+                  content={person_data.displayPicture}
+                />
+              )}
+              <meta property="og:description" content={person_data.description} />
+              <meta
+                property="og:url"
+                content={`https://students.iitr.ac.in/${person_data.enrolmentNumber}`}
+              />
+
+              {/* Twitter */}
+              <meta name="twitter:card" content="summary_large_image" />
+              {person_data.displayPicture && (
+                <meta
+                  name="twitter:image"
+                  content={person_data.displayPicture}
+                />
+              )}
+              <meta name="twitter:title" content={person_data.fullName} />
+              <meta name="twitter:description" content={person_data.description} />
+              <meta
+                name="twitter:url"
+                content={`https://students.iitr.ac.in/${person_data.enrolmentNumber}`}
+              />
+            </Helmet>
+          )}
+
           <Card as={Segment} color={theme} style={style} fluid>
             {this.props.handle == undefined ? (
               <Card.Content>
@@ -140,7 +187,7 @@ export class Profile extends React.Component {
                 {this.state.data.handle ? "@" : null}
                 {this.state.data.handle}
               </Card.Meta>
-              <Card.Description textAlign="center"> {desc}</Card.Description>
+              <Card.Description textAlign="center"> {data.description}</Card.Description>
             </div>
             <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
               <LinkDisplay handle={this.props.handle} theme={this.props.theme} />
