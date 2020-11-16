@@ -12,7 +12,9 @@ export default class AppRouter extends Component {
   render() {
     const { match } = this.props;
     return (
-      <PublicApp />
+      <Router>
+        <Route path={`${match.path}/:handle`} component={PublicApp} />
+      </Router>
     );
   }
 }

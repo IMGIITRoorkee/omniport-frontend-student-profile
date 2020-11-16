@@ -34,7 +34,7 @@ const genericListMaker = (componentName, FormComponent) => {
 
       this.setState({
         isLoading: true,
-      })
+      });
 
       if (isPublic && handle) {
         axios
@@ -48,7 +48,7 @@ const genericListMaker = (componentName, FormComponent) => {
           .then((response) => {
             this.setState({
               data: response.data,
-              isLoading: false
+              isLoading: false,
             });
           });
       }
@@ -68,7 +68,7 @@ const genericListMaker = (componentName, FormComponent) => {
         loading,
         isEmpty,
         isPublic,
-      } = this.props.state; 
+      } = this.props.state;
 
       if (!isPublic) {
         data = this.props.state.data;
@@ -167,7 +167,9 @@ const genericListMaker = (componentName, FormComponent) => {
                   />
                 </Dimmer>
               ) : null}
-              {data.length == 0 ? null : <Segment.Group> {children}</Segment.Group>}
+              {data.length == 0 ? null : (
+                <Segment.Group> {children}</Segment.Group>
+              )}
             </Segment>
           </ComponentTransition>
         );

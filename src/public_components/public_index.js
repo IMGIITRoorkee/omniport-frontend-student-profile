@@ -32,7 +32,8 @@ class PublicApp extends Component {
 
   componentDidMount() {
     //getting handle from url
-    let handle = "weastel";
+    let handle = this.props.match.params.handle;
+    
 
     this.setState({
       loading: true,
@@ -67,7 +68,7 @@ class PublicApp extends Component {
       let componentName = components[index];
       genericComponentList.push(
         <div id={componentName} key={componentName}>
-           { listContainers[componentName] }
+          {listContainers[componentName]}
         </div>
       );
     }
