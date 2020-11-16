@@ -4,5 +4,9 @@
 		"verboseName": "Student Profile"
 	},
   "baseUrl": "/student_profile",
-  "source": "student_profile/src/index"
+  "source": "student_profile/src/index",
+  "public": {
+    "source": "student_profile/src/public",
+    "baseUrl": "/student_profile"
+  }
 }
