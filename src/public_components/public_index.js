@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Segment, Container, Grid, Menu } from "semantic-ui-react";
-import { BrowserView, MobileView } from "react-device-detect";
+import { Segment, Container, Grid } from "semantic-ui-react";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 
 import { Profile } from "../components/profile/profile";
 import { Skill } from "../components/skill/skill";
 import { AppMenu } from "../components/appMenu";
-import { components } from "../constants/genericComponents";
-
-import { publicListMaker } from "./public_list_containers";
 import { AppPlaceholder } from "../components/placeholders/appPlaceholder";
 import { ScrollToTop } from "../components/scrollToTop";
 
+import { components } from "../constants/genericComponents";
+import { listContainers } from "../constants/listContainers";
 import { creators } from "../constants/creators";
 import { fetchAppDetails } from "../actions/appDetails";
 import { fetchData } from "../actions/genericActions";
 
 import style from "../styles.css";
-import Axios from "axios";
 
 class PublicApp extends Component {
   constructor(props) {
@@ -40,14 +37,7 @@ class PublicApp extends Component {
       handle: handle,
     });
 
-    Axios.get("/api/student_profile/profile/" + handle + "/handle/").then(
-      (response) => {
-        this.setState({
-          theme: response.data.theme,
-          loading: false,
-        });
-      }
-    );
+    this.props.fetchAppDetails(handle);
   }
 
   scroll = (target) => {
@@ -60,18 +50,17 @@ class PublicApp extends Component {
   };
 
   render() {
-    const { handle, theme, loading } = this.state;
+    const { handle, theme, loading } = this.props.state.appDetails;
 
-    let listContainers = publicListMaker(theme, handle);
     let genericComponentList = [];
     for (let index in components) {
       let componentName = components[index];
-      genericComponentList.push(
-        <div id={componentName} key={componentName}>
-          {listContainers[componentName]}
-        </div>
-      );
-    }
+        genericComponentList.push(
+          <div id={componentName} key={componentName}>
+            {React.createElement(listContainers[componentName], {})}
+          </div>
+        );
+      }
 
     const profile = <Profile handle={handle} theme={theme} />;
 
@@ -119,4 +108,20 @@ class PublicApp extends Component {
   }
 }
 
-export default PublicApp;
+const mapStateToProps = state => {
+  return { state: state };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAppDetails: handle => {
+      dispatch(fetchAppDetails(handle));
+    },
+    fetchData: (componentName, editMode, handle) =>
+      dispatch(fetchData(componentName, editMode, handle))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PublicApp);
