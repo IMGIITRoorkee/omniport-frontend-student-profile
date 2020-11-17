@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import rootReducers from "./reducers";
 //local imports
-import PublicApp from "./public_components/public_index";
+import App from "./App";
 //css imports
 import "./index.css";
 
@@ -22,7 +22,7 @@ export default class AppRouter extends Component {
         return (
             <Provider store={this.store}>
                 <Router>
-                    <Route path={`${match.path}/:handle`} component={PublicApp} />
+                    <Route path={`${match.path}/:handle`} component={App} />
                 </Router>
             </Provider>
         );

@@ -30,51 +30,22 @@ const genericListMaker = (componentName, FormComponent) => {
 
     componentDidMount() {
       let { editMode, handle } = this.props.appDetails;
-      let { isPublic } = this.props.state;
-
-      this.setState({
-        isLoading: true,
-      });
-
-      if (isPublic && handle) {
-        axios
-          .get(
-            "/api/student_profile/" +
-              localSpecs["url"] +
-              "/" +
-              handle +
-              "/handle"
-          )
-          .then((response) => {
-            this.setState({
-              data: response.data,
-              isLoading: false,
-            });
-          });
-      }
 
       this.props.fetchData(componentName, editMode, handle);
     }
     render() {
       //here state is globalState[componentName]
       // formdata and rearrange are not present
-      let { data, isLoading } = this.state;
 
-      let {
+      const {
         active,
         update,
         formData,
         rearrange,
+        data,
         loading,
         isEmpty,
-        isPublic,
       } = this.props.state;
-
-      if (!isPublic) {
-        data = this.props.state.data;
-      } else {
-        isEmpty = data.length == 0;
-      }
 
       const { theme, handle, editMode } = this.props.appDetails;
       const {
@@ -89,7 +60,7 @@ const genericListMaker = (componentName, FormComponent) => {
 
       let children;
       if (!editMode && isEmpty) return null; // in case of display mode, we should not render anything if there are no elements to display
-      if (data.length > 0) {
+      if (data != "") {
         children = data.map((item) => {
           return (
             <DisplayComponent
@@ -103,7 +74,7 @@ const genericListMaker = (componentName, FormComponent) => {
           );
         });
       }
-      if (loading || (isPublic && isLoading)) return <SegmentPlaceholder />;
+      if (loading) return <SegmentPlaceholder />;
       else
         return (
           <ComponentTransition>
@@ -167,7 +138,7 @@ const genericListMaker = (componentName, FormComponent) => {
                   />
                 </Dimmer>
               ) : null}
-              {data.length == 0 ? null : (
+              {data == "" ? null : (
                 <Segment.Group> {children}</Segment.Group>
               )}
             </Segment>
