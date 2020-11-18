@@ -21,13 +21,6 @@ const genericListMaker = (componentName, FormComponent) => {
   const localSpecs = specs[componentName];
 
   class GenericList extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-      };
-    }
-
     componentDidMount() {
       let { editMode, handle } = this.props.appDetails;
 
@@ -138,9 +131,7 @@ const genericListMaker = (componentName, FormComponent) => {
                   />
                 </Dimmer>
               ) : null}
-              {data == "" ? null : (
-                <Segment.Group> {children}</Segment.Group>
-              )}
+              {data == "" ? null : <Segment.Group> {children}</Segment.Group>}
             </Segment>
           </ComponentTransition>
         );
