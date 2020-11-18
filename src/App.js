@@ -81,7 +81,7 @@ class App extends Component {
         <AppHeader
           appName="student_profile"
           userDropdown={handle ? false : true}
-          mode="app"
+          mode={handle ? "public" : "app"}
         />
         <AppMain>
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>

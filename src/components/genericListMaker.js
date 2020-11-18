@@ -22,21 +22,24 @@ const genericListMaker = (componentName, FormComponent) => {
 
   class GenericList extends React.Component {
     componentDidMount() {
-      let {editMode, handle} = this.props.appDetails;
+      let { editMode, handle } = this.props.appDetails;
+
       this.props.fetchData(componentName, editMode, handle);
     }
     render() {
       //here state is globalState[componentName]
       // formdata and rearrange are not present
+
       const {
         active,
         update,
-        data,
         formData,
         rearrange,
+        data,
         loading,
-        isEmpty
+        isEmpty,
       } = this.props.state;
+
       const { theme, handle, editMode } = this.props.appDetails;
       const {
         appendData,
@@ -45,13 +48,13 @@ const genericListMaker = (componentName, FormComponent) => {
         handleShow,
         handleDragShow,
         handleDragHide,
-        handleUpdate
+        handleUpdate,
       } = this.props;
 
       let children;
-      if(!editMode && isEmpty) return null; // in case of display mode, we should not render anything if there are no elements to display
+      if (!editMode && isEmpty) return null; // in case of display mode, we should not render anything if there are no elements to display
       if (data != "") {
-        children = data.map(item => {
+        children = data.map((item) => {
           return (
             <DisplayComponent
               item={item}
