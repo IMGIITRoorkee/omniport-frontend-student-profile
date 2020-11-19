@@ -25,27 +25,27 @@ export function ResumeDownload(props) {
           >
             {url != null ? (
               <a href={url} target="_blank">
-                <Label size="large" color={theme}>
+                <Button icon basic color={theme}>
                   <Icon name="download" />
                   Resume
-                </Label>
+                </Button>
               </a>
             ) : (
               <Popup
                 trigger={
-                  <Label size="large" color={theme}>
+                  <Button icon basic color={theme}>
                     <Icon name="download" />
                     Resume
-                  </Label>
+                  </Button>
                 }
                 content="Resume not uploaded"
               />
             )}
             <Link to={preview_url} target="_blank">
-              <Label size="large" color={theme}>
+              <Button icon basic color={theme}>
                 <Icon name="eye" />
                 Preview
-              </Label>
+              </Button>
             </Link>
             <PublishButton handle={props.ownHandle} isMobile={false} />
           </Segment>
