@@ -24,6 +24,9 @@ export class Profile extends React.Component {
         description: "",
         student: "",
         enrolmentNumber: null,
+        branch: "",
+        degreeSem: "",
+        emailAddress: "",
         customWebsite: false,
         resume: null,
         displayPicture: null,
@@ -187,10 +190,23 @@ export class Profile extends React.Component {
                 {this.state.data.handle ? "@" : null}
                 {this.state.data.handle}
               </Card.Meta>
-              <Card.Description textAlign="center"> {data.description}</Card.Description>
+              <Card.Description styleName="branchDetails">
+                {data.branch}
+              </Card.Description>
+              <Card.Description styleName="degreeDetails">
+                {data.degreeSem}
+              </Card.Description>
+              <p styleName="style.gray">{data.description}</p>
             </div>
-            <div className="center aligned content" style={{ border: "0", textAlign: "center" }}>
-              <LinkDisplay handle={this.props.handle} theme={this.props.theme} />
+            <div
+              className="center aligned content"
+              style={{ border: "0", textAlign: "center" }}
+            >
+              <LinkDisplay
+                handle={this.props.handle}
+                theme={this.props.theme}
+                email={data.emailAddress}
+              />
             </div>
             <Dimmer active={this.state.active} page>
               <ProfileForm
