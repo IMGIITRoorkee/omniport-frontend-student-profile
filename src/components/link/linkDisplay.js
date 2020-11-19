@@ -75,7 +75,7 @@ export class LinkDisplay extends React.Component {
   };
   render() {
     const data = this.state.data;
-    const { theme } = this.props;
+    const { theme, email } = this.props;
     const children = Array.from(data).map(function(child, index) {
       return (
         <a href={child.url} target="_blank" key={index} title={child.siteLogo}>
@@ -93,6 +93,11 @@ export class LinkDisplay extends React.Component {
         ) : null}
 
         <Segment basic textAlign="center" style={{ margin: "0", padding: "0" }}>
+          {email && (
+            <a href={`mailto:${email}`} target="_blank" >
+              <Icon size="large" name="mail" color={theme} />
+            </a>
+          )}
           {children}
         </Segment>
         <Dimmer active={this.state.active} page>
