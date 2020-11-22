@@ -112,7 +112,7 @@ export class Profile extends React.Component {
     if (theme == "zero") theme = null;
     const { data, handle, person_data, loading } = this.state;
     const preview = handle == undefined ? false : true;
-    const ownHandle = data.handle;
+    const ownHandle = data.enrolmentNumber;
     const style = {
       boxShadow: "0 0 0 1px #d4d4d5,0 2px 0 0 #d4d4d5,0 1px 3px 0 #d4d4d5"
     };
