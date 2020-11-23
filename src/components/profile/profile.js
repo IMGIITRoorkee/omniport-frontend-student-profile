@@ -227,6 +227,7 @@ export class Profile extends React.Component {
             ownHandle={ownHandle}
             theme={theme}
           />
+          <span className="publish-date" ></span>
         </div>
       );
   }
