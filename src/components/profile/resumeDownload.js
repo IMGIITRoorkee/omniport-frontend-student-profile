@@ -10,7 +10,7 @@ import style from "../../styles.css";
 export function ResumeDownload(props) {
   const { url, theme } = props;
 
-  const preview_url = "/student_profile/" + props.ownHandle + "/";
+  const preview_url = "/public/student_profile/" + props.ownHandle + "/";
   if (props.preview == false) {
     return (
       <div>
