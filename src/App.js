@@ -78,11 +78,13 @@ class App extends Component {
     
     const app = (
       <div styleName="style.wrapper">
-        <AppHeader
-          appName="student_profile"
-          userDropdown={handle ? false : true}
-          mode={handle ? "public" : "app"}
-        />
+        <div id="page-header">
+          <AppHeader
+            appName="student_profile"
+            userDropdown={handle ? false : true}
+            mode={handle ? "public" : "app"}
+          />
+        </div>
         <AppMain>
           <div style={{ flexGrow: "1", backgroundColor: "rgb(245, 245, 245)" }}>
             <Container as={Segment} basic>
