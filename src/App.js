@@ -94,6 +94,7 @@ class App extends Component {
                   <Grid.Column width={12}>
                     <AppMenu theme={theme} onMenuClick={this.onMenuClick} />
                     {allComponents}
+                    <span className="publish-date" ></span>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
