@@ -15,6 +15,7 @@ class publishButton extends Component {
 
   publishPage = () => {
     const { handle } = this.props;
+    const websiteLink = `https://students.iitr.ac.in/${handle}.html`;
     this.setState({ status: true });
     axios.get("/api/student_profile/publish/").then((res) => {
       if (res.status === 200) {
@@ -37,7 +38,14 @@ class publishButton extends Component {
                 type: "success",
                 title: "Success",
                 icon: "smile outline",
-                description: "Your page will be published soon.",
+                description: (
+                  <div>
+                    Your page will be published soon.
+                    <br />
+                    You can visit your page:{" "}
+                    <a target='_blank' href={websiteLink}> {websiteLink} </a>.
+                  </div>
+                ),
                 animation: "fade up",
                 time: 10000,
               });
