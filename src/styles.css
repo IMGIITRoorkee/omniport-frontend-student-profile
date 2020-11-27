@@ -224,3 +224,9 @@
 .scrollToTopBtn:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .appMenu {
+    display: none;
+  }
+}
