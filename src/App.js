@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Segment, Container, Grid, Menu } from "semantic-ui-react";
-import { BrowserView, MobileView } from "react-device-detect";
+import { Segment, Container, Grid } from "semantic-ui-react";
 
 import { AppHeader, AppFooter, AppMain } from "formula_one";
 
 import { Profile } from "./components/profile/profile";
 import { Skill } from "./components/skill/skill";
-import { AppMenu } from "./components/appMenu";
+import AppMenu from "./components/appMenu";
 import { components } from "./constants/genericComponents";
 
 import { listContainers } from "./constants/listContainers";

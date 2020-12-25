@@ -214,6 +214,29 @@
   z-index: 5;
   position: sticky;
   top: 0;
+  display: inline-block;
+}
+
+.navBar {
+  background-color:#ffffff !important;
+}
+
+.navItem {
+  border: #d4d4d5 1px solid !important;
+  margin: 0 0.2em;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.navItem:first-child, .navItem:last-child {
+  margin: 0 !important;
+}
+
+.activeNavItem  {
+  border: none !important;
+  border-radius: unset !important;
+  background-color: #2185d0 !important;
+  color: #ffffff !important;
 }
 
 .scrollToTopBtn {
