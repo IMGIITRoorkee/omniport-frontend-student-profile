@@ -38,9 +38,11 @@ class AppMenu extends Component {
           <Menu tabular size="small" icon="labeled" styleName="style.navBar">
             {NavItems.map(item => {
               let show = false;
+              let whichSubSection;
               for (const subSection of item.id) {
                 if (this.props.data[subSection] && !this.props.data[subSection].isEmpty) {
                   show = true;
+                  whichSubSection = subSection;
                   break;
                 }
               }
@@ -53,11 +55,11 @@ class AppMenu extends Component {
                   <Menu.Item
                     id={item.label}
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={`#${whichSubSection === undefined ? item.id[0] : whichSubSection}`}
                     name={item.label}
                     active={activeItem === item.label}
                     onClick={() => {
-                      this.props.onMenuClick(item.id);
+                      this.props.onMenuClick(whichSubSection);
                       this.setState({ activeItem: item.label });
                     }}
                     styleName={
