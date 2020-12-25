@@ -218,18 +218,23 @@
 }
 
 .navBar {
-  background-color:#ffffff !important;
+  border-bottom: none !important;
 }
 
 .navItem {
+  background-color:#ffffff !important;
   border: #d4d4d5 1px solid !important;
-  margin: 0 0.2em;
+  margin: 0 2px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
 
-.navItem:first-child, .navItem:last-child {
-  margin: 0 !important;
+.navItem:first-child {
+  margin-left: 2px;
+}
+
+.navItem:last-child {
+  margin-right: 2px;
 }
 
 .activeNavItem  {
