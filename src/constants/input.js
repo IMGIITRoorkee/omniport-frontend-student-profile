@@ -144,55 +144,6 @@ export const interestSpecs = {
   name: "Interest"
 };
 
-export const currentEducationSpecs = {
-  fields: [
-    {
-      group: true,
-      widths: "equal",
-      fields: [
-        {
-          name: "semester",
-          type: "input_field",
-          const_props: {
-            name: "semester",
-            key: "Semester",
-            placeholder: "",
-            label: "Semester number",
-            required: true
-          },
-          user_props: ["handleChange"]
-        },
-        {
-          name: "cgpa",
-          type: "input_field",
-          const_props: {
-            name: "cgpa",
-            key: "CGPA",
-            placeholder: "",
-            label: "CGPA",
-            required: true
-          },
-          user_props: ["handleChange"]
-        },
-        {
-          name: "sgpa",
-          type: "input_field",
-          const_props: {
-            name: "sgpa",
-            key: "SGPA",
-            placeholder: "",
-            label: "SGPA",
-            required: true
-          },
-          user_props: ["handleChange"]
-        }
-      ]
-    }
-  ],
-  url: "current_education",
-  name: "Current education"
-};
-
 export const paperSpecs = {
   fields: [
     {
