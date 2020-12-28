@@ -193,12 +193,14 @@ export class Profile extends React.Component {
               <Card.Description styleName="branchDetails">
                 {data.branch}
               </Card.Description>
-              <Card.Description>
+              <Card.Description styleName="degreeDetails">
                 {data.degreeSem}
               </Card.Description>
-              <Card.Description styleName="currentCgpa">
-                CGPA: {data.currentCgpa}/10
-              </Card.Description>
+              {data.showCgpa && data.currentCgpa && (
+                <Card.Description styleName='currentCgpa'>
+                  CGPA: {data.currentCgpa.toFixed(3)}/10.000
+                </Card.Description>
+              )}
               <p styleName="style.gray">{data.description}</p>
             </div>
             <div
