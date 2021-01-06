@@ -53,59 +53,6 @@ export const specs = {
     url: "achievement",
     name: "Achievement"
   },
-  currentEducation: {
-    icon: "student",
-    draggable: false,
-    sortBy: "semester",
-    ascending: true,
-    plural: "Current Education",
-    fields: [
-      {
-        group: true,
-        widths: "equal",
-        fields: [
-          {
-            name: "semester",
-            type: "input_field",
-            const_props: {
-              name: "semester",
-              key: "Semester",
-              placeholder: "semester",
-              label: "Semester number",
-              required: true
-            },
-            user_props: ["handleChange"]
-          },
-          {
-            name: "cgpa",
-            type: "input_field",
-            const_props: {
-              name: "cgpa",
-              key: "CGPA",
-              placeholder: "CGPA",
-              label: "CGPA",
-              required: true
-            },
-            user_props: ["handleChange"]
-          },
-          {
-            name: "sgpa",
-            type: "input_field",
-            const_props: {
-              name: "sgpa",
-              key: "SGPA",
-              placeholder: "SGPA",
-              label: "SGPA",
-              required: true
-            },
-            user_props: ["handleChange"]
-          }
-        ]
-      },
-    ],
-    url: "current_education",
-    name: "Current education"
-  },
   previousEducation: {
     icon: "student",
     draggable: false,

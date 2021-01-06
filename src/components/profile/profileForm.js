@@ -4,7 +4,8 @@ import {
   Button,
   Icon,
   Dropdown,
-  Segment
+  Segment,
+  Checkbox
 } from "semantic-ui-react";
 import axios from "axios";
 
@@ -85,6 +86,7 @@ export class ProfileForm extends React.Component {
   handleChange = (event, { name, value }) => {
     event.persist();
     if (this.state.data.hasOwnProperty(name)) {
+      if (name == "showCgpa") value = !value;
       this.setState({ data: { ...this.state.data, [name]: value } });
     }
     if (name == "handle") {
@@ -102,6 +104,7 @@ export class ProfileForm extends React.Component {
     request.append("handle", data.handle);
     request.append("theme", data.theme);
     request.append("description", data.description);
+    request.append("showCgpa", data.showCgpa)
 
     if (resumeLink != null && resume != null) {
       request.append("resume", this.state.resume);
@@ -342,6 +345,15 @@ export class ProfileForm extends React.Component {
                   value={data.description}
                   name="description"
                   placeholder="Describe yourself"
+                />
+              </Form.Field>
+              <Form.Field>
+                <Checkbox
+                  name="showCgpa"
+                  label="Show your current CGPA"
+                  onChange={handleChange}
+                  defaultChecked={data.showCgpa}
+                  value={data.showCgpa}
                 />
               </Form.Field>
 

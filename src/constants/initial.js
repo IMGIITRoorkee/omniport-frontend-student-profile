@@ -20,17 +20,6 @@ export const initial = {
     },
     links: []
   },
-  currentEducation: {
-    update: false,
-    data: {
-      semester: "",
-      cgpa: "",
-      sgpa: "",
-      priority: 1,
-      visibility: true
-    },
-    links: []
-  },
   previousEducation: {
     update: false,
     data: {
