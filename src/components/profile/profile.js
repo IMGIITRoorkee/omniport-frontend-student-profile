@@ -13,6 +13,7 @@ import { ResumeDownload } from "./resumeDownload";
 
 import { BrowserView, MobileView } from "react-device-detect";
 
+import inline from 'formula_one/src/css/inline.css'
 import style from "../../styles.css";
 
 export class Profile extends React.Component {
@@ -190,14 +191,14 @@ export class Profile extends React.Component {
                 {this.state.data.handle ? "@" : null}
                 {this.state.data.handle}
               </Card.Meta>
-              <Card.Description styleName="branchDetails">
+              <Card.Description styleName="inline.margin-top-1em">
                 {data.branch}
               </Card.Description>
-              <Card.Description styleName="degreeDetails">
+              <Card.Description styleName="inline.margin-bottom-1em">
                 {data.degreeSem}
               </Card.Description>
               {data.showCgpa && data.currentCgpa && (
-                <Card.Description styleName='currentCgpa'>
+                <Card.Description styleName="inline.margin-bottom-1em">
                   CGPA: {data.currentCgpa.toFixed(3)}/10.000
                 </Card.Description>
               )}

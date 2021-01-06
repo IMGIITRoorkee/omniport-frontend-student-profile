@@ -78,15 +78,7 @@
   top: 0;
   z-index: 5;
 }
-.branchDetails {
-  margin-top: 1em;
-}
-.degreeDetails {
-  margin-bottom: 1em;
-}
-.currentCgpa {
-  margin-bottom: 1em;
-}
+
 .socialBox {
   display: flex;
   justify-content: flex-start;
