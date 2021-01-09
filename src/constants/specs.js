@@ -273,7 +273,7 @@ export const specs = {
     draggable: true,
     sortBy: "priority",
     ascending: true,
-    plural: "Experiences",
+    plural: "Work Experiences",
     fields: [
       {
         group: false,
