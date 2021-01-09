@@ -10,5 +10,15 @@ export const creators = [
   {
     name: "Shreyansh Jain",
     role: "Developer"
+  },
+  {
+    name: "Patel Drumil Nileshbhai",
+    role: "Developer",
+    link: "https://internet.channeli.in/maintainer_site/team/flipbyte/"
+  },
+  {
+    name: "Patel Nisarg Mukeshbhai",
+    role: "Developer",
+    link: "https://internet.channeli.in/maintainer_site/team/nisarg73/"
   }
 ];
