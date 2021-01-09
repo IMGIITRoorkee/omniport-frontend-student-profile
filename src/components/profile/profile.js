@@ -127,50 +127,6 @@ export class Profile extends React.Component {
     if (data)
       return (
         <div style={{ position: "sticky", top: 0 }}>
-          {preview && (
-            <Helmet>
-              <title>{person_data.fullName}</title>
-
-              {/* Google  */}
-              <meta name="author" content={person_data.fullName} />
-              <meta name="description" content={person_data.description} />
-              <meta
-                name="keywords"
-                content={`${person_data.fullName}, IIT Roorkee, IITR`}
-              />
-
-              {/* Open graph */}
-              <meta property="og:title" content={person_data.fullName} />
-              <meta property="og:type" content="portfolio" />
-              {person_data.displayPicture && (
-                <meta
-                  property="og:image"
-                  content={person_data.displayPicture}
-                />
-              )}
-              <meta property="og:description" content={person_data.description} />
-              <meta
-                property="og:url"
-                content={`https://students.iitr.ac.in/${person_data.enrolmentNumber}`}
-              />
-
-              {/* Twitter */}
-              <meta name="twitter:card" content="summary_large_image" />
-              {person_data.displayPicture && (
-                <meta
-                  name="twitter:image"
-                  content={person_data.displayPicture}
-                />
-              )}
-              <meta name="twitter:title" content={person_data.fullName} />
-              <meta name="twitter:description" content={person_data.description} />
-              <meta
-                name="twitter:url"
-                content={`https://students.iitr.ac.in/${person_data.enrolmentNumber}`}
-              />
-            </Helmet>
-          )}
-
           <Card as={Segment} color={theme} style={style} fluid>
             {this.props.handle == undefined ? (
               <Card.Content>
@@ -231,6 +187,8 @@ export class Profile extends React.Component {
             preview={preview}
             url={data.resume}
             ownHandle={ownHandle}
+            description={data.description}
+            displayPicture={person_data.displayPicture}
             theme={theme}
           />
         </div>

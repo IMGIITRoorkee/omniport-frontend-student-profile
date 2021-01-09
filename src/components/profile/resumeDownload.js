@@ -47,7 +47,12 @@ export function ResumeDownload(props) {
                 Preview
               </Button>
             </Link>
-            <PublishButton handle={props.ownHandle} isMobile={false} />
+            <PublishButton
+              handle={props.ownHandle}
+              displayPicture={props.displayPicture}
+              description={props.description}
+              isMobile={false}
+            />
           </Segment>
         </BrowserView>
         <MobileView>
@@ -83,7 +88,12 @@ export function ResumeDownload(props) {
                 Preview
               </Button>
             </Link>
-            <PublishButton handle={props.ownHandle} isMobile={true} />
+            <PublishButton
+              handle={props.ownHandle}
+              displayPicture={props.displayPicture}
+              description={props.description}
+              isMobile={true}
+            />
           </Segment>
         </MobileView>
       </div>

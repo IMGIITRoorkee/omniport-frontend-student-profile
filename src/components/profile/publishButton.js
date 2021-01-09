@@ -14,7 +14,7 @@ class publishButton extends Component {
   }
 
   publishPage = () => {
-    const { handle } = this.props;
+    const { handle, displayPicture, description } = this.props;
     const websiteLink = `https://students.iitr.ac.in/${handle}.html`;
     this.setState({ status: true });
     axios.get("/api/student_profile/publish/").then((res) => {
@@ -24,6 +24,8 @@ class publishButton extends Component {
         };
         const data = {
           handle: handle,
+          display_picture: displayPicture,
+          description: description
         };
         axios({
           method: "post",
