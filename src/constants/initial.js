@@ -6,7 +6,7 @@ export const initial = {
       topic: "",
       id: -1,
       priority: 1,
-      visibility: true
+      visibility: false
     },
     links: []
   },
@@ -16,7 +16,7 @@ export const initial = {
       achievement: "",
       id: -1,
       priority: 1,
-      visibility: true
+      visibility: false
     },
     links: []
   },
@@ -29,7 +29,7 @@ export const initial = {
       degree: "",
       graduation: "",
       priority: 1,
-      visibility: true,
+      visibility: false,
       cgpa: "",
       percentage: "",
       isPercentage: false
@@ -47,7 +47,7 @@ export const initial = {
       organisation: "",
       description: "",
       priority: 1,
-      visibility: true
+      visibility: false
     },
     links: []
   },
@@ -62,7 +62,7 @@ export const initial = {
       organisation: "",
       description: "",
       priority: 1,
-      visibility: true,
+      visibility: false,
       experienceType: ""
     },
     links: []
@@ -81,7 +81,7 @@ export const initial = {
       editors: "",
       isbnCode: "",
       priority: 1,
-      visibility: true,
+      visibility: false,
       book: "",
       bookLink: "",
       links: []
@@ -92,7 +92,7 @@ export const initial = {
     data: {
       id: -1,
       priority: 1,
-      visibility: true,
+      visibility: false,
       journal: "",
       title: "",
       authors: "",
@@ -114,7 +114,7 @@ export const initial = {
       phoneNumber: "",
       email: "",
       priority: 1,
-      visibility: true
+      visibility: false
     },
     links: []
   },
@@ -131,7 +131,7 @@ export const initial = {
       image: "",
       imageLink: "",
       priority: 1,
-      visibility: true
+      visibility: false
     },
     links: ["image"]
   }
