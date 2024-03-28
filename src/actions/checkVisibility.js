@@ -4,14 +4,22 @@ import axios from "axios";
 
 // local imports
 import { headers } from "../constants/formPostRequestHeaders";
+import { specs } from "../constants/specs";
 
-export function handleVisibile(initialdata , componentName , url , { updateDeleteData }){
+export function handleVisibile(initialdata , componentName , url , { updateDeleteData } , turnVisible){
 
+  console.log(specs[componentName])
   let error_array = [];
   let option = "put"
   for(let i =0 ; i< initialdata.length;i++){
-    
-    initialdata[i].visibility = false
+    console.log(turnVisible)
+    if(turnVisible == false){
+      initialdata[i].visibility = false
+    }
+    if(turnVisible == true){
+      initialdata[i].visibility = true
+    }
+    console.log(initialdata[i])
     let data = new FormData();
     let info = initialdata[i];
     for (let prop in info) {
@@ -35,7 +43,7 @@ export function handleVisibile(initialdata , componentName , url , { updateDelet
         }
       }
     }
-
+    
     axios({
       method: option,
       url: "/api/student_profile/" + url + "/" + initialdata[i].id + "/",

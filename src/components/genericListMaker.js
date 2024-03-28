@@ -7,6 +7,7 @@ import axios from "axios";
 import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
 import { handleVisibile } from "../actions/checkVisibility";
+import { handleVisibilitybutton } from "../actions/handleVisibilitybutton";
 //check transition working or not
 import { ComponentTransition } from "./transition";
 import { displayContainers } from "../constants/displayContainers";
@@ -90,13 +91,23 @@ const genericListMaker = (componentName, FormComponent) => {
                     />
                   ) : null}
                   {editMode &&
-                  localSpecs.draggable == true &&
+                  handleVisibilitybutton(data,componentName) == false &&
                   data.length > 0 ? (
                     <Icon
                       color="grey"
-                      name="low vision"
+                      name="eye"
                       circular
-                      onClick={() => handleVisibile(data , componentName , localSpecs.url, {updateDeleteData})}
+                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateDeleteData } , false)}
+                    />
+                  ) : null}
+                  {editMode &&
+                  handleVisibilitybutton(data,componentName) == true &&
+                  data.length > 0 ? (
+                    <Icon
+                      color="grey"
+                      name="eye slash"
+                      circular
+                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateDeleteData } , true)}
                     />
                   ) : null}
                   {editMode ? (
