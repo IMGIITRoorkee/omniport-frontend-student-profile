@@ -146,3 +146,11 @@ export function handleUpdate(data, componentName) {
     rearrange: false
   };
 }
+
+export function updateSectionVisibility(data, componentName) {
+  return {
+    type: "UPDATE_SECTION_VISIBILITY" + "--" + componentName,
+    newData: data,
+    rearrange: false
+  };
+}

@@ -54,6 +54,9 @@ export const genericReducerMaker = componentName => {
 
       case "HANDLE_UPDATE" + "--" + componentName:
         return { ...state, data: action.newData, rearrange: action.rearrange };
+      
+      case "UPDATE_SECTION_VISIBILITY" + "--" + componentName:
+        return { ...state, data: action.newData };
 
       default:
         return state;

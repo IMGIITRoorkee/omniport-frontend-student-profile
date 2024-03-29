@@ -51,6 +51,7 @@ const genericListMaker = (componentName, FormComponent) => {
         handleDragShow,
         handleDragHide,
         handleUpdate,
+        updateSectionVisibility,
       } = this.props;
 
       let children;
@@ -97,7 +98,7 @@ const genericListMaker = (componentName, FormComponent) => {
                       color="grey"
                       name="eye"
                       circular
-                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateDeleteData } , false)}
+                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateSectionVisibility } , false)}
                     />
                   ) : null}
                   {editMode &&
@@ -107,7 +108,7 @@ const genericListMaker = (componentName, FormComponent) => {
                       color="grey"
                       name="eye slash"
                       circular
-                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateDeleteData } , true)}
+                      onClick={() => handleVisibile(data , componentName , localSpecs.url, { updateSectionVisibility } , true)}
                     />
                   ) : null}
                   {editMode ? (
