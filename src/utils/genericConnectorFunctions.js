@@ -7,7 +7,8 @@ import {
   updateDeleteData,
   handleDragHide,
   handleDragShow,
-  handleUpdate
+  handleUpdate,
+  updateSectionVisibility
 } from "../actions/genericActions";
 
 export const _mapStateToProps = componentName => {
@@ -32,5 +33,7 @@ export const mapDispatchToProps = dispatch => ({
   handleDragShow: componentName => dispatch(handleDragShow(componentName)),
   handleDragHide: componentName => dispatch(handleDragHide(componentName)),
   handleUpdate: (data, componentName) =>
-    dispatch(handleUpdate(data, componentName))
+    dispatch(handleUpdate(data, componentName)),
+  updateSectionVisibility: (data, componentName) => 
+    dispatch(updateSectionVisibility(data, componentName)),
 });

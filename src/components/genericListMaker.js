@@ -6,6 +6,7 @@ import axios from "axios";
 // local imports
 import { specs } from "./../constants/specs";
 import { DragAndDropBox } from "./dragAndDropBox";
+import { handleVisibilitybutton } from "../utils/handleVisibilitybutton";
 //check transition working or not
 import { ComponentTransition } from "./transition";
 import { displayContainers } from "../constants/displayContainers";
@@ -49,6 +50,7 @@ const genericListMaker = (componentName, FormComponent) => {
         handleDragShow,
         handleDragHide,
         handleUpdate,
+        updateSectionVisibility,
       } = this.props;
 
       let children;
@@ -88,6 +90,22 @@ const genericListMaker = (componentName, FormComponent) => {
                       onClick={() => handleDragShow(componentName)}
                     />
                   ) : null}
+                  {editMode &&
+                  data.length > 0 ? ( handleVisibilitybutton(data,componentName) == false ? (
+                    <Icon
+                      color="grey"
+                      name="eye"
+                      circular
+                      onClick={() => updateSectionVisibility(componentName , false)}
+                    />
+                  ) : (
+                    <Icon
+                      color="grey"
+                      name="eye slash"
+                      circular
+                      onClick={() => updateSectionVisibility(componentName , true)}
+                    />
+                  )):null}
                   {editMode ? (
                     <Icon
                       color="grey"

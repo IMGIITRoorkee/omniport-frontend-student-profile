@@ -7,7 +7,8 @@ export const genericReducerMaker = componentName => {
     loading: true,
     isEmpty: true,
     data: [],
-    formData: initial[componentName].formData
+    formData: initial[componentName].formData,
+    error: [],
   };
 
   const genericReducer = (state = initialState, action) => {
@@ -54,6 +55,12 @@ export const genericReducerMaker = componentName => {
 
       case "HANDLE_UPDATE" + "--" + componentName:
         return { ...state, data: action.newData, rearrange: action.rearrange };
+      
+      case "UPDATE_SECTION_VISIBILITY_FULFILLED" + "--" + componentName:
+        return { ...state, data: action.newData, error: action.error };
+      
+      case "UPDATE_SECTION_VISIBILITY_REJECTED" + "--" + componentName:
+        return { ...state, error: action.error };
 
       default:
         return state;

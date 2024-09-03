@@ -1,4 +1,8 @@
+import {upperFirst} from "lodash";
 import axios from "axios";
+
+import { getCookie } from "formula_one"
+
 import { initial } from "../constants/initial";
 import { specs } from "../constants/specs";
 
@@ -144,5 +148,37 @@ export function handleUpdate(data, componentName) {
     type: "HANDLE_UPDATE" + "--" + componentName,
     newData: data,
     rearrange: false
+  };
+}
+
+export const updateSectionVisibility = (componentName , visibility) => {
+  return function(dispatch) {
+    let data = {
+      model: upperFirst(componentName),
+      visibility: visibility,
+    };
+    let headers = {
+      "X-CSRFToken": getCookie("csrftoken")
+    };
+    
+    axios({
+      method: "post",
+      url: "/api/student_profile/section_visibility/",
+      data: data,
+      headers: headers
+    })
+    .then(response => {
+      dispatch( {
+        type: "UPDATE_SECTION_VISIBILITY_FULFILLED" + "--" + componentName,
+        newData: response.data,
+        error: []
+      });
+    })
+    .catch(error => {
+      dispatch( {
+        type: "UPDATE_SECTION_VISIBILITY_REJECTED" + "--" + componentName,
+        error: error
+      });
+    });
   };
 }
