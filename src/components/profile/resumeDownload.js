@@ -48,7 +48,7 @@ export function ResumeDownload(props) {
               </Button>
             </Link>
             <PublishButton
-              handle={props.ownHandle}
+              handle={props.enrolmentNumber}
               displayPicture={props.displayPicture}
               description={props.description}
               isMobile={false}
@@ -89,7 +89,7 @@ export function ResumeDownload(props) {
               </Button>
             </Link>
             <PublishButton
-              handle={props.ownHandle}
+              handle={props.enrolmentNumber}
               displayPicture={props.displayPicture}
               description={props.description}
               isMobile={true}
